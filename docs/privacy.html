@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Política de Privacidade — dark-master</title>
+<meta name="description" content="Política de Privacidade do dark-master: como os dados do YouTube são acessados, usados e protegidos." />
+<style>
+  :root{
+    --ink:#0A0A0C;--panel:#151518;--line:#26262c;--red:#B91C1C;--red-bright:#e23b3b;
+    --bone:#F5F5F4;--muted:#8A8A93;--mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    --display:"Bebas Neue",var(--sans);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--sans);line-height:1.7}
+  a{color:var(--red-bright)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  header.top{position:sticky;top:0;background:rgba(10,10,12,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top-in{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);text-decoration:none}
+  .mark{width:20px;height:20px;border:1.5px solid var(--red);position:relative;flex:none}
+  .mark:after{content:"";position:absolute;inset:4px;background:var(--red)}
+  h1{font-family:var(--display);font-size:clamp(40px,7vw,72px);margin:44px 0 6px;line-height:1}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;margin:38px 0 6px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  p,li{color:#d6d6d3}
+  ul{padding-left:20px}
+  li{margin:6px 0}
+  .note{border:1px solid var(--line);background:var(--panel);padding:18px;margin:22px 0}
+  .muted{color:var(--muted)}
+  footer{border-top:1px solid var(--line);margin-top:56px;padding:28px 0 64px}
+  code{font-family:var(--mono);font-size:.92em;color:var(--red-bright)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html"><span class="mark"></span> dark-master</a>
+    <a class="brand" href="index.html" style="color:var(--muted)">← Início</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="eyebrow" style="margin-top:40px">Documento legal</p>
+  <h1>Política de Privacidade</h1>
+  <p class="muted">Última atualização: 21 de setembro de 2026.</p>
+
+  <p>Esta política descreve como o projeto <strong>dark-master</strong> ("nós", "a skill")
+  acessa, usa e protege dados ao se conectar à API do YouTube em nome do usuário.</p>
+
+  <div class="note">
+    O uso, por parte do dark-master, de informações recebidas das APIs do Google
+    obedece à <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>,
+    incluindo os requisitos de <strong>Uso Limitado (Limited Use)</strong>.
+  </div>
+
+  <h2>1. Quais dados acessamos</h2>
+  <p>Com a sua autorização explícita via login do Google (OAuth 2.0), a skill pode ler, <strong>somente do canal que você autorizar</strong>:</p>
+  <ul>
+    <li>Métricas do YouTube Analytics (views, tempo de exibição, retenção, inscritos, receita estimada);</li>
+    <li>Metadados públicos dos vídeos e da conta (títulos, datas, identificadores).</li>
+  </ul>
+  <p>Todos os escopos são de <strong>leitura</strong>: <code>youtube.readonly</code>,
+  <code>yt-analytics.readonly</code> e <code>yt-analytics-monetary.readonly</code>.
+  Não publicamos, editamos ou apagamos nada no seu canal.</p>
+
+  <h2>2. Como usamos os dados</h2>
+  <p>Os dados são usados exclusivamente para análise e melhoria de desempenho do seu próprio canal —
+  identificar vídeos de destaque ("outliers"), retenção, conversões e oportunidades de conteúdo.
+  Não usamos seus dados para publicidade, perfilamento de terceiros ou qualquer finalidade alheia a essa análise.</p>
+
+  <h2>3. Onde os dados ficam armazenados</h2>
+  <ul>
+    <li>As credenciais (<code>client_secrets.json</code>, <code>yt-token.json</code>) e a string de banco (<code>dark.env</code>)
+    ficam <strong>na sua máquina</strong>, em uma pasta local de segredos, <strong>fora do repositório</strong>.</li>
+    <li>As métricas coletadas são gravadas por padrão no <strong>seu próprio banco de dados</strong>
+    (Postgres/Neon que você configurar) ou localmente (SQLite).</li>
+  </ul>
+
+  <h2>4. Compartilhamento</h2>
+  <p><strong>Não vendemos, alugamos nem compartilhamos</strong> seus dados com terceiros. Não há rastreamento,
+  analytics de terceiros ou anúncios. Exceto quando exigido por lei, seus dados não saem do seu controle.</p>
+
+  <h2>5. Retenção e exclusão</h2>
+  <ul>
+    <li>Você pode revogar o acesso a qualquer momento em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+    <li>Para apagar os dados locais, remova a pasta de segredos e o banco de dados.</li>
+    <li>Tokens em modo "Teste" do Google expiram automaticamente; você pode reautorizar quando quiser.</li>
+  </ul>
+
+  <h2>6. Segurança</h2>
+  <p>Adotamos o princípio do menor privilégio (apenas leitura) e mantemos as credenciais fora de qualquer
+  repositório versionado. Nenhum método é 100% infalível; recomendamos manter suas chaves privadas.</p>
+
+  <h2>7. Cookies e hospedagem</h2>
+  <p>Este site é estático (GitHub Pages) e não define cookies próprios. O GitHub pode registrar dados técnicos
+  de acesso conforme a <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement">política de privacidade do GitHub</a>.</p>
+
+  <h2>8. Menores</h2>
+  <p>A skill não é destinada a menores de 13 anos e não coleta intencionalmente dados de crianças.</p>
+
+  <h2>9. Alterações</h2>
+  <p>Podemos atualizar esta política. A data no topo indica a última revisão.</p>
+
+  <h2>10. Contato</h2>
+  <p>Dúvidas sobre privacidade: <a href="mailto:warface01031999@gmail.com">warface01031999@gmail.com</a>.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="muted">dark-master — projeto open-source. Este documento atende aos requisitos de exibição
+    da Tela de permissão OAuth do Google.</p>
+  </div>
+</footer>
+
+</body>
+</html>

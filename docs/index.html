@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>dark-master — skill de canais dark no YouTube</title>
+<meta name="description" content="Skill que planeja, produz e monetiza canais dark/faceless no YouTube — algoritmo, roteiro, thumbnails, Shorts, outliers e auto-evolução." />
+<style>
+  :root{
+    --ink:#0A0A0C;
+    --ink-2:#111114;
+    --panel:#151518;
+    --line:#26262c;
+    --red:#B91C1C;
+    --red-bright:#e23b3b;
+    --bone:#F5F5F4;
+    --muted:#8A8A93;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    --display:"Bebas Neue",var(--sans);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--ink);color:var(--bone);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--bone);text-decoration:none}
+  a:hover{color:var(--red-bright)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:.98;margin:0}
+  h1{font-size:clamp(56px,10vw,120px)}
+  h2{font-size:clamp(30px,4.6vw,46px);margin-bottom:8px}
+  h3{font-size:22px;font-family:var(--sans);font-weight:650;letter-spacing:0;line-height:1.2}
+  .red{color:var(--red)}
+  .muted{color:var(--muted)}
+
+  header.top{
+    position:sticky;top:0;z-index:20;background:rgba(10,10,12,.82);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  }
+  .top-in{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .mark{width:22px;height:22px;border:1.5px solid var(--red);position:relative;flex:none}
+  .mark:after{content:"";position:absolute;inset:5px;background:var(--red)}
+  .top nav{display:flex;gap:22px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .top nav a{color:var(--muted)}
+
+  /* HERO — assimétrico */
+  .hero{padding:88px 0 64px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .hero .lead{font-size:19px;max-width:44ch;margin:22px 0 30px;color:#d9d9d6}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);padding:12px 18px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;background:var(--panel)}
+  .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+  .btn.primary:hover{background:var(--red-bright);color:#fff}
+  .btn:hover{border-color:var(--red)}
+
+  .terminal{border:1px solid var(--line);background:var(--ink-2)}
+  .terminal .bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .terminal .bar i{width:9px;height:9px;border-radius:50%;background:#2a2a31;display:block}
+  .terminal .bar i:first-child{background:var(--red)}
+  .terminal pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#c9c9c6;overflow:auto}
+  .terminal .k{color:var(--red-bright)}
+  .terminal .g{color:#7fb069}
+  .terminal .m{color:var(--muted)}
+
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  .cols-2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .feat{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .feat article{background:var(--ink);padding:26px}
+  .feat .n{font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.14em}
+  .feat p{color:var(--muted);margin:8px 0 0;font-size:15px}
+
+  ul.list{list-style:none;padding:0;margin:18px 0 0}
+  ul.list li{padding:14px 0;border-top:1px solid var(--line);display:flex;gap:16px;align-items:baseline}
+  ul.list li:last-child{border-bottom:1px solid var(--line)}
+  ul.list code{font-family:var(--mono);color:var(--red-bright);min-width:150px;display:inline-block;font-size:13px}
+  ul.list span{color:#cfcfcb;font-size:15px}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stats div{background:var(--ink);padding:24px}
+  .stats b{font-family:var(--display);font-size:52px;display:block;line-height:1}
+  .stats small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  footer{padding:48px 0 72px}
+  .foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+  footer p{color:var(--muted);font-size:13px;max-width:52ch}
+
+  @media(max-width:820px){
+    .hero-grid,.cols-2{grid-template-columns:1fr;gap:34px}
+    .feat,.stats{grid-template-columns:1fr 1fr}
+    .top nav{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand"><span class="mark"></span> dark-master</div>
+    <nav>
+      <a href="#oque">O que faz</a>
+      <a href="#fluxo">Fluxo</a>
+      <a href="#dados">Dados</a>
+      <a href="#seguranca">Segurança</a>
+      <a href="privacy.html">Privacidade</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Skill para canais dark / faceless</p>
+        <h1>Da ideia<br>ao <span class="red">monetizado</span>.</h1>
+        <p class="lead">Um cérebro único que funde o algoritmo do YouTube, o guia de produção do MrBeast,
+        dados de 2026 e os seus canais — planeja, empacota, roteiriza, produz e aprende com os resultados.</p>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/mateusoliveiradev1/dark-master">Ver no GitHub</a>
+          <a class="btn" href="#fluxo">Como funciona</a>
+        </div>
+      </div>
+      <div class="terminal" aria-hidden="true">
+        <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="m">$</span> python scripts/yt_scan_outliers.py --watch
+
+<span class="k">ALERTA</span> Cold File Diaries | mediana 26 views
+  <span class="g">48.6x</span>  1240  Yuba County Five
+  <span class="g">46.7x</span>  1190  D.B. Cooper — Never Found
+  <span class="g">46.3x</span>  1180  Springfield Three
+
+<span class="m">// corrente:</span>
+video23 → "And tomorrow — Dorothy Arnold"
+<span class="m">// 3 outliers gravados em Neon Postgres</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- O QUE FAZ -->
+  <section id="oque">
+    <div class="wrap">
+      <p class="eyebrow">Capacidades</p>
+      <h2>Um sistema, não um prompt.</h2>
+      <div class="feat" style="margin-top:28px">
+        <article><span class="n">01</span><h3>Algoritmo &amp; retenção</h3><p>Shorts (engaged views, swipe-away, loops) e long-form (CTR, AVD, AVP, 1º minuto, por minuto).</p></article>
+        <article><span class="n">02</span><h3>Roteiro &amp; hooks</h3><p>Y1–Y11 de títulos, cold open, promise stack, escalada, rehooks, final abrupto.</p></article>
+        <article><span class="n">03</span><h3>Thumbnails &amp; A/B</h3><p>Psicologia de clique, composição a 120px, 3 variantes para Test &amp; Compare.</p></article>
+        <article><span class="n">04</span><h3>Monetização</h3><p>Trilha 0→YPP, playbook das 4.000h, funil Short→long, produto digital $7–27.</p></article>
+        <article><span class="n">05</span><h3>Auto-evolução</h3><p>Puxa métricas reais, acha outliers e propõe mudanças com evidência (propose-only).</p></article>
+        <article><span class="n">06</span><h3>Entende o canal</h3><p>Lê calendário, regras travadas e a corrente de teaser antes de gerar nada.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLUXO -->
+  <section id="fluxo">
+    <div class="wrap cols-2">
+      <div>
+        <p class="eyebrow">Fluxo</p>
+        <h2>Comandos que operam o canal.</h2>
+        <ul class="list">
+          <li><code>/dark-canal</code><span>Lê o projeto: calendário, regras e corrente de teaser.</span></li>
+          <li><code>/dark</code><span>Ideia → título → thumb → roteiro → checklist.</span></li>
+          <li><code>/dark-build</code><span>Roda o pipeline de produção do canal alvo.</span></li>
+          <li><code>/dark-audit</code><span>Gate anti-inauthentic + YPP + divulgação de IA.</span></li>
+          <li><code>/dark-scan</code><span>Varre canais e alerta outliers acima da baseline.</span></li>
+          <li><code>/dark-revisar</code><span>Loop semanal: métricas → aprendizados → propostas.</span></li>
+          <li><code>/dark-monetizar</code><span>Trilha 0→YPP com metas e checkpoints.</span></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Subagentes</p>
+        <h2>Especialistas sob demanda.</h2>
+        <ul class="list">
+          <li><code>strategist</code><span>Ideação, packaging e diagnóstico por métrica.</span></li>
+          <li><code>roteirista</code><span>Long-form (5 atos) e Shorts (hook + loop).</span></li>
+          <li><code>packager</code><span>Títulos, capítulos e plano de A/B.</span></li>
+          <li><code>auditor</code><span>Compliance YPP e conteúdo inautêntico.</span></li>
+          <li><code>produtor</code><span>Executa imagens, voz e motion por canal.</span></li>
+          <li><code>analyst</code><span>Lê métricas e propõe evolução com evidência.</span></li>
+          <li><code>scout</code><span>Nichos, subnichos e outliers de concorrentes.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DADOS -->
+  <section id="dados">
+    <div class="wrap">
+      <p class="eyebrow">Motor de dados</p>
+      <h2>Métricas reais, memória que cresce.</h2>
+      <p class="lead" style="max-width:60ch;margin-top:18px">Conecta à YouTube Analytics API via OAuth, grava snapshots num banco
+      Postgres (Neon) e alimenta um loop de melhoria contínua — sem banco pago, sem chute.</p>
+      <div class="stats" style="margin-top:30px">
+        <div><b>30</b><small>references</small></div>
+        <div><b>10</b><small>comandos</small></div>
+        <div><b>7</b><small>subagentes</small></div>
+        <div><b>9</b><small>scripts</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGURANÇA -->
+  <section id="seguranca">
+    <div class="wrap cols-2">
+      <div>
+        <p class="eyebrow">Segurança</p>
+        <h2>Seus dados, suas chaves.</h2>
+        <p class="lead" style="margin-top:18px">Credenciais do Google e strings de banco ficam <span class="red">fora do repositório</span>,
+        em uma pasta local de segredos. O token só acessa leitura do seu próprio canal.</p>
+      </div>
+      <div class="terminal" aria-hidden="true">
+        <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="m">~/.config/opencode/secrets/</span>
+  client_secrets.json   <span class="m"># OAuth (Desktop)</span>
+  yt-token.json         <span class="m"># token de leitura</span>
+  dark.env              <span class="m"># DATABASE_URL (Neon)</span>
+
+<span class="m"># .gitignore protege:</span>
+  vendors/*/  data/dark.db</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="brand" style="margin-bottom:12px"><span class="mark"></span> dark-master</div>
+      <p>Skill open-source para planejar, produzir e monetizar canais dark no YouTube.
+      Feita para rodar dentro do opencode, sobre os seus próprios pipelines.</p>
+    </div>
+    <div class="cta">
+      <a class="btn" href="https://github.com/mateusoliveiradev1/dark-master">GitHub</a>
+      <a class="btn" href="privacy.html">Política de Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
