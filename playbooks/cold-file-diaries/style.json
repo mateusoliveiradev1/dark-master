@@ -1,0 +1,107 @@
+{
+  "channel": "Cold File Diaries",
+  "language": "en",
+  "image_suffix": "cinematic documentary still, moody, desaturated, film grain, volumetric light, ultra detailed, no text, no watermark, no gore, 16:9",
+  "series": ["VANISHED", "SMALL TOWN SECRETS", "HEISTS & LIES", "KILLERS UNKNOWN"],
+  "serie_tag": {
+    "SMALL TOWN SECRETS": "SMALL TOWN",
+    "SMALL TOWN": "SMALL TOWN",
+    "KILLERS UNKNOWN": "KILLERS",
+    "HEISTS & LIES": "HEISTS"
+  },
+  "porte": {
+    "FINO": [26, 30],
+    "PADRAO": [32, 36],
+    "RICO": [36, 40]
+  },
+  "thumb": {
+    "font": "00_CANAL/assets/fonts/BebasNeue.ttf",
+    "size": [1280, 720],
+    "colors": { "white": [245, 245, 244], "red": [220, 38, 38], "black": [0, 0, 0] },
+    "serie_colors": {
+      "VANISHED": [185, 28, 28],
+      "HEISTS": [26, 92, 58],
+      "KILLERS": [45, 45, 52],
+      "SMALL": [107, 58, 20],
+      "SMALL TOWN": [107, 58, 20],
+      "SMALL TOWN SECRETS": [107, 58, 20],
+      "HEISTS & LIES": [26, 92, 58],
+      "KILLERS UNKNOWN": [45, 45, 52]
+    },
+    "default_serie_color": [185, 28, 28],
+    "grade": {
+      "brightness": 0.80,
+      "color": 0.85,
+      "vignette": { "mask": [160, 90], "start": 0.45, "strength": 220 },
+      "plate": { "rect": [0, 130, 860], "opacity": 115, "blur": 45 },
+      "gradient": { "solid_until": 500, "fade_width": 500, "strength": 70, "dark": [5, 5, 8] }
+    },
+    "layout": {
+      "tag_size": 44,
+      "tag_box": [48, 44, 44, 100],
+      "tag_text": [70, 46],
+      "tag_radius": 10,
+      "max_w": 1100,
+      "x_base": 60,
+      "big": { "size_l1": 240, "min_l1": 120, "size_l2": 165, "min_l2": 110, "y1": 180, "y2": 430 },
+      "normal": { "size_l1": 200, "min_l1": 90, "size_l2": 200, "min_l2": 90, "y1": 190, "y2": 370 },
+      "gap_div": 12,
+      "gap_min": 10,
+      "bbox_comp": 30,
+      "y2_min_offset": 140,
+      "y2_max_sub": 470,
+      "y2_max_nosub": 500,
+      "sub": { "size": 62, "min": 100, "y": 600, "x_off": 4, "stroke": 3, "max_w": 1000 },
+      "zoom_variant_c": 1.15,
+      "quality": 92,
+      "stroke_div": 18,
+      "stroke_min": 4,
+      "shadow_div": 24,
+      "shadow_min": 5
+    },
+    "variants": ["A", "B", "C"]
+  },
+  "short": {
+    "whisper": {
+      "model": "base",
+      "device": "cpu",
+      "compute_type": "int8",
+      "language": "en",
+      "vad_min_silence_ms": 300
+    },
+    "cut": { "lo": 28.0, "hi": 43.0, "target": 32.0, "probe_seconds": 50, "probe_window": 45.0 },
+    "karaoke": {
+      "font": "Arial",
+      "size": 64,
+      "spacing": 0.5,
+      "outline": 2.5,
+      "shadow": 1,
+      "alignment": 2,
+      "margin_lr": 80,
+      "margin_v": 360,
+      "play_res": [1080, 1920],
+      "maxch": 22,
+      "min_block": 3,
+      "max_block": 5,
+      "gap_cut": 0.2,
+      "gap_hard": 0.45,
+      "min_event": 0.1
+    },
+    "crop": "608:1080",
+    "fade_out": 0.6,
+    "min_cues": 60,
+    "coverage_max_gap": 1.5
+  },
+  "package": {
+    "summary_lines": [
+      "REGRA METADATA 2026 (ver 00_CANAL/REGRA_METADATA_2026.txt) — RESUMO TRAVADO:",
+      "- LONG TITLE 1: 40-60 chars, keyword do caso nas 3 primeiras palavras, 1 CAPS, [colchete]. Ex: 'Caso: fato tenso NUNCA [Doc]'",
+      "- LONG DESC: hook 150 chars com keyword, resumo 150-250 palavras, CHAPTERS, FONTES 2+, disclaimer IA, 3-5 hashtags. NUNCA M:SS no texto corrido.",
+      "- CHAPTERS: 0:00 obrigatorio, 7-10 chapters, ultimo < duracao real, titulos com keyword. (PENDENTE ate o build)",
+      "- SHORT TITLE: 40-55 chars, keyword nos primeiros 40, 1 CAPS, afirmacao SEM pergunta, SEM #shorts no titulo.",
+      "- SHORT 4 TEASE (video24+): 0-8s hook + [TEASE-A/B] do meio (min 7-12) + CTA falado especifico. Nunca so o inicio.",
+      "- SHORT DESC: 2 frases (keyword na linha 1) + blank + Full story: [LINK DO LONG] + subscribe + 4 hashtags: #shorts #truecrime #unsolved #[Caso]Case",
+      "- TAGS: 8-12, tag 1 = keyword exata."
+    ]
+  }
+}

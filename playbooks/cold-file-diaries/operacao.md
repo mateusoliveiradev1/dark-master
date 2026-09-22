@@ -65,7 +65,7 @@ Detalhes: `references/25-contexto-do-canal.md`.
 - **Variação obrigatória por vídeo**: hook (pergunta/cena/número — nunca 2 seguidos iguais); ordem de 1 bloco (par/ímpar); motion por clima (KILLERS 8.5s lento, VANISHED 7.0s, HEISTS 6.0s); thumb (L1/L2 alternando cor + com/sem número, máx 5 palavras); título (numero/pergunta/aspas — nunca 3 seguidos iguais).
 - **Camada humana sem voz EN**: marcar IA, descrição com fontes, comentário fixado EN, captions revisadas, 1x/semana community com bastidor.
 - **Multi-canal**: nunca postar mesmo roteiro/imagem/voz em 2 canais.
-- **GATE 100%**: imagens <100% = não gera voz/motion.
+- **GATES**: **voz** = narração + fatos (liberada no scaffold); **motion = GATE 100%** (imagens <100% = não gera motion). Ver `30-roteiro-master.md`, PASSO 6.
 
 ## Checklist PERFEIÇÃO (nada sobe sem passar)
 - **Voz**: mapa por série; gaps 0.35/0.15; sem efeito "voz diminuída".

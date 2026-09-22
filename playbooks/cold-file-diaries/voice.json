@@ -1,0 +1,59 @@
+{
+  "channel": "Cold File Diaries",
+  "engine": "edge-tts",
+  "voice": "en-US-ChristopherNeural",
+  "normalize": {
+    "FBI": "F. B. I.",
+    "LAPD": "L. A. P. D.",
+    "US ": "U. S. ",
+    "Mr.": "Mister",
+    "Mrs.": "Missus",
+    "St.": "Saint"
+  },
+  "series_detect": ["KILLERS", "HEISTS", "VANISHED", "SMALL TOWN"],
+  "default_series": "VANISHED",
+  "rules": {
+    "hook": { "rate": "-8%", "pitch": "-5Hz" },
+    "outro": { "rate": "-4%", "pitch": "-2Hz" },
+    "outro_from_end": 2,
+    "beat": { "rate": "-8%", "pitch": "-5Hz" },
+    "beat_max_len": 150,
+    "beat_question_pos": 80
+  },
+  "series": {
+    "KILLERS": { "rate": "-8%", "pitch": "-5Hz" },
+    "HEISTS": { "rate": "-3%", "pitch": "-1Hz" },
+    "VANISHED": { "rate": "-5%", "pitch": "-3Hz" },
+    "SMALL TOWN": { "rate": "-5%", "pitch": "-3Hz" },
+    "default": { "rate": "-5%", "pitch": "-3Hz" }
+  },
+  "gaps": { "short_max_len": 150, "short": 0.35, "normal": 0.15 },
+  "beds": {
+    "VANISHED": { "file": "VANISHED_1.wav", "vol": 0.08 },
+    "SMALL TOWN": { "file": "SMALL TOWN_2.wav", "vol": 0.06 },
+    "HEISTS": { "file": "HEISTS_2.wav", "vol": 0.06 },
+    "KILLERS": { "file": "KILLERS_1.wav", "vol": 0.08 },
+    "default": { "file": "VANISHED_1.wav", "vol": 0.08 }
+  },
+  "bed_pairs": {
+    "VANISHED": { "a": "VANISHED_1.wav", "b": "VANISHED_2.wav", "vol": 0.08 },
+    "SMALL TOWN": { "a": "SMALL TOWN_2.wav", "b": "SMALL TOWN_1.wav", "vol": 0.06 },
+    "HEISTS": { "a": "HEISTS_2.wav", "b": "HEISTS_1.wav", "vol": 0.06 },
+    "KILLERS": { "a": "KILLERS_1.wav", "b": "KILLERS_2.wav", "vol": 0.08 },
+    "default": { "a": "VANISHED_1.wav", "b": "VANISHED_2.wav", "vol": 0.08 }
+  },
+  "bed": {
+    "crossfade": 4.0,
+    "window": 8.0,
+    "max_seams": 6,
+    "seam_max_db": 6.0,
+    "songs_dir": "00_CANAL/assets/songs"
+  },
+  "post": {
+    "voice_filters": "highpass=f=70,lowpass=f=8000,acompressor=threshold=-22dB:ratio=2.5:attack=20:release=200,volume=1.4"
+  },
+  "ducking": {
+    "filters": "[0:a]asplit=2[voxmix][voxkey];[1:a][voxkey]sidechaincompress=threshold=0.015:ratio=10:attack=8:release=450:makeup=1[bedduck];[voxmix][bedduck]amix=inputs=2:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11"
+  },
+  "trim": { "start": 0.1, "end_pad": 0.8 }
+}

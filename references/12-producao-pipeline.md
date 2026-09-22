@@ -3,17 +3,19 @@
 Pipeline unificado + mapas para os **engines** que já existem nos projetos do usuário.
 
 > **Canal novo:** siga o pipeline genérico abaixo. Os "engines" por projeto são reutilizáveis, mas **não obrigatórios** — um canal novo pode começar com scripts próprios. As vozes/regras de cada canal ficam no playbook (`playbooks/<canal>/`).
+>
+> **Contrato por canal (anti-clone):** voz, motion e estilo vêm de `playbooks/<canal>/{voice,motion,style}.json` — os scripts aceitam `--channel <nome>` (ou `canal.json` na raiz) e avisam quando caem no default. Contrato completo em `playbooks/README.md`. Nunca copie os valores de outro canal.
 
 ## Pipeline unificado
 
 ```
-scaffold (new_video) → pesquisa → roteiro (script_builder) → linter → prompts (prompt_builder)
-   → imagens (GATE 100%) → auditoria de imagens (image_audit.py) → voz
+pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_video: pastas + stubs + PROMPTS + package + voz)
+   → prompts completos (prompt_builder) → imagens (GATE 100%) → auditoria de imagens (image_audit.py)
    → captions (SRT/karaoke) → motion/assembly → tail/outro → chapters
    → Short → endcard → thumbs 3x → pacote de publicação → auditoria YPP → upload manual
 ```
 
-**GATE 100%:** sem todas as imagens, não gera voz nem motion.
+**GATES:** a **voz** só depende da narração + fatos (**liberada no scaffold**); o **motion** exige o **GATE 100%** (todas as imagens). Sem todas as imagens, **não gera motion**. Fluxo completo de escrita + scaffold: `30-roteiro-master.md`, PASSO 6.
 
 ## Mapa etapa → script (projetos do usuário)
 
@@ -23,9 +25,9 @@ scaffold (new_video) → pesquisa → roteiro (script_builder) → linter → pr
 | scaffold | `scripts/novo_video.py` |
 | orquestra tudo | `scripts/build_video.py videoNN [--from step]` |
 | roteiro/linter | `scripts/linter_roteiro.py` |
-| voz | `scripts/gerar_voz_v3.py` (edge-tts Christopher -10% + bed) |
+| voz | `scripts/gerar_voz_v3.py` (contrato `voice.json`: edge-tts Christopher + bed) |
 | SRT norm | `scripts/gerar_srt_norm.py` |
-| motion | `scripts/montar_motion.py` |
+| motion | `scripts/montar_motion.py` (contrato `motion.json`) |
 | tail | `scripts/finalizar_tail.py` |
 | chapters | `scripts/remapar_chapters.py` |
 | Short karaoke | `scripts/padrao_short.py` |
@@ -64,17 +66,17 @@ scaffold (new_video) → pesquisa → roteiro (script_builder) → linter → pr
 
 ## Ordem de execução prática
 
-1. `novo_video`/criar pasta → escrever roteiro → `linter_roteiro`.
-2. Gerar/coletar **todas** as imagens (Nano Banana manual; ver `13`).
-3. `gerar_voz` → `gerar_srt_norm`.
-4. `montar_motion` → `finalizar_tail` → (`anexar_outro` se long).
-5. `remapar_chapters` → `padrao_short` → `endcard`.
+1. Escrever roteiro → `linter_roteiro`.
+2. **Scaffold** (`novo_video`/`new_video`: pastas + stubs + PROMPTS + package) → **voz** (`gerar_voz`; só precisa da narração + fatos — `30` PASSO 6).
+3. Completar prompts (porte) → gerar/coletar **todas** as imagens (Nano Banana manual; ver `13`) → `image_audit` (**GATE 100% antes do motion**).
+4. `gerar_srt_norm` → `montar_motion` → `finalizar_tail` → (`anexar_outro` se long).
+5. `remapar_chapters` (duração real) → `padrao_short` → `endcard`.
 6. `fazer_thumb_v2` (3 variantes) → `pacote_dia` → `validar_pacote`.
 7. `auditar_tudo` → upload manual → publicar.
 8. D+2/D+7: `revisao_d2` → atualizar `15-outliers-e-aprendizados.md`.
 
 ## Invariantes (não quebrar)
-- Voz oficial por canal (ver o playbook do canal em `playbooks/<canal>/`).
+- Voz/motion/estilo oficiais por canal (contrato `playbooks/<canal>/{voice,motion,style}.json`).
 - 3 thumbs (Test & Compare).
 - Chapters remapeados ao vídeo real.
 - Upload **manual** (a não ser que o usuário peça API).

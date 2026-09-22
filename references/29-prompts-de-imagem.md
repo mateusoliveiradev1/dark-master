@@ -43,7 +43,7 @@ photorealistic documentary reconstruction, natural proportions, plausible lighti
 dark cinematic forensic illustration, desaturated cold tones, deep blacks, subtle red accent, volumetric fog, no text, no watermark, no blood, no gore, no real face, silhouettes from behind, 16:9
 ```
 
-> Canal novo → defina o seu preset e trave. Não copie o de outro canal.
+> Canal novo → defina o seu preset e trave. Não copie o de outro canal. O sufixo oficial fica no **contrato do canal** (`playbooks/<canal>/style.json` → `image_suffix`); o scaffold usa automaticamente (`novo_video.py --channel` / `new_video.py --channel` + `prompt_builder --suffix`).
 
 ## Guarda-corpos (nunca sair do prompt)
 

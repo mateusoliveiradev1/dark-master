@@ -18,6 +18,7 @@ Fonte autoritativa: `C:\Users\Liiiraa\Downloads\canal dark1\00_CANAL\`.
 - **4 séries**: **VANISHED · SMALL TOWN SECRETS · HEISTS & LIES · KILLERS UNKNOWN** (thumb com tarja da série).
 
 ## Voz
+- **Contrato (anti-clone):** `voice.json` · `motion.json` · `style.json` nesta pasta — os scripts leem daí (`--channel cold-file-diaries`); ver `playbooks/README.md`. Canal novo define os seus.
 - **edge-tts `en-US-ChristopherNeural`, SEMPRE a mesma** (não trocar).
 - Rate/pitch por série: KILLERS -8%/-5Hz · VANISHED/SMALL TOWN -5%/-3Hz · HEISTS -3%/-1Hz · hook -8%/-5Hz · outro -4%/-2Hz.
 - Compensar robô com gaps 0.35/0.15 + bed ambiente. Drama via pausa, não via trocar voz.

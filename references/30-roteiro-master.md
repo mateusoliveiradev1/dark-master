@@ -147,6 +147,19 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
 3. **Escrever** bloco a bloco (com o `dark-roteirista`), batendo o orçamento.
 4. **Passar o linter** (`lint-roteiro.py`) e o **validador de estrutura** (`script_builder.py --validate`).
 5. **Aprovar fatos** antes de gerar voz (GATE de fatos).
+6. **Scaffold do vídeo** — o roteiro **não está entregue** sem esta etapa (**roteiro sem scaffold = entrega incompleta**):
+   a. **Pastas + stubs**: `python scripts/novo_video.py NN "Caso" SERIE` (no canal real) ou `python scripts/new_video.py NN "Caso" SERIE --root "<canal>"` (skill) → cria `videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}` + `TEMPLATE.txt`, `narration_v3.txt`, `tease.txt`, `PESQUISA_FONTE.md` e `youtube_package.txt` (stubs). O scaffold **nunca sobrescreve** arquivos existentes: `narration_v3.txt`, `tease.txt` e `PESQUISA_FONTE.md` são preservados (aborta o overwrite).
+   b. **PROMPTS.md completo por PORTE** — **FINO 26–30 · PADRÃO 32–36 · RICO 36–40** — com o **sufixo travado do canal** (contrato: `playbooks/<canal>/style.json` → `image_suffix`, via `--channel`) e o header da regra de geração (`29`); mapeie os blocos **TEASE-A/B** nos números de imagem correspondentes (blocos do meio, min 7–12). Gere com `scripts/prompt_builder.py --style <preset-do-canal> --suffix "<sufixo>" --count <porte>` ou complete o esqueleto do scaffold.
+   c. **youtube_package.txt base**: `TITLE` + alternativas + `ANGULO` + `DESCRIPTION` (Lego) + `TAGS` + `THUMB` spec + bloco `SHORT` + pinneds. **CHAPTERS ficam marcados `PENDENTE`** — só remapeie pós-build com a duração real (`ffprobe`/`remapar_chapters`), nunca antes.
+   d. **Voz liberada no scaffold** (`python scripts/gerar_voz_v3.py videoNN`; identidade no contrato `playbooks/<canal>/voice.json`): a voz depende **só da narração + GATE de fatos**. **MOTION continua bloqueado pelo GATE 100%** (só com todas as imagens). Distinção que vale de agora em diante (resolve a contradição com o `PROTOCOLO_ANTI_INAUTHENTIC` item 5): **`imagens < 100% → não gera MOTION`**; a **voz pode (e deve) ser gerada no scaffold**.
+
+   **Verificação pós-scaffold** (antes de seguir):
+   ```bash
+   ls "<canal>/videoNN"                 # 01_roteiro 02_audio 03_imagens 04_video_final
+   ls "<canal>/videoNN/01_roteiro"      # narration_v3.txt TEMPLATE.txt tease.txt PESQUISA_FONTE.md
+   ls "<canal>/videoNN/youtube_package.txt" "<canal>/videoNN/03_imagens/PROMPTS.md"
+   ```
+   - [ ] 4 pastas existem · narração/tease/PESQUISA **preservados** · PROMPTS.md com o sufixo do canal e TEASE-A/B mapeados · chapters `PENDENTE` · voz gerada (fatos aprovados).
 
 ## Ferramentas
 

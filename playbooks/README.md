@@ -33,5 +33,23 @@ O que **pode** ser reaproveitado de um playbook:
 playbooks/<canal>/
 ├─ profile.md     # identidade, branding, voz, calendário, projeto no disco
 ├─ operacao.md    # regras travadas (metadata, roteiro, padrões, checklists) — quando houver
-└─ outliers.md    # dados reais e aprendizados daquele canal — quando houver
+├─ outliers.md    # dados reais e aprendizados daquele canal — quando houver
+├─ voice.json     # CONTRATO de voz: tts voice id, normalize, regras por bloco/série, gaps, beds, ducking
+├─ motion.json    # CONTRATO de motion: clip_len default e por clima/série, variantes, grade, letterbox, grain
+└─ style.json     # CONTRATO de estilo: idioma, sufixo de imagem, séries, porte de imagens, thumb, short, package
 ```
+
+## Contrato de config do canal (anti-clone)
+
+Os scripts de produção **não têm identidade hardcoded**: cada canal define a sua em `voice.json` / `motion.json` / `style.json` e os scripts leem daí. Canal novo ≠ clone de playbook — copie a **estrutura** do contrato, nunca os valores.
+
+**Resolução (a primeira que existir vence):**
+1. `--channel <nome|pasta|arquivo.json>` (nome resolve em `playbooks/<nome>`);
+2. `DARK_CHANNEL` (env);
+3. `canal.json` na raiz do projeto (com seções `voice`/`motion`/`style`);
+4. `playbooks/cold-file-diaries/` (default quando existe);
+5. defaults embutidos do CFD + **AVISO** (nunca silencioso).
+
+- Playbooks procurados em `DARK_MASTER_PLAYBOOKS` ou `~/.config/opencode/skills/dark-master/playbooks`.
+- Scripts que já aceitam `--channel`: `gerar_voz_v3`, `padrao_bed`, `montar_motion`, `padrao_short`, `fazer_thumb_v2`, `novo_video` (canal) e `new_video`/`prompt_builder --suffix` (skill).
+- O **CFD** está migrado para o contrato: os JSONs reproduzem exatamente os valores anteriores (prova: 272 comparações dry-run, zero divergência).

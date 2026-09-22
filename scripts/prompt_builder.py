@@ -93,6 +93,7 @@ def render(prompt, out_path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--style", default="truecrime-cfd", choices=list(PRESETS))
+    ap.add_argument("--suffix", help="sufixo do canal (playbooks/<canal>/style.json > image_suffix); sobrepoe o preset")
     ap.add_argument("--scenes")
     ap.add_argument("--count", type=int, default=0)
     ap.add_argument("--title", default="")
@@ -101,7 +102,8 @@ def main():
     ap.add_argument("--outdir")
     a = ap.parse_args()
 
-    suffix = PRESETS[a.style]
+    suffix = a.suffix or PRESETS[a.style]
+    style_label = f"{a.style} + sufixo do canal" if a.suffix else a.style
 
     # monta a lista (beat, descricao)
     items = []
@@ -115,7 +117,7 @@ def main():
 
     header = [
         f"# {a.title or 'PROMPTS'} ",
-        f"# Estilo travado ({a.style}):",
+        f"# Estilo travado ({style_label}):",
         f'# "{suffix}"',
         "# Nomes exatos 01.jpg ... NN.jpg. Cole a descricao + sufixo no seu gerador.",
         "# Guarda-corpos: sem gore, sem rosto real, sem texto legivel, sem watermark, sem anacronismo.",
