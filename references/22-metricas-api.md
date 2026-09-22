@@ -16,6 +16,17 @@ Como puxar métricas reais do Cold File Diaries para o loop `/dark-revisar`.
    - `https://www.googleapis.com/auth/yt-analytics-monetary.readonly` (só retorna receita **após** monetizar)
 4. Guardar as credenciais **fora do repo** (ex.: `~/.config/opencode/secrets/yt-oauth.json`) — **nunca** commitar.
 
+## Banco de dados (Neon Postgres)
+
+A camada de dados usa **Neon Postgres** quando `DATABASE_URL` está definida; senão cai para **SQLite** local (`data/dark.db`). A conexão é configurada em `~/.config/opencode/secrets/dark.env` (fora do repo).
+
+- `python scripts/yt_db.py doctor` — testa a conexão e mostra o backend ativo.
+- `python scripts/yt_db.py stats` — conta linhas das tabelas.
+- Tabelas: `snapshots` (métricas por vídeo), `outliers` (vídeos acima da baseline), `learnings` (aprendizados com evidência).
+- Os scripts (`yt_metrics.py`, `yt_scan_outliers.py`) gravam via `yt_db.save_snapshot/save_outlier` — **agnóstico de backend**.
+
+> Segredos (`client_secrets.json`, `yt-token.json`, `dark.env`) ficam **fora** do repositório, em `~/.config/opencode/secrets/`. O repo (`vendors/*/`, `data/dark.db`) é protegido por `.gitignore`.
+
 ## Queries padrão (copy/paste)
 
 ```bash
