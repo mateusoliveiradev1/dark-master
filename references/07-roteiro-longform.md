@@ -1,5 +1,7 @@
 # 07 — Roteiro long-form
 
+> **Sistema canônico:** `references/30-roteiro-master.md` (beats por gênero, orçamento, retenção, compliance, ferramentas). Este arquivo é o template rápido.
+
 Template e regras para roteiro de documentário dark (Cold File Diaries, Laudo Final, Financial Crime Files, Midnight Archive).
 
 ## Formato

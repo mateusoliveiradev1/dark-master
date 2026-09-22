@@ -7,7 +7,7 @@ Pipeline unificado + mapas para os **engines** que já existem nos projetos do u
 ## Pipeline unificado
 
 ```
-scaffold (new_video) → pesquisa → roteiro → linter → prompts (prompt_builder)
+scaffold (new_video) → pesquisa → roteiro (script_builder) → linter → prompts (prompt_builder)
    → imagens (GATE 100%) → auditoria de imagens (image_audit.py) → voz
    → captions (SRT/karaoke) → motion/assembly → tail/outro → chapters
    → Short → endcard → thumbs 3x → pacote de publicação → auditoria YPP → upload manual

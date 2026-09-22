@@ -49,7 +49,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 34 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 35 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -82,6 +82,7 @@ dark-master/
 | `/dark-organizar` | Organiza a pasta do canal (dry-run → aplicar) e checa nomes/handles. |
 | `/dark-canal` | Entende um canal existente: projeto, regras e corrente de teaser. |
 | `/dark` | Ideia → título → thumb → roteiro → checklist. |
+| `/dark-roteiro` | Gera/valida o roteiro: plano com beats, orçamento e compliance. |
 | `/dark-build` | Roda o pipeline de produção do canal alvo. |
 | `/dark-auditar` | Auditoria completa: imagens + áudio + legendas + pacote + compliance. |
 | `/dark-audit` | Gate anti-inauthentic + YPP + divulgação de IA. |
@@ -101,6 +102,7 @@ dark-master/
 |---|---|
 | `yt_auth.py` | OAuth do YouTube (uma vez). |
 | `new_video.py` | Cria a pasta padrão de um vídeo (scaffold). |
+| `script_builder.py` | Gera o plano de roteiro (beats/orçamento) e valida a estrutura. |
 | `prompt_builder.py` | Gera os prompts de imagem (consistentes) e pode renderizar. |
 | `yt_metrics.py` | Puxa métricas por vídeo → banco + CSV. |
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
