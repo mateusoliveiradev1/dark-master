@@ -51,17 +51,17 @@ Faça login no Google com a **mesma conta** que vai autorizar o canal (a que tem
 
 ## Publicar o app (opcional) — valores de branding
 
-Site (Vercel) já no ar:
+Site (Next.js no Vercel) já no ar:
 - Landing: `https://dark-master.vercel.app/`
-- Privacidade: `https://dark-master.vercel.app/privacy.html`
+- Privacidade: `https://dark-master.vercel.app/privacy`
 
-(Alternativa em GitHub Pages: `https://mateusoliveiradev1.github.io/dark-master/`)
+(Alternativa em GitHub Pages: `https://mateusoliveiradev1.github.io/dark-master/` — redireciona para o Vercel.)
 
 Preencha na **Tela de permissão OAuth**:
 | Campo | Valor |
 |---|---|
 | Página inicial do aplicativo | `https://dark-master.vercel.app/` |
-| Link da Política de Privacidade | `https://dark-master.vercel.app/privacy.html` |
+| Link da Política de Privacidade | `https://dark-master.vercel.app/privacy` |
 | Link dos Termos de Serviço | `https://github.com/mateusoliveiradev1/dark-master` |
 | Domínios autorizados | `dark-master.vercel.app` |
 
