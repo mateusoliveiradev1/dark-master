@@ -75,6 +75,7 @@ O loop é **propose-only**: `/dark-revisar` (semanal) puxa métricas → atualiz
 | Motor de monetização (funil, lives, produto, matemática até o YPP) | `references/21-motor-de-monetizacao.md` |
 | Métricas via API (OAuth, queries, fallback manual) | `references/22-metricas-api.md` |
 | Nichos, subnichos e **outliers** (método + monitor) | `references/23-nichos-e-outliers.md` |
+| **Setup OAuth do YouTube (passo a passo)** | `references/24-setup-oauth-passo-a-passo.md` |
 
 Regras práticas dos vídeos-fonte: `references/20-videos-fonte.md`.
 
