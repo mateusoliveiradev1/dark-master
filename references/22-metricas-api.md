@@ -27,6 +27,16 @@ A camada de dados usa **Neon Postgres** quando `DATABASE_URL` está definida; se
 
 > Segredos (`client_secrets.json`, `yt-token.json`, `dark.env`) ficam **fora** do repositório, em `~/.config/opencode/secrets/`. O repo (`vendors/*/`, `data/dark.db`) é protegido por `.gitignore`.
 
+## Troubleshooting (erros de OAuth)
+
+| Erro | Causa | Conserto |
+|---|---|---|
+| `403: access_denied` / "o app não concluiu o processo de verificação do Google" | App OAuth em modo **Teste** e a conta não está nos **usuários de teste** | Google Cloud → APIs e Serviços → **Tela de permissão OAuth** → **Usuários de teste** → adicionar a conta que vai autorizar → Salvar. (Ou **Publicar app**.) |
+| `redirect_uri_mismatch` | Tipo de cliente não é Desktop app | Recriar o OAuth Client ID como **Desktop app** |
+| Token expira em 7 dias | App em modo Teste (refresh token expira) | Publicar o app (permanece funcionando para uso pessoal) |
+| `client_secrets.json nao encontrado` | Arquivo em lugar errado | Salvar em `~/.config/opencode/secrets/client_secrets.json` |
+| Sem receita nos reports | Canal ainda não monetizado | Normal; receita só aparece após o YPP |
+
 ## Queries padrão (copy/paste)
 
 ```bash
