@@ -94,7 +94,7 @@ dark-master/
 
 ## Subagentes
 
-`dark-strategist` · `dark-roteirista` · `dark-packager` · `dark-auditor` · `dark-produtor` · `dark-analyst` · `dark-scout`
+`dark-scout` · `dark-researcher` · `dark-roteirista` · `dark-strategist` · `dark-packager` · `dark-auditor` · `dark-produtor` · `dark-analyst`
 
 ## Scripts
 

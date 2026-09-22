@@ -14,6 +14,7 @@ Uso:
 O roteiro (narration) fica SEM marcadores (o TTS nao fala nada alem da narracao).
 """
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -26,6 +27,14 @@ PORTE = {
 
 # genero -> lista (beat, proporcao, guia)
 GENRES = {
+    "generic": [
+        ("COLD OPEN", 0.07, "cena/promessa que prende; sem intro"),
+        ("CONTEXTO", 0.18, "o que o espectador precisa saber; stakes"),
+        ("DESENVOLVIMENTO", 0.30, "o miolo; revelacoes em sequencia; sem momentos mortos"),
+        ("VIRADA", 0.20, "a complicacao/revelacao que muda tudo"),
+        ("CONSEQUENCIA", 0.17, "o que aquilo significa; impacto"),
+        ("FECHAMENTO+TEASER", 0.08, "resposta + implicacao + gancho do proximo"),
+    ],
     "truecrime": [
         ("HOOK", 0.04, "detalhe mais estranho VERIFICADO (nao o crime); pergunta que prende"),
         ("CONTEXTO", 0.16, "quem sao as pessoas, onde, quando; humaniza; mapa da rotina"),
@@ -155,9 +164,22 @@ def validate(narration_path, porte, genre):
     return not flags
 
 
+def load_beats(path):
+    """Carrega generos customizados de um JSON: {genero: [[beat, prop, guia], ...]}"""
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except Exception as e:  # noqa
+        print(f"[!] beats-file invalido: {e}"); return
+    for g, beats in data.items():
+        GENRES[g] = [(b[0], float(b[1]), b[2] if len(b) > 2 else "") for b in beats]
+    print(f"[i] generos carregados: {', '.join(data.keys())}")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--genre", default="truecrime", choices=list(GENRES))
+    ap.add_argument("--genre", default="generic")
+    ap.add_argument("--beats-file", help="JSON com generos customizados")
+    ap.add_argument("--list-genres", action="store_true")
     ap.add_argument("--porte", default="padrao", choices=list(PORTE))
     ap.add_argument("--case", default="")
     ap.add_argument("--date", default="")
@@ -168,6 +190,15 @@ def main():
     ap.add_argument("--validate", help="valida um narration_v3.txt existente")
     a = ap.parse_args()
 
+    if a.beats_file:
+        load_beats(a.beats_file)
+    if a.list_genres:
+        for g in GENRES:
+            print(g)
+        return
+    if a.genre not in GENRES:
+        print(f"[!] genero desconhecido: {a.genre}. Use --list-genres ou --beats-file.")
+        sys.exit(2)
     if a.validate:
         ok = validate(a.validate, a.porte, a.genre)
         sys.exit(0 if ok else 1)

@@ -105,6 +105,8 @@ Ver `playbooks/README.md`.
 12. **Canal novo ≠ clone.** Não importe decisões de um playbook; defina as suas (`playbooks/README.md`).
 13. **Entenda o canal antes de gerar.** Rode `channel_scan.py`, respeite calendário e **corrente de teaser** (`25`).
 14. **Mantenha a casa organizada.** Rode `channel_organize.py` (dry-run → aplicar) e siga a estrutura padrão (`26`).
+15. **Formato é decisão, não regra.** Short, long ou ambos dependem do **lane** do canal (`FOCUS.md` + `23`) — **não** assuma short+long sempre.
+16. **Roteiro sempre com pesquisa.** Use os subagentes (`dark-researcher`, `dark-scout`) e combine num brief antes de escrever; anti-IA e 1 peça de pesquisa primária por vídeo (`30`).
 
 ## Fluxo recomendado
 
@@ -128,8 +130,8 @@ Ver `playbooks/README.md`.
 ## Subagentes
 
 - `dark-scout` — **pesquisa real** de nichos/subnichos/outliers (web + API + Trends/Reddit).
-- `dark-strategist` — ideação, packaging, diagnóstico por métrica.
-- `dark-roteirista` — roteiro long-form/short.
+- `dark-researcher` — brief de pesquisa de um caso/tema (fatos, fontes, ângulos, contradições).
+- `dark-roteirista` — roteiro long-form/short (beats, orçamento, anti-IA).
 - `dark-packager` — títulos, thumbnails, capítulos, A/B.
 - `dark-auditor` — gate anti-inauthentic + YPP + IA.
 - `dark-produtor` — executa o pipeline por canal.

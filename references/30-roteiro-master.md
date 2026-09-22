@@ -13,6 +13,67 @@ O roteiro é a peça mais importante: ele decide retenção, satisfação e mone
 7. **Respeito e legalidade.** Sem gore; pessoas vivas = "suspeito/acusado"; 2+ fontes.
 8. **Voz humana.** Anti-IA (`17`): sem "não é só X, é Y", triads forçadas, travessões em excesso.
 
+## Nicho-agnóstico (qualquer nicho)
+
+O sistema **não é só para true crime**. Vale para qualquer nicho (fitness, finanças, história, tech, música…).
+
+- Use o gênero **`generic`** (COLD OPEN → CONTEXTO → DESENVOLVIMENTO → VIRADA → CONSEQUÊNCIA → FECHAMENTO+TEASER) para começar.
+- Para um nicho específico, **defina os beats** num JSON e passe com `--beats-file`:
+  ```json
+  { "fitness": [
+      ["HOOK",0.06,"promessa/transformacao"],
+      ["PROBLEMA",0.18,"a dor do espectador"],
+      ["METODO",0.34,"o passo a passo"],
+      ["PROVA",0.22,"resultado/experimento"],
+      ["OBJECAO",0.14,"quebrar a duvida"],
+      ["CTA",0.06,"proximo passo"]
+  ]}
+  ```
+- Guarde os beats do canal em `playbooks/<canal>/beats.json` (exemplo em `assets/beats-exemplo.json`). **Cada canal tem o seu** — não importe de outro.
+- `python scripts/script_builder.py --list-genres` lista os disponíveis.
+
+## Roteiro com pesquisa (usar os subagentes e juntar)
+
+Roteiro perfeito **não se escreve de memória**. O fluxo obrigatório:
+
+```
+dark-scout (nicho/outliers)  ┐
+dark-researcher (caso/tema)  ┼→  BRIEF DE PESQUISA (fatos, fontes, ângulos, contradições, demanda)
+                             ┘         │
+                                       ▼
+                            dark-roteirista  →  plano + narração
+                                       │
+                                       ▼
+                          validação (script_builder + lint) → GATE de fatos
+```
+
+Regras:
+- **1 peça de pesquisa primária por vídeo** (linha do tempo, dado compilado, comparação) — senão cai no conteúdo inautêntico (`09`).
+- Fontes com camadas **[FATO]/[REPORTADO]/[LENDA]**; nada entra sem fonte.
+- Buscar **ângulo não coberto** (gap) e **contradições** — é o que diferencia de IA genérica.
+- Combinar **2+ fontes** e cruzar números.
+- O roteirista **não inventa**; se falta dado, corta ou marca como lenda.
+
+### Anti-IA genérico (obrigatório)
+- Frases próprias (`17-anti-ia.md`): sem "não é só X, é Y", triads forçadas, "no mundo de hoje", travessões em excesso.
+- **Tom e ponto de vista** do canal (playbook), não um tom genérico.
+- Estrutura que **varia** entre episódios (o formato pode repetir; a substância não).
+- Detalhe concreto e específico > afirmação genérica.
+
+## Formato: short, long ou ambos? (decisão, não regra)
+
+**Não é obrigatório fazer short+long sempre.** O formato é uma **decisão do canal**, definida no `config/FOCUS.md` e no lane escolhido em `references/23`:
+
+| Lane | Quando | O que produzir |
+|---|---|---|
+| **Shorts-first** | alcance/inscritos rápido; produção leve | ≥80% Shorts |
+| **Long-first** | watch time/receita/autoridade | ≤20% Shorts |
+| **Mixed** | funil (Short→long) validado | ambos, com medição do funil |
+
+- Canal novo: comece por **um** lane e valide (não force os dois).
+- Se for mixed, **só mantenha** se o funil Short→long estiver **medido** (`21-motor-de-monetizacao.md`).
+- Registre a escolha no `FOCUS.md`; o `/dark-roteiro` respeita.
+
 ## Beats por gênero
 
 ### truecrime (12–25 min)

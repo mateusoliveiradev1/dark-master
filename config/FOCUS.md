@@ -11,6 +11,7 @@
 - **Horizonte:** {{ex.: 30 dias | prazo duro: 01/02/2027}}
 - **Orçamento:** {{free tier | valor/mês}}
 - **Idioma:** {{pt | en | multi}}
+- **Formato (lane):** {{shorts-first | long-first | mixed}} — ver `references/23`
 - **Playbook do canal (se existente):** {{playbooks/<canal>/}}
 
 ## Diagnóstico / baseline
