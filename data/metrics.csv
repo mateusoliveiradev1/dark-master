@@ -1,0 +1,5 @@
+channel,video_id,title,format,published,views,engaged_views,avd_seconds,avp_percent,ctr_percent,shown_in_feed,chose_to_view_percent,likes,comments,shares,subs_gained,watch_hours,revenue_usd,traffic_source,notes
+# Preencha 1 linha por vídeo. Fonte: YouTube Studio (manual) ou youtube-analytics-cli (API).
+# format: long | short. traffic_source: feed|search|suggested|external|mixed
+# Exemplo:
+# cold-file-diaries,VIDEOID,Springfield Three Vanished Overnight,short,2026-09-16,1210,410,22,58,4.2,15000,62,88,12,5,38,0.11,0.03,feed,outlier

@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "descricao": "Vídeos outlier (>= 3x a média do canal) com o padrão extraído. Atualizado por /dark-revisar.",
+    "canal": "cold-file-diaries",
+    "atualizado": "2026-09-21"
+  },
+  "baseline": {
+    "short_views_median": 1200,
+    "long_views_median": 22,
+    "short_avp_median": 55,
+    "long_avp_median": null
+  },
+  "outliers": [
+    {
+      "video": "video02",
+      "caso": "D.B. Cooper",
+      "format": "short",
+      "views": 1213,
+      "hook": "2ª pessoa + número impossível + pergunta aberta",
+      "serie": "HEISTS",
+      "thumb": "thumb_video02_v2_*",
+      "padrao": "PADRÃO SHORT 2 (travado, vencedor) — não mexer",
+      "licao": "dinheiro/ação > luto; o áudio viraliza, não a hashtag"
+    },
+    {
+      "video": "video03",
+      "caso": "Springfield Three",
+      "format": "short",
+      "views": 1210,
+      "hook": "staccato 3x + detalhes sensoriais concretos",
+      "serie": "VANISHED",
+      "thumb": "thumb_video03_v2_*",
+      "padrao": "PADRÃO SHORT 3 (conteúdo)",
+      "licao": "karaokê conta a história no mudo; corte em loop aberto"
+    },
+    {
+      "video": "video05",
+      "caso": "Yuba Five",
+      "format": "short",
+      "views": 1200,
+      "hook": "(a preencher)",
+      "serie": "VANISHED",
+      "thumb": "thumb_video05_v2_*",
+      "padrao": "(analisar)",
+      "licao": "(analisar com os prints)"
+    }
+  ],
+  "nao_funcionou": [
+    {"video": "video01", "nota": "hook abstrato/filosófico ('The question is not...') matou o alcance"}
+  ]
+}
