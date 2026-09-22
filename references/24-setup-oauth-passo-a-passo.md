@@ -51,17 +51,19 @@ Faça login no Google com a **mesma conta** que vai autorizar o canal (a que tem
 
 ## Publicar o app (opcional) — valores de branding
 
-Site (GitHub Pages) já no ar:
-- Landing: `https://mateusoliveiradev1.github.io/dark-master/`
-- Privacidade: `https://mateusoliveiradev1.github.io/dark-master/privacy.html`
+Site (Vercel) já no ar:
+- Landing: `https://dark-master.vercel.app/`
+- Privacidade: `https://dark-master.vercel.app/privacy.html`
+
+(Alternativa em GitHub Pages: `https://mateusoliveiradev1.github.io/dark-master/`)
 
 Preencha na **Tela de permissão OAuth**:
 | Campo | Valor |
 |---|---|
-| Página inicial do aplicativo | `https://mateusoliveiradev1.github.io/dark-master/` |
-| Link da Política de Privacidade | `https://mateusoliveiradev1.github.io/dark-master/privacy.html` |
+| Página inicial do aplicativo | `https://dark-master.vercel.app/` |
+| Link da Política de Privacidade | `https://dark-master.vercel.app/privacy.html` |
 | Link dos Termos de Serviço | `https://github.com/mateusoliveiradev1/dark-master` |
-| Domínios autorizados | `mateusoliveiradev1.github.io` |
+| Domínios autorizados | `dark-master.vercel.app` |
 
 Depois clique em **"Publicar app"**. Assim o refresh token **não expira em 7 dias**.
 (Publicar com escopos sensíveis mostra o aviso "app não verificado" — normal para uso pessoal.)
