@@ -1,0 +1,49 @@
+# .gitignore — projeto de canal dark (versiona TEXTO, ignora MÍDIA pesada)
+# Gerado por scripts/channel_git.py. NUNCA versione vídeo/áudio/imagem aqui:
+# o valor do versionamento está em roteiro, prompts, pacotes, scripts e configs.
+
+# === MÍDIA PESADA (fora) ===
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.ogg
+
+# imagens geradas (o PROMPTS.md FICA versionado) — ** cobre videoNN/ e EPxx/
+**/03_imagens/*.jpg
+**/03_imagens/*.jpeg
+**/03_imagens/*.png
+**/03_imagens/*.webp
+**/03_imagens/*.bmp
+**/03_imagens/_contact_sheet*
+
+# render final (thumbs/MP4 são mídia; o youtube_package.txt FICA)
+**/04_video_final/*
+**/02_audio/_*
+**/00_CANAL/assets/songs/*.wav
+**/00_CANAL/assets/songs/*.mp3
+
+# === caches / backups / temporários ===
+**/__pycache__/
+**/_parts/
+**/*.bak_*
+**/*.bak
+**/*.tmp
+**/.tailfix_done
+**/99_ARCHIVE/
+
+# === segredos (NUNCA versionar) ===
+*.env
+!sample.env
+client_secrets.json
+yt-token.json
+
+# === SO ===
+Thumbs.db
+desktop.ini
+.DS_Store

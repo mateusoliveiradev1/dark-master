@@ -63,6 +63,12 @@ python scripts/channel_organize.py "<pasta do canal>" --apply
 python scripts/channel_organize.py "<pasta do canal>" --apply --archive
 ```
 
+## Versionamento e Notion
+
+Depois de organizar, **proteja e acompanhe**:
+- `python scripts/channel_git.py "<pasta>" --init --commit` — versiona o **texto** (roteiro, prompts, pacotes, scripts, `00_CANAL/`) e deixa a **mídia fora** (guarda de 50 MB no commit). Detalhes em `33`.
+- `python scripts/notion_pack.py "<pasta>"` — gera os CSVs importáveis (Vídeos/Calendário/Ideias/Outliers) + guia de setup. Detalhes em `33`.
+
 ## Checklist de organização
 
 - [ ] Raiz do canal sem arquivos soltos.
@@ -70,3 +76,4 @@ python scripts/channel_organize.py "<pasta do canal>" --apply --archive
 - [ ] `00_CANAL/` com branding/calendário/regras + assets.
 - [ ] Backups e caches arquivados.
 - [ ] Relatório `ORGANIZACAO.md` gerado.
+- [ ] Canal versionado sem mídia (`33`) e pacote Notion atualizado.

@@ -38,6 +38,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 - **Cérebro de algoritmo** — bolhas de Shorts, CTR/AVD/AVP, 1º minuto, capítulos, compliance YPP.
 - **Anti-inautenticidade** — variação obrigatória por vídeo, humanizer (25 tells de IA), disclosо de IA.
 - **38 modelos de canal** — blueprints por nicho/subnicho com gates, outliers, hooks, beats e monetização, validados com dados reais.
+- **Do zero de verdade** — kit de branding em arquivos (logo/banner/profile/watermark), versionamento git sem mídia e pacote Notion importável.
 - **Shorts de engenharia** — hook de 3s (frame 1 + texto na tela), 14 arquétipos, loop (AVP >100%) e validação automática.
 - **Auto-evolução** — `/dark-revisar` puxa métricas, detecta outliers e propõe mudanças com evidência.
 - **Entende o canal** — lê calendário, regras travadas e a **corrente de teaser** antes de gerar.
@@ -51,7 +52,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 36 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 38 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -62,7 +63,9 @@ dark-master/
 │  ├─ 26-organizacao-e-arquivos.md
 │  ├─ 27-nomes-e-handles.md
 │  ├─ 30-roteiro-master.md      # sistema de roteiro (pesquisa + beats + orçamento)
-│  └─ 31-hooks-short.md         # hooks de Short (frame 1, arquétipos, loop)
+│  ├─ 31-hooks-short.md         # hooks de Short (frame 1, arquétipos, loop)
+│  ├─ 32-branding-canal.md      # kit de branding (logo/banner/profile/watermark)
+│  └─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
 ├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers
@@ -83,7 +86,7 @@ dark-master/
 | Comando | O que faz |
 |---|---|
 | `/dark-nicho` | Pesquisa e valida **nichos reais** (discover/verify) com gates rígidos. |
-| `/dark-lancar` | Lança um canal do zero (nome, branding, calendário, settings). |
+| `/dark-lancar` | Lança um canal do zero: nome, **kit de branding**, playbook/contrato, calendário, settings, **git sem mídia** e **Notion**. |
 | `/dark-organizar` | Organiza a pasta do canal (dry-run → aplicar) e checa nomes/handles. |
 | `/dark-canal` | Entende um canal existente: projeto, regras e corrente de teaser. |
 | `/dark` | Ideia → título → thumb → roteiro → checklist. |
@@ -124,6 +127,9 @@ dark-master/
 | `lint-roteiro.py` | Lint anti-IA/compliance no roteiro. |
 | `title-check.py` | Sinais heurísticos de título. |
 | `ctr-baseline.py` | CTR vs baseline. |
+| `branding_kit.py` | Gera logo, profile, banner (safe area), watermark + BRANDING.md. |
+| `channel_git.py` | Versiona o canal sem mídia (`.gitignore` + commit com guarda de 50 MB). |
+| `notion_pack.py` | Gera os CSVs importáveis do Notion (Vídeos/Calendário/Ideias/Outliers). |
 
 ---
 
@@ -195,6 +201,7 @@ Deploy automático no **Vercel** a cada push na `master` (Root Directory = `site
 - [x] Modelos de canal por nicho/subnicho (38, com validação real via Data API)
 - [x] Roteiro com pesquisa assistida (subagentes + `script_builder` + lint anti-IA)
 - [x] Sistema de Shorts (frame 1, arquétipos, loop) + validação automática
+- [x] Fluxo do zero: kit de branding + git sem mídia + pacote Notion
 - [ ] Completar `--comments` (rodar `yt_auth.py` com escopo force-ssl)
 - [ ] Painel de métricas (dashboard) além do CLI
 - [ ] Suporte a mais idiomas na narração
