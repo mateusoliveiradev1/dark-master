@@ -5,3 +5,6 @@ data/dark.db
 
 # vendors clonados (grandes; reinstaláveis via git clone)
 vendors/*/
+
+# vercel
+.vercel
