@@ -1,0 +1,65 @@
+{
+  "_meta": {
+    "descricao": "Vídeos outlier (>= 2x a mediana do canal) com o padrão extraído. Atualizado por /dark-revisar.",
+    "canal": "cold-file-diaries",
+    "atualizado": "2026-09-21",
+    "fonte": "YouTube Analytics API (dados reais)"
+  },
+  "baseline": {
+    "short_views_median": 1190,
+    "long_views_median": 26,
+    "short_avp_median": 67,
+    "long_avp_median": 16,
+    "watch_hours_30d": 26.24,
+    "nota": "3 Shorts outliers a ~48x a mediana geral; longs ainda entre 0-70 views."
+  },
+  "outliers": [
+    {
+      "video": "FiWWSWJoOW8",
+      "caso": "Springfield Three",
+      "format": "short",
+      "views": 1180,
+      "avp_percent": 136.7,
+      "subs_gained": 4,
+      "hook": "staccato + detalhe concreto + loop",
+      "padrao": "MELHOR SHORT: AVP >100% = LOOP. Loop gera distribuição + inscritos.",
+      "licao": "O loop é o sinal mais forte. Projetar fim→começo."
+    },
+    {
+      "video": "sB2Twbce70Q",
+      "caso": "D.B. Cooper ($200.000)",
+      "format": "short",
+      "views": 1190,
+      "avp_percent": 67.2,
+      "subs_gained": 1,
+      "hook": "2ª pessoa + número impossível + pergunta aberta",
+      "padrao": "PADRÃO SHORT 2 (dinheiro/ação).",
+      "licao": "Dinheiro no hook funciona."
+    },
+    {
+      "video": "6FdLxmbamJs",
+      "caso": "Yuba County Five",
+      "format": "short",
+      "views": 1202,
+      "avp_percent": 43.8,
+      "subs_gained": 1,
+      "hook": "número + VANISHED",
+      "padrao": "Outlier de alcance, mas AVP baixo (43%) — não dá loop.",
+      "licao": "Alcance bom, retenção mediana."
+    },
+    {
+      "video": "f-lbHgdVxcI",
+      "caso": "Zodiac Killer (long)",
+      "format": "long",
+      "views": 66,
+      "avd_seconds": 907,
+      "watch_hours": 5.55,
+      "padrao": "Long com AVD alto (15 min!) — quem assiste, fica. Problema é TRÁFEGO.",
+      "licao": "Conteúdo longo retém; falta o funil do Short."
+    }
+  ],
+  "nao_funcionou": [
+    {"video": "ra4DDCqjupc", "nota": "long 'They Took $500 Million' com 2 views — 0 tráfego"},
+    {"video": "69_IajVo1LE", "nota": "long Black Dahlia com 0 views (recém-publicado?)"}
+  ]
+}

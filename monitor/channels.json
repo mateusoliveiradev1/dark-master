@@ -1,0 +1,10 @@
+{
+  "descricao": "Canais monitorados pelo dark-scout. O scan acha outliers (video >= ratio x a mediana do canal). Adicione concorrentes/referencias do nicho dark/true crime.",
+  "ratio_padrao": 3.0,
+  "channels": [
+    { "name": "Cold File Diaries", "handle": "@ColdFileDiaries", "mine": true, "nota": "canal proprio" },
+    { "name": "Fascinating Horror", "handle": "@FascinatingHorror", "nota": "dark history, nicho estreito" },
+    { "name": "Coffeehouse Crime", "handle": "@CoffeehouseCrime", "nota": "true crime faceless" },
+    { "name": "Dark Asia with Megan", "handle": "@DarkAsiawithMegan", "nota": "true crime faceless" }
+  ]
+}

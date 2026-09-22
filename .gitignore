@@ -1,0 +1,10 @@
+# dados locais / cache
+__pycache__/
+*.pyc
+data/dark.db
+
+# vendors clonados (grandes; reinstaláveis via git clone)
+vendors/*/
+
+# vercel
+.vercel
