@@ -102,6 +102,7 @@ dark-master/
 | `yt_metrics.py` | Puxa métricas por vídeo → banco + CSV. |
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
 | `niche_scan.py` | Pesquisa de nicho: gates rígidos + outliers via Data API. |
+| `image_audit.py` | Audita imagens geradas (resolução, aspecto, brilho, duplicatas) + contact sheet. |
 | `channel_organize.py` | Organiza a pasta do canal (dry-run → aplicar). |
 | `name_check.py` | Checa disponibilidade de nome/handle. |
 | `yt_db.py` | Camada de dados (Neon Postgres ou SQLite). |

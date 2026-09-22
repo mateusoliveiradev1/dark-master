@@ -26,6 +26,19 @@ https://image.pollinations.ai/prompt/{prompt_urlencoded}?width=1920&height=1080&
 - Auditar: ≥1280px, aspecto 1.70–1.85, ≥50KB, sem rosto real/gore/texto legível.
 - Montar contact sheet para revisão humana.
 
+### Auditoria automática de imagens (`image_audit.py`)
+
+```bash
+python scripts/image_audit.py "<videoNN>/03_imagens" --sheet --hash
+```
+
+Checa por imagem: **resolução**, **aspecto** (16:9), **tamanho de arquivo**, **brilho/desvio** (detecta imagem quase sólida = geração falhada), **saturação** e **duplicatas próximas** (average hash).
+Gera `AUDITORIA_IMAGENS.md`, um `_contact_sheet.jpg` (revisão visual) e **sai com código 1 se houver falha**.
+
+Flags: `baixa_res`, `aspecto`, `pequena`, `quase_solida`, `muito_escura`, `muito_clara`, `ilegivel`.
+
+> É o **gate visual**: rode antes de gerar voz/motion (junto do GATE 100%).
+
 ## Voz
 
 ### edge-tts (grátis, padrão de produção)

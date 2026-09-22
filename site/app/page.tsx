@@ -86,7 +86,7 @@ export default function Page() {
               <Reveal><div><b><Counter to={32} /></b><small>{t.dados.stats[0]}</small></div></Reveal>
               <Reveal delay={0.05}><div><b><Counter to={12} /></b><small>{t.dados.stats[1]}</small></div></Reveal>
               <Reveal delay={0.1}><div><b><Counter to={7} /></b><small>{t.dados.stats[2]}</small></div></Reveal>
-              <Reveal delay={0.15}><div><b><Counter to={12} /></b><small>{t.dados.stats[3]}</small></div></Reveal>
+              <Reveal delay={0.15}><div><b><Counter to={13} /></b><small>{t.dados.stats[3]}</small></div></Reveal>
             </div>
           </div>
         </section>
