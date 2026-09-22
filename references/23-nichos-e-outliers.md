@@ -35,6 +35,8 @@ Para cada canal-candidato:
 
 Nicho passa se **3 canais** diferentes passarem os 3 gates. "Romper" tem que ter **número**, não "parece promissor".
 
+**Tier emergente (watchlist — NÃO aprova sozinho):** canal pequeno com **≤90 dias** + **2 dos 3 gates** (5 primeiros ≥10k e/ou ≥1k views/dia). É o caso mais comum de canais que rompem entre 45–90 dias. O scan reporta como `emerging`; revalidar em **2–4 semanas** — se cruzar o gate de idade, vira evidência.
+
 ## Checklist binário (12 checagens, ~20 min/nicho)
 
 1. 3 canais <90d rompendo? 
@@ -72,7 +74,22 @@ O que o público **pede** nos comentários (do seu canal ou de um concorrente) �
 
 Para cada nicho que passa: nome, **interseção formato-tópico**, os 3 canais-evidência (com números), outliers encontrados, anglo/lacuna não coberto, e o **piloto** sugerido. Registrar em `data/nichos.md` (sementes) e no brief.
 
-## Ferramentas
-- `scripts/niche_scan.py` — varre canais/vídeos e calcula gates e outliers (Data API).
-- `dark-scout` amarra: web + API + Trends/Reddit.
+## Ferramentas (pesquisa em tempo real)
+
+`scripts/niche_scan.py` — tudo abaixo numa ferramenta só (Data API + autocomplete + Trends + comentários):
+
+| Modo | O que dá | Custo |
+|---|---|---|
+| `--query "tema"` | canais do termo + **gates** + outliers vs mediana do canal | ~100 un (search) |
+| `--channel @handle` | um canal: gates + outliers | ~5 un |
+| `--cluster "tema"` | **outliers cross-canal** (≥2 canais diferentes com outlier = fome) na janela de 90d | ~150 un |
+| `--brief "tema"` | **BRIEF DE NICHO** (.md + .json em `data/briefs/`) com veredito, evidência, autocomplete e Trends | ~150 un |
+| `--suggest "seed"` | autocomplete do YouTube (profundidade de perguntas; sem key) | HTTP livre |
+| `--trends "termo"` | Google Trends filtro YouTube 12m (direção + queries em alta) | HTTP livre |
+| `--comments VIDEOID` | **demanda de comentário** (perguntas/pedidos recorrentes + top likes) | ~1 un |
+
+- `--comments` exige o escopo `youtube.force-ssl` — se der `insufficientPermissions`, rode `python scripts/yt_auth.py` de novo.
+- Trends: use **termos específicos** ("industrial disaster documentary"), não genéricos ("dark history") — genérico puxa ruído (anime, marcas).
+- Quota Data API: ~10.000 un/dia. `--query`/`--brief` gastam ~100–150 un cada; planeje os scans.
+- `dark-scout` amarra: web + API + autocomplete + Trends + comentários.
 - Comando: `/dark-nicho discover` e `/dark-nicho verify <nicho>`.

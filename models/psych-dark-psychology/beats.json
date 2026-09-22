@@ -1,0 +1,12 @@
+{
+  "psych-dark-psychology": [
+    ["HOOK", 0.05, "a contradicao verificada (o que o estudo prometeu vs. o que aconteceu); pergunta central que so se resolve no fim; sem data/local antes do gancho"],
+    ["O CASO", 0.12, "quem, quando, onde: o pesquisador, o lugar, a pergunta cientifica da epoca; humaniza 2 figuras sem julgar"],
+    ["O EXPERIMENTO", 0.16, "o desenho: quem participou, o que foi dito, o que foi medido; regras, incentivos e o que os participantes sabiam"],
+    ["A VIRADA", 0.16, "o comportamento que ninguem previu; cena concreta com detalhe verificavel (registro, fita, foto, diario)"],
+    ["O QUE DEU ERRADO", 0.15, "falha de metodo, etica, pressao ou replicacao; a critica no nivel cientifico, sem sensacionalismo"],
+    ["AS PESSOAS", 0.12, "os participantes e o depois: quem eram, o que disseram anos mais tarde; sem detalhe clinico privado"],
+    ["A CIENCIA HOJE", 0.14, "o que sobrevive: replicacao, revisao e consenso atual; o que o estudo ainda ensina"],
+    ["REHOOK+TEASER", 0.10, "o que ficou de fora + proximo arquivo da serie"]
+  ]
+}

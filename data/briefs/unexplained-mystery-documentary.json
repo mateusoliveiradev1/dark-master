@@ -1,0 +1,267 @@
+{
+  "theme": "unexplained mystery documentary",
+  "cluster": {
+    "theme": "unexplained mystery documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Warrior Mind",
+        "id": "UCa5LZlHH637evemqjUnqaTw",
+        "subs": 14000,
+        "age_days": 287,
+        "first5": 2011,
+        "vpd": 14992,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 3332,
+        "outliers": [
+          {
+            "title": "8 Disturbing Paranormal Police Encounters No One Can Explain",
+            "views": 3229402,
+            "ratio": 969.2,
+            "published": "2026-07-21"
+          }
+        ]
+      },
+      {
+        "channel": "Tamil Unmaigal",
+        "id": "UCUPGqt7LGy9kQ4nGD0EypxA",
+        "subs": 57200,
+        "age_days": 307,
+        "first5": 5230945,
+        "vpd": 67038,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 6611,
+        "outliers": [
+          {
+            "title": "அமேசான் காடுகளின் 10 நடுங்கவைக்கும் ரகசியங்கள்! #tamildocumentary #facts #mysteryexplained #amazon",
+            "views": 2785327,
+            "ratio": 421.3,
+            "published": "2026-08-17"
+          },
+          {
+            "title": "அமேசான் காடுகளின் 10 நடுங்கவைக்கும் ரகசியங்கள்! | The Unsolved Mysteries of Amazon Rainforest",
+            "views": 2107581,
+            "ratio": 318.8,
+            "published": "2026-08-17"
+          }
+        ]
+      },
+      {
+        "channel": "Bhakti Sadhna Bharat",
+        "id": "UCapSAN4Gpk5LAj2ktqcufLg",
+        "subs": 80700,
+        "age_days": 319,
+        "first5": 158775,
+        "vpd": 43890,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 19986,
+        "outliers": []
+      },
+      {
+        "channel": "Explorer Vault",
+        "id": "UCy_SmKxe-Q39WcuHyWxb6Ww",
+        "subs": 5640,
+        "age_days": 154,
+        "first5": 27442,
+        "vpd": 21902,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 6494,
+        "outliers": []
+      },
+      {
+        "channel": "Chilling Scares Compilations",
+        "id": "UCgT7YSxevs9LFP9YkpUiZjQ",
+        "subs": 44700,
+        "age_days": 105,
+        "first5": 2744636,
+        "vpd": 73305,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 491424.0,
+        "outliers": []
+      },
+      {
+        "channel": "DARK LOGS ",
+        "id": "UC6D4_wNLbuhJ_t_Noh2ivtA",
+        "subs": 32700,
+        "age_days": 231,
+        "first5": 45276,
+        "vpd": 51007,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 12755,
+        "outliers": []
+      },
+      {
+        "channel": "Visual Doc",
+        "id": "UCJTGHjssnw833rY3fIIRwaQ",
+        "subs": 2620,
+        "age_days": 92,
+        "first5": 541851,
+        "vpd": 7966,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 12417.5,
+        "outliers": [
+          {
+            "title": "भारत के इतिहास की सबसे बड़ी चोरी | The Project Black Ledger Mystery",
+            "views": 526679,
+            "ratio": 42.4,
+            "published": "2026-07-16"
+          }
+        ]
+      },
+      {
+        "channel": "HisTora",
+        "id": "UC-K6BVRXsumea0bt9s3oeFw",
+        "subs": 4060,
+        "age_days": 98,
+        "first5": 117218,
+        "vpd": 6088,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1560,
+        "outliers": [
+          {
+            "title": "The Unsolved Mystery of Benazir Bhutto | What Really Happened on December 27?",
+            "views": 434989,
+            "ratio": 278.8,
+            "published": "2026-08-09"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "emerging": [],
+    "hungry": [
+      "Warrior Mind",
+      "Tamil Unmaigal",
+      "Visual Doc",
+      "HisTora"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "unexplained mystery documentary",
+    "depth": 84,
+    "suggestions": [
+      "unexplained mystery documentary",
+      "unsolved mystery documentary",
+      "strange mystery documentary",
+      "unexplained mystery",
+      "unexplained mysteries new",
+      "unexplained mysteries history",
+      "unexplained mysteries channel",
+      "unexplained mystery documentary amazon prime",
+      "unexplained mystery documentary amazon",
+      "unexplained mystery documentary at night",
+      "unexplained mystery documentary bbc",
+      "unexplained mystery documentary bangla",
+      "unexplained mystery documentary by satyajit ray",
+      "unexplained mystery documentary crime",
+      "unexplained mystery documentary crime investigation",
+      "unexplained mystery documentary channel 4",
+      "unexplained mystery documentary documentary",
+      "unexplained mystery documentary david attenborough",
+      "unexplained mystery documentary dw",
+      "unexplained mystery documentary discovery channel",
+      "unexplained mystery documentary english",
+      "unexplained mystery documentary ever",
+      "unexplained mystery documentary explained",
+      "unexplained mystery documentary episodes",
+      "unexplained mystery documentary episode 1",
+      "unexplained mystery documentary full",
+      "unexplained mystery documentary film",
+      "unexplained mystery documentary game",
+      "unexplained mystery documentary guyana",
+      "unexplained mystery documentary haider tv",
+      "unexplained mystery documentary hailey bieber",
+      "unexplained mystery documentary haider",
+      "unexplained mystery documentary hailey",
+      "unexplained mystery documentary hail",
+      "unexplained mystery documentary hair",
+      "unexplained mystery documentary in hindi",
+      "unexplained mystery documentary in english",
+      "unexplained mystery documentary james cameron",
+      "unexplained mystery documentary jeremy clarkson",
+      "unexplained mystery documentary korea",
+      "unexplained mystery documentary karma",
+      "unexplained mystery documentary latest",
+      "unexplained mystery documentary lost media",
+      "unexplained mystery documentary life",
+      "unexplained mystery documentary lost",
+      "unexplained mystery documentary movie",
+      "unexplained mystery documentary malayalam",
+      "unsolved mystery nigerian movie",
+      "unexplained mystery documentary on netflix",
+      "unexplained mystery documentary on history",
+      "unexplained mystery documentary of the world",
+      "unexplained mystery documentary on the internet",
+      "unexplained mystery documentary online",
+      "unexplained mystery documentary part 2",
+      "unexplained mystery documentary philippines",
+      "unexplained mystery documentary part 1",
+      "unexplained mystery documentary playlist",
+      "unexplained mystery documentary penguins",
+      "unexplained mystery documentary questions",
+      "unexplained mystery documentary reaction",
+      "unexplained mystery documentary recent",
+      "unexplained mystery documentary record",
+      "unexplained mystery documentary red bull",
+      "unexplained universe mysteries space documentary",
+      "unexplained mysteries solved",
+      "unsolved mystery the movie",
+      "unsolved mystery the movie soty family",
+      "strange mystery train movie",
+      "unexplained mystery documentary uk",
+      "unexplained mystery documentary uncut",
+      "unexplained mystery documentary video",
+      "unexplained mystery documentary video in hindi",
+      "unexplained mystery documentary with subtitles",
+      "unexplained mystery documentary with english subtitles",
+      "unexplained mystery documentary wildlife",
+      "unexplained mystery documentary what happened",
+      "unexplained mystery documentary xbox",
+      "unexplained mystery documentary xqc",
+      "unexplained mystery documentary x files",
+      "unexplained mystery documentary x factor",
+      "unexplained mystery documentary zone",
+      "unexplained mystery documentary zombies",
+      "unexplained mystery documentary zee news",
+      "unexplained mystery documentary zee5"
+    ]
+  },
+  "trends": {
+    "term": "unexplained mystery documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

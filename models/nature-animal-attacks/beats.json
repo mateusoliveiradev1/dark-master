@@ -1,0 +1,12 @@
+{
+  "nature-animal-attacks": [
+    ["COLD OPEN", 0.06, "o detalhe estranho VERIFICADO do encontro (o aviso que veio depois, a trilha que era a mesma, o radio que parou); pergunta central (por que o animal agiu)"],
+    ["CONTEXTO", 0.12, "o lugar e as pessoas: geografia, comunidade, rotina daquela semana; humaniza sem sentimentalismo"],
+    ["O ANIMAL", 0.15, "biologia e comportamento: sentidos, territorio, fome, defesa de cria; por que a especie ataca; ciencia com fonte"],
+    ["O ENCONTRO", 0.18, "cronologia minuto a minuto; frases curtas; sem gore, sem imagem de vitima, sem momento da morte"],
+    ["A RESPOSTA", 0.12, "busca, socorro e primeiras 24h; o que funcionou, o que falhou, quem decidiu o que"],
+    ["A CIENCIA", 0.15, "o que o registro mostra: dados de ataques, padroes de horario e trilha, pesquisa de comportamento, laudo publico; camadas FATO/REPORTADO"],
+    ["MITO x FATO", 0.12, "o que o cinema e o medo popular erram; como reduzir risco com fonte (seguranca, manejo, respeito ao animal)"],
+    ["MEMORIA+ARQUIVO+TEASER", 0.10, "o que mudou (regra, parque, comunidade); o que nunca saberemos; CTA + teaser do proximo caso"]
+  ]
+}

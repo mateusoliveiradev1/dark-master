@@ -1,0 +1,12 @@
+{
+  "true-crime-cold-cases": [
+    ["COLD OPEN", 0.05, "cena concreta de arquivo: o detalhe estranho VERIFICADO (nao o crime); pergunta central"],
+    ["CONTEXTO", 0.15, "quem e a vitima; rotina e mapa; por que o caso importa; humaniza sem sentimentalismo"],
+    ["O DIA", 0.20, "cronologia minuto a minuto do desaparecimento/crime; frases curtas; beats de 1 linha"],
+    ["A PAREDE", 0.13, "por que o caso esfriou: tecnologia da epoca, pistas falsas, arquivo parado; os anos de silencio"],
+    ["REABERTURA", 0.20, "DNA/genetic genealogy/nova pericia: o coracao cientifico; o que cada exame provou ou descartou"],
+    ["FAMILIA", 0.10, "quem nunca parou de ligar; o que a resolucao (ou a espera) significa; respeito maximo"],
+    ["ABERTO+TEORIAS", 0.12, "casos abertos: ate 3 teorias, pros e contras, sem afirmar; resolvidos: o que fica sem resposta"],
+    ["ARQUIVO+OUTRO+TEASER", 0.05, "o que sabemos e o que nunca saberemos + CTA + teaser do proximo arquivo"]
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "theme": "lost civilization documentary",
+  "cluster": {
+    "theme": "lost civilization documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Aiwala",
+        "id": "UCLxD94qoY7A9wMe-XlvwJkg",
+        "subs": 15100,
+        "age_days": 80,
+        "first5": 1095407,
+        "vpd": 120442,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 16006,
+        "outliers": [
+          {
+            "title": "Dholavira – The Ancient City  | The Lost City of Indus Valley 🏛️",
+            "views": 4490941,
+            "ratio": 280.6,
+            "published": "2026-08-18"
+          }
+        ]
+      },
+      {
+        "channel": "Atlas of Civilizations",
+        "id": "UCY28pCvOA0PrHCqv5x6iaEQ",
+        "subs": 21900,
+        "age_days": 68,
+        "first5": 15197,
+        "vpd": 74113,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 840,
+        "outliers": []
+      },
+      {
+        "channel": "Wrongly Assumed",
+        "id": "UClVmPVF1AxBkx-hcA371RoQ",
+        "subs": 6720,
+        "age_days": 133,
+        "first5": 685151,
+        "vpd": 22541,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 68679,
+        "outliers": [
+          {
+            "title": "Easter Island Was Reanalyzed by AI — And the Statues Were Hiding Something Disturbing",
+            "views": 575266,
+            "ratio": 8.4,
+            "published": "2026-08-20"
+          }
+        ]
+      },
+      {
+        "channel": "Documentary Empire",
+        "id": "UCZ2MWgBwTbdqRPxjDCypRvg",
+        "subs": 13200,
+        "age_days": 257,
+        "first5": 1567722,
+        "vpd": 25092,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5328,
+        "outliers": [
+          {
+            "title": "Lost Cities Beneath the Jungle | The Hidden Kingdoms of the Maya",
+            "views": 615302,
+            "ratio": 115.5,
+            "published": "2026-07-21"
+          }
+        ]
+      },
+      {
+        "channel": "Mr. True States",
+        "id": "UCJ2nItcMYONoyA7Zn6sfyJw",
+        "subs": 14600,
+        "age_days": 250,
+        "first5": 146853,
+        "vpd": 7960,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5637,
+        "outliers": [
+          {
+            "title": "Beneath Florida Lies a Lost World Older Than the Pyramids",
+            "views": 443270,
+            "ratio": 78.6,
+            "published": "2026-08-17"
+          }
+        ]
+      },
+      {
+        "channel": "Decode the Past ",
+        "id": "UCJxk4umoxmCdtUemkRjDdNw",
+        "subs": 1350,
+        "age_days": 170,
+        "first5": 2044,
+        "vpd": 5110,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 205,
+        "outliers": []
+      },
+      {
+        "channel": "Buried Signal",
+        "id": "UCTdYCtuxNqIpw0C7jbrIIag",
+        "subs": 5420,
+        "age_days": 128,
+        "first5": 3787,
+        "vpd": 20581,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 720,
+        "outliers": []
+      },
+      {
+        "channel": "New Cosmic Explorer",
+        "id": "UCyj-eSQ81S0fdD8aVGT6rrg",
+        "subs": 8840,
+        "age_days": 150,
+        "first5": 24081,
+        "vpd": 16633,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 3201,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Aiwala",
+      "Atlas of Civilizations"
+    ],
+    "hungry": [
+      "Aiwala",
+      "Wrongly Assumed",
+      "Documentary Empire",
+      "Mr. True States"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "lost civilization documentary",
+    "depth": 107,
+    "suggestions": [
+      "lost civilization documentary",
+      "lost civilizations documentary bbc",
+      "lost history documentary",
+      "lost civilisations documentary",
+      "lost civilization movie",
+      "ancient lost civilizations documentary",
+      "lost civilization",
+      "lost ancient civilizations",
+      "lost civilization documentary amazon",
+      "lost civilization documentary amazon prime",
+      "lost civilization documentary australia",
+      "lost civilization documentary all",
+      "lost civilization documentary all episodes",
+      "lost civilizations documentary",
+      "lost civilization documentary channel 4",
+      "lost civilization documentary compilation",
+      "lost civilization documentary chernobyl",
+      "lost civilization documentary civilization",
+      "lost civilization documentary documentary",
+      "lost civilization documentary discovery",
+      "lost civilization documentary discovery channel",
+      "lost civilization documentary david attenborough",
+      "lost civilization documentary episode 1",
+      "lost civilization documentary english",
+      "lost civilization documentary explained",
+      "lost civilization documentary earth",
+      "lost civilization documentary full",
+      "lost civilization documentary full movie",
+      "lost civilization documentary film",
+      "lost civilization documentary footage",
+      "lost civilization documentary graham hancock",
+      "lost civilization documentary god",
+      "lost civilization documentary gold",
+      "lost civilization documentary gold mafia",
+      "lost civilization documentary green screen",
+      "lost civilization documentary hair",
+      "lost civilization documentary hail",
+      "lost civilization documentary hailey",
+      "lost civilization documentary hail to the king",
+      "lost civilization documentary hailey bieber",
+      "lost civilization documentary haiti",
+      "lost civilization documentary in hindi",
+      "lost civilization documentary in urdu",
+      "lost civilization documentary in english",
+      "lost civilization documentary joe rogan",
+      "lost civilization documentary james cameron",
+      "lost civilization documentary john wayne",
+      "lost civilization documentary kenneth copeland",
+      "lost civilization documentary kennedy",
+      "lost civilization documentary kenneth hagin",
+      "lost civilization documentary lost",
+      "lost civilization documentary life",
+      "lost civilization documentary latest",
+      "lost civilization documentary lake",
+      "lost civilization documentary lost civilizations",
+      "lost civilization documentary movie",
+      "lost civilization documentary malayalam",
+      "lost civilization documentary music",
+      "lost civilization documentary movie in hindi",
+      "lost civilization documentary netflix",
+      "lost civilization documentary national geographic",
+      "lost civilization documentary new",
+      "lost civilization documentary new york",
+      "lost civilization documentary on space",
+      "lost civilization documentary on netflix",
+      "lost civilization documentary on earth",
+      "lost civilization documentary on amazon prime",
+      "lost civilization documentary online",
+      "lost civilization documentary part 2",
+      "lost civilization documentary part 1",
+      "lost civilization documentary podcast",
+      "lost civilization documentary philippines",
+      "lost civilization documentary playlist",
+      "lost civilization documentary pbs",
+      "lost civilization documentary quantum",
+      "lost civilization documentary quran",
+      "lost civilization documentary quentin tarantino",
+      "lost civilization documentary quebec",
+      "lost civilization documentary reaction",
+      "lost civilization documentary real stories",
+      "lost civilization documentary rte",
+      "lost civilization documentary real",
+      "lost civilization documentary space",
+      "lost civilization documentary series",
+      "lost civilization documentary sky",
+      "lost civilization documentary summary",
+      "the lost civilization documentary",
+      "lost civilization documentary uk",
+      "lost civilization documentary urdu",
+      "lost civilization documentary uncut",
+      "lost civilization documentary video",
+      "lost civilization documentary video essay",
+      "lost civilization documentary video game",
+      "lost civilization documentary video in hindi",
+      "lost civilization documentary war",
+      "lost civilization documentary water",
+      "lost civilization documentary world",
+      "lost civilization documentary with subtitles",
+      "lost civilization documentary xbox",
+      "lost civilization documentary xqc",
+      "lost civilization documentary xi jinping",
+      "lost civilization documentary youtube",
+      "lost civilization documentary yakuza",
+      "lost civilization documentary yfn lucci",
+      "lost civilization documentary zemtv",
+      "lost civilization documentary zack snyder",
+      "lost civilization documentary zack"
+    ]
+  },
+  "trends": {
+    "term": "lost civilization documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

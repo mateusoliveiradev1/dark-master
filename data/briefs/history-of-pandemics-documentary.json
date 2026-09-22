@@ -1,0 +1,234 @@
+{
+  "theme": "history of pandemics documentary",
+  "cluster": {
+    "theme": "history of pandemics documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "HISTORY SEDATED",
+        "id": "UCz9RG2eM11z3zNvdudU5iew",
+        "subs": 4360,
+        "age_days": 256,
+        "first5": 1076,
+        "vpd": 1106,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 144,
+        "outliers": []
+      },
+      {
+        "channel": "Before Us",
+        "id": "UCaqvQHsAp3IyxrUKIzeFLHQ",
+        "subs": 542,
+        "age_days": 80,
+        "first5": 12430,
+        "vpd": 403,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 468,
+        "outliers": []
+      },
+      {
+        "channel": "Blunderprint",
+        "id": "UCxOHzMVMhlJSm_fBalCfKkw",
+        "subs": 114,
+        "age_days": 51,
+        "first5": 4051,
+        "vpd": 1810,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 1311,
+        "outliers": []
+      },
+      {
+        "channel": "The Untold Chronicle",
+        "id": "UCRRXeWp6S9uucX-MMPWiZpg",
+        "subs": 370,
+        "age_days": 74,
+        "first5": 15222,
+        "vpd": 1184,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1445,
+        "outliers": []
+      },
+      {
+        "channel": "World in stories ",
+        "id": "UCh0vMlPt6_S3wqpvA3SRPzg",
+        "subs": 2380,
+        "age_days": 230,
+        "first5": 2559,
+        "vpd": 1585,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 130,
+        "outliers": []
+      },
+      {
+        "channel": "Kidknowshistory",
+        "id": "UCCUhUJ2YMT-mX1SLiSqn_Lw",
+        "subs": 33,
+        "age_days": 61,
+        "first5": 4949,
+        "vpd": 134,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1027.5,
+        "outliers": []
+      },
+      {
+        "channel": "The Curious World 🤯",
+        "id": "UCB16xND7ulLomNBlRBVlT3w",
+        "subs": 119,
+        "age_days": 86,
+        "first5": 3672,
+        "vpd": 197,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 59,
+        "outliers": []
+      },
+      {
+        "channel": "El Último Registro",
+        "id": "UC3EaNjyfK-xrNAnkWR1MVoQ",
+        "subs": 181,
+        "age_days": 70,
+        "first5": 1755,
+        "vpd": 921,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 443,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "The Untold Chronicle"
+    ],
+    "hungry": [],
+    "signal": false,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "history of pandemics documentary",
+    "depth": 88,
+    "suggestions": [
+      "history of pandemics documentary uk",
+      "history of pandemics documentary in hindi",
+      "history of pandemics documentary australia",
+      "history of pandemics documentary around the world",
+      "history of pandemics documentary bbc",
+      "history of pandemics documentary by",
+      "history of pandemics documentary by country",
+      "history of pandemics documentary canada",
+      "history of pandemics documentary channel 4",
+      "history of pandemics documentary china",
+      "history of pandemics documentary compilation",
+      "history of pandemics documentary channel 5",
+      "history of pandemics documentary documentary",
+      "history of pandemics documentary david attenborough",
+      "history of pandemics documentary dw",
+      "history of pandemics documentary english",
+      "history of pandemics documentary explained",
+      "history of pandemics documentary england",
+      "history of pandemics documentary episode 1",
+      "history of pandemics documentary full",
+      "history of pandemics documentary france",
+      "history of pandemics documentary germany",
+      "history of pandemics documentary gacha",
+      "history of pandemics documentary gacha life",
+      "history of pandemics documentary ghana",
+      "history of pandemics documentary game",
+      "history of pandemics documentary haiti",
+      "history of pandemics documentary hai",
+      "history of pandemics documentary hail",
+      "history of pandemics documentary hair",
+      "history of pandemics documentary in urdu",
+      "history of pandemics documentary in english",
+      "history of pandemics documentary japan",
+      "history of pandemics documentary joe rogan",
+      "history of pandemics documentary james cameron",
+      "history of pandemics documentary kenya",
+      "history of pandemics documentary korea",
+      "history of pandemics documentary louis theroux",
+      "history of pandemics documentary latest",
+      "history of pandemics documentary like",
+      "history of pandemics documentary music",
+      "history of pandemics documentary movie",
+      "history of pandemics documentary malayalam",
+      "history of pandemics documentary national geographic",
+      "history of pandemics documentary netflix",
+      "history of pandemics documentary nz",
+      "history of pandemics documentary new zealand",
+      "history of pandemics documentary new york",
+      "history of pandemics documentary old",
+      "history of pandemics documentary oversimplified",
+      "history of pandemics documentary on india",
+      "history of pandemics documentary online",
+      "history of pandemics documentary philippines",
+      "history of pandemics documentary part 2",
+      "history of pandemics documentary part 1",
+      "history of pandemics documentary part 3",
+      "history of pandemics documentary questions",
+      "history of pandemics documentary questions and answers",
+      "history of pandemics documentary quiz",
+      "history of pandemics documentary reaction",
+      "history of pandemics documentary roblox",
+      "history of pandemics documentary russia",
+      "history of pandemics documentary ranking",
+      "history of pandemics documentary real stories",
+      "history of pandemics documentary documentaries",
+      "history of pandemics documentary trailer",
+      "history of pandemics documentary tagalog",
+      "history of pandemics documentary tamil",
+      "history of pandemics documentary usa",
+      "history of pandemics documentary uk 2022",
+      "history of pandemics documentary uk 2023",
+      "history of pandemics documentary video",
+      "history of pandemics documentary ww2",
+      "history of pandemics documentary war",
+      "history of pandemics documentary with subtitles",
+      "history of pandemics documentary with english subtitles",
+      "history of pandemics documentary world",
+      "history of pandemics documentary xqc",
+      "history of pandemics documentary xi jinping",
+      "history of pandemics documentary xi",
+      "history of pandemics documentary youtube",
+      "history of pandemics documentary yfn lucci",
+      "history of pandemics documentary youtube channel",
+      "history of pandemics documentary youtube shorts",
+      "history of pandemics documentary zombies",
+      "history of pandemics documentary zambia",
+      "history of pandemics documentary zimbabwe",
+      "history of pandemics documentary zombie apocalypse"
+    ]
+  },
+  "trends": {
+    "term": "history of pandemics documentary",
+    "error": "sem dados"
+  }
+}

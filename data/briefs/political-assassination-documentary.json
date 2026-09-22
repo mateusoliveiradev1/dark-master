@@ -1,0 +1,275 @@
+{
+  "theme": "political assassination documentary",
+  "cluster": {
+    "theme": "political assassination documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Anuj Bhardwaj",
+        "id": "UC9VNSUhPU16dnjU1Ad5qZTg",
+        "subs": 35200,
+        "age_days": 58,
+        "first5": 1876517,
+        "vpd": 46798,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 268270,
+        "outliers": [
+          {
+            "title": "He Tried to Kill YOGI... Then Everything Changed !",
+            "views": 826861,
+            "ratio": 3.1,
+            "published": "2026-08-01"
+          }
+        ]
+      },
+      {
+        "channel": "Inqalaab",
+        "id": "UCG30mTZR9QVkCrXIJ3ek9Tw",
+        "subs": 72500,
+        "age_days": 340,
+        "first5": 58938,
+        "vpd": 24515,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 11560,
+        "outliers": [
+          {
+            "title": "The Tragic Last Days | The Untold Story of Pervez Musharraf",
+            "views": 191282,
+            "ratio": 16.5,
+            "published": "2026-08-27"
+          }
+        ]
+      },
+      {
+        "channel": "America's Wars",
+        "id": "UCHix-I5_naIDBy78jGsBVDQ",
+        "subs": 4570,
+        "age_days": 221,
+        "first5": 1138,
+        "vpd": 4320,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 127,
+        "outliers": [
+          {
+            "title": "Two Days Before 9/11: The Assassination of Ahmad Shah Massoud",
+            "views": 157080,
+            "ratio": 1236.9,
+            "published": "2026-09-09"
+          }
+        ]
+      },
+      {
+        "channel": "Fact Documentary",
+        "id": "UC37B0o3sgtx6KQE1YlPqCOg",
+        "subs": 10,
+        "age_days": 63,
+        "first5": 3314,
+        "vpd": 232,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 789,
+        "outliers": []
+      },
+      {
+        "channel": "قصص الكشاف",
+        "id": "UCMNP5rpkMVVZUItEeI0X7hQ",
+        "subs": 6900,
+        "age_days": 297,
+        "first5": 45926,
+        "vpd": 1381,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5202,
+        "outliers": []
+      },
+      {
+        "channel": "StoryHouse Africa",
+        "id": "UCA53Ev8O0x6bipTbdQMaDbQ",
+        "subs": 1250,
+        "age_days": 298,
+        "first5": 119593,
+        "vpd": 866,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 160,
+        "outliers": []
+      },
+      {
+        "channel": " No Thoughts, Head Empty",
+        "id": "UCPsgktHvFJ4X08xA4_l8q9Q",
+        "subs": 2430,
+        "age_days": 313,
+        "first5": 103184,
+        "vpd": 16572,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 22827,
+        "outliers": []
+      },
+      {
+        "channel": "Capital of DOC",
+        "id": "UC6N5IVFP-qYAZMQaMEPLbIw",
+        "subs": 78,
+        "age_days": 79,
+        "first5": 6192,
+        "vpd": 308,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1079,
+        "outliers": [
+          {
+            "title": "Indira Gandhi Assassination | Kyu Li Gayi Unki Jaan? | The Untold Story | 2D Animation",
+            "views": 15528,
+            "ratio": 14.4,
+            "published": "2026-08-09"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Anuj Bhardwaj"
+    ],
+    "hungry": [
+      "Anuj Bhardwaj",
+      "Inqalaab",
+      "America's Wars",
+      "Capital of DOC"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "political assassination documentary",
+    "depth": 96,
+    "suggestions": [
+      "political assassination documentary",
+      "political assassination",
+      "political assassination documentary audio",
+      "political assassination documentary all",
+      "political assassination documentary american",
+      "political assassination documentary american experience",
+      "political assassination documentary all episodes",
+      "political assassination documentary bbc",
+      "political assassination documentary by satyajit ray",
+      "political assassination documentary chapter 1",
+      "political assassination documentary china",
+      "political assassination documentary channel 4",
+      "political assassination documentary documentary",
+      "political assassination documentary dw",
+      "political assassination documentary david attenborough",
+      "political assassination documentary english",
+      "political assassination documentary explained",
+      "political assassination documentary episode 1",
+      "political assassination documentary full",
+      "political assassination documentary film",
+      "political assassination documentary full movie",
+      "political assassination documentary gma",
+      "political assassination documentary gta 5",
+      "political assassination documentary german",
+      "political assassination documentary gacha",
+      "political assassination documentary gta",
+      "political assassination documentary haiti",
+      "political assassination documentary hai",
+      "political assassination documentary hailey",
+      "political assassination documentary hail to the king",
+      "political assassination documentary hail",
+      "political assassination documentary hair",
+      "political assassination documentary in hindi",
+      "political assassination documentary in english",
+      "political assassination documentary in urdu",
+      "political assassination documentary joe rogan",
+      "political assassination documentary japan",
+      "political assassination documentary japanese",
+      "political assassination documentary james cameron",
+      "political assassination documentary james webb",
+      "political assassination documentary korean",
+      "political assassination documentary korea",
+      "political assassination documentary kenya",
+      "political assassination documentary kara david",
+      "political assassination documentary latest",
+      "political assassination documentary last scene",
+      "political assassination documentary last day on earth",
+      "political assassination documentary last minute",
+      "political assassination documentary last days",
+      "political assassination documentary movie",
+      "political assassination documentary malayalam",
+      "political assassination documentary music",
+      "political assassination documentary netflix",
+      "political assassination documentary national geographic",
+      "political assassination documentary nova",
+      "political assassination documentary on netflix",
+      "political assassination documentary osama bin laden",
+      "political assassination documentary online",
+      "political assassination documentary part 1",
+      "political assassination documentary philippines",
+      "political assassination documentary part 2",
+      "political assassination documentary part 3",
+      "political assassination documentary pbs",
+      "political assassination documentary questions",
+      "political assassination documentary quiz",
+      "political assassination documentary quotes",
+      "political assassination documentary questions and answers",
+      "political assassination documentary reaction",
+      "political assassination documentary review",
+      "political assassination documentary roblox",
+      "political assassination documentary russia",
+      "political assassination documentary real stories",
+      "political assassination documentary series",
+      "political assassination documentary south africa",
+      "political assassination documentary summary",
+      "political assassination documentary trailer",
+      "political assassination documentary tagalog",
+      "political assassination documentary tv series",
+      "political assassination documentary tagalog version",
+      "political assassination documentary uk",
+      "political assassination documentary urdu",
+      "political assassination documentary usa",
+      "political assassination documentary with subtitles",
+      "political assassination documentary with english subtitles",
+      "political assassination documentary war",
+      "political assassination documentary ww2",
+      "political assassination documentary xqc",
+      "political assassination documentary xbox",
+      "political assassination documentary xdefiant",
+      "political assassination documentary xd",
+      "political assassination documentary youtube",
+      "political assassination documentary yakuza",
+      "political assassination documentary yfn lucci",
+      "political assassination documentary zambia",
+      "political assassination documentary zed",
+      "political assassination documentary zac poonen"
+    ]
+  },
+  "trends": {
+    "term": "political assassination documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

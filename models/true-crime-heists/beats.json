@@ -1,0 +1,12 @@
+{
+  "true-crime-heists": [
+    ["COLD OPEN", 0.06, "o relogio/detalhe mais estranho VERIFICADO (nao o roubo): 81 minutos, 7 minutos, o cofre intacto, o tunel; pergunta central (o dinheiro)"],
+    ["O ALVO", 0.14, "o que foi levado, onde estava, quanto valia; como funcionava a seguranca; stakes concretos sem sensacionalismo"],
+    ["A EQUIPE", 0.12, "quem planejou e quem executou; habilidades, dividas, rotina; humaniza; pessoa viva = alleged"],
+    ["O PLANO", 0.16, "a construcao do golpe: tunel, esgoto, disfarce, insider, ensaio; o quebra-cabeca do como; diagramas"],
+    ["O DIA", 0.20, "cronologia minuto a minuto; frases curtas; beats de 1 linha; o dinheiro se move"],
+    ["O DINHEIRO", 0.14, "para onde foi: cortes, esconderijos, lavagem, seguro, resgate; o que nunca apareceu; camadas [FATO]/[REPORTADO]"],
+    ["A CACADA", 0.12, "investigacao: o que a policia fez/falhou; pericia (fita, impressao digital, delacao); recompensa; os anos de arquivo"],
+    ["ARQUIVO ABERTO+TEASER", 0.06, "o que falta para resolver + CTA + teaser do proximo heist"]
+  ]
+}

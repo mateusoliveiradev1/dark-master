@@ -1,0 +1,246 @@
+{
+  "theme": "shipwreck documentary",
+  "cluster": {
+    "theme": "shipwreck documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Atlas One",
+        "id": "UCFGbFxED1ZssIePFzToxRxA",
+        "subs": 3670,
+        "age_days": 66,
+        "first5": 138751,
+        "vpd": 32060,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1363,
+        "outliers": [
+          {
+            "title": "They Were Left On An Island For 15 Years: True Survival Story",
+            "views": 1594246,
+            "ratio": 1169.7,
+            "published": "2026-09-08"
+          }
+        ]
+      },
+      {
+        "channel": "Forbidden Mysteries",
+        "id": "UCNufNR6sP0N9_ufD7-9PalQ",
+        "subs": 34800,
+        "age_days": 363,
+        "first5": 12283,
+        "vpd": 17063,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1233,
+        "outliers": []
+      },
+      {
+        "channel": "FunWorldFun",
+        "id": "UCPduUP9tOi6dJzdbwfGZ39Q",
+        "subs": 1460,
+        "age_days": 56,
+        "first5": 178905,
+        "vpd": 30642,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 30,
+        "outliers": []
+      },
+      {
+        "channel": "Día 0",
+        "id": "UCF3564DK6IJGhc2hunAjFlw",
+        "subs": 11500,
+        "age_days": 203,
+        "first5": 45973,
+        "vpd": 52122,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1592,
+        "outliers": []
+      },
+      {
+        "channel": "Before Us",
+        "id": "UC39aOSx1znqpiQjKb5MOe_A",
+        "subs": 6260,
+        "age_days": 287,
+        "first5": 14583,
+        "vpd": 1411,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 422,
+        "outliers": []
+      },
+      {
+        "channel": "New Discovery",
+        "id": "UC-w6ewC0s0u4r86H3mjwcVA",
+        "subs": 49400,
+        "age_days": 215,
+        "first5": 81984,
+        "vpd": 57182,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 9850,
+        "outliers": []
+      },
+      {
+        "channel": "Buried Frequencys",
+        "id": "UC79UoVZuvTRdWAg6yOTd8ig",
+        "subs": 162,
+        "age_days": 15,
+        "first5": 16640,
+        "vpd": 15620,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2725,
+        "outliers": [
+          {
+            "title": "Why Every Titanic Movie Gets This Wrong 🌑",
+            "views": 42050,
+            "ratio": 15.4,
+            "published": "2026-09-16"
+          }
+        ]
+      },
+      {
+        "channel": "Cine Addict",
+        "id": "UCErfJ3MKrTW9mDspB5d9nPw",
+        "subs": 53,
+        "age_days": 297,
+        "first5": 16459,
+        "vpd": 55,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 99.0,
+        "outliers": [
+          {
+            "title": "Shipwrecked,Nightmare At Sea Full Hd Movie.",
+            "views": 16259,
+            "ratio": 164.2,
+            "published": "2026-07-10"
+          }
+        ]
+      }
+    ],
+    "passed": [
+      "Buried Frequencys"
+    ],
+    "emerging": [
+      "Atlas One",
+      "FunWorldFun"
+    ],
+    "hungry": [
+      "Atlas One",
+      "Buried Frequencys",
+      "Cine Addict"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "shipwreck documentary",
+    "depth": 72,
+    "suggestions": [
+      "shipwreck documentary",
+      "shipwreck documentary great lakes",
+      "batavia shipwreck documentary",
+      "atocha shipwreck documentary",
+      "shipwreck treasure documentary",
+      "endurance shipwreck documentary",
+      "uluburun shipwreck documentary",
+      "fitzgerald shipwreck documentary",
+      "ww2 shipwreck documentary",
+      "titanic shipwreck documentary",
+      "shipwreck discovery documentary",
+      "antikythera shipwreck documentary",
+      "san jose shipwreck documentary",
+      "bom jesus shipwreck documentary",
+      "shipwrecks found",
+      "shipwreck investigation",
+      "shipwreck tomb",
+      "shipwreck detectives",
+      "sinking cities documentary",
+      "shipwreck full movie",
+      "shipwreck edmund fitzgerald documentary",
+      "shipwreck haunted movie",
+      "shipwreck documentary in hindi",
+      "shipwreck documentary in urdu",
+      "shipwreck documentary in english",
+      "shipwreck documentary in tamil",
+      "shipwreck documentary james webb",
+      "shipwreck documentary james cameron",
+      "shipwreck documentary joe rogan",
+      "shipwreck documentary jungle",
+      "shipwreck documentary kannada",
+      "shipwreck documentary ken burns",
+      "shipwreck documentary kobe bryant",
+      "shipwreck documentary kyoto",
+      "shipwreck documentary movie",
+      "shipwreck documentary music",
+      "shipwreck documentary malayalam",
+      "shipwreck documentary minecraft",
+      "shipwreck documentary national geographic",
+      "shipwreck documentary netflix",
+      "shipwreck documentary netflix trailer",
+      "shipwreck documentary on netflix",
+      "shipwreck documentary on amazon",
+      "shipwreck documentary on discovery",
+      "shipwreck documentary on discovery channel",
+      "shipwreck documentary on amazon forest",
+      "shipwreck documentary online",
+      "shipwreck documentary philippines",
+      "shipwreck documentary podcast",
+      "shipwreck documentary part 2",
+      "shipwreck documentary philadelphia",
+      "shipwreck documentary part 1",
+      "shipwreck documentary quezon city",
+      "shipwreck documentary qatar",
+      "shipwreck documentary quirino",
+      "shipwreck documentary real stories",
+      "shipwreck documentary real footage",
+      "shipwreck documentary reaction",
+      "shipwreck documentary red bull",
+      "shipwreck documentary real",
+      "shipwreck movie scene",
+      "sinking ship documentary",
+      "ship disaster documentary",
+      "shipwreck exploration",
+      "shipwreck documentary video",
+      "shipwreck documentary video footage",
+      "shipwreck documentary xbox",
+      "shipwreck documentary x factor",
+      "shipwreck documentary youtube",
+      "shipwreck documentary zemtv",
+      "shipwreck documentary zambia",
+      "shipwreck documentary zimbabwe"
+    ]
+  },
+  "trends": {
+    "term": "shipwreck documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "archaeology-artifacts": [
+    ["COLD OPEN", 0.05, "o momento exato do achado (escavacao, dragagem, leilao, museu); o detalhe fisico que nao fecha com o resto; a pergunta central; nada de intro, nada de data antes do gancho"],
+    ["O OBJETO", 0.14, "biografia fisica do artefato: material, dimensoes, marcas de uso, inscricao; close e desenho tecnico; o que ele e e o que deveria ser para a epoca"],
+    ["O SITIO", 0.13, "onde foi encontrado: camada, contexto, quem achou e quando; mapa do sitio e linha do tempo; o que o contexto (ou a falta dele) ja prova"],
+    ["A CIENCIA", 0.18, "os metodos reais aplicados: estratigrafia, C14, termoluminescencia, isotopos, DNA antigo, microscopia, raio-X; o que cada analise provou ou descartou; 1 peca primaria por video (paper, relatorio de escavacao, laudo)"],
+    ["AS INTERPRETACOES", 0.14, "as leituras rivais: academica vs alternativa; rotular FATO/REPORTADO/LENDA; por que a versao sensacionalista nao passa no teste da evidencia"],
+    ["O TESTE", 0.14, "o experimento, a replica ou a reanalise que virou o jogo; o que ele mudou no significado do objeto; numeros concretos"],
+    ["O QUE FALTA", 0.12, "as lacunas reais: o que ainda nao foi analisado, quais amostras faltam, o que resolveria; sem afirmar o que nao esta provado"],
+    ["OUTRO+TEASER", 0.10, "o proximo artefato do arquivo; CTA especifico; fim abrupto sem despedida"]
+  ]
+}

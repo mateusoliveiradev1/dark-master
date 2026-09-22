@@ -1,0 +1,12 @@
+{
+  "nature-extreme": [
+    ["COLD OPEN", 0.06, "o detalhe estranho VERIFICADO do registro (o mar que recuou, o muro que era baixo, o som ouvido a milhares de km, o rio sem chuva); pergunta central (por que a forca da natureza venceu)"],
+    ["CONTEXTO", 0.13, "o lugar e as pessoas: geografia, comunidade, o que era um dia normal naquela semana; humaniza sem sentimentalismo"],
+    ["A FORCA", 0.14, "o mecanismo natural: tectonica, ciclone, glaciar, vulcao; a ciencia explicada com fonte (USGS/NOAA/GVP/NASA)"],
+    ["O DIA", 0.17, "cronologia minuto a minuto; frases curtas; beats de 1 linha; o desastre sem gore e sem imagem de vitima"],
+    ["A CADEIA", 0.14, "o que agravou: alerta ausente, muro baixo, mapa de risco errado, decisao adiada; a cadeia de causas (camadas FATO/REPORTADO)"],
+    ["A RESPOSTA", 0.12, "resgate, evacuacao e primeiras 24h; quem entrou e quem esperou; erro da primeira declaracao oficial"],
+    ["O REGISTRO", 0.14, "dados oficiais (USGS/NOAA/Smithsonian GVP/relatorio); o que a ciencia aprendeu; o que mudou em alerta, codigo ou mapa de risco"],
+    ["MEMORIA+ARQUIVO+TEASER", 0.10, "o que a comunidade virou; o que nunca saberemos; CTA + teaser do proximo caso"]
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "theme": "unidentified killer documentary",
+  "cluster": {
+    "theme": "unidentified killer documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "ZDF True Crime",
+        "id": "UCynSg15i7kLO4egGAQD044w",
+        "subs": 97900,
+        "age_days": 333,
+        "first5": 1281534,
+        "vpd": 106974,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 163722,
+        "outliers": [
+          {
+            "title": "Die unbekannte Tote: Polizei sucht verzweifelt ihre Identität | ZDF True Crime",
+            "views": 570768,
+            "ratio": 3.5,
+            "published": "2026-08-21"
+          }
+        ]
+      },
+      {
+        "channel": "Cold Case Reopened",
+        "id": "UCHF9iZLaa0d3kRYNKtXrlrw",
+        "subs": 12600,
+        "age_days": 146,
+        "first5": 452673,
+        "vpd": 13574,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 24574,
+        "outliers": [
+          {
+            "title": "NEW HAMPSHIRE 1985 Cold Case Solved After 32 Years — Justice for the Bear Brook",
+            "views": 118791,
+            "ratio": 4.8,
+            "published": "2026-09-11"
+          }
+        ]
+      },
+      {
+        "channel": "The Investigation Room",
+        "id": "UCDBCRpOkhZr8kknLRN_KWtQ",
+        "subs": 20800,
+        "age_days": 257,
+        "first5": 8855,
+        "vpd": 6608,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 2798,
+        "outliers": []
+      },
+      {
+        "channel": "The Living Archive",
+        "id": "UCKsVoWCJAaQUmjyoP-CsE9g",
+        "subs": 273,
+        "age_days": 113,
+        "first5": 16429,
+        "vpd": 2436,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2911,
+        "outliers": []
+      },
+      {
+        "channel": "I'm Stickmen",
+        "id": "UC6UR0_Kx03eCt1W5oICehRg",
+        "subs": 65,
+        "age_days": 56,
+        "first5": 2888,
+        "vpd": 367,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1207,
+        "outliers": []
+      },
+      {
+        "channel": "Before the 90s",
+        "id": "UClwnC9xDLl53Yjax8DBrm4w",
+        "subs": 445,
+        "age_days": 250,
+        "first5": 5138,
+        "vpd": 632,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1346,
+        "outliers": []
+      },
+      {
+        "channel": "CRIME HQ",
+        "id": "UCG4quguQFJG1XoiKgLpvilQ",
+        "subs": 1120,
+        "age_days": 323,
+        "first5": 2619,
+        "vpd": 293,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 546,
+        "outliers": []
+      },
+      {
+        "channel": "الراوي -  قصص حقيقية ",
+        "id": "UCH2khhmrKAZIf2x6ZZgMb3Q",
+        "subs": 225,
+        "age_days": 69,
+        "first5": 5204,
+        "vpd": 557,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 768,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "hungry": [
+      "ZDF True Crime",
+      "Cold Case Reopened"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "unidentified killer documentary",
+    "depth": 111,
+    "suggestions": [
+      "unidentified serial killer documentary",
+      "unidentified serial killer",
+      "unidentified doe",
+      "unidentified killer documentary australia",
+      "unidentified killer documentary audiobook",
+      "unidentified killer documentary amazon prime",
+      "unidentified killer documentary a&e",
+      "unidentified killer documentary amazon",
+      "unidentified killer documentary born to kill",
+      "unidentified killer documentary bbc",
+      "unidentified killer documentary borneo",
+      "unidentified killer documentary best",
+      "unidentified killer documentary channel 4",
+      "unidentified killer documentary canada",
+      "unidentified killer documentary compilation",
+      "unidentified killer documentary channel 5",
+      "unidentified killer documentary charlie",
+      "unidentified killer documentary cnn",
+      "unidentified killer documentary cbs",
+      "unidentified killer documentary dub",
+      "unidentified killer documentary deutsch",
+      "unidentified killer documentary dublin",
+      "unidentified killer documentary documentary",
+      "unidentified killer documentary episode 1",
+      "unidentified killer documentary episodes",
+      "unidentified killer documentary episode 2",
+      "unidentified killer documentary english",
+      "unidentified killer documentary ending",
+      "unidentified killer documentary full",
+      "unidentified killer documentary full episode",
+      "unidentified killer documentary full movie",
+      "unidentified killer documentary film",
+      "unidentified killer documentary german",
+      "unidentified killer documentary gone wrong",
+      "unidentified killer documentary ghost",
+      "unidentified killer documentary geek",
+      "unidentified killer documentary german dub",
+      "unidentified killer documentary hair",
+      "unidentified killer documentary hailey",
+      "unidentified killer documentary hair transplant",
+      "unidentified killer documentary hairdresser",
+      "unidentified killer documentary haiti",
+      "unidentified killer documentary in hindi",
+      "unidentified killer documentary intro",
+      "unidentified killer documentary in urdu",
+      "unidentified killer documentary in english",
+      "unidentified killer documentary id",
+      "unidentified killer documentary itv",
+      "unidentified killer documentary jeffrey dahmer",
+      "unidentified killer documentary japanese",
+      "unidentified killer documentary jeff",
+      "unidentified killer documentary jordan",
+      "unidentified killer documentary jeffree star",
+      "unidentified killer documentary uk",
+      "unidentified killer documentary lyrics",
+      "unidentified killer documentary latest",
+      "unidentified killer documentary lost ark",
+      "unidentified killer documentary los angeles",
+      "unidentified killer documentary movie",
+      "unidentified killer documentary music",
+      "unidentified killer documentary max",
+      "unidentified killer documentary macbeth",
+      "unidentified killer documentary netflix",
+      "unidentified killer documentary new",
+      "unidentified killer documentary new york",
+      "unidentified killer documentary nz",
+      "unidentified killer documentary netflix trailer",
+      "unidentified killer documentary on netflix",
+      "unidentified killer documentary original",
+      "unidentified killer documentary osrs",
+      "unidentified killer documentary outro",
+      "unidentified killer documentary on youtube",
+      "unidentified killer documentary online",
+      "unidentified killer documentary part 2",
+      "unidentified killer documentary part 1",
+      "unidentified killer documentary playlist",
+      "unidentified killer documentary part 3",
+      "unidentified killer documentary pt 2",
+      "unidentified killer documentary podcast",
+      "unidentified killer documentary queen",
+      "unidentified killer documentary quest",
+      "unidentified killer documentary queen elizabeth",
+      "unidentified killer documentary reaction",
+      "unidentified killer documentary review",
+      "unidentified killer documentary real life",
+      "unidentified killer documentary real",
+      "unidentified killer documentary real stories",
+      "unidentified killer documentary reddit",
+      "unsolved murders documentary",
+      "unidentified killer documentary trailer",
+      "unidentified killer documentary the deep",
+      "unidentified killer documentary transcript",
+      "unidentified killer documentary usa",
+      "unidentified killer documentary us",
+      "unidentified killer documentary us army",
+      "unidentified killer documentary us trailer",
+      "unidentified killer documentary video",
+      "unidentified killer documentary video game",
+      "unidentified killer documentary with subtitles",
+      "unidentified killer documentary with",
+      "unidentified killer documentary with english subtitles",
+      "unidentified killer documentary with lyrics",
+      "unidentified killer documentary xbox",
+      "unidentified killer documentary xrp",
+      "unidentified killer documentary xl",
+      "unidentified killer documentary youtube",
+      "unidentified killer documentary zelda",
+      "unidentified killer documentary zara",
+      "unidentified killer documentary zee",
+      "unidentified killer documentary zemtv",
+      "unidentified killer documentary zeenunew"
+    ]
+  },
+  "trends": {
+    "term": "unidentified killer documentary",
+    "avg_recent": 0.0,
+    "avg_prior": 8.333333333333334,
+    "direction": "BAIXA",
+    "rising": []
+  }
+}

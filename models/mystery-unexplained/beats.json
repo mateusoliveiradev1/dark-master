@@ -1,0 +1,12 @@
+{
+  "mystery-unexplained": [
+    ["COLD OPEN", 0.05, "a anomalia concreta verificada (nao a teoria); pergunta central; nada de data/local antes do gancho"],
+    ["CONTEXTO", 0.15, "quem/onde/quando com fontes; o que estava documentado antes do evento; humaniza sem sensacionalismo"],
+    ["A EVIDENCIA", 0.20, "o que existe de concreto: registros, fotos, audio, documentos; o que cada peca prova e o que NAO prova"],
+    ["AS EXPLICACOES", 0.22, "2-3 hipoteses, comecando pela convencional; pros e contras; ceticismo ativo; sem afirmar causa"],
+    ["O QUE FALTA", 0.15, "o que seria preciso para fechar o caso; limites da investigacao; incerteza explicita"],
+    ["O ARQUIVO", 0.10, "casos analogos e onde o padrao reaparece; coincidencia ou repeticao; dados comparaveis"],
+    ["ANGULO NAO COBERTO", 0.08, "o detalhe que quase ninguem cita; a contradicao central do caso; leitura propria com fonte"],
+    ["OUTRO+TEASER", 0.05, "o que sabemos e o que continua aberto + CTA + teaser do proximo arquivo"]
+  ]
+}

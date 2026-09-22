@@ -1,0 +1,202 @@
+{
+  "theme": "hoax documentary",
+  "cluster": {
+    "theme": "hoax documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "The Orbitarium",
+        "id": "UCiGEEwB8mZLBskw7gtpHh4Q",
+        "subs": 2960,
+        "age_days": 206,
+        "first5": 1172983,
+        "vpd": 14771,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 57677,
+        "outliers": []
+      },
+      {
+        "channel": "晚松講故事",
+        "id": "UCHr7cEJhgWFL6Zqtd6D-6QA",
+        "subs": 6570,
+        "age_days": 88,
+        "first5": 37524,
+        "vpd": 179650,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1996,
+        "outliers": []
+      },
+      {
+        "channel": "Uncanny",
+        "id": "UC53nK8smLjVBDmltMfZjSSw",
+        "subs": 45900,
+        "age_days": 180,
+        "first5": 157831,
+        "vpd": 11103,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 7777,
+        "outliers": [
+          {
+            "title": "The Enfield Poltergeist: Haunting or Hoax? | Live - Crossed Wires",
+            "views": 118719,
+            "ratio": 15.3,
+            "published": "2026-07-16"
+          }
+        ]
+      },
+      {
+        "channel": "Web Crime",
+        "id": "UCMO5-XQnQQ5W975B5GnaDKQ",
+        "subs": 2440,
+        "age_days": 38,
+        "first5": 85825,
+        "vpd": 21385,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 4898,
+        "outliers": []
+      },
+      {
+        "channel": "Shubh Kaayande",
+        "id": "UC2P7mDMeA2sughuQPkXRmxw",
+        "subs": 1310,
+        "age_days": 238,
+        "first5": 160759,
+        "vpd": 1442,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2455,
+        "outliers": []
+      },
+      {
+        "channel": "Архив Мортимера Холмса",
+        "id": "UCY9MorSi-Qw4Hpu9C9UwQsQ",
+        "subs": 5460,
+        "age_days": 196,
+        "first5": 33671,
+        "vpd": 17409,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2254,
+        "outliers": []
+      },
+      {
+        "channel": "CURIVIOS",
+        "id": "UCuIhRX6eo5IQ6ciXkTKVXZA",
+        "subs": 9,
+        "age_days": 28,
+        "first5": 19227,
+        "vpd": 794,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 79,
+        "outliers": [
+          {
+            "title": "The Sea Vanished in Argentina? The Viral Video That Wasn't #shorts #viralshorts",
+            "views": 18927,
+            "ratio": 239.6,
+            "published": "2026-08-30"
+          }
+        ]
+      },
+      {
+        "channel": "Reactify",
+        "id": "UCikjOMWyhSwbaMAaIsiBE-Q",
+        "subs": 177,
+        "age_days": 93,
+        "first5": 2181,
+        "vpd": 556,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 168,
+        "outliers": []
+      }
+    ],
+    "passed": [
+      "Web Crime"
+    ],
+    "emerging": [
+      "晚松講故事",
+      "CURIVIOS"
+    ],
+    "hungry": [
+      "Uncanny",
+      "CURIVIOS"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "hoax documentary",
+    "depth": 36,
+    "suggestions": [
+      "fake baby documentary",
+      "fake birds documentary",
+      "horizon bbc documentary",
+      "fake dollars documentary",
+      "fake dragon documentary",
+      "harvey weinstein documentary",
+      "fake essay documentary",
+      "fake documentary impractical jokers",
+      "fake id documentary",
+      "fake influencer documentary",
+      "deception island documentary",
+      "fake documentary iceberg",
+      "fake japanese documentary",
+      "fake jury documentary",
+      "fake judge documentary",
+      "james holmes documentary",
+      "jfk family documentary",
+      "fake lawyer documentary",
+      "fake documentary q",
+      "fake documentary q sanctuary",
+      "fake documentary q explained",
+      "fake documentary q reaction",
+      "fake documentary q basement",
+      "fake documentary q helter skelter",
+      "fake documentary q house of mirrors",
+      "fake documentary q spare key",
+      "fake documentary q passengers",
+      "fake documentary q cursed video",
+      "fake documentary q review",
+      "fake documentary q non fiction",
+      "fake documentary q night mind",
+      "fake documentary q depressed face",
+      "fake rice documentary",
+      "fake rich documentary",
+      "harun farocki films",
+      "harun farocki"
+    ]
+  },
+  "trends": {
+    "term": "hoax documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

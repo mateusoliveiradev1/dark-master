@@ -1,0 +1,248 @@
+{
+  "theme": "forensic toxicology documentary",
+  "cluster": {
+    "theme": "forensic toxicology documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Brief Ledger",
+        "id": "UCCNC_kven7fp1ld80tfbYFw",
+        "subs": 3420,
+        "age_days": 272,
+        "first5": 46350,
+        "vpd": 1417,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 7508,
+        "outliers": []
+      },
+      {
+        "channel": "The Crime Journal",
+        "id": "UCE-iOA3Cqq_n1tdTN4arRxw",
+        "subs": 975,
+        "age_days": 189,
+        "first5": 8256,
+        "vpd": 647,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 113,
+        "outliers": [
+          {
+            "title": "Nolan Wells UPDATE: State Autopsy COMPLETE — New Audio, Phone Search Results & Shocking New Evidence",
+            "views": 2823,
+            "ratio": 25.0,
+            "published": "2026-08-03"
+          }
+        ]
+      },
+      {
+        "channel": "True Crime Documentaries",
+        "id": "UCiLDIZoV4AXtGGzLFM8a-nA",
+        "subs": 193,
+        "age_days": 85,
+        "first5": 1457,
+        "vpd": 1396,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 59,
+        "outliers": []
+      },
+      {
+        "channel": "World's Greatest Investigations",
+        "id": "UCcRoTOaOalOeRF3hSJHGOrQ",
+        "subs": 173,
+        "age_days": 67,
+        "first5": 3642,
+        "vpd": 885,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 306,
+        "outliers": []
+      },
+      {
+        "channel": "Forgotten Record",
+        "id": "UCm3mwIykA124Yma3h-JR2_g",
+        "subs": 44,
+        "age_days": 197,
+        "first5": 2872,
+        "vpd": 211,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 580,
+        "outliers": []
+      },
+      {
+        "channel": "Crime Justice Alert",
+        "id": "UCgvXRUgJ1_9ce6-6ZUuSAZg",
+        "subs": 390,
+        "age_days": 181,
+        "first5": 8761,
+        "vpd": 419,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 345,
+        "outliers": []
+      },
+      {
+        "channel": "Crime Daily",
+        "id": "UC2TWck0QQgri-en8813vK2Q",
+        "subs": 3770,
+        "age_days": 187,
+        "first5": 5016,
+        "vpd": 3929,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 129,
+        "outliers": []
+      },
+      {
+        "channel": "TMK Criminal",
+        "id": "UC7aiOJBxkeyjy3b_muga8Ow",
+        "subs": 14,
+        "age_days": 54,
+        "first5": 790,
+        "vpd": 17,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 51.5,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [],
+    "hungry": [
+      "The Crime Journal"
+    ],
+    "signal": false,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "forensic toxicology documentary",
+    "depth": 95,
+    "suggestions": [
+      "forensic toxicology documentary in hindi",
+      "forensic toxicology documentary australia",
+      "forensic toxicology documentary amazon prime",
+      "forensic toxicology documentary amazon",
+      "forensic toxicology documentary all",
+      "forensic toxicology documentary all episodes",
+      "forensic toxicology documentary bbc",
+      "forensic toxicology documentary bangla",
+      "forensic toxicology documentary channel 4",
+      "forensic toxicology documentary channel",
+      "forensic toxicology documentary canada",
+      "forensic toxicology documentary china",
+      "forensic toxicology documentary covid",
+      "forensic toxicology documentary documentary",
+      "forensic toxicology documentary david attenborough",
+      "forensic toxicology documentary discovery channel",
+      "forensic toxicology documentary dubbed",
+      "forensic toxicology documentary english",
+      "forensic toxicology documentary english subtitles",
+      "forensic toxicology documentary explained",
+      "forensic toxicology documentary episode 1",
+      "forensic toxicology documentary full",
+      "forensic toxicology documentary film",
+      "forensic toxicology documentary full movie",
+      "forensic toxicology documentary gma",
+      "forensic toxicology documentary geology",
+      "forensic toxicology documentary hair",
+      "forensic toxicology documentary hai",
+      "forensic toxicology documentary hair transplant",
+      "forensic toxicology documentary hai ki nahin",
+      "forensic toxicology documentary haiti",
+      "forensic toxicology documentary in english",
+      "forensic toxicology documentary in tamil",
+      "forensic toxicology documentary in urdu",
+      "forensic toxicology documentary in telugu",
+      "forensic toxicology documentary japan",
+      "forensic toxicology documentary james webb",
+      "forensic toxicology documentary james cameron",
+      "forensic toxicology documentary john oliver",
+      "forensic toxicology documentary jin",
+      "forensic toxicology documentary kannada",
+      "forensic toxicology documentary korean",
+      "forensic toxicology documentary korea",
+      "forensic toxicology documentary kerala",
+      "forensic toxicology documentary latest",
+      "forensic toxicology documentary lecture",
+      "forensic toxicology documentary list",
+      "forensic toxicology documentary laboratory",
+      "forensic toxicology documentary language",
+      "forensic toxicology documentary malayalam",
+      "forensic toxicology documentary movie",
+      "forensic toxicology documentary malayalam review",
+      "forensic toxicology documentary netflix",
+      "forensic toxicology documentary national geographic",
+      "forensic toxicology documentary new",
+      "forensic toxicology documentary new zealand",
+      "forensic toxicology documentary on netflix",
+      "forensic toxicology documentary on youtube",
+      "forensic toxicology documentary old",
+      "forensic toxicology documentary on drugs",
+      "forensic toxicology documentary online",
+      "forensic toxicology documentary philippines",
+      "forensic toxicology documentary playlist",
+      "forensic toxicology documentary part 2",
+      "forensic toxicology documentary part 1",
+      "forensic toxicology documentary pbs",
+      "forensic toxicology documentary questions",
+      "forensic toxicology documentary questions and answers",
+      "forensic toxicology documentary review",
+      "forensic toxicology documentary reaction",
+      "forensic toxicology documentary radiology",
+      "forensic toxicology documentary south africa",
+      "forensic toxicology documentary scene",
+      "forensic toxicology documentary summary",
+      "forensic toxicology documentary song",
+      "forensic toxicology documentary subtitles",
+      "forensic toxicology documentary tamil",
+      "forensic toxicology documentary telugu",
+      "forensic toxicology documentary trailer",
+      "forensic toxicology documentary tagalog",
+      "forensic toxicology documentary uk",
+      "forensic toxicology documentary urdu",
+      "forensic toxicology documentary university",
+      "forensic toxicology documentary urdu dubbed",
+      "forensic toxicology documentary video",
+      "forensic toxicology documentary wion",
+      "forensic toxicology documentary with english subtitles",
+      "forensic toxicology documentary writing",
+      "forensic toxicology documentary xylem",
+      "forensic toxicology documentary xrp",
+      "forensic toxicology documentary xi jinping",
+      "forensic toxicology documentary youtube",
+      "forensic toxicology documentary youtube channel",
+      "forensic toxicology documentary zambia",
+      "forensic toxicology documentary zero"
+    ]
+  },
+  "trends": {
+    "term": "forensic toxicology documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

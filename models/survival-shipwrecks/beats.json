@@ -1,0 +1,13 @@
+{
+  "survival-shipwrecks": [
+    ["COLD OPEN", 0.05, "cena concreta do registro: ultimo sinal de radio, foto do casco no fundo ou objeto recuperado; a pergunta central (por que o navio se perdeu); nada de intro"],
+    ["O NAVIO E AS PESSOAS", 0.12, "o navio como personagem (construcao, rota, epoca) e quem estava a bordo; nomes, cargos e rotina; humaniza sem sentimentalismo"],
+    ["A VIAGEM FATAL", 0.12, "os dias e as horas antes: decisoes, sinais, avisos e a rotina que parecia normal; tensao crescente por detalhe concreto; sem antecipar o desfecho"],
+    ["A PERDA", 0.18, "cronologia minuto a minuto do naufragio ou desaparecimento; frases curtas; um beat por evento; aqui vive o momento impossivel"],
+    ["O SILENCIO E O RESGATE", 0.12, "SOS, abandono e primeiras 24h; quem ouviu, quem chegou e quem nao chegou; relatos de sobreviventes e jornais da epoca, com fonte"],
+    ["A BUSCA", 0.13, "anos ou decadas de busca: expedicoes, sonar, ROV, caçadores de naufragio e pesquisadores; o que cada tentativa custou e o que descartou"],
+    ["A DESCOBERTA", 0.12, "o achado do casco: profundidade, condicao, campo de destrocos; o que a descoberta provou ou contradisse; 1 peca primaria (relatorio de expedicao, batimetria, levantamento)"],
+    ["A INVESTIGACAO", 0.11, "inquerito oficial e causa provavel; disputas entre fontes; ate 3 teorias rotuladas FATO/REPORTADO/LENDA; o que segue sem resposta"],
+    ["MEMORIA+OUTRO+TEASER", 0.05, "o que resta do navio e das pessoas; homenagem contida, sem sensacionalismo; CTA especifico; teaser do proximo arquivo"]
+  ]
+}

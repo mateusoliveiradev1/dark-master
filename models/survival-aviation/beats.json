@@ -1,0 +1,12 @@
+{
+  "survival-aviation": [
+    ["COLD OPEN", 0.06, "o detalhe VERIFICADO do registro (uma linha do CVR, uma leitura de instrumento, uma entrada de manutencao) + pergunta central (por que a cadeia nao foi interrompida)"],
+    ["CONTEXTO", 0.12, "voo, tripulacao, aeronave e o dia; o que era normal naquela rota; humaniza sem sentimentalismo"],
+    ["O VOO", 0.14, "operacao normal; como o sistema foi desenhado; o que a tripulacao via e ouvia no cockpit"],
+    ["A CADEIA", 0.16, "a sequencia de falhas pequenas; cronologia minuto a minuto; camadas FATO/REPORTADO"],
+    ["O MOMENTO", 0.12, "os segundos criticos reconstruidos por FDR/CVR e relatorio; sem gore e sem imagem de vitima"],
+    ["A INVESTIGACAO", 0.16, "como os investigadores chegaram a causa: laboratorio, simulacao, achados; a causa-raiz"],
+    ["AS MUDANCAS", 0.12, "o que mudou depois: AD, checklist, treinamento, regulacao; o arco de seguranca (payoff)"],
+    ["MEMORIA+ARQUIVO+TEASER", 0.12, "memoria das vitimas, o que nunca saberemos, CTA + teaser do proximo caso"]
+  ]
+}

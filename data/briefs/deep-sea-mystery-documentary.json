@@ -1,0 +1,291 @@
+{
+  "theme": "deep sea mystery documentary",
+  "cluster": {
+    "theme": "deep sea mystery documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Underwater Earth 4K",
+        "id": "UCiK9ODIN1_AEte6eV7m7jZA",
+        "subs": 25300,
+        "age_days": 130,
+        "first5": 900884,
+        "vpd": 41907,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 28346,
+        "outliers": [
+          {
+            "title": "Bermuda Triangle: The Ocean Mystery That Still Haunts the World",
+            "views": 320926,
+            "ratio": 11.3,
+            "published": "2026-08-12"
+          },
+          {
+            "title": "Mariana Trench: What Lives in the Deepest Place on Earth ?",
+            "views": 359886,
+            "ratio": 12.7,
+            "published": "2026-08-21"
+          },
+          {
+            "title": "The Deep Ocean: The Abyss That Still Holds Earth’s Greatest Secrets",
+            "views": 95949,
+            "ratio": 3.4,
+            "published": "2026-08-23"
+          }
+        ]
+      },
+      {
+        "channel": "Shivan Decode ",
+        "id": "UCutYrnlsE_yETh5tpkEsLUw",
+        "subs": 4320,
+        "age_days": 294,
+        "first5": 14318,
+        "vpd": 16099,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2454,
+        "outliers": [
+          {
+            "title": "Mariana Trench: What Really Exists 11 KM Below the Ocean?",
+            "views": 3513928,
+            "ratio": 1431.9,
+            "published": "2026-08-10"
+          }
+        ]
+      },
+      {
+        "channel": "GaiaDocs",
+        "id": "UCe9imMhDp6Kn3dn75mzUUZw",
+        "subs": 56000,
+        "age_days": 272,
+        "first5": 4556433,
+        "vpd": 97898,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 231171,
+        "outliers": []
+      },
+      {
+        "channel": "Shadow Tales",
+        "id": "UCkVZkn8LtFLbyFHYQe9-LrA",
+        "subs": 3370,
+        "age_days": 198,
+        "first5": 690556,
+        "vpd": 6409,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 714,
+        "outliers": [
+          {
+            "title": "পৃথিবীর সবচেয়ে দুর্গম স্থান: প্রশান্ত মহাসাগরের গভীরে কী লুকিয়ে আছে?",
+            "views": 587269,
+            "ratio": 822.5,
+            "published": "2026-08-24"
+          }
+        ]
+      },
+      {
+        "channel": "Hidden Planet Docs",
+        "id": "UCFi2OqSU0AZpTBT-zLldaIA",
+        "subs": 93600,
+        "age_days": 211,
+        "first5": 2930055,
+        "vpd": 27505,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 229300,
+        "outliers": []
+      },
+      {
+        "channel": "Amaan Investigates ",
+        "id": "UCjhEpSAEOikTmaLgbU-fJMA",
+        "subs": 26000,
+        "age_days": 178,
+        "first5": 301770,
+        "vpd": 15057,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 88956,
+        "outliers": [
+          {
+            "title": "What's In the Ocean?",
+            "views": 398757,
+            "ratio": 4.5,
+            "published": "2026-08-21"
+          }
+        ]
+      },
+      {
+        "channel": "Uncharted Depths",
+        "id": "UC8SebcMtzuzp_Ca9HQZUQ2g",
+        "subs": 29800,
+        "age_days": 319,
+        "first5": 23367,
+        "vpd": 30054,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 7359,
+        "outliers": []
+      },
+      {
+        "channel": "The Ocean Planet",
+        "id": "UCFZ_h_YPm3lRy_Eg4mxqMfA",
+        "subs": 3790,
+        "age_days": 71,
+        "first5": 115132,
+        "vpd": 16378,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5446,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "The Ocean Planet"
+    ],
+    "hungry": [
+      "Underwater Earth 4K",
+      "Shivan Decode ",
+      "Shadow Tales",
+      "Amaan Investigates "
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "deep sea mystery documentary",
+    "depth": 100,
+    "suggestions": [
+      "deep sea mystery documentary",
+      "mystery creatures of deep sea documentary",
+      "deep sea mystery",
+      "deep ocean mysteries",
+      "deep sea documentary",
+      "deep sea mystery documentary animated",
+      "deep sea mystery documentary amazon",
+      "deep sea mystery documentary adventure",
+      "deep sea mystery documentary amazon prime",
+      "deep sea mystery documentary adventure time",
+      "deep sea mystery documentary bbc",
+      "deep sea mystery documentary bangla",
+      "deep sea mystery documentary bengali",
+      "deep sea mysteries",
+      "deep sea mystery documentary discovery channel",
+      "deep sea mystery documentary documentary",
+      "deep sea mystery documentary discovery",
+      "deep sea mystery documentary dark web",
+      "deep sea mystery documentary deep sea",
+      "deep sea mystery documentary english",
+      "deep sea mystery documentary episode 1",
+      "deep sea mystery documentary explained",
+      "deep sea mystery documentary episode 2",
+      "deep sea mystery documentary explained in hindi",
+      "deep sea mystery documentary full",
+      "deep sea mystery documentary film",
+      "deep sea mystery documentary full movie",
+      "deep sea mystery documentary girl",
+      "deep sea mystery documentary ghost",
+      "deep sea mystery documentary gone wrong",
+      "deep sea mystery documentary game",
+      "deep sea mystery documentary hair",
+      "deep sea mystery documentary hail",
+      "deep sea mystery documentary haider tv",
+      "deep sea mystery documentary hair transplant",
+      "deep sea mystery documentary haiti",
+      "deep sea mystery documentary in hindi",
+      "deep sea mystery documentary in urdu",
+      "deep sea mystery documentary in english",
+      "deep sea mystery documentary in tamil",
+      "deep sea mystery documentary joe rogan",
+      "deep sea mystery documentary japan",
+      "deep sea mystery documentary james webb",
+      "deep sea mystery documentary james cameron",
+      "deep sea mystery documentary jungle",
+      "deep sea mystery documentary kannada",
+      "deep sea mystery documentary korea",
+      "deep sea mystery documentary killer",
+      "deep sea mystery documentary karma",
+      "deep sea mystery documentary latest",
+      "deep sea mystery documentary lost",
+      "deep sea mystery documentary london",
+      "deep sea mystery documentary lost media",
+      "deep sea mystery documentary life",
+      "deep sea mystery documentary malayalam",
+      "deep sea mystery documentary movie",
+      "deep sea mystery documentary music",
+      "deep sea mystery documentary netflix",
+      "deep sea mystery documentary new",
+      "deep sea mystery documentary national geographic",
+      "deep sea mystery documentary part 2",
+      "deep sea mystery documentary part 1",
+      "deep sea mystery documentary part 3",
+      "deep sea mystery documentary philippines",
+      "deep sea mystery documentary questions",
+      "deep sea mystery documentary queen elizabeth",
+      "deep sea mystery documentary real stories",
+      "deep sea mystery documentary reaction",
+      "deep sea mystery documentary reddit",
+      "deep sea mystery documentary russian",
+      "deep sea mystery documentary roblox",
+      "deep sea mystery documentary stories",
+      "deep sea mystery documentary short",
+      "deep sea mystery documentary scary",
+      "deep sea mystery documentary solved",
+      "deep sea mystery documentary series",
+      "deep sea mystery documentary shows",
+      "deep sea mystery documentary telugu",
+      "deep sea mystery documentary tamil",
+      "deep sea mystery documentary trailer",
+      "deep sea mystery documentary true crime",
+      "deep sea mystery documentary uk",
+      "deep sea mystery documentary urdu",
+      "deep sea mystery documentary upsc",
+      "deep sea mystery documentary video",
+      "deep sea mystery documentary video in hindi",
+      "deep sea mystery documentary wolf",
+      "deep sea mystery documentary with english subtitles",
+      "deep sea mystery documentary wildlife",
+      "deep sea mystery documentary with subtitles",
+      "deep sea mystery documentary world",
+      "deep sea mystery documentary xqc",
+      "deep sea mystery documentary xbox",
+      "deep sea mystery documentary youtube",
+      "deep sea mystery documentary yacht",
+      "deep sea mystery documentary youtube channel",
+      "deep sea mystery documentary yogi",
+      "deep sea mystery documentary zombie",
+      "deep sea mystery documentary zemtv",
+      "deep sea mystery documentary zone"
+    ]
+  },
+  "trends": {
+    "term": "deep sea mystery documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "forensic-pharma": [
+    ["COLD OPEN / O DOCUMENTO", 0.05, "o detalhe mais concreto E VERIFICADO do caso, mostrado como documento (a frase do memo, a linha do laudo, o numero da bula): nao o escandalo em si; abre a pergunta central (o que foi escondido e quem sabia)"],
+    ["A PROMESSA", 0.12, "o que o medicamento prometia e para quem: doenca, promessa, mercado; quem confiou (medicos, pacientes, agencias) sem julgar as vitimas; numeros da epoca com fonte"],
+    ["O QUE FOI ESCONDIDO", 0.17, "o nucleo forense: o dado suprimido ou distorcido (endpoint trocado, evento adverso, study report vs paper publicado, margem de lucro vs risco); reconstrucao da linha do tempo do documento; linguagem precisa, sem jargao"],
+    ["QUEM SABIA", 0.13, "a rede: executivos, sales reps, agencias, comites, medicos financiados, distribuidores; o que cada um assinou ou deixou passar; pessoa/empresa viva = alleged/charged; usar filings e depoimentos"],
+    ["A EXPOSICAO", 0.16, "como veio a publico: queixa, whistleblower, jornalista, investigacao de agencia, auditoria; a cronologia do vazamento/processo; frases curtas; datas so aqui, nunca no hook"],
+    ["A CONTA", 0.13, "vidas e numeros: populacao exposta, mortes/eventos documentados, multas, acordos, recuperacoes; [FATO]/[REPORTADO]/[ALLEGED] explicitos; sem exploracao de vitimas; o que nunca foi admitido"],
+    ["A RESPOSTA E A LEI", 0.12, "o que a empresa respondeu (right of reply), o que a justica decidiu ou nao decidiu, o que a regra mudou depois (bula, black box, recall, lei); sem veredito proprio"],
+    ["ARQUIVO ABERTO + TEASER", 0.12, "status real hoje (processo em curso, acordo, recurso), o que ainda falta saber, limites da investigacao + CTA + teaser do proximo caso; nunca prometer verdade total nem recuperacao"]
+  ]
+}

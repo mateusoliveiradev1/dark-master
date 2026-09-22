@@ -1,0 +1,268 @@
+{
+  "theme": "money laundering documentary",
+  "cluster": {
+    "theme": "money laundering documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "NOIR FILES ",
+        "id": "UCwmN67y_7T-EBC1fjRcHmzg",
+        "subs": 1060,
+        "age_days": 98,
+        "first5": 672127,
+        "vpd": 6822,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 238.5,
+        "outliers": [
+          {
+            "title": "हवाला क्या है? | करोड़ों का पैसा बिना बैंक कैसे घूमता है? | Hawala Explained",
+            "views": 671143,
+            "ratio": 2814.0,
+            "published": "2026-08-13"
+          }
+        ]
+      },
+      {
+        "channel": "DocSaga",
+        "id": "UCOWHg0eyJje0Vt-ZNsY1S3Q",
+        "subs": 14800,
+        "age_days": 127,
+        "first5": 249337,
+        "vpd": 24726,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 45759,
+        "outliers": [
+          {
+            "title": "स्कूटर से तिहाड़ तक: सुब्रत रॉय की असली कहानी",
+            "views": 255526,
+            "ratio": 5.6,
+            "published": "2026-08-08"
+          }
+        ]
+      },
+      {
+        "channel": "World Entertainment Documentaries",
+        "id": "UCZfMc9IPyrPYSlhwjJ9OVeQ",
+        "subs": 1430,
+        "age_days": 113,
+        "first5": 35465,
+        "vpd": 4696,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2765,
+        "outliers": []
+      },
+      {
+        "channel": "Raaz Codex",
+        "id": "UCvuDZkqD1A1oTsdBjElvYPw",
+        "subs": 3150,
+        "age_days": 139,
+        "first5": 520424,
+        "vpd": 5680,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5451.5,
+        "outliers": [
+          {
+            "title": "Sukesh Chandrasekhar 215 Crore Scam | 2D Animated True Crime Documentary",
+            "views": 171454,
+            "ratio": 31.5,
+            "published": "2026-07-12"
+          }
+        ]
+      },
+      {
+        "channel": "Veltrix Bharat",
+        "id": "UC25dss34TL58pqPePntJ2jQ",
+        "subs": 8700,
+        "age_days": 150,
+        "first5": 89896,
+        "vpd": 6849,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 18050,
+        "outliers": [
+          {
+            "title": "Ajit Doval का 48 घंटे वाला Secret Mission | Hawala Money की पूरी कहानी",
+            "views": 129367,
+            "ratio": 7.2,
+            "published": "2026-07-26"
+          }
+        ]
+      },
+      {
+        "channel": "Making Sense With Shariar",
+        "id": "UCXn3-Z23G7P4K3_-8C_hdWw",
+        "subs": 10600,
+        "age_days": 137,
+        "first5": 1935,
+        "vpd": 3658,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 301,
+        "outliers": []
+      },
+      {
+        "channel": "Old Money Scandals",
+        "id": "UC2tk8wmaz2Oc4SAwEkcRH_A",
+        "subs": 1560,
+        "age_days": 134,
+        "first5": 123327,
+        "vpd": 2798,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 10080,
+        "outliers": [
+          {
+            "title": "The Black Hand: How One Sicilian Immigrant Built an Empire Too Ruthless Even for the American Mafia",
+            "views": 86764,
+            "ratio": 8.6,
+            "published": "2026-08-07"
+          }
+        ]
+      },
+      {
+        "channel": "Beneath The Code",
+        "id": "UCpeINqFftl8K-QfHF04vsmA",
+        "subs": 136,
+        "age_days": 68,
+        "first5": 80005,
+        "vpd": 1166,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 40002.5,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Beneath The Code"
+    ],
+    "hungry": [
+      "NOIR FILES ",
+      "DocSaga",
+      "Raaz Codex",
+      "Veltrix Bharat",
+      "Old Money Scandals"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "money laundering documentary",
+    "depth": 78,
+    "suggestions": [
+      "money laundering documentary",
+      "money laundering documentary uk",
+      "money laundering documentary al jazeera",
+      "money laundering documentary 2024",
+      "money laundering documentary south africa",
+      "money laundering documentary bbc",
+      "money laundering movie",
+      "money laundering movie in hindi",
+      "money laundering film",
+      "money laundering movie name",
+      "money laundering movie hollywood",
+      "money laundering movie explained",
+      "money laundering movie scene",
+      "money laundering movie south",
+      "anti money laundering documentary",
+      "money laundering schemes",
+      "money laundering scandal",
+      "money laundering",
+      "money laundering best movie",
+      "money laundering based movie",
+      "money laundering history",
+      "money laundering movie clips",
+      "money laundering chinese movie",
+      "money laundering movie china",
+      "money laundering documentary documentary",
+      "money laundering documentary dubai",
+      "money laundering documentary dw",
+      "money laundering documentary drugs",
+      "money laundering movie english",
+      "money laundering explained documentary",
+      "money laundering full movie",
+      "money laundering explained",
+      "money laundering documentary ghana",
+      "money laundering documentary gold mafia",
+      "money laundering documentary gma",
+      "money laundering documentary germany",
+      "money laundering documentary gma 7",
+      "money laundering movie hindi",
+      "money laundering movie hindi mein",
+      "money laundering hindi film",
+      "best money laundering movie hindi",
+      "hsbc money laundering documentary",
+      "money laundering movie in netflix",
+      "money laundering movie indian",
+      "best money laundering movie in hindi",
+      "money laundering documentary kenya",
+      "money laundering documentary kannada",
+      "money laundering documentary korean",
+      "money laundering documentary korea",
+      "money laundering documentary london",
+      "money laundering documentary latest",
+      "money laundering documentary law of attraction",
+      "money laundering documentary louis theroux",
+      "the art of money laundering (mini documentary)",
+      "money laundering new movie",
+      "documentary on money laundering",
+      "money laundering documentary philippines",
+      "money laundering documentary pakistan",
+      "money laundering documentary qatar",
+      "money laundering documentary questions",
+      "money laundering documentary quezon city",
+      "money laundering documentary queen elizabeth",
+      "money laundering related movies",
+      "money laundering short film",
+      "money laundering 101 movie scene",
+      "money laundering movie tamil",
+      "money laundering movie trailer",
+      "money laundering movie telugu",
+      "money laundering documentary video",
+      "money laundering wali movie",
+      "money laundering documentary xbox",
+      "money laundering documentary xrp",
+      "money laundering documentary xqc",
+      "money laundering documentary youtube",
+      "money laundering documentary youtube channel",
+      "money laundering documentary zimbabwe",
+      "money laundering documentary zambia",
+      "money laundering documentary zlatan ibrahimovic"
+    ]
+  },
+  "trends": {
+    "term": "money laundering documentary",
+    "avg_recent": 40.5,
+    "avg_prior": 15.083333333333334,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

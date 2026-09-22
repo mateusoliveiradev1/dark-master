@@ -1,0 +1,13 @@
+{
+  "finance-offshore": [
+    ["COLD OPEN", 0.05, "a cena concreta: o detalhe mais estranho VERIFICADO (documento, conta, valor); pergunta central que so fecha no beat do dinheiro"],
+    ["O FLUXO", 0.14, "o que o dinheiro fez, em ordem: entrada, camadas, saida; ancora no caso; numeros verificaveis (anos, valores, paises)"],
+    ["O MECANISMO", 0.18, "como o veiculo funciona (shell, trust, hawala, banco correspondente, trade-based); linguagem simples; 1 documento na tela"],
+    ["OS PERSONAGENS", 0.13, "quem opera: advogado, banco, facilitador, beneficiario; humaniza 1 figura-chave (vivos = alleged)"],
+    ["A ASCENSAO", 0.12, "como o esquema cresceu: clientes, volumes, anos; quem deixou passar e por que"],
+    ["A QUEDA / O VAZAMENTO", 0.16, "o que expos: o leak, a auditoria, o whistleblower, a multa; o ponto sem volta"],
+    ["O DINHEIRO", 0.12, "onde foi parar: o que foi recuperado, o que sumiu, quem pagou; cifras com fonte on-screen"],
+    ["O LEGADO", 0.06, "o que mudou na lei e o que nao mudou; onde esta hoje"],
+    ["REHOOK+TEASER", 0.04, "a pergunta que ficou de fora + proximo arquivo da serie"]
+  ]
+}

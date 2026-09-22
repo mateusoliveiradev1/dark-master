@@ -1,0 +1,12 @@
+{
+  "true-crime-unknown-offenders": [
+    ["HOOK (detalhe verificado)", 0.05, "o detalhe mais estranho VERIFICADO do arquivo (nome, objeto, número) — nunca o crime"],
+    ["O CASO", 0.14, "quem foi encontrado, quando e onde; humaniza a vítima sem gore; o que o arquivo registra"],
+    ["A PERGUNTA", 0.10, "por que ficou sem nome/autor; o impasse; o que a investigação tinha em mãos"],
+    ["O ARQUIVO", 0.18, "cronologia das tentativas: pistas, exclusões, becos sem saída; documentos e datas"],
+    ["A CIENCIA", 0.20, "a virada forense (DNA, genetic genealogy, reconstrução): como o método funciona, passo a passo"],
+    ["QUEM ESPERAVA", 0.10, "família/comunidade; o custo dos anos sem resposta; a identificação (se houve)"],
+    ["O QUE AINDA FALTA", 0.15, "autor não identificado; até 3 teorias com pró/contra, sem afirmar; o que resolveria o caso"],
+    ["FECHAMENTO + TEASER", 0.08, "payoff seco + próximo arquivo da série; CTA que não quebra o loop"]
+  ]
+}

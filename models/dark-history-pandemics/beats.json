@@ -1,0 +1,12 @@
+{
+  "dark-history-pandemics": [
+    ["COLD OPEN", 0.05, "cena concreta de arquivo no presente: documento, sino, porto, lista de mortalidade; o detalhe estranho VERIFICADO e a pergunta central (por que ninguem entendeu / por que a resposta nasceu ali)"],
+    ["O SURTO", 0.15, "onde e como comeca; primeiro caso e geografia; o que a populacao sabia e temia; humaniza sem sentimentalismo"],
+    ["O MUNDO DA EPOCA", 0.15, "medicina, fe, comercio e cidade; a teoria vigente que explicava tudo e estava errada; o mundo que o surto encontra"],
+    ["A EXPLOSAO", 0.20, "cronologia mes a mes: portos, estradas, cidades; propagacao e resposta local; beats curtos com viradas factuais"],
+    ["AS RESPOSTAS", 0.14, "quarentena, lazaretos, cordoes sanitarios, listas de mortalidade; o que funcionou, o que fracassou e por que (o coracao de saude publica)"],
+    ["AS CONSEQUENCIAS", 0.14, "demografia, trabalho, fe, perseguicoes e ciencia; quem pagou a conta; o que mudou de forma permanente"],
+    ["O ARQUIVO", 0.12, "o que sabemos (arqueogenetica, dados, fontes primarias) e o que os registros nao respondem; nada e afirmado sem fonte"],
+    ["OUTRO+TEASER", 0.05, "o que fica em aberto + CTA + teaser do proximo surto"]
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "theme": "urban legend documentary",
+  "cluster": {
+    "theme": "urban legend documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Paint Maniac",
+        "id": "UCdi-rTleLSNBYEVOWuAic5w",
+        "subs": 41600,
+        "age_days": 121,
+        "first5": 1494789,
+        "vpd": 35570,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 210644,
+        "outliers": [
+          {
+            "title": "The Disturbing Audio Recordings Explained",
+            "views": 658971,
+            "ratio": 3.1,
+            "published": "2026-08-06"
+          }
+        ]
+      },
+      {
+        "channel": "Yogiesh",
+        "id": "UCWp4R_SNgUqjEabunrTajzQ",
+        "subs": 13600,
+        "age_days": 199,
+        "first5": 839449,
+        "vpd": 12983,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 55881,
+        "outliers": [
+          {
+            "title": "Teke Teke 👹 | Japan-oda Bayangaramaana Ghost Legend",
+            "views": 463621,
+            "ratio": 8.3,
+            "published": "2026-08-02"
+          }
+        ]
+      },
+      {
+        "channel": "RickFrame",
+        "id": "UC9S-DAXxK47j8-NLmhuYt-Q",
+        "subs": 14300,
+        "age_days": 282,
+        "first5": 404193,
+        "vpd": 17340,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 11903,
+        "outliers": [
+          {
+            "title": "Film Horor Jepang Ini Membuat Saya Mimpi Buruk",
+            "views": 232992,
+            "ratio": 19.6,
+            "published": "2026-07-12"
+          }
+        ]
+      },
+      {
+        "channel": "The Dark Logs",
+        "id": "UCuNljKol29vySrMDN2ybZug",
+        "subs": 5150,
+        "age_days": 263,
+        "first5": 204627,
+        "vpd": 3145,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 48639,
+        "outliers": [
+          {
+            "title": "Sinister Secrets of New Orleans: Ghosts, Voodoo & Haunted Streets",
+            "views": 170521,
+            "ratio": 3.5,
+            "published": "2026-06-30"
+          }
+        ]
+      },
+      {
+        "channel": "Horror Glimpse",
+        "id": "UCZv7Taka6bkColdQ8g_SE0A",
+        "subs": 18600,
+        "age_days": 213,
+        "first5": 886485,
+        "vpd": 22826,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 209733,
+        "outliers": []
+      },
+      {
+        "channel": "Nightmare Tv",
+        "id": "UCB2Wl9eF63lPvgofmjR5UCw",
+        "subs": 1500,
+        "age_days": 149,
+        "first5": 58558,
+        "vpd": 1370,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 4625,
+        "outliers": [
+          {
+            "title": "FILE 1 | Japanese Horror Mocumentary | Scary Found Footage Horror | Movie Explained in Bangla ",
+            "views": 72941,
+            "ratio": 15.8,
+            "published": "2026-07-14"
+          }
+        ]
+      },
+      {
+        "channel": "Sleepy Mystery Channel",
+        "id": "UCTPaH5uxhK1dq5fFaG5ob7Q",
+        "subs": 12800,
+        "age_days": 202,
+        "first5": 190125,
+        "vpd": 7910,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 25046,
+        "outliers": []
+      },
+      {
+        "channel": "DARK LOGS ",
+        "id": "UC6D4_wNLbuhJ_t_Noh2ivtA",
+        "subs": 32700,
+        "age_days": 231,
+        "first5": 45276,
+        "vpd": 51007,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 12755,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [],
+    "hungry": [
+      "Paint Maniac",
+      "Yogiesh",
+      "RickFrame",
+      "The Dark Logs",
+      "Nightmare Tv"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "urban legend documentary",
+    "depth": 85,
+    "suggestions": [
+      "urban legend documentary",
+      "urban legend movie",
+      "urban legend movie explained in hindi",
+      "urban legend movie reaction",
+      "urban legend movie review",
+      "urban legend movie full",
+      "urban legend movie ending",
+      "urban legend movie in hindi",
+      "urban legend movie explained in bangla",
+      "urban legend movie clips",
+      "urban legend movie explained in tamil",
+      "urban legend movie opening scene",
+      "urban legend movie explained",
+      "urban legend movie recap",
+      "urban legend the movie",
+      "urban myths",
+      "urban legends",
+      "urban legends from around the world",
+      "urban legend movie brenda",
+      "urban legend 1998 movie clips",
+      "urban legend 2 film complet en francais",
+      "urban legend film completo italiano",
+      "urban legends movie",
+      "urban legend cast",
+      "urban legend movie deaths",
+      "urban legend 1998 movie explained in hindi",
+      "japanese urban legend movie explained in hindi",
+      "urban legend full movie english",
+      "urban legend story",
+      "urban legend full movie in hindi",
+      "urban legend documentary germany",
+      "urban legend documentary girl",
+      "urban legend documentary gone wrong",
+      "urban legend documentary gacha",
+      "urban legend horror movie",
+      "urban legend hindi movie",
+      "urban legend movie in tamil",
+      "urban legend japan movie",
+      "urban legend japanese movie",
+      "urban legend korean movie",
+      "urban legend documentary london",
+      "urban legend documentary latest",
+      "urban legend documentary life",
+      "urban legend documentary lady",
+      "urban legend documentary lady gaga",
+      "urban legend documentary movie",
+      "urban legend documentary malayalam",
+      "urban legend documentary malaysia",
+      "urban legend documentary myanmar",
+      "urban legend documentary netflix",
+      "urban legend documentary national geographic",
+      "urban legend documentary netflix trailer",
+      "urban legend documentary philippines",
+      "urban legend documentary part 1",
+      "urban legend documentary part 2",
+      "urban legend documentary quezon city",
+      "urban legend documentary queen elizabeth",
+      "urban legend documentary queen",
+      "urban legend 1998 movie review",
+      "urban legend movie scenes",
+      "urban legend movie soundtrack",
+      "urban legend short film",
+      "urban legend movie trailer",
+      "urban legend documentary uk",
+      "urban legend documentary usa",
+      "urban legend documentary urdu",
+      "urban legend documentary urdu zubaan",
+      "urban legend documentary uk 2022",
+      "urban legend documentary video",
+      "urban legend documentary with english subtitles",
+      "urban legend documentary war",
+      "urban legend documentary world",
+      "urban legend documentary with subtitles",
+      "urban legend documentary wildlife",
+      "urban legend documentary xqc",
+      "urban legend documentary xd",
+      "urban legend documentary youtube",
+      "urban legend documentary yacht",
+      "urban legend documentary yakuza",
+      "urban legend documentary youtube shorts",
+      "urban legend documentary zambia",
+      "urban legend documentary zombie",
+      "urban legend documentary zarchiver",
+      "urban legend documentary zarckaroo",
+      "urban legend documentary zambales"
+    ]
+  },
+  "trends": {
+    "term": "urban legend documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

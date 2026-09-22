@@ -1,0 +1,352 @@
+{
+  "theme": "heist documentary",
+  "cluster": {
+    "theme": "heist documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "VeloCine",
+        "id": "UCOt3OBMx9eleSH8-4e2gJUA",
+        "subs": 68300,
+        "age_days": 156,
+        "first5": 64497577,
+        "vpd": 2203279,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1754438,
+        "outliers": []
+      },
+      {
+        "channel": "Filmexa Official",
+        "id": "UC1U83xByxe9PxTGjvj8Ttog",
+        "subs": 6660,
+        "age_days": 107,
+        "first5": 63594,
+        "vpd": 27784,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 17868,
+        "outliers": [
+          {
+            "title": "Gold Ke Liye Bank Me Hui Duniya Ki Sabse Badi Chori! INSIDE MAN 2019 Movie Explained In Hindi",
+            "views": 638674,
+            "ratio": 35.7,
+            "published": "2026-07-24"
+          }
+        ]
+      },
+      {
+        "channel": "ALPHA DECODES",
+        "id": "UCZgo0tAX7oE0Bw-tXN60jyQ",
+        "subs": 13300,
+        "age_days": 184,
+        "first5": 596683,
+        "vpd": 14110,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 157505,
+        "outliers": [
+          {
+            "title": "Brazil's Most Perfect Bank Robbery | आख़िर 25 लोगों ने कैसे 70 मिलियन डॉलर लूट लिए",
+            "views": 616494,
+            "ratio": 3.9,
+            "published": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "channel": "Movique Pro ",
+        "id": "UCCA-MXyfsefA0uxIt5Hvn9Q",
+        "subs": 10500,
+        "age_days": 313,
+        "first5": 581801,
+        "vpd": 13158,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 21519,
+        "outliers": []
+      },
+      {
+        "channel": "Beta Decodes",
+        "id": "UCSiH3Sm1R9AUWvMAcYXJxSQ",
+        "subs": 4410,
+        "age_days": 86,
+        "first5": 218926,
+        "vpd": 11588,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 37497,
+        "outliers": [
+          {
+            "title": "The Blue Diamond Heist | इतिहास की सबसे बड़ी शाही डायमंड चोरी | Beta Decodes",
+            "views": 379552,
+            "ratio": 10.1,
+            "published": "2026-07-15"
+          },
+          {
+            "title": "James Bong Robbery Gang | एक गलती, पूरा गैंग खत्म | Beta Decodes",
+            "views": 214332,
+            "ratio": 5.7,
+            "published": "2026-07-29"
+          }
+        ]
+      },
+      {
+        "channel": "Real Decodes ",
+        "id": "UCZGVxKWIK50W9d9RYxT9DRw",
+        "subs": 2740,
+        "age_days": 229,
+        "first5": 8510,
+        "vpd": 2450,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 1359,
+        "outliers": [
+          {
+            "title": "Dubai Bank Heist की पूरी कहानी | 240 Million Dollar कैसे गायब हुए? ",
+            "views": 446407,
+            "ratio": 328.5,
+            "published": "2026-08-09"
+          }
+        ]
+      },
+      {
+        "channel": "All Crime ",
+        "id": "UCX7ylL1tacyZzcfLhWQAauA",
+        "subs": 22400,
+        "age_days": 223,
+        "first5": 3213,
+        "vpd": 24835,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 622,
+        "outliers": []
+      },
+      {
+        "channel": "Life Truth Story",
+        "id": "UCEjDu8wXwgT6obIBLuesXWw",
+        "subs": 1520,
+        "age_days": 137,
+        "first5": 709879,
+        "vpd": 5358,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5145,
+        "outliers": [
+          {
+            "title": "The Great Train Robbery | 15 मिनट में करोड़ों का खज़ाना गायब | True Crime Documentary",
+            "views": 338665,
+            "ratio": 65.8,
+            "published": "2026-07-12"
+          },
+          {
+            "title": "100 करोड़ गायब | Gohana Bank Robbery | True Crime Documentry",
+            "views": 364084,
+            "ratio": 70.8,
+            "published": "2026-07-28"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "hungry": [
+      "Filmexa Official",
+      "ALPHA DECODES",
+      "Beta Decodes",
+      "Real Decodes ",
+      "Life Truth Story"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "heist documentary",
+    "depth": 156,
+    "suggestions": [
+      "heist documentary",
+      "heist documentary 2025",
+      "heist documentary uk",
+      "heist documentary netflix",
+      "heist documentary south africa",
+      "heist documentary hindi",
+      "heist documentary usa",
+      "heist documentary trailer",
+      "bank heist documentary",
+      "art heist documentary",
+      "brenda heist documentary",
+      "louvre heist documentary",
+      "money heist documentary",
+      "lufthansa heist documentary",
+      "heist action movie",
+      "heist ai movie",
+      "heist the documentary",
+      "heist stories",
+      "heists",
+      "heist bank",
+      "heist movie best",
+      "heist bank movie",
+      "bangladesh heist documentary",
+      "best heist documentary",
+      "british heist documentary",
+      "biggest heist documentary",
+      "brazil heist documentary",
+      "bank heist documentary uk",
+      "big heist documentary",
+      "bloemfontein heist documentary",
+      "bitcoin heist documentary",
+      "heist movie clips",
+      "heist movie character intro",
+      "robbery crime documentary",
+      "crypto heist documentary",
+      "casino heist documentary",
+      "crime heist documentary",
+      "cit heist documentary",
+      "cnn heist documentary",
+      "las vegas heist documentary discovery channel",
+      "diamond heist documentary",
+      "history’s greatest heists",
+      "heist movie explained in hindi",
+      "heist movie explained in bangla",
+      "heist movie explained in tamil",
+      "heist movie explained in malayalam",
+      "heist movie ending",
+      "heist movie explained in kannada",
+      "heist movie explained in hindi by meer",
+      "heist movie english",
+      "biggest heist ever documentary",
+      "heist movies",
+      "heist movie full",
+      "heist movie free",
+      "heist the documentary film",
+      "heist full movie in hindi dubbed",
+      "heist full movie english",
+      "heist full movie 2015",
+      "heist full movie 2001",
+      "heist full movie robert de niro",
+      "heist full movie 2024",
+      "heist in france documentary",
+      "fib heist documentary",
+      "heist movie gene hackman",
+      "heist film gene hackman",
+      "robbery gang documentary",
+      "heist gold movie",
+      "gold heist documentary",
+      "greatest heist documentary",
+      "gardner heist documentary",
+      "great heist documentary",
+      "heist movie hindi dubbed",
+      "heist movie hindi",
+      "heist movie hollywood",
+      "heist hollywood movie tamil dubbed",
+      "bangladesh bank heist documentary hindi",
+      "heist movie in hindi dubbed",
+      "heist movie in hindi",
+      "heist movie in netflix",
+      "robbery documentary in hindi",
+      "heist movie in tamil",
+      "robbery investigation documentary",
+      "jewelry heist documentary",
+      "jewel heist documentary",
+      "jewellery heist documentary",
+      "heist korean movie",
+      "heist louvre documentary",
+      "heist movie list",
+      "heist louvre movie",
+      "london heist documentary",
+      "lazarus heist documentary",
+      "louver heist documentary",
+      "heist movie music",
+      "heist money movie",
+      "museum heist documentary",
+      "heist in louvre museum documentary",
+      "heist movie netflix",
+      "heist movie name",
+      "heist movie new",
+      "heist movie on netflix",
+      "movie heist of the century",
+      "film heist of century",
+      "heist movie planning scene",
+      "heist pakistani movie",
+      "heist in paris documentary",
+      "perfect heist documentary",
+      "heist documentary queen elizabeth",
+      "heist documentary queen",
+      "heist documentary quest",
+      "heist documentary quezon city",
+      "heist movie recap",
+      "heist movie review in tamil",
+      "heist movie review",
+      "heist movie robert de niro",
+      "heist movie review sinhala",
+      "heist movie recommendations",
+      "heist movie reaction",
+      "heist film recap",
+      "heist movie scene",
+      "heist movie soundtrack",
+      "heist movie song",
+      "heist movie series",
+      "heist movie south africa",
+      "heist movie south",
+      "heist short film",
+      "heist short movie",
+      "heist short film malayalam",
+      "helicopter heist sweden documentary",
+      "heist movie trailer",
+      "heist movie tamil dubbed",
+      "heist movie tamil",
+      "heist movie trailer in hindi",
+      "heist movie tamil review",
+      "heist movie trailer 2001",
+      "heist movie tamil explanation",
+      "heist movie tropes",
+      "heist movie trailer 2025",
+      "heist movie telugu",
+      "heist the movie",
+      "robbery documentary uk",
+      "robbery documentary usa",
+      "unsolved heist documentary",
+      "heist documentary video",
+      "heist wali movie",
+      "heist documentary xqc",
+      "heist documentary xdefiant",
+      "heist documentary xbox",
+      "heist documentary xi jinping",
+      "heist documentary youtube",
+      "heist documentary ytp",
+      "heist documentary yfn lucci",
+      "heist documentary zee",
+      "heist documentary zimbabwe",
+      "heist documentary zambia",
+      "heist documentary zee world",
+      "heist documentary zombies"
+    ]
+  },
+  "trends": {
+    "term": "heist documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

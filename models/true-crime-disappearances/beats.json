@@ -1,0 +1,12 @@
+{
+  "true-crime-disappearances": [
+    ["HOOK", 0.04, "detalhe mais estranho VERIFICADO (nao o desaparecimento em si); pergunta que prende"],
+    ["CONTEXTO", 0.15, "quem era a pessoa; rotina, vinculos, lugar; humaniza"],
+    ["PRESSAO", 0.11, "o que pesava antes: conflitos, dividas, mudancas, telefonemas"],
+    ["O DIA", 0.2, "cronologia minuto a minuto do ultimo dia; frases curtas"],
+    ["A BUSCA", 0.17, "o que a policia e a familia fizeram; onde a busca falhou; recursos"],
+    ["ARQUIVO", 0.1, "a peca primaria: documentos, registros, dados (NamUs/FOIA/PACER)"],
+    ["TEORIAS", 0.15, "ate 3 teorias, pros e contras, sem afirmar"],
+    ["CHAVES+OUTRO+TEASER", 0.08, "o que resolveria o caso + CTA + proximo caso"]
+  ]
+}

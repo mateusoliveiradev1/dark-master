@@ -1,0 +1,243 @@
+{
+  "theme": "missing person documentary",
+  "cluster": {
+    "theme": "missing person documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Othram Studios",
+        "id": "UCnej50nPDuWlDxfIq87IGeQ",
+        "subs": 58800,
+        "age_days": 208,
+        "first5": 15261,
+        "vpd": 42397,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2916,
+        "outliers": []
+      },
+      {
+        "channel": "IT'S CRIMINAL",
+        "id": "UC3CSA2iPQM_Z3U0Xx5HgB9Q",
+        "subs": 21800,
+        "age_days": 286,
+        "first5": 825850,
+        "vpd": 18237,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 950,
+        "outliers": [
+          {
+            "title": "The Dark Secrets Behind Brittney Wood's Disappearance | Monster in the Shadows",
+            "views": 552490,
+            "ratio": 581.6,
+            "published": "2026-07-06"
+          }
+        ]
+      },
+      {
+        "channel": "DARK LOGS ",
+        "id": "UC6D4_wNLbuhJ_t_Noh2ivtA",
+        "subs": 32700,
+        "age_days": 231,
+        "first5": 45273,
+        "vpd": 51007,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 12752,
+        "outliers": []
+      },
+      {
+        "channel": "Crime University",
+        "id": "UC5TCzvqiMbIlqihrbi57osQ",
+        "subs": 6830,
+        "age_days": 91,
+        "first5": 210236,
+        "vpd": 26518,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1271,
+        "outliers": []
+      },
+      {
+        "channel": "FBI Investigates",
+        "id": "UCpm62a6Py6-gxNm1HGtydmw",
+        "subs": 68300,
+        "age_days": 315,
+        "first5": 859329,
+        "vpd": 80765,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 84446,
+        "outliers": []
+      },
+      {
+        "channel": "Red Evidence",
+        "id": "UCzndGnYpSilj8E4Lzym7HQg",
+        "subs": 3840,
+        "age_days": 97,
+        "first5": 4494,
+        "vpd": 4135,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 310,
+        "outliers": []
+      },
+      {
+        "channel": "Curious Lens",
+        "id": "UC7WyMV2W2um7tGlir4wUQoQ",
+        "subs": 803,
+        "age_days": 44,
+        "first5": 22297,
+        "vpd": 11348,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 891,
+        "outliers": [
+          {
+            "title": "Lost in Appalachia for 3 Years — They Found Her in a Cave… SHE SMILED AND NEVER BLINKED",
+            "views": 282544,
+            "ratio": 317.1,
+            "published": "2026-09-12"
+          }
+        ]
+      },
+      {
+        "channel": "hfxwlyw",
+        "id": "UCrBzxA-vwioQGM1Cb-z-KFw",
+        "subs": 2600,
+        "age_days": 57,
+        "first5": 1151700,
+        "vpd": 108902,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 24544,
+        "outliers": []
+      }
+    ],
+    "passed": [
+      "Curious Lens"
+    ],
+    "hungry": [
+      "IT'S CRIMINAL",
+      "Curious Lens"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "missing person documentary",
+    "depth": 78,
+    "suggestions": [
+      "missing person documentary",
+      "missing person documentary uk",
+      "missing person documentary 2024",
+      "missing person documentary australia",
+      "missing people documentary",
+      "missing people documentary uk",
+      "missing person movie",
+      "missing person movie explained in hindi",
+      "missing person movie recap",
+      "missing person movie explained in tamil",
+      "missing person found documentary",
+      "bbc missing person documentary",
+      "missing person case documentary",
+      "baloch missing person documentary",
+      "missing person found alive documentary",
+      "missing persons documentary",
+      "missing person chinese movie",
+      "missing persons chinese movie explained in hindi",
+      "unsolved missing person cases documentary",
+      "true crime missing person documentary",
+      "missing person documentary documentary",
+      "missing person documentary david attenborough",
+      "missing person documentary discovery channel",
+      "missing person documentary discovery",
+      "missing person documentary definition",
+      "missing person movie explained",
+      "missing person full movie",
+      "missing person documentary gma",
+      "missing person documentary gone wrong",
+      "missing person documentary ghost",
+      "missing person documentary green screen",
+      "missing person documentary hailey",
+      "missing person documentary hailey bieber",
+      "missing person documentary hail",
+      "missing person documentary hair",
+      "missing person documentary hailee steinfeld",
+      "missing person documentary haiti",
+      "missing person japanese movie",
+      "missing person korean movie",
+      "missing person documentary list",
+      "missing person documentary latest",
+      "missing person documentary lost",
+      "missing person documentary lost media",
+      "missing person documentary latest episode",
+      "missing person mystery documentary",
+      "missing person nigerian movie",
+      "missing person documentary ocean",
+      "missing person documentary on netflix",
+      "missing person documentary old",
+      "missing person documentary on youtube",
+      "missing person documentary outtakes",
+      "missing person documentary online",
+      "missing person documentary philippines",
+      "missing person documentary part 1",
+      "missing person documentary part 2",
+      "missing person documentary playlist",
+      "missing person documentary queen",
+      "missing person documentary questions",
+      "missing person documentary queen elizabeth",
+      "missing persons 2020 movie recap",
+      "missing person short film",
+      "missing person documentary video",
+      "missing person documentary water",
+      "missing person documentary wildlife",
+      "missing person documentary war",
+      "missing person documentary watch online",
+      "missing person documentary xrp",
+      "missing person documentary xbox",
+      "missing person documentary xray",
+      "missing person documentary youtube",
+      "missing person documentary yacht",
+      "missing person documentary yfn lucci",
+      "missing person documentary youtube channel",
+      "missing person documentary zimbabwe",
+      "missing person documentary zombie",
+      "missing person documentary zoom",
+      "missing person documentary zed",
+      "missing person documentary zee"
+    ]
+  },
+  "trends": {
+    "term": "missing person documentary",
+    "avg_recent": 22.5,
+    "avg_prior": 8.333333333333334,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

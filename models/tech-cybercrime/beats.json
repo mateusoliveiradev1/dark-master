@@ -1,0 +1,13 @@
+{
+  "tech-cybercrime": [
+    ["COLD OPEN", 0.05, "o artefato impossivel VERIFICADO do caso (o dominio, a nota de resgate, a linha de log, a cifra); pergunta central (como isso terminou) que so fecha no ARQUIVO; zero instrucao tecnica"],
+    ["O SISTEMA", 0.10, "o que estava em jogo: o alvo, quem dependia dele e o que ele prometia; numeros verificaveis; o mundo antes do incidente"],
+    ["A INTRUSAO", 0.16, "a linha do tempo do incidente, hora a hora; o que quebrou e o que continuou de pe; relatos e logs; nenhum metodo operacional"],
+    ["A DESCOBERTA", 0.14, "como o ataque apareceu: o primeiro alerta, o detalhe estranho, os dias de silencio; a reacao inicial"],
+    ["A CACADA", 0.17, "a investigacao no centro: forense, rastreamento, cooperacao entre agencias; 1 documento primario na tela (indictment, docket, advisory)"],
+    ["A ATRIBUICAO", 0.13, "a quem as provas apontam: acusacoes, defesas e negacoes; vivos = charged/alleged; sem afirmar autoria sem condenacao ou documento"],
+    ["O PESO", 0.13, "custo humano e financeiro, vítimas (sem expor), processo, multa ou condenacao; o que mudou na lei ou na pratica"],
+    ["O ARQUIVO", 0.08, "o que continua desconhecido; onde o dinheiro foi ou nao foi; a pergunta aberta de verdade; fontes on-screen"],
+    ["REHOOK+TEASER", 0.04, "o detalhe deixado de fora de proposito + proximo caso da serie; CTA especifico"]
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "tech-ai": [
+    ["COLD OPEN", 0.06, "o detalhe impossivel VERIFICADO do post-mortem (o codigo de erro, o comando, o numero no log) no minuto exato da falha; pergunta central (por que o sistema falhou)"],
+    ["CONTEXTO", 0.13, "como o sistema foi construido e vendido; quem confiou nele; o que ele deveria fazer; o mundo da promessa"],
+    ["A PROMESSA", 0.12, "demo, benchmark, marketing, depoimentos; os avisos que foram arquivados; a confianca acumulada (camadas FATO/REPORTADO)"],
+    ["A FALHA", 0.20, "cronologia minuto a minuto do incidente: o sistema faz o que nao devia; logs e relatos; frases curtas; sem gore"],
+    ["A CAUSA", 0.16, "a engenharia: edge case, dado de treino, condicao de corrida, deploy incompleto, incentivo errado; sem antropomorfizar"],
+    ["A RESPOSTA", 0.12, "quem descobriu e como a empresa reagiu; rollback, correcao, comunicado; a parte humana"],
+    ["O ARQUIVO", 0.13, "o que dizem os documentos (regulador, auditoria interna, paper, processo); o que segue desconhecido"],
+    ["LEGADO+TEASER", 0.08, "o que mudou na lei/pratica/industria; a lente para a proxima falha; CTA + teaser do proximo caso"]
+  ]
+}

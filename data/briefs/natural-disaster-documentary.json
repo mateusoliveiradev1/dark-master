@@ -1,0 +1,293 @@
+{
+  "theme": "natural disaster documentary",
+  "cluster": {
+    "theme": "natural disaster documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Nature Khauf",
+        "id": "UCyJxucjlRm1fxTi9Un2V2-g",
+        "subs": 57500,
+        "age_days": 69,
+        "first5": 16019889,
+        "vpd": 276918,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1387623.0,
+        "outliers": [
+          {
+            "title": "जब समंदर का पानी 1 KM पीछे भागा... और फिर आई 100 फीट ऊंची मौत | 2004 Tsunami Documentary Hindi",
+            "views": 6865469,
+            "ratio": 4.9,
+            "published": "2026-07-18"
+          },
+          {
+            "title": "6 मिनट में तबाह हुआ जापान | $360 Billion की तबाही | Japan Tsunami 2011 | Hindi Documentary",
+            "views": 5338394,
+            "ratio": 3.8,
+            "published": "2026-07-22"
+          }
+        ]
+      },
+      {
+        "channel": "Shadow Frames",
+        "id": "UCqgJ5kAAFspmgUB6zW27rNQ",
+        "subs": 24700,
+        "age_days": 262,
+        "first5": 2827324,
+        "vpd": 38179,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 137439.0,
+        "outliers": [
+          {
+            "title": "Kedarnath Disaster 2013: उस दिन की पूरी कहानी। ",
+            "views": 6057460,
+            "ratio": 44.1,
+            "published": "2026-07-01"
+          }
+        ]
+      },
+      {
+        "channel": "Um Documentário",
+        "id": "UCcK9yDz5INb1Q9Tw82ICeVQ",
+        "subs": 83000,
+        "age_days": 163,
+        "first5": 3186513,
+        "vpd": 152243,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 451203,
+        "outliers": [
+          {
+            "title": "A TRAGÉDIA DE MIYAKO: A cidade apagada por um Tsunami em poucos minutos | Documentário completo",
+            "views": 5454987,
+            "ratio": 12.1,
+            "published": "2026-08-25"
+          },
+          {
+            "title": "A TRAGÉDIA DE YUNGAY: A cidade soterrada por uma montanha em três minutos | Documentário completo",
+            "views": 5242014,
+            "ratio": 11.6,
+            "published": "2026-08-19"
+          },
+          {
+            "title": "A TRAGÉDIA DE GALVESTON: A Cidade engolida pelo oceano em uma única noite | Documentário completo",
+            "views": 1459094,
+            "ratio": 3.2,
+            "published": "2026-08-12"
+          }
+        ]
+      },
+      {
+        "channel": "The Last Day",
+        "id": "UCN6XxorahzAiDNyRnI1of2g",
+        "subs": 12800,
+        "age_days": 74,
+        "first5": 1808990,
+        "vpd": 99725,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 25531,
+        "outliers": [
+          {
+            "title": "Nepal's 2026 Disaster Explained: The Glacier That Wiped Out a Valley",
+            "views": 4689180,
+            "ratio": 183.7,
+            "published": "2026-09-04"
+          },
+          {
+            "title": "The Wave That Was Taller Than a Skyscraper",
+            "views": 1323433,
+            "ratio": 51.8,
+            "published": "2026-07-18"
+          }
+        ]
+      },
+      {
+        "channel": "MTH Incredible Moments",
+        "id": "UCkP5qmPoUayIv00WJ23Tr0Q",
+        "subs": 18100,
+        "age_days": 100,
+        "first5": 2640482,
+        "vpd": 137197,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 79015,
+        "outliers": []
+      },
+      {
+        "channel": "Extreme Disasters 01",
+        "id": "UCcrK-SkjlIS-EaUBl9RrcUw",
+        "subs": 23700,
+        "age_days": 65,
+        "first5": 27416,
+        "vpd": 489965,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 35441,
+        "outliers": []
+      },
+      {
+        "channel": "Unseen Earth 4K",
+        "id": "UC6r9YnUqCG0AGUl7K5P6HWA",
+        "subs": 26100,
+        "age_days": 187,
+        "first5": 334379,
+        "vpd": 23297,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2160,
+        "outliers": []
+      },
+      {
+        "channel": "30sec science for you",
+        "id": "UC25UcG3oo-4kVMUeuQTkk4w",
+        "subs": 4750,
+        "age_days": 38,
+        "first5": 6409,
+        "vpd": 91622,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 1512,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Nature Khauf",
+      "The Last Day",
+      "Extreme Disasters 01",
+      "30sec science for you"
+    ],
+    "hungry": [
+      "Nature Khauf",
+      "Shadow Frames",
+      "Um Documentário",
+      "The Last Day"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "natural disaster documentary",
+    "depth": 87,
+    "suggestions": [
+      "natural disaster documentary",
+      "natural disaster documentary national geographic",
+      "natural disaster documentary in hindi",
+      "natural catastrophes documentary",
+      "natural hazards documentary",
+      "natural disaster movie",
+      "natural disaster movie scenes",
+      "natural disaster movie trailer",
+      "natural disaster film",
+      "natural disaster movie hindi dubbed",
+      "natural disaster movie 2025",
+      "natural disaster movie clips",
+      "natural disaster movie tamil dubbed",
+      "natural disaster movie tagalog dubbed",
+      "natural disaster documentary australia",
+      "natural disaster documentary africa",
+      "natural disaster documentary aboriginal",
+      "the disaster movie batman",
+      "natural disasters explained",
+      "natural disaster live",
+      "the disaster cycle documentary",
+      "natural disaster movie compilation",
+      "the disaster movie chipmunk",
+      "the disaster cycle movie",
+      "natural disasters national geographic",
+      "the disaster movie dance off",
+      "natural disaster movie explanation",
+      "the disaster movie end song",
+      "natural disaster english movie",
+      "natural disaster movie explained in malayalam",
+      "natural disaster movie explained in bangla",
+      "natural disasters esl",
+      "natural disaster movie full",
+      "natural disaster movie hollywood",
+      "the disaster movie hulk",
+      "natural disasters causes",
+      "natural disasters documentary national geographic",
+      "natural disaster documentary jungle",
+      "natural disaster documentary japan",
+      "natural disaster documentary james cameron",
+      "natural disaster movie korean",
+      "the disaster movie kim kardashian",
+      "natural disaster movie list",
+      "natural disaster latest movie",
+      "natural disaster documentary movies",
+      "natural disaster documentary malayalam",
+      "natural disaster documentary movies in hindi",
+      "natural disaster movie netflix",
+      "natural disaster movie name",
+      "natural disaster new movie",
+      "natural disaster movie on netflix",
+      "natural disaster documentary philippines",
+      "natural disaster documentary part 2",
+      "natural disaster documentary part 1",
+      "natural disaster documentary part 3",
+      "natural disaster documentary qatar",
+      "natural disaster documentary quest",
+      "natural disaster documentary queen",
+      "natural disaster movie recap",
+      "natural disaster movie reaction",
+      "natural disaster roblox movie",
+      "natural disaster related movies",
+      "natural disaster footage",
+      "natural disaster short film",
+      "the disaster movie song",
+      "natural disaster short movie",
+      "natural disaster survival movies",
+      "natural disaster movie tamil",
+      "natural disaster movies top",
+      "the disaster movie trailer",
+      "natural disaster documentary uk",
+      "natural disaster documentary usa",
+      "natural disaster documentary universe",
+      "natural disaster documentary video",
+      "natural disaster documentary wildlife",
+      "natural disaster documentary world",
+      "natural disaster documentary war",
+      "natural disaster documentary ww2",
+      "natural disaster documentary xbox",
+      "natural disaster documentary xqc",
+      "natural disaster documentary xi jinping",
+      "natural disaster documentary youtube",
+      "natural disaster documentary yacht",
+      "natural disaster documentary yeti",
+      "natural disaster documentary zombies",
+      "natural disaster documentary zambia",
+      "natural disaster documentary zodiac"
+    ]
+  },
+  "trends": {
+    "term": "natural disaster documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

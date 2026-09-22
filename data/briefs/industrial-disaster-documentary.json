@@ -1,0 +1,262 @@
+{
+  "theme": "industrial disaster documentary",
+  "cluster": {
+    "theme": "industrial disaster documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Nature Khauf",
+        "id": "UCyJxucjlRm1fxTi9Un2V2-g",
+        "subs": 57500,
+        "age_days": 69,
+        "first5": 16019788,
+        "vpd": 276918,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1387584.5,
+        "outliers": []
+      },
+      {
+        "channel": "THE VAULT LEDGER",
+        "id": "UCag_v_A7aj4gksXyLtQEQjA",
+        "subs": 639,
+        "age_days": 199,
+        "first5": 78827,
+        "vpd": 15934,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 15148,
+        "outliers": []
+      },
+      {
+        "channel": "Rule of Five History",
+        "id": "UCdOAZklvLp1lXwNJkxxTsgw",
+        "subs": 161,
+        "age_days": 53,
+        "first5": 1022,
+        "vpd": 3769,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 97,
+        "outliers": []
+      },
+      {
+        "channel": "NXT level Spot",
+        "id": "UCUTUiNFVFdtivJAaS-OD6Jw",
+        "subs": 367,
+        "age_days": 99,
+        "first5": 46742,
+        "vpd": 7148,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1768,
+        "outliers": []
+      },
+      {
+        "channel": "BeyondTheOutback",
+        "id": "UCrpuz3VRWoytK2G7YTcyRww",
+        "subs": 41,
+        "age_days": 57,
+        "first5": 5077,
+        "vpd": 133,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 438,
+        "outliers": [
+          {
+            "title": "Western Australia Is Hiding Something Deeply Disturbing",
+            "views": 1989,
+            "ratio": 4.5,
+            "published": "2026-08-09"
+          }
+        ]
+      },
+      {
+        "channel": "Romio Uncovered ",
+        "id": "UChivEgFj73HSSjVKoM9s8ag",
+        "subs": 24,
+        "age_days": 75,
+        "first5": 4148,
+        "vpd": 58,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 341.5,
+        "outliers": [
+          {
+            "title": "भोपाल गैस त्रासदी: वो रात जब हवा ज़हर बन गई | 2D Animated Documentary",
+            "views": 1723,
+            "ratio": 5.0,
+            "published": "2026-07-29"
+          }
+        ]
+      },
+      {
+        "channel": "Story4u",
+        "id": "UCkuz10bGtyuk8ReG5wwO6Hw",
+        "subs": 18,
+        "age_days": 81,
+        "first5": 2945,
+        "vpd": 67,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 39,
+        "outliers": [
+          {
+            "title": "भोपाल गैस त्रासदी 1984 | Bhopal Gas Tragedy 1984 | Full Documentary",
+            "views": 1543,
+            "ratio": 39.6,
+            "published": "2026-08-02"
+          }
+        ]
+      },
+      {
+        "channel": "The Factory Record",
+        "id": "UCToizLv6OPokdVllmvRKAwQ",
+        "subs": 361,
+        "age_days": 204,
+        "first5": 355,
+        "vpd": 40,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 120,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Nature Khauf"
+    ],
+    "hungry": [
+      "BeyondTheOutback",
+      "Romio Uncovered ",
+      "Story4u"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "industrial disaster documentary",
+    "depth": 88,
+    "suggestions": [
+      "industrial disaster documentary australia",
+      "industrial disaster documentary africa",
+      "industrial disaster documentary atc",
+      "industrial disaster documentary bbc",
+      "industrial disaster documentary civilization",
+      "industrial disaster documentary canada",
+      "industrial disaster documentary crime",
+      "industrial disaster documentary compilation",
+      "industrial disaster documentary documentary",
+      "industrial disaster documentary discovery channel",
+      "industrial disaster documentary discovery",
+      "industrial disaster documentary david attenborough",
+      "industrial disaster documentary english",
+      "industrial disaster documentary europe",
+      "industrial disaster documentary episode 1",
+      "industrial disaster documentary film",
+      "industrial disaster documentary full",
+      "industrial disaster documentary free",
+      "industrial disaster documentary geography",
+      "industrial disaster documentary german",
+      "industrial disaster documentary germany",
+      "industrial disaster documentary gacha",
+      "industrial disaster documentary gacha life",
+      "industrial disaster documentary hair",
+      "industrial disaster documentary hai",
+      "industrial disaster documentary hair transplant",
+      "industrial disaster documentary hail",
+      "industrial disaster documentary haiti",
+      "industrial disaster documentary in hindi",
+      "industrial disaster documentary india",
+      "industrial disaster documentary in urdu",
+      "industrial disaster documentary in english",
+      "industrial disaster documentary japan",
+      "industrial disaster documentary joe rogan",
+      "industrial disaster documentary jordan peterson",
+      "industrial disaster documentary james cameron",
+      "industrial disaster documentary john oliver",
+      "industrial disaster documentary korea",
+      "industrial disaster documentary korean",
+      "industrial disaster documentary kenya",
+      "industrial disaster documentary london",
+      "industrial disaster documentary law of attraction",
+      "industrial disaster documentary lecture",
+      "industrial disaster documentary literature",
+      "industrial disaster documentary movies",
+      "industrial disaster documentary malayalam",
+      "industrial disaster documentary music",
+      "industrial disaster documentary national geographic",
+      "industrial disaster documentary netflix",
+      "industrial disaster documentary on india",
+      "industrial disaster documentary oversimplified",
+      "industrial disaster documentary on netflix",
+      "industrial disaster documentary online",
+      "industrial disaster documentary philippines",
+      "industrial disaster documentary part 2",
+      "industrial disaster documentary part 1",
+      "industrial disaster documentary part 3",
+      "industrial disaster documentary questions",
+      "industrial disaster documentary quality",
+      "industrial disaster documentary questions and answers",
+      "industrial disaster documentary reaction",
+      "industrial disaster documentary russia",
+      "industrial disaster documentary real stories",
+      "industrial disaster documentary series",
+      "industrial disaster documentary south africa",
+      "industrial disaster documentary short",
+      "industrial disaster documentary tagalog",
+      "industrial disaster documentary tamil",
+      "industrial disaster documentary trailer",
+      "industrial disaster documentary telugu",
+      "industrial disaster documentary uk",
+      "industrial disaster documentary usa",
+      "industrial disaster documentary upsc",
+      "industrial disaster documentary urdu",
+      "industrial disaster documentary us",
+      "industrial disaster documentary video",
+      "industrial disaster documentary war",
+      "industrial disaster documentary world",
+      "industrial disaster documentary wion",
+      "industrial disaster documentary xbox",
+      "industrial disaster documentary xi jinping",
+      "industrial disaster documentary xrp",
+      "industrial disaster documentary youtube",
+      "industrial disaster documentary yacht",
+      "industrial disaster documentary yfn lucci",
+      "industrial disaster documentary zombie",
+      "industrial disaster documentary zimbabwe",
+      "industrial disaster documentary zemtv"
+    ]
+  },
+  "trends": {
+    "term": "industrial disaster documentary",
+    "avg_recent": 25.0,
+    "avg_prior": 0.0,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

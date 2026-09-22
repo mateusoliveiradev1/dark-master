@@ -1,0 +1,12 @@
+{
+  "mystery-space": [
+    ["COLD OPEN", 0.05, "dado ou cena concreta e verificada (leitura de telemetria, número de distância em light-time, imagem de arquivo); a pergunta central em uma frase; nada de intro"],
+    ["A ESCALA", 0.10, "onde e quão longe/grande/quente; números com unidade e comparação humana; visual de escala (Terra como ponto, light-time, diagrama)"],
+    ["O DADO PRIMARIO", 0.15, "a peça de pesquisa do episódio: paper revisado, release NASA/ESA, telemetria JPL ou dado de missão; quem mediu, como e quando"],
+    ["A ANOMALIA", 0.20, "o que não fecha: cronologia do mistério, tentativas de explicação, o momento em que a previsão falhou; beats curtos de 1 linha"],
+    ["A CIENCIA", 0.20, "mecanismos físicos, o que a evidência provou ou descartou; instrumentos e métodos; render sempre rotulado como render"],
+    ["AS HIPOTESES", 0.12, "até 3 hipóteses com prós e contras, rotuladas FATO/REPORTADO/ESPECULACAO; nunca afirmar o que está aberto"],
+    ["O QUE FALTA", 0.10, "a missão, o instrumento ou a medição que pode resolver; open loop honesto, sem promessa garantida"],
+    ["OUTRO+TEASER", 0.08, "fecho no detalhe do início; CTA específico; teaser do próximo arquivo"]
+  ]
+}

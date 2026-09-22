@@ -1,0 +1,311 @@
+{
+  "theme": "archaeology mystery documentary",
+  "cluster": {
+    "theme": "archaeology mystery documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Khush ki Kahaniya",
+        "id": "UCKFpUc6GMU-0B5qpoxOKaGg",
+        "subs": 51900,
+        "age_days": 98,
+        "first5": 5025899,
+        "vpd": 198907,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 259721,
+        "outliers": []
+      },
+      {
+        "channel": "Last Cartographer",
+        "id": "UCJ2aS35UesWioJORV3pEbAQ",
+        "subs": 18800,
+        "age_days": 89,
+        "first5": 74424,
+        "vpd": 20614,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 3999.5,
+        "outliers": [
+          {
+            "title": "What the Hopi Said Was Living Beneath the Grand Canyon",
+            "views": 1612231,
+            "ratio": 403.1,
+            "published": "2026-07-06"
+          }
+        ]
+      },
+      {
+        "channel": "ThePastBlueprints ",
+        "id": "UCaI1r0JCbS-CRKP3wrdZIYQ",
+        "subs": 7230,
+        "age_days": 89,
+        "first5": 1435901,
+        "vpd": 21302,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1902,
+        "outliers": []
+      },
+      {
+        "channel": "Aicontentcreator",
+        "id": "UC_AQrEyXP0StaTcqEtwcMVw",
+        "subs": 12300,
+        "age_days": 71,
+        "first5": 79823,
+        "vpd": 87499,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 8154,
+        "outliers": [
+          {
+            "title": "#kailashparvat  #lakemystery   #naturescience  #geographyfacts  #scienceexplained  #HindiFacts",
+            "views": 435238,
+            "ratio": 53.4,
+            "published": "2026-09-03"
+          },
+          {
+            "title": "#shivajimaharaj  #templehistory  #indianhistory  #archaeology  #ancientindia  #harharmahadev",
+            "views": 197842,
+            "ratio": 24.3,
+            "published": "2026-09-13"
+          },
+          {
+            "title": "#natureexplained  #scienceinhindi  #incredibleindia  #educationalreels  #knowledgereels",
+            "views": 82111,
+            "ratio": 10.1,
+            "published": "2026-09-07"
+          },
+          {
+            "title": "#ancientscience  #sanatandharma  #rasashastra  #sciencefacts  #chemistryfacts  #mahadev  #mystery",
+            "views": 60107,
+            "ratio": 7.4,
+            "published": "2026-08-31"
+          }
+        ]
+      },
+      {
+        "channel": "DocuAI",
+        "id": "UCIZimtpmkFnZH4lr6QyQpIw",
+        "subs": 4860,
+        "age_days": 72,
+        "first5": 983940,
+        "vpd": 35277,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 42912,
+        "outliers": []
+      },
+      {
+        "channel": "Atlas of Civilizations",
+        "id": "UCY28pCvOA0PrHCqv5x6iaEQ",
+        "subs": 21900,
+        "age_days": 68,
+        "first5": 15197,
+        "vpd": 74113,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 840,
+        "outliers": []
+      },
+      {
+        "channel": "Podcast Gold",
+        "id": "UCSsmX3rvY0s8uJsvvS5NB8w",
+        "subs": 5140,
+        "age_days": 89,
+        "first5": 408306,
+        "vpd": 44142,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 6615,
+        "outliers": []
+      },
+      {
+        "channel": "MovieMithra",
+        "id": "UCWgRJIH5yfgViGX80sa5Qsw",
+        "subs": 10900,
+        "age_days": 249,
+        "first5": 126633,
+        "vpd": 12848,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1393,
+        "outliers": [
+          {
+            "title": "230 ఏళ్లుగా ఎవరూ ఛేదించలేని Treasure Mystery!",
+            "views": 89695,
+            "ratio": 64.4,
+            "published": "2026-08-26"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Last Cartographer",
+      "ThePastBlueprints ",
+      "Aicontentcreator",
+      "DocuAI",
+      "Atlas of Civilizations",
+      "Podcast Gold"
+    ],
+    "hungry": [
+      "Last Cartographer",
+      "Aicontentcreator",
+      "MovieMithra"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "archaeology mystery documentary",
+    "depth": 117,
+    "suggestions": [
+      "archaeology mysteries documentary",
+      "archaeology documentary",
+      "archeology documentary",
+      "archeology discoveries",
+      "archaeology",
+      "archaeology mystery documentary africa",
+      "archaeology mystery documentary animated",
+      "archaeology mystery documentary amazon",
+      "archaeology mystery documentary amazon prime",
+      "archaeology mystery documentary and history",
+      "archaeology mystery documentary bbc",
+      "archaeology mystery documentary bangla",
+      "archaeology mystery documentary black metal",
+      "archaeology mystery documentary black",
+      "archaeology mystery documentary black hole",
+      "archaeology mystery documentary crime",
+      "archaeology mystery documentary crime investigation",
+      "archaeology mystery documentary channel 4",
+      "archaeology mystery documentary documentary",
+      "archaeology mystery documentary discovery channel",
+      "archaeology mystery documentary discovery",
+      "archaeology mystery documentary david attenborough",
+      "archaeology mystery documentary dw",
+      "archaeology mystery documentary english",
+      "archaeology mystery documentary explained",
+      "archaeology mystery documentary egypt",
+      "archaeology mystery documentary ever",
+      "archaeology mystery documentary episode 1",
+      "archaeology mystery documentary film",
+      "archaeology mystery documentary full",
+      "archaeology mystery documentary for students",
+      "archaeology mystery documentary game",
+      "archaeology mystery documentary german",
+      "archaeology mystery documentary gold",
+      "archaeology mystery documentary god",
+      "archaeology mystery documentary gothic",
+      "archaeology mystery documentary hai",
+      "archaeology mystery documentary hailey bieber",
+      "archaeology mystery documentary hail",
+      "archaeology mystery documentary hailey",
+      "archaeology mystery documentary hailee steinfeld",
+      "archaeology mystery documentary hair",
+      "archaeology mystery documentary haiti",
+      "archaeology mystery documentary in hindi",
+      "archaeology mystery documentary india",
+      "archaeology mystery documentary in english",
+      "archaeology mystery documentary in tamil",
+      "archaeology mystery documentary in urdu",
+      "archaeology mystery documentary japan",
+      "archaeology mystery documentary japanese",
+      "archaeology mystery documentary joe rogan",
+      "archaeology mystery documentary james cameron",
+      "archaeology mystery documentary kannada",
+      "archaeology mystery documentary korea",
+      "archaeology mystery documentary korean",
+      "archaeology mystery documentary list",
+      "archaeology mystery documentary london",
+      "archaeology mystery documentary life",
+      "archaeology mystery documentary lost",
+      "archaeology mystery documentary lost ark",
+      "archaeology mystery documentary malayalam",
+      "archaeology mystery documentary movies",
+      "archaeology mystery documentary music",
+      "archaeology mystery documentary netflix",
+      "archaeology mystery documentary national geographic",
+      "archaeology mystery documentary new",
+      "archaeology mystery documentary new york",
+      "archaeology mystery documentary new zealand",
+      "archaeology mystery documentary of egypt",
+      "archaeology mystery documentary on netflix",
+      "archaeology mystery documentary osama bin laden",
+      "archaeology mystery documentary online",
+      "archaeology mystery documentary part 2",
+      "archaeology mystery documentary part 1",
+      "archaeology mystery documentary philippines",
+      "archaeology mystery documentary playlist",
+      "archaeology mystery documentary part 3",
+      "archaeology mystery documentary questions",
+      "archaeology mystery documentary qatar",
+      "archaeology mystery documentary quest",
+      "archaeology mystery documentary queen",
+      "archaeology mystery documentary questions and answers",
+      "archaeology mystery documentary reaction",
+      "archaeology mystery documentary russia",
+      "archaeology mystery documentary russian",
+      "archaeology mystery documentary real stories",
+      "archaeology mystery documentary roman empire",
+      "archaeology mystery documentary south africa",
+      "archaeology mystery documentary series",
+      "archaeology mystery documentary stories",
+      "archaeology mystery documentary short",
+      "archaeology mystery documentary shows",
+      "archaeology mystery documentary tamil",
+      "archaeology mystery documentary telugu",
+      "archaeology mystery documentary tagalog",
+      "archaeology mystery documentary uk",
+      "archaeology mystery documentary urdu",
+      "archaeology mystery documentary uk 2022",
+      "archaeology mystery documentary uk 2023",
+      "archaeology mystery documentary urdu dubbed",
+      "archaeology mystery documentary video",
+      "archaeology mystery documentary video in hindi",
+      "archaeology mystery documentary with english subtitles",
+      "archaeology mystery documentary with subtitles",
+      "archaeology mystery documentary world",
+      "archaeology mystery documentary wildlife",
+      "archaeology mystery documentary war",
+      "archaeology mystery documentary xbox",
+      "archaeology mystery documentary xi jinping",
+      "archaeology mystery documentary youtube",
+      "archaeology mystery documentary youtube channel",
+      "archaeology mystery documentary youtube hindi",
+      "archaeology mystery documentary zombie",
+      "archaeology mystery documentary zemtv",
+      "archaeology mystery documentary zone",
+      "archaeology mystery documentary zeus",
+      "archaeology mystery documentary zombie apocalypse"
+    ]
+  },
+  "trends": {
+    "term": "archaeology mystery documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "forensic-medical-mysteries": [
+    ["COLD OPEN", 0.05, "o detalhe clinico mais estranho VERIFICADO (sintoma ou exame que contradiz o esperado; nao o diagnostico); pergunta central: o que os exames deixaram passar?"],
+    ["O PACIENTE", 0.14, "quem e; rotina antes do primeiro sintoma; o dia em que algo mudou; humaniza sem sentimentalismo e sem inventar detalhe"],
+    ["A ODISSEIA", 0.18, "a peregrinacao medica: consultas, exames que voltaram normais, hipoteses descartadas, o custo de nao saber; beats curtos de 1 linha"],
+    ["A PISTA", 0.20, "o coracao cientifico: o exame ou detalhe que virou o jogo; como o medico chegou la; mecanismo fisiologico explicado em linguagem clara, com a fonte em tela"],
+    ["O LAUDO", 0.16, "o diagnostico nomeado: o que e, por que era dificil de achar, o que os exames anteriores mostraram (ou esconderam)"],
+    ["O QUE FALHOU", 0.13, "o que o caso revela sobre o sistema: doenca rara, vies diagnostico, lacuna de literatura; sem culpar pessoas nem difamar profissionais"],
+    ["O DEPOIS", 0.09, "desfecho real documentado do paciente (com respeito e sem gore); o que a medicina aprendeu; o que status hoje"],
+    ["ARQUIVO+OUTRO+TEASER", 0.05, "o que ficou sem resposta + 'o que voce teria perguntado?' + teaser do proximo caso; CTA especifico, sem despedida e sem 'obrigado por assistir'"]
+  ]
+}

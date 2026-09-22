@@ -1,0 +1,225 @@
+{
+  "theme": "organized crime documentary",
+  "cluster": {
+    "theme": "organized crime documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Hidden Ops India",
+        "id": "UCRKosUcTVIsh5_-tQOynHSg",
+        "subs": 71300,
+        "age_days": 184,
+        "first5": 2407706,
+        "vpd": 102709,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 329208,
+        "outliers": [
+          {
+            "title": "Tukaram Mundhe ने कैसे खोली Food Mafia की पोल? | Asli Singham | 2D Animation",
+            "views": 4200979,
+            "ratio": 12.8,
+            "published": "2026-08-27"
+          }
+        ]
+      },
+      {
+        "channel": "The Past Port",
+        "id": "UC4qHaonHYNKmOWhEPdcsilA",
+        "subs": 4650,
+        "age_days": 123,
+        "first5": 2890319,
+        "vpd": 194282,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 32772,
+        "outliers": []
+      },
+      {
+        "channel": "FBI Investigates",
+        "id": "UCpm62a6Py6-gxNm1HGtydmw",
+        "subs": 68300,
+        "age_days": 315,
+        "first5": 859329,
+        "vpd": 80765,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 84446,
+        "outliers": []
+      },
+      {
+        "channel": "Endless Night Files",
+        "id": "UCy7mIM8KR_EpPO0ZxZ3ZgZg",
+        "subs": 2760,
+        "age_days": 77,
+        "first5": 427349,
+        "vpd": 6361,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 13088,
+        "outliers": [
+          {
+            "title": "The Albanian Mafia: How They Took Over Europe's Cocaine Trade",
+            "views": 280456,
+            "ratio": 21.4,
+            "published": "2026-08-03"
+          }
+        ]
+      },
+      {
+        "channel": "World Entertainment Documentaries",
+        "id": "UCZfMc9IPyrPYSlhwjJ9OVeQ",
+        "subs": 1430,
+        "age_days": 113,
+        "first5": 35465,
+        "vpd": 4696,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2765,
+        "outliers": []
+      },
+      {
+        "channel": "Ashes of Empires",
+        "id": "UCexp96qf60rGSKD9OcSY1Pw",
+        "subs": 1980,
+        "age_days": 52,
+        "first5": 156074,
+        "vpd": 10565,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 28755,
+        "outliers": [
+          {
+            "title": "The Real Casino Story Ended 12 Years After the Movie (And It Was Worse)",
+            "views": 251636,
+            "ratio": 8.8,
+            "published": "2026-08-26"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "hungry": [
+      "Hidden Ops India",
+      "Endless Night Files",
+      "Ashes of Empires"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "organized crime documentary",
+    "depth": 84,
+    "suggestions": [
+      "organized crime documentary",
+      "organized crime documentary uk",
+      "organised crime documentary",
+      "organised crime documentary uk",
+      "organised crime documentary australia",
+      "organised crime documentary uk bbc",
+      "russian organized crime documentary",
+      "canadian organized crime documentary",
+      "montreal organized crime documentary",
+      "organized retail crime documentary",
+      "organized crime film complet en francais",
+      "organized crime",
+      "organized crime in europe",
+      "organized crime crime documentary",
+      "organized crime documentary deutsch",
+      "organized crime documentary documentary",
+      "organized crime documentary drug dealer",
+      "organized crime documentary drugs",
+      "organized crime full movie",
+      "organized crime documentary germany",
+      "organized crime documentary german",
+      "organized crime documentary greek subs",
+      "organized crime documentary haiti",
+      "organized crime documentary hailey",
+      "organized crime documentary haitian",
+      "organized crime documentary haitian revolution",
+      "organized crime documentary hbo",
+      "organized crime documentary hulu",
+      "organized crime documentary in hindi",
+      "organized crime documentary india",
+      "organized crime documentary in english",
+      "organized crime documentary ireland",
+      "organized crime documentary itv",
+      "organized crime documentary imdb",
+      "organized crime documentary jamaica",
+      "organized crime documentary jordan",
+      "organized crime documentary julia",
+      "organized crime documentary jason",
+      "organized crime documentary julia roberts",
+      "organized crime documentary london",
+      "organized crime documentary latest episode",
+      "organized crime documentary last episode",
+      "organized crime documentary list",
+      "organized crime documentary netflix",
+      "organized crime documentary new",
+      "organized crime documentary new york",
+      "organized crime documentary online",
+      "organized crime documentary on netflix",
+      "organized crime documentary online free",
+      "organized crime documentary playlist",
+      "organized crime documentary part 2",
+      "organized crime documentary part 1",
+      "organized crime documentary philippines",
+      "organized crime documentary part 3",
+      "organized crime documentary podcast",
+      "organized crime documentary questions",
+      "organized crime documentary queen",
+      "organized crime documentary quezon city",
+      "organized crime documentary queen elizabeth",
+      "organized crime documentary season 1",
+      "organized crime documentary series",
+      "organized crime documentary season 2",
+      "organized crime documentary season 3",
+      "organized crime documentary south africa",
+      "organized crime documentary trailer",
+      "organized crime documentary telugu",
+      "organized crime documentary trinidad",
+      "organized crime documentary tv series",
+      "organized crime documentary video",
+      "organized crime documentary video game",
+      "organized crime documentary watch online",
+      "organized crime documentary with english subtitles",
+      "organized crime documentary web series",
+      "organized crime documentary with subtitles",
+      "organized crime documentary website",
+      "organized crime documentary xl",
+      "organized crime documentary xqc",
+      "organized crime documentary x factor",
+      "organized crime documentary xbox",
+      "organized crime documentary youtube",
+      "organized crime documentary yfn lucci",
+      "organized crime documentary young",
+      "organized crime documentary zombies",
+      "organized crime documentary zimbabwe"
+    ]
+  },
+  "trends": {
+    "term": "organized crime documentary",
+    "avg_recent": 10.25,
+    "avg_prior": 0.0,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

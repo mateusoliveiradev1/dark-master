@@ -1,0 +1,281 @@
+{
+  "theme": "AI failure documentary",
+  "cluster": {
+    "theme": "AI failure documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Sita Ram Productions",
+        "id": "UCOlJNwzHddp87ej91DGd1Ig",
+        "subs": 28200,
+        "age_days": 247,
+        "first5": 396309,
+        "vpd": 39933,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 4798,
+        "outliers": [
+          {
+            "title": "Vishnu vs Yamraj — Dhruva’s Death Failed ! | AI Short Film | #vishnu #yamraj",
+            "views": 870362,
+            "ratio": 181.4,
+            "published": "2026-07-30"
+          },
+          {
+            "title": "Angad — The Biggest Diplomat of Ramayana | Ravan's Dominant Politics Failed ! | AI Short Film",
+            "views": 16952,
+            "ratio": 3.5,
+            "published": "2026-07-01"
+          }
+        ]
+      },
+      {
+        "channel": "cineforge",
+        "id": "UC30HlwcAItoNksngQqOfBOQ",
+        "subs": 45,
+        "age_days": 35,
+        "first5": 3421,
+        "vpd": 2202,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 948,
+        "outliers": []
+      },
+      {
+        "channel": "Emotion Vibes Official 1",
+        "id": "UCPZZp6NCs64cEGjA-mO9hnA",
+        "subs": 156,
+        "age_days": 83,
+        "first5": 2982,
+        "vpd": 1277,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 350,
+        "outliers": []
+      },
+      {
+        "channel": "history xbyte",
+        "id": "UCAJttQhBmItpp9gena-o9Pw",
+        "subs": 170,
+        "age_days": 58,
+        "first5": 4092,
+        "vpd": 490,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1214,
+        "outliers": []
+      },
+      {
+        "channel": "Pranjal Kesharwani",
+        "id": "UCaUK8gjt3_2n1YFDDPReqwg",
+        "subs": 352,
+        "age_days": 129,
+        "first5": 13099,
+        "vpd": 234,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 327,
+        "outliers": []
+      },
+      {
+        "channel": "SystemFailureStudios",
+        "id": "UCruoYK-4c6WllDFNVoj76vw",
+        "subs": 10,
+        "age_days": 30,
+        "first5": 252,
+        "vpd": 105,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 64,
+        "outliers": []
+      },
+      {
+        "channel": "Mono_Teens",
+        "id": "UC7Vm5ENFvF2qdejRlKPzaZQ",
+        "subs": 308,
+        "age_days": 172,
+        "first5": 47,
+        "vpd": 2543,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 58,
+        "outliers": []
+      },
+      {
+        "channel": "dudethatsai",
+        "id": "UCpz8qmaZPHw_EGTBj6wRC8A",
+        "subs": 7,
+        "age_days": 27,
+        "first5": 507,
+        "vpd": 65,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 46,
+        "outliers": [
+          {
+            "title": "The Most Profitable Failure in Tech History 🧠📉 #shorts #ai #history",
+            "views": 289,
+            "ratio": 6.3,
+            "published": "2026-09-10"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "cineforge"
+    ],
+    "hungry": [
+      "Sita Ram Productions",
+      "dudethatsai"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "AI failure documentary",
+    "depth": 112,
+    "suggestions": [
+      "ai decline",
+      "ai crisis",
+      "ai extinction",
+      "ai failure documentary ai",
+      "ai failure documentary art",
+      "ai failure documentary after effects",
+      "ai failure documentary bbc",
+      "ai failure documentary background music",
+      "ai failure documentary by",
+      "ai failure documentary background",
+      "ai failure documentary by ai",
+      "ai failure documentary clips",
+      "ai failure documentary channel",
+      "ai failure documentary compilation",
+      "ai failure documentary channel 4",
+      "ai failure documentary channel 5",
+      "ai failure documentary documentary",
+      "ai failure documentary dw",
+      "ai failure documentary drake",
+      "ai failure documentary david attenborough",
+      "ai failure documentary english",
+      "ai failure documentary example",
+      "ai failure documentary explained",
+      "ai failure documentary episode 1",
+      "ai failure documentary film",
+      "ai failure documentary free",
+      "ai failure documentary full",
+      "ai failure documentary filmmaking",
+      "ai failure documentary green screen",
+      "ai failure documentary girl",
+      "ai failure documentary guide",
+      "ai failure documentary generator",
+      "ai failure documentary graph",
+      "ai failure documentary hair",
+      "ai failure documentary hailey",
+      "ai failure documentary hai",
+      "ai failure documentary hail",
+      "ai failure documentary haier",
+      "AI failure documentary haiti",
+      "ai failure documentary in hindi",
+      "ai failure documentary india",
+      "ai failure documentary intro",
+      "ai failure documentary japan",
+      "ai failure documentary joe rogan",
+      "ai failure documentary james cameron",
+      "ai failure documentary korea",
+      "ai failure documentary kanye",
+      "ai failure documentary kpop",
+      "ai failure documentary korean",
+      "ai failure documentary live",
+      "ai failure documentary latest",
+      "ai failure documentary logo",
+      "ai failure documentary life",
+      "ai failure documentary lookism",
+      "ai failure documentary music",
+      "ai failure documentary movie",
+      "ai failure documentary malayalam",
+      "ai failure documentary music no copyright",
+      "ai failure documentary netflix",
+      "ai failure documentary national geographic",
+      "ai failure documentary no copyright",
+      "ai failure documentary old",
+      "ai failure documentary on space",
+      "ai failure documentary on youtube",
+      "ai failure documentary on",
+      "ai failure documentary on netflix",
+      "ai failure documentary online",
+      "ai failure documentary philippines",
+      "ai failure documentary podcast",
+      "ai failure documentary part 1",
+      "ai failure documentary part 2",
+      "ai failure documentary playlist",
+      "ai failure documentary questions",
+      "ai failure documentary quotes",
+      "ai failure documentary quality",
+      "ai failure documentary reaction",
+      "ai failure documentary real stories",
+      "ai failure documentary report",
+      "ai failure documentary review",
+      "ai failure documentary real",
+      "ai failure documentary series",
+      "ai failure documentary space",
+      "ai failure documentary song",
+      "ai failure documentary short",
+      "ai failure documentary story",
+      "ai failure documentary trailer",
+      "ai failure documentary tamil",
+      "ai failure documentary timeline",
+      "ai failure documentary time",
+      "ai failure documentary uk",
+      "ai failure documentary upsc",
+      "ai failure documentary urdu",
+      "ai failure documentary us",
+      "ai failure documentary video",
+      "ai failure documentary writing",
+      "ai failure documentary with subtitles",
+      "ai failure documentary world",
+      "ai failure documentary war",
+      "ai failure documentary with music",
+      "ai failure documentary xqc",
+      "ai failure documentary xml",
+      "ai failure documentary xrp",
+      "ai failure documentary xbox",
+      "ai failure documentary youtube",
+      "ai failure documentary ytp",
+      "ai failure documentary youtube channel",
+      "ai failure documentary young",
+      "ai failure documentary yt",
+      "ai failure documentary zoom",
+      "ai failure documentary zimbabwe",
+      "ai failure documentary zone",
+      "ai failure documentary zemtv"
+    ]
+  },
+  "trends": {
+    "term": "AI failure documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

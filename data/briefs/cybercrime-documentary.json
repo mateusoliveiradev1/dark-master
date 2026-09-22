@@ -1,0 +1,222 @@
+{
+  "theme": "cybercrime documentary",
+  "cluster": {
+    "theme": "cybercrime documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "The Time Empire",
+        "id": "UCIm98UlwlcPnWg1W-L4RuYA",
+        "subs": 1770,
+        "age_days": 215,
+        "first5": 8235,
+        "vpd": 3066,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 897,
+        "outliers": [
+          {
+            "title": "India’s Border Spy Network | The Electrician Exposed a Secret Surveillance Network Part-2 ",
+            "views": 19764,
+            "ratio": 22.0,
+            "published": "2026-09-13"
+          }
+        ]
+      },
+      {
+        "channel": "Inqalaab",
+        "id": "UCG30mTZR9QVkCrXIJ3ek9Tw",
+        "subs": 72500,
+        "age_days": 340,
+        "first5": 58938,
+        "vpd": 24515,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 11560,
+        "outliers": []
+      },
+      {
+        "channel": "Midnight Crime Vault",
+        "id": "UCJnppf_vqHZxxnxme-8m-AA",
+        "subs": 5000,
+        "age_days": 112,
+        "first5": 14539,
+        "vpd": 4112,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 926,
+        "outliers": []
+      },
+      {
+        "channel": "Temné stránky světa",
+        "id": "UCOra525WnIJ7h15LjKK7hMw",
+        "subs": 2140,
+        "age_days": 221,
+        "first5": 11641,
+        "vpd": 3091,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 3085,
+        "outliers": []
+      },
+      {
+        "channel": "RAUD Crime Files India",
+        "id": "UCRxj8pkzmGS-d0IMMALrLLg",
+        "subs": 3520,
+        "age_days": 99,
+        "first5": 57774,
+        "vpd": 20634,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 8960,
+        "outliers": []
+      },
+      {
+        "channel": "The Record",
+        "id": "UCLJ_ZocP-aeDQxsrPdHHPyg",
+        "subs": 4,
+        "age_days": 24,
+        "first5": 3994,
+        "vpd": 166,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1997.0,
+        "outliers": []
+      },
+      {
+        "channel": "Suspense Stories",
+        "id": "UC-TDHCirW-xMheU1d1JERxg",
+        "subs": 5230,
+        "age_days": 47,
+        "first5": 53960,
+        "vpd": 41956,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 442,
+        "outliers": []
+      },
+      {
+        "channel": "BAD FILES.",
+        "id": "UCVxLdbL7y91mGuEhCr7cAoQ",
+        "subs": 40,
+        "age_days": 333,
+        "first5": 4947,
+        "vpd": 46,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 993,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Suspense Stories"
+    ],
+    "hungry": [
+      "The Time Empire"
+    ],
+    "signal": false,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "cybercrime documentary",
+    "depth": 67,
+    "suggestions": [
+      "cyber crime documentary",
+      "cybercrime documentary philippines",
+      "cyber crime documentary india",
+      "cyber crime documentary in hindi",
+      "cyber crime documentary dark web",
+      "cybercrime investigator",
+      "cybercriminals",
+      "cybersecurity documentary",
+      "cybercrime documentary arabic",
+      "cybercrime documentary and investigation",
+      "cybercrime documentary abuse",
+      "cyber crime best movie",
+      "cyber crimes documentary",
+      "cyber attacks documentary",
+      "cybercrime documentary china",
+      "cybercrime documentary canada",
+      "cybercrime documentary channel 4",
+      "cybercrime documentary english",
+      "cybercrime documentary episode 1",
+      "cybercrime documentary episode 2",
+      "cyber crime full movie",
+      "cybercrime documentary ghana",
+      "cybercrime documentary gma",
+      "cybercrime documentary gujarat",
+      "cybercrime documentary gujarati",
+      "cyber crime documentary hindi",
+      "cybercrime hindi movie",
+      "cyber war",
+      "cybercrime movie in hindi",
+      "cybercrime jamtara movie",
+      "cybercrime kannada movie",
+      "cybercrime documentary law of attraction",
+      "cybercrime documentary lecture",
+      "cybercrime documentary latest",
+      "cyber crime marathi movie",
+      "cybercrime documentary nepal",
+      "cybercrime documentary national geographic",
+      "cybercrime documentary nepali",
+      "cybercrime documentary netflix",
+      "cybercrime documentary nz",
+      "cybercrime documentary on pakistan",
+      "cybercrime documentary on india",
+      "cybercrime documentary online",
+      "cybercrime documentary questions",
+      "cybercrime documentary questions and answers",
+      "cybercrime documentary quality",
+      "cybercrime documentary qatar",
+      "cybercrime documentary report",
+      "cybercrime documentary release date",
+      "cyber crime short film",
+      "cybercrime tamil movie",
+      "cybercrime documentary uk",
+      "cybercrime documentary urdu",
+      "cybercrime documentary upsc",
+      "cybercrime documentary upsc hindi",
+      "cybercrime documentary video",
+      "cyber war documentary",
+      "cybercrime documentary xrp",
+      "cybercrime documentary xtc",
+      "cybercrime documentary xqc",
+      "cybercrime documentary xtra",
+      "cybercrime documentary youtube",
+      "cybercrime documentary yfn lucci",
+      "cybercrime documentary yrkkh",
+      "cybercrime documentary zambia",
+      "cybercrime documentary zimbabwe",
+      "cybercrime documentary zambada"
+    ]
+  },
+  "trends": {
+    "term": "cybercrime documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mystery-ocean": [
+    ["COLD OPEN", 0.05, "cena concreta do registro: ultimo sinal de radio, foto de arquivo ou leitura de sonar; a pergunta central; nada de intro"],
+    ["O MAPA", 0.12, "onde exatamente: coordenadas, profundidade, correntes, geografia; por que aquele ponto e unico ou perigoso; visual de mapa/batimetria"],
+    ["A TRIPULACAO", 0.15, "quem estava a bordo ou quem procurava; rotina, nomes e stakes humanos; contexto sem sentimentalismo"],
+    ["A PERDA", 0.20, "cronologia minuto a minuto do desaparecimento, do naufragio ou da descoberta; frases curtas; beats de 1 linha"],
+    ["A BUSCA", 0.15, "quem procurou, com que tecnologia, o que falhou; a operacao de busca em numeros"],
+    ["A CIENCIA", 0.15, "sonar, batimetria, pressao, biologia abissal, arqueologia subaquatica; o que a evidencia provou ou descartou; 1 peca primaria por video"],
+    ["TEORIAS", 0.10, "ate 3 teorias com pros e contras, rotuladas FATO/REPORTADO/LENDA; nunca afirmar o que nao esta provado"],
+    ["ABERTO+OUTRO+TEASER", 0.08, "o que ainda falta encontrar ou explicar; CTA especifico; teaser do proximo arquivo"]
+  ]
+}

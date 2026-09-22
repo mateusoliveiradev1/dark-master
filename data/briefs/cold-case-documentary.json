@@ -1,0 +1,254 @@
+{
+  "theme": "cold case documentary",
+  "cluster": {
+    "theme": "cold case documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Red File",
+        "id": "UCNpjH9MosivtBOa45Hbu39g",
+        "subs": 97600,
+        "age_days": 208,
+        "first5": 8486833,
+        "vpd": 171137,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1207836,
+        "outliers": [
+          {
+            "title": "“Friendly” Cop Has No Idea Police Already Matched Her DNA After 23 Years",
+            "views": 12649042,
+            "ratio": 10.5,
+            "published": "2026-08-12"
+          }
+        ]
+      },
+      {
+        "channel": "Othram Studios",
+        "id": "UCnej50nPDuWlDxfIq87IGeQ",
+        "subs": 58800,
+        "age_days": 208,
+        "first5": 15261,
+        "vpd": 42397,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2916,
+        "outliers": []
+      },
+      {
+        "channel": "Explorer Vault",
+        "id": "UCy_SmKxe-Q39WcuHyWxb6Ww",
+        "subs": 5610,
+        "age_days": 154,
+        "first5": 27442,
+        "vpd": 21902,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 6414,
+        "outliers": []
+      },
+      {
+        "channel": "DARK LOGS ",
+        "id": "UC6D4_wNLbuhJ_t_Noh2ivtA",
+        "subs": 32700,
+        "age_days": 231,
+        "first5": 45273,
+        "vpd": 51007,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 12752,
+        "outliers": []
+      },
+      {
+        "channel": "ZDF True Crime",
+        "id": "UCynSg15i7kLO4egGAQD044w",
+        "subs": 97900,
+        "age_days": 333,
+        "first5": 1281534,
+        "vpd": 106974,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 163722,
+        "outliers": [
+          {
+            "title": "Cold Case Kasernen-Mord: Wer erstach den jungen Soldaten? | ZDF True Crime",
+            "views": 527781,
+            "ratio": 3.2,
+            "published": "2026-09-08"
+          }
+        ]
+      },
+      {
+        "channel": "Crimewatch Central",
+        "id": "UCU3bje7O_BFzvCQZ5X4eRCw",
+        "subs": 27000,
+        "age_days": 165,
+        "first5": 236377,
+        "vpd": 12626,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 32297,
+        "outliers": [
+          {
+            "title": "Colorado 1984 Bennett Family Massacre Cold Case SOLVED — Arrest Shocks Community",
+            "views": 272823,
+            "ratio": 8.4,
+            "published": "2026-07-14"
+          }
+        ]
+      },
+      {
+        "channel": "Walter | True Crime",
+        "id": "UCdUInxOEVq7Rfq_pPJhH6Fw",
+        "subs": 4570,
+        "age_days": 149,
+        "first5": 18892,
+        "vpd": 4173,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 528,
+        "outliers": []
+      },
+      {
+        "channel": "Detective Michael",
+        "id": "UCra9h-3jULBb2WRQhJEk5Lg",
+        "subs": 62100,
+        "age_days": 348,
+        "first5": 431530,
+        "vpd": 22980,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 17257,
+        "outliers": [
+          {
+            "title": "Doctors Extracted Two Liters Of Semen From There | True Crime Documentary",
+            "views": 218248,
+            "ratio": 12.6,
+            "published": "2026-08-25"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "hungry": [
+      "Red File",
+      "ZDF True Crime",
+      "Crimewatch Central",
+      "Detective Michael"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "cold case documentary",
+    "depth": 75,
+    "suggestions": [
+      "cold case documentary",
+      "cold case documentary full episodes",
+      "cold case documentary uk",
+      "cold case film malayalam full movie",
+      "cold case film in kannada",
+      "cold case film in tamil",
+      "cold case murders documentary",
+      "cold case crime documentary",
+      "cold case investigation documentary",
+      "cold case hammarskjöld documentary",
+      "old cold case documentary",
+      "mississippi cold case documentary",
+      "cold case serial killer documentary",
+      "cold case documentary australia",
+      "cold case documentary arabic",
+      "cold case documentary amazon prime",
+      "cold case film complet en francais",
+      "cold case story",
+      "cold case solved",
+      "cold case resolved",
+      "cold case files",
+      "cold case documentary david attenborough",
+      "cold case documentary dublin",
+      "cold case documentary documentary",
+      "cold case documentary discovery",
+      "cold case documentary discovery channel",
+      "cold case files playlist",
+      "cold case episodes",
+      "cold case solved 2023",
+      "cold case documentary gone wrong",
+      "cold case documentary germany",
+      "cold case documentary gq",
+      "cold case documentary glasgow",
+      "cold case full episodes",
+      "cold case best episodes",
+      "cold case documentary jeremy clarkson",
+      "cold case documentary james cameron",
+      "cold case documentary joseph vincent",
+      "cold case documentary jeremy",
+      "cold case kannada film",
+      "cold case documentary last episode",
+      "cold case documentary liam neeson",
+      "cold case documentary louis theroux",
+      "cold case documentary liam",
+      "cold case murders solved documentary",
+      "cold case documentary netflix",
+      "cold case documentary netflix trailer",
+      "cold cases series",
+      "cold case documentary philippines",
+      "cold case documentary pilot",
+      "cold case documentary part 2",
+      "cold case documentary part 1",
+      "cold case documentary playlist",
+      "cold case documentary quiet",
+      "cold case documentary queen",
+      "cold case documentary qatar",
+      "cold case documentary queen elizabeth",
+      "cold case documentary real stories",
+      "cold case documentary reaction",
+      "cold case solved documentary",
+      "cold case short film",
+      "crime documentary cold case solved",
+      "cold case tamil film",
+      "cold case documentary video",
+      "cold case documentary video essay",
+      "cold case documentary xbox",
+      "cold case documentary xrp",
+      "cold case documentary youtube",
+      "cold case documentary ytp",
+      "cold case documentary yacht",
+      "cold case documentary zombie",
+      "cold case documentary zimbabwe",
+      "cold case documentary zambia",
+      "cold case documentary zee world",
+      "cold case documentary zee"
+    ]
+  },
+  "trends": {
+    "term": "cold case documentary",
+    "avg_recent": 69.0,
+    "avg_prior": 63.083333333333336,
+    "direction": "ESTAVEL",
+    "rising": []
+  }
+}

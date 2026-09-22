@@ -1,0 +1,12 @@
+{
+  "folklore-urban-legends": [
+    ["COLD OPEN", 0.06, "a lenda numa cena concreta: o detalhe que todas as versoes repetem (o som, a placa, a pagina, o endereco); sem data/local antes do gancho; abre a pergunta central 'por que essa historia nao morre?'"],
+    ["A LENDA COMO SE CONTA", 0.12, "a versao corrente contada com respeito, como o povo conta: onde acontece, quem conta, o que a historia promete ou ameaca; a lenda e a protagonista, nao a 'verdade'; sem sensacionalismo e sem afirmar o sobrenatural"],
+    ["AS VERSOES E AS ROTAS", 0.13, "as variantes por regiao e por decada; o que muda e o que nunca muda; mapa das rotas de propagacao; o detalhe que sobrevive e a pista do nucleo da lenda; um movimento por bloco, sem lista"],
+    ["O ARQUIVO", 0.18, "a peca primaria: primeira aparicao em jornal, coletanea de folclorista, ata, carta, diario, foto ou registro de museu; data e autor da primeira versao impressa; camadas [FATO]/[REPORTADO]/[LENDA] explicitas; o coracao do episodio"],
+    ["O QUE A HISTORIA RESOLVIA", 0.16, "o contexto cultural: medo de estranhos, estradas perigosas, agua, vergonha, doenca, perda de terra; os numeros reais por tras do palco (quem morreu, quem lucrou, quem foi silenciado); o mecanismo explicado sem jargao e sem julgar quem acredita"],
+    ["O QUE DA PARA VERIFICAR", 0.15, "veredito calibrado: o que a evidencia sustenta, o que e exagero e o que segue aberto; comparacao com o registro; sem 'debunk' humilhante e sem afirmar sobrenatural; pode terminar honestamente em 'nao fecha'"],
+    ["O LEGADO HOJE", 0.12, "como a lenda vive: turismo, festival, placa, filme, meme, aviso de pais; o que ela ainda protege ou esconde; quem conta e por que; liga passado e presente sem opiniao solta"],
+    ["ARQUIVO ABERTO+OUTRO+TEASER", 0.08, "a pergunta que fica; o documento que qualquer um pode procurar hoje; teaser da proxima lenda; nunca 'obrigado por assistir' e nunca prometer resposta que o episodio nao fecha"]
+  ]
+}

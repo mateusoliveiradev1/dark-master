@@ -1,0 +1,118 @@
+{
+  "theme": "assassination documentary",
+  "window_days": 90,
+  "channels": [
+    {
+      "channel": "AniHis Hindi",
+      "id": "UCvxKQMAJiWb3YUIKMVf44kQ",
+      "subs": 117000,
+      "age_days": 252,
+      "first5": 1747572,
+      "vpd": 107869,
+      "gates": {
+        "age<=45": false,
+        "first5>=10k": true,
+        "vpd>=1k": true
+      },
+      "median": 88445,
+      "outliers": []
+    },
+    {
+      "channel": "Monu The Explainer",
+      "id": "UClUKdrkjiORDJJRsw8HVWbA",
+      "subs": 18400,
+      "age_days": 192,
+      "first5": 407848,
+      "vpd": 43895,
+      "gates": {
+        "age<=45": false,
+        "first5>=10k": true,
+        "vpd>=1k": true
+      },
+      "median": 121427,
+      "outliers": []
+    },
+    {
+      "channel": "Graven History",
+      "id": "UCwgn9GXoaStCqwqanfBN6DA",
+      "subs": 6920,
+      "age_days": 97,
+      "first5": 1524124,
+      "vpd": 15649,
+      "gates": {
+        "age<=45": false,
+        "first5>=10k": true,
+        "vpd>=1k": true
+      },
+      "median": 119319,
+      "outliers": [
+        {
+          "title": "What Actually Happened to EVERY Senator Who STABBED Julius Caesar?",
+          "views": 915048,
+          "ratio": 7.7,
+          "published": "2026-07-14"
+        }
+      ]
+    },
+    {
+      "channel": "Frontline Responders",
+      "id": "UCDgE_zUuYyFNCzfNl0OBNZA",
+      "subs": 15900,
+      "age_days": 242,
+      "first5": 18196,
+      "vpd": 16626,
+      "gates": {
+        "age<=45": false,
+        "first5>=10k": true,
+        "vpd>=1k": true
+      },
+      "median": 2320,
+      "outliers": []
+    },
+    {
+      "channel": "Explorer Vault",
+      "id": "UCy_SmKxe-Q39WcuHyWxb6Ww",
+      "subs": 5660,
+      "age_days": 154,
+      "first5": 27457,
+      "vpd": 21902,
+      "gates": {
+        "age<=45": false,
+        "first5>=10k": true,
+        "vpd>=1k": true
+      },
+      "median": 6513,
+      "outliers": []
+    },
+    {
+      "channel": "GRIPPED: Police, Crime, Action",
+      "id": "UCPoykxOSYcSR_c_QsVAgfnA",
+      "subs": 7740,
+      "age_days": 180,
+      "first5": 14308,
+      "vpd": 11790,
+      "gates": {
+        "age<=45": false,
+        "first5>=10k": true,
+        "vpd>=1k": true
+      },
+      "median": 10928,
+      "outliers": [
+        {
+          "title": "Police Hunt A Hitman After Triple Execution In New York",
+          "views": 443537,
+          "ratio": 40.6,
+          "published": "2026-09-14"
+        }
+      ]
+    }
+  ],
+  "passed": [],
+  "emerging": [],
+  "hungry": [
+    "Graven History",
+    "GRIPPED: Police, Crime, Action"
+  ],
+  "signal": true,
+  "verdict": "REPROVA"
+}

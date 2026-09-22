@@ -1,0 +1,12 @@
+{
+  "tech-surveillance": [
+    ["HOOK (cena verificada)", 0.05, "a contradição mais forte do arquivo: o que a tecnologia prometeu vs. o que o documento mostra (contrato, auditoria, log, laudo)"],
+    ["O SISTEMA", 0.14, "o que é a tecnologia/rede em linguagem concreta: como captura, o que grava, onde armazena, quem vende; sem jargão não explicado"],
+    ["A CONSTRUÇÃO", 0.16, "linha do tempo documentada: quem comprou, licitação/contrato, quanto custou, fornecedores, expansão"],
+    ["O QUE ELA VIU", 0.20, "o caso ou o dado concreto: o que a vigilância capturou, registrou ou errou (o coração do episódio)"],
+    ["QUEM ACESSA", 0.14, "quem opera e quem consulta (polícia, agências, empresas, privados); políticas de acesso e brechas documentadas"],
+    ["AS CONTRADIÇÕES", 0.14, "eficácia vs. custo; auditorias, estudos e os dois lados com fonte; o que os defensores do sistema argumentam"],
+    ["O CUSTO", 0.10, "privacidade, erros de identificação, grupos afetados, resposta de tribunais/reguladores; o que ainda não se sabe"],
+    ["FECHAMENTO + TEASER", 0.07, "payoff seco + caminho do próximo arquivo da série; CTA que não quebra o loop"]
+  ]
+}

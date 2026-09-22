@@ -1,0 +1,13 @@
+{
+  "finance-corporate-collapse": [
+    ["COLD OPEN", 0.05, "resultado antes da historia: numero concreto (valor perdido, divida, dias ate o colapso); sem logo, sem intro, sem data antes do gancho"],
+    ["A EMPRESA", 0.10, "o que ela fazia e por que funcionava; escala e numeros do auge; o espectador precisa acreditar antes de ver quebrar"],
+    ["A MAQUINA", 0.12, "como o dinheiro entrava e o que o balanco escondia (ou mostrava); mecanismo em linguagem simples; fonte primaria entra aqui"],
+    ["A ASCENSAO", 0.12, "a decada dourada: expansao, aquisicoes, confianca; numeros de receita/acao; o auge documentado"],
+    ["A DECISAO FATAL", 0.18, "a UNICA escolha que o video inteiro sustenta (aquisicao, alavancagem, pivot, metodo contabil); coracao da retencao"],
+    ["O DESMORONAMENTO", 0.18, "consequencias EM SEQUENCIA: cada evento causado pelo anterior; datas, numeros, a primeira rachadura publica"],
+    ["O DINHEIRO", 0.12, "onde o dinheiro foi: credores, funcionarios, acionistas; numeros concretos de recuperacao/perda; sem drama barato"],
+    ["O LEGADO", 0.08, "a licao transferivel + o que mudou (lei, regulacao, mercado); a frase que vira comentario"],
+    ["OUTRO+TEASER", 0.05, "fechamento abrupto + teaser do proximo colapso; sem 'obrigado por assistir'"]
+  ]
+}

@@ -7,7 +7,11 @@ Uso:
   2) Rode:  python scripts/yt_auth.py
      (abre o navegador; autorize; o token fica salvo em secrets/yt-token.json)
 
-Escopos: youtube.readonly + yt-analytics.readonly + yt-analytics-monetary.readonly
+Escopos: youtube.readonly + youtube.force-ssl (comentarios) + yt-analytics.readonly
+         + yt-analytics-monetary.readonly
+
+Se voce ja autorizou antes (token sem force-ssl), rode de novo para liberar o
+`niche_scan.py --comments` (a tela de consentimento mostra o novo escopo).
 """
 import os
 import sys
@@ -19,6 +23,7 @@ TOKEN = SECRETS / "yt-token.json"
 
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/youtube.force-ssl",
     "https://www.googleapis.com/auth/yt-analytics.readonly",
     "https://www.googleapis.com/auth/yt-analytics-monetary.readonly",
 ]

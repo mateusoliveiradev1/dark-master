@@ -1,0 +1,13 @@
+{
+  "true-crime-cults": [
+    ["COLD OPEN (detalhe verificado)", 0.05, "o objeto/detalhe mais estranho VERIFICADO — nunca a violência"],
+    ["A PESSOA ANTES DO GRUPO", 0.14, "quem era, o que buscava; humaniza sem culpar"],
+    ["A ASCENSÃO DO LÍDER", 0.15, "carisma, promessa, degraus de compromisso"],
+    ["O SISTEMA DE CONTROLE", 0.20, "isolamento, jargão, rituais, dinheiro, sono — o mecanismo em ação"],
+    ["A VIRADA", 0.16, "saída, denúncia ou operação; cronologia curta, frases curtas"],
+    ["OS DOCUMENTOS", 0.12, "o que autos, fitas e registros provam — e o que o grupo diz"],
+    ["SOBREVIVENTES E CONSEQUÊNCIAS", 0.10, "quem luta pelo caso; recuperação; legado"],
+    ["O QUE NÃO SABEMOS", 0.05, "até 3 questões abertas; separar [FATO]/[REPORTADO]/[LENDA]"],
+    ["FECHAMENTO + TEASER", 0.03, "payoff seco + próximo arquivo; CTA que não quebra o loop"]
+  ]
+}

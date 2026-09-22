@@ -1,0 +1,13 @@
+{
+  "true-crime-small-town": [
+    ["HOOK", 0.04, "o detalhe mais estranho VERIFICADO (carta, ligacao, conta, mapa) - nao o crime; pergunta que prende"],
+    ["A CIDADE", 0.10, "a cidade pequena como personagem: tamanho, rotina, quem todos conheciam, o que todos sabiam"],
+    ["PESSOAS", 0.12, "vitima e envolvidos; humaniza; mapa da rotina; o que estava em jogo"],
+    ["PRESSAO", 0.12, "os pesos antes do fato (cartas, dividas, vizinhanca, silencio, telefonemas)"],
+    ["O DIA", 0.20, "cronologia minuto a minuto; frases curtas; beats de 1 linha"],
+    ["ARQUIVO E PERICIA", 0.16, "o que a policia fez/falhou; documentos; pistas fisicas; ciencia simples"],
+    ["VIRADA", 0.12, "a revelacao que muda a leitura do caso; sem afirmar alem das fontes"],
+    ["A CIDADE DEPOIS", 0.07, "o que ficou: medo, luto, silencio; quem ainda luta pelo caso - respeito maximo"],
+    ["CHAVES+OUTRO+TEASER", 0.07, "o que resolveria + CTA + teaser do proximo caso da serie"]
+  ]
+}

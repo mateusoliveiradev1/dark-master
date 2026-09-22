@@ -1,0 +1,13 @@
+{
+  "intel-assassinations": [
+    ["HOOK", 0.05, "o detalhe concreto VERIFICADO do caso (o objeto, a falha de seguranca) e a pergunta central; sem teoria, sem gore"],
+    ["CONTEXTO", 0.12, "quem era a figura publica, o pais e o momento; humaniza a vitima e a rotina de seguranca dela"],
+    ["PRESSAO", 0.10, "as ameacas e os avisos dos dias anteriores; o que foi ignorado e quem sabia"],
+    ["O DIA", 0.20, "cronologia minuto a minuto do atentado; frases curtas; sem imagem grafica"],
+    ["A INVESTIGACAO", 0.18, "o inquerito oficial: cena, autopsia, balistica, depoimentos e falhas; conclusao com fonte"],
+    ["QUEM COBRA", 0.08, "familia, oposicao e imprensa: o que pediram e o que foi arquivado"],
+    ["AS LACUNAS", 0.10, "o que os documentos nao provam e o que segue selado; teoria apresentada como teoria"],
+    ["O LEGADO", 0.10, "o que mudou na politica e na seguranca depois do caso, com consequencia documentada"],
+    ["REHOOK+TEASER", 0.07, "o que ficou de fora + proximo caso da serie"]
+  ]
+}

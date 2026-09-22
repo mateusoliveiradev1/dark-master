@@ -1,0 +1,12 @@
+{
+  "true-crime-organized-crime": [
+    ["HOOK", 0.05, "o detalhe impossivel VERIFICADO (nao a violencia); pergunta central que so se resolve no fim"],
+    ["ORGANIZACAO", 0.14, "quem sao: origem, nome, hierarquia, rito, territorio; humaniza 1 figura-chave"],
+    ["ASCENSAO", 0.15, "como cresceram: mercado, rota, alianca, protecao; numeros verificaveis (anos, quilos, valores)"],
+    ["MAQUINA", 0.18, "o como: logistica, lavagem, codigo interno, tecnologia, quem fica com o dinheiro"],
+    ["INVESTIGACAO", 0.16, "a resposta do Estado: escutas, delacoes, mandados, policia que falhou; ciencia simples"],
+    ["VIRADA", 0.15, "prisao, traicao, guerra interna, delacao; o ponto sem volta"],
+    ["DEPOIS", 0.11, "onde estao hoje (vivos = alleged), o que se sabe e o que nunca se soube; legado na regiao"],
+    ["REHOOK+TEASER", 0.06, "o que ficou de fora + proximo arquivo da serie"]
+  ]
+}

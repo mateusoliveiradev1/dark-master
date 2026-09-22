@@ -1,0 +1,12 @@
+{
+  "dark-history-disasters": [
+    ["COLD OPEN", 0.06, "o detalhe estranho VERIFICADO do relatorio (o alarme silenciado, a valvula que nao existia, o mapa errado, o turno que continuou); pergunta central (por que falhou)"],
+    ["CONTEXTO", 0.14, "o lugar e as pessoas: a mina/a planta/a fabrica, a comunidade e o que era normal na epoca; humaniza sem sentimentalismo"],
+    ["OS SINAIS", 0.14, "os avisos antes do dia: inspecoes, relatorios, manutencao adiada, orcamento; a cadeia de decisao que empurrou o risco (camadas FATO/REPORTADO)"],
+    ["O DIA", 0.18, "cronologia minuto a minuto do turno; frases curtas; beats de 1 linha; o desastre sem gore"],
+    ["A FALHA", 0.15, "a engenharia: o que quebrou, por que quebrou, o que o projeto previa; diagramas, mapas e animacao do evento"],
+    ["A RESPOSTA", 0.12, "resgate, evacuacao e primeiras 24h; quem entrou e quem esperou; o erro da primeira declaracao da empresa"],
+    ["O INQUERITO", 0.13, "relatorio oficial (CSB/MSHA/NIOSH/BSEE ou equivalente), recomendacoes, processo e multas; o que mudou na lei ou na norma"],
+    ["MEMORIA+ARQUIVO+TEASER", 0.08, "o que a comunidade virou; o que nunca saberemos; CTA + teaser do proximo caso"]
+  ]
+}

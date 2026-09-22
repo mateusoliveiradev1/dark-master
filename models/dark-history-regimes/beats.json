@@ -1,0 +1,12 @@
+{
+  "dark-history-regimes": [
+    ["HOOK", 0.05, "o mecanismo concreto VERIFICADO (o arquivo que sobrou, o nome que mudou, a fita que rodou); pergunta central que so se resolve no fim"],
+    ["CONTEXTO", 0.12, "pais, anos e a promessa que o regime fez ao chegar; humaniza 1 figura e 1 objeto"],
+    ["O MUNDO DA EPOCA", 0.15, "como era a vida antes e durante: economia, medo, imprensa, escola; detalhe concreto com fonte"],
+    ["A MAQUINA", 0.18, "policia secreta, censura, delacao, culto e a burocracia da repressao; quem assinava o que"],
+    ["A VIRADA", 0.15, "purga, crise, protesto, muro, queda; o ponto sem volta em cronologia curta"],
+    ["AS CONSEQUENCIAS", 0.15, "custo humano com fonte, o pais depois, a memoria; sem imagem grafica"],
+    ["O ARQUIVO", 0.12, "o que os documentos provam, o que nunca foi provado e o que segue selado"],
+    ["REHOOK+TEASER", 0.08, "o que ficou de fora + proximo caso da serie"]
+  ]
+}

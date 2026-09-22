@@ -151,13 +151,20 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
 ## Ferramentas
 
 ```bash
-# esqueleto
+# esqueleto (long-form)
 python scripts/script_builder.py --genre truecrime --porte padrao \
   --case "Hoffa" --date "1975" --place "Detroit" --sources "FBI vault; DOJ" \
-  --out "<videoNN>/01_roteiro/narration_v3.txt"
+  --out "<videoNN>/01_roteiro"
 
 # validar estrutura/orcamento de um roteiro ja escrito
 python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_v3.txt" --genre truecrime
+
+# Short (references/31)
+python scripts/script_builder.py --genre short --short --case "Hoffa" --out "<videoNN>/01_roteiro"
+python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_short.txt" --genre short --short
+
+# banco de variacoes de hook (arquetipos de 31)
+python scripts/script_builder.py --hooks 10 --case "Hoffa" --archetypes 1,3,4,5 --lang en
 ```
 
 O agente `dark-roteirista` escreve o conteúdo; o `script_builder` garante **forma, tamanho e compliance**.

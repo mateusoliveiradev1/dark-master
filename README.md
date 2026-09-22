@@ -37,6 +37,8 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 - **Shorts com loop** — engenharia de retenção (AVP > 100%) e funil para o long-form.
 - **Cérebro de algoritmo** — bolhas de Shorts, CTR/AVD/AVP, 1º minuto, capítulos, compliance YPP.
 - **Anti-inautenticidade** — variação obrigatória por vídeo, humanizer (25 tells de IA), disclosо de IA.
+- **38 modelos de canal** — blueprints por nicho/subnicho com gates, outliers, hooks, beats e monetização, validados com dados reais.
+- **Shorts de engenharia** — hook de 3s (frame 1 + texto na tela), 14 arquétipos, loop (AVP >100%) e validação automática.
 - **Auto-evolução** — `/dark-revisar` puxa métricas, detecta outliers e propõe mudanças com evidência.
 - **Entende o canal** — lê calendário, regras travadas e a **corrente de teaser** antes de gerar.
 - **Multi-idioma** — auto-dublagem e títulos/descrições traduzidos.
@@ -49,7 +51,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 35 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 36 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -58,7 +60,10 @@ dark-master/
 │  ├─ 24-setup-oauth-passo-a-passo.md
 │  ├─ 25-contexto-do-canal.md
 │  ├─ 26-organizacao-e-arquivos.md
-│  └─ 27-nomes-e-handles.md
+│  ├─ 27-nomes-e-handles.md
+│  ├─ 30-roteiro-master.md      # sistema de roteiro (pesquisa + beats + orçamento)
+│  └─ 31-hooks-short.md         # hooks de Short (frame 1, arquétipos, loop)
+├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers
 │  └─ financial-crime-files/ · laudo-final/ · midnight-archive/
@@ -102,11 +107,11 @@ dark-master/
 |---|---|
 | `yt_auth.py` | OAuth do YouTube (uma vez). |
 | `new_video.py` | Cria a pasta padrão de um vídeo (scaffold). |
-| `script_builder.py` | Gera o plano de roteiro (beats/orçamento) e valida a estrutura. |
+| `script_builder.py` | Gera o plano de roteiro (beats/orçamento), valida long **e Short** e gera variações de hook. |
 | `prompt_builder.py` | Gera os prompts de imagem (consistentes) e pode renderizar. |
 | `yt_metrics.py` | Puxa métricas por vídeo → banco + CSV. |
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
-| `niche_scan.py` | Pesquisa de nicho: gates rígidos + outliers via Data API. |
+| `niche_scan.py` | Pesquisa em tempo real: `--brief` (gates+outliers), `--cluster` (fome cross-canal), `--comments`, `--suggest`, `--trends`. |
 | `image_audit.py` | Audita imagens geradas (resolução, aspecto, brilho, duplicatas) + contact sheet. |
 | `audio_audit.py` | Audita voz: loudness (LUFS), true peak, clipping, silêncios longos. |
 | `captions_audit.py` | Audita SRT/VTT: cues, sobreposição, CPS, cobertura vs áudio. |
@@ -187,8 +192,10 @@ Deploy automático no **Vercel** a cada push na `master` (Root Directory = `site
 
 ## Roadmap
 
-- [ ] Mais perfis de canal (Financial Crime Files, Laudo Final, Midnight Archive)
-- [ ] Geração automática de roteiro com pesquisa assistida
+- [x] Modelos de canal por nicho/subnicho (38, com validação real via Data API)
+- [x] Roteiro com pesquisa assistida (subagentes + `script_builder` + lint anti-IA)
+- [x] Sistema de Shorts (frame 1, arquétipos, loop) + validação automática
+- [ ] Completar `--comments` (rodar `yt_auth.py` com escopo force-ssl)
 - [ ] Painel de métricas (dashboard) além do CLI
 - [ ] Suporte a mais idiomas na narração
 

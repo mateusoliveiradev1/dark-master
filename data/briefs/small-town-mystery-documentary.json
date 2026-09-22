@@ -1,0 +1,274 @@
+{
+  "theme": "small town mystery documentary",
+  "cluster": {
+    "theme": "small town mystery documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Nostalgic Home Films",
+        "id": "UCeHB6-t9kCERyMm5sSnJZuA",
+        "subs": 12600,
+        "age_days": 313,
+        "first5": 282174,
+        "vpd": 14580,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 17858,
+        "outliers": []
+      },
+      {
+        "channel": "FBI Investigates",
+        "id": "UCpm62a6Py6-gxNm1HGtydmw",
+        "subs": 68300,
+        "age_days": 315,
+        "first5": 859329,
+        "vpd": 80765,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 84446,
+        "outliers": []
+      },
+      {
+        "channel": "Golden Valley Films",
+        "id": "UCYbCx-Dl4PqoKCXLSPHV1gA",
+        "subs": 9160,
+        "age_days": 82,
+        "first5": 84717,
+        "vpd": 48243,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 8632,
+        "outliers": []
+      },
+      {
+        "channel": "Untold Stories Official",
+        "id": "UCDukm-LtjNzAwvY2_UbHPAw",
+        "subs": 1030,
+        "age_days": 214,
+        "first5": 34191,
+        "vpd": 310,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 21,
+        "outliers": []
+      },
+      {
+        "channel": "Psychic Visions",
+        "id": "UCR_EgqNRyf5_OLdMy9a9f-g",
+        "subs": 975,
+        "age_days": 97,
+        "first5": 14637,
+        "vpd": 1178,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 817,
+        "outliers": [
+          {
+            "title": "Psychic Helps Solve Brutal Small Town Murder - The Betty Cornish Case Uncovered",
+            "views": 12910,
+            "ratio": 15.8,
+            "published": "2026-08-02"
+          }
+        ]
+      },
+      {
+        "channel": "Haunted History",
+        "id": "UCQE1nSrIszjokKkptYbdv6w",
+        "subs": 6670,
+        "age_days": 221,
+        "first5": 12048,
+        "vpd": 6593,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 518,
+        "outliers": []
+      },
+      {
+        "channel": "True Crime Web",
+        "id": "UCxlixt9R9aLIwWuz86tnO2g",
+        "subs": 1830,
+        "age_days": 94,
+        "first5": 1828,
+        "vpd": 1228,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 312,
+        "outliers": []
+      },
+      {
+        "channel": "Traceory Files",
+        "id": "UCK6fTaJQlhWfgJHHZ380OCw",
+        "subs": 54,
+        "age_days": 53,
+        "first5": 3510,
+        "vpd": 418,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 266,
+        "outliers": [
+          {
+            "title": "The Circleville Letters: An Unsolved American Mystery #documentary #usa #usashorts #truestory",
+            "views": 1550,
+            "ratio": 5.8,
+            "published": "2026-09-07"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "hungry": [
+      "Psychic Visions",
+      "Traceory Files"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "small town mystery documentary",
+    "depth": 114,
+    "suggestions": [
+      "small town mystery",
+      "small town documentary",
+      "small town stories",
+      "small town mystery documentary adventure",
+      "small town mystery documentary alex",
+      "small town mystery documentary amazon prime",
+      "small town mystery documentary amazon",
+      "small town mystery documentary alex kister",
+      "small town mystery documentary bangla",
+      "small town mystery documentary book",
+      "small town mystery documentary billy",
+      "small town mystery documentary book review",
+      "small town mystery documentary bangla explanation",
+      "small town mystery documentary bbc",
+      "small town mystery documentary chapter 1",
+      "small town mystery documentary crime",
+      "small town mystery documentary chapter 2",
+      "small town mystery documentary chapter 3",
+      "small town mystery documentary chapter 4",
+      "small town mystery documentary dark web",
+      "small town mystery documentary david attenborough",
+      "small town mystery documentary download",
+      "small town mystery documentary episode 1",
+      "small town mystery documentary english",
+      "small town mystery documentary episode 2",
+      "small town mystery documentary exploration",
+      "small town mystery documentary full",
+      "small town mystery documentary full movie",
+      "small town mystery documentary full episode",
+      "small town mystery documentary game",
+      "small town mystery documentary gameplay",
+      "small town mystery documentary girl",
+      "small town mystery documentary ghost",
+      "small town mystery documentary haider tv",
+      "small town mystery documentary hailey",
+      "small town mystery documentary haider",
+      "small town mystery documentary hail",
+      "small town mystery documentary hailey baldwin",
+      "small town mystery documentary hair",
+      "small town mystery documentary haiti",
+      "small town mystery documentary in hindi",
+      "small town mystery documentary in urdu",
+      "small town mystery documentary in english",
+      "small town mystery documentary in tamil",
+      "small town mystery documentary james",
+      "small town mystery documentary joe",
+      "small town mystery documentary jimmy",
+      "small town mystery documentary joe rogan",
+      "small town mystery documentary jeremy clarkson",
+      "small town mystery documentary killer",
+      "small town mystery documentary kannada",
+      "small town mystery documentary kill count",
+      "small town mystery documentary kidnap",
+      "small town mystery documentary kate",
+      "small town mystery documentary larry",
+      "small town mystery documentary latest",
+      "small town mystery documentary life",
+      "small town mystery documentary latest episode",
+      "small town mystery documentary lost",
+      "small town mystery documentary movie",
+      "small town mystery documentary music",
+      "small town mystery documentary malayalam",
+      "small town mystery documentary netflix",
+      "small town mystery documentary new",
+      "small town mystery documentary new video",
+      "small town mystery documentary new york",
+      "small town mystery documentary new episode",
+      "small town mystery documentary on netflix",
+      "small town mystery documentary official",
+      "small town mystery documentary on youtube",
+      "small town mystery documentary old",
+      "small town mystery documentary omori",
+      "small town mystery documentary online",
+      "small town mystery documentary part 2",
+      "small town mystery documentary playlist",
+      "small town mystery documentary part 1",
+      "small town mystery documentary paul",
+      "small town mystery documentary part 3",
+      "small town mystery documentary quest",
+      "small town mystery documentary questions",
+      "small town mystery documentary reaction",
+      "small town mystery documentary real stories",
+      "small town mystery documentary review",
+      "small town mystery documentary reddit",
+      "small town mystery documentary story",
+      "small town mystery documentary solved",
+      "small town mystery documentary scary",
+      "small town mystery documentary series",
+      "small town mystery documentary shows",
+      "small town mystery documentary trailer",
+      "small town mystery documentary tamil",
+      "small town mystery documentary true crime",
+      "small town mystery documentary telugu",
+      "small town mystery documentary true story",
+      "small town mystery documentary uk",
+      "small town mystery documentary urdu",
+      "small town mystery documentary unknown",
+      "small town mystery documentary urdu zubaan",
+      "small town mystery documentary video",
+      "small town mystery documentary watch online",
+      "small town mystery documentary wildlife",
+      "small town mystery documentary with english subtitles",
+      "small town mystery documentary with subtitles",
+      "small town mystery documentary world",
+      "small town mystery documentary xqc",
+      "small town mystery documentary xbox",
+      "small town mystery documentary youtube",
+      "small town mystery documentary youtube channel",
+      "small town mystery documentary yakuza",
+      "small town mystery documentary zombie",
+      "small town mystery documentary zemtv",
+      "small town mystery documentary zoe",
+      "small town mystery documentary zee5",
+      "small town mystery documentary zombie apocalypse"
+    ]
+  },
+  "trends": {
+    "term": "small town mystery documentary",
+    "error": "sem dados"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "finance-fraud": [
+    ["COLD OPEN", 0.06, "o numero/detalhe mais concreto E VERIFICADO (nao o golpe em si): a cifra no extrato, a sede vazia, a frase do pitch; abre a pergunta central (onde foi o dinheiro?)"],
+    ["O ESQUEMA", 0.13, "o que era vendido e como funcionava: produto, promessa, retorno; o mecanismo em uma frase que o espectador entende; sem jargao"],
+    ["OS PERSONAGENS", 0.12, "quem construiu, quem vendia e quem acreditava; humaniza sem heroificar; pessoa viva = alleged/charged; a rede de confianca que trouxe as vitimas"],
+    ["A ASCENSAO", 0.15, "como cresceu: indicacoes, midia, celebridades, premios, relatorios que ninguem leu; os sinais ignorados; numeros da epoca com fonte"],
+    ["A QUEDA", 0.17, "cronologia do colapso: saques travados, auditoria, reportagem, inquerito, prisao; frases curtas; beats de 1 linha; datas so aqui, nunca no hook"],
+    ["O DINHEIRO", 0.15, "para onde foi: salarios, imoveis, caridade, politica, lavagem; o que nunca apareceu; camadas [FATO]/[REPORTADO]/[ALLEGED]"],
+    ["AS VITIMAS E O LEGADO", 0.12, "quem pagou a conta (sem exploracao), recuperacoes, reforma regulatoria, precedente legal; o que a lei mudou depois"],
+    ["JUSTICA+ARQUIVO ABERTO+TEASER", 0.10, "status judicial real (condenacao, recurso, foragido), o que falta saber + CTA + teaser do proximo esquema; nunca prometer que o dinheiro volta"]
+  ]
+}

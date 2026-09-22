@@ -1,0 +1,276 @@
+{
+  "theme": "pharmaceutical scandal documentary",
+  "cluster": {
+    "theme": "pharmaceutical scandal documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Notes from the Underground ",
+        "id": "UC8WJS43a2r_djAJ7raQ6m0w",
+        "subs": 76,
+        "age_days": 138,
+        "first5": 2051,
+        "vpd": 103,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 120,
+        "outliers": []
+      },
+      {
+        "channel": "Coffin Ledger",
+        "id": "UCL-br02m30U3VayUOADJ5Bw",
+        "subs": 14,
+        "age_days": 107,
+        "first5": 797,
+        "vpd": 112,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 69,
+        "outliers": [
+          {
+            "title": "Inside America's Biggest Pill Mill 💊😨 #shorts #shortsfeed",
+            "views": 683,
+            "ratio": 9.9,
+            "published": "2026-08-07"
+          }
+        ]
+      },
+      {
+        "channel": "Cold Capital",
+        "id": "UC3dexBBqyO1mdAfLKV0gzPw",
+        "subs": 149,
+        "age_days": 119,
+        "first5": 2526,
+        "vpd": 155,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 893,
+        "outliers": []
+      },
+      {
+        "channel": "Paper Empires",
+        "id": "UC0OCYzVuA-5ZLHtMe4Jh_Zw",
+        "subs": 474,
+        "age_days": 102,
+        "first5": 107,
+        "vpd": 48,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 19,
+        "outliers": [
+          {
+            "title": "McKinsey's Deleted Files Exposed: The Opioid Scandal",
+            "views": 61,
+            "ratio": 3.2,
+            "published": "2026-07-31"
+          }
+        ]
+      },
+      {
+        "channel": "The Untold Records ",
+        "id": "UCOfqjPYBTUzysUNmGk-b-7w",
+        "subs": 25,
+        "age_days": 132,
+        "first5": 6723,
+        "vpd": 664,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 1040,
+        "outliers": []
+      },
+      {
+        "channel": "Suited Criminals",
+        "id": "UCTfT52rwkmyxfsELMZsiSrQ",
+        "subs": 60,
+        "age_days": 178,
+        "first5": 20,
+        "vpd": 309,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 4,
+        "outliers": [
+          {
+            "title": "Allergan's Restasis Patent Thicket and Tribal Immunity Scandal",
+            "views": 19,
+            "ratio": 4.8,
+            "published": "2026-08-01"
+          }
+        ]
+      },
+      {
+        "channel": "Compound Lens",
+        "id": "UC0AOist8Iw8IaQcLfCx-qbQ",
+        "subs": 18,
+        "age_days": 145,
+        "first5": 120,
+        "vpd": 14,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 25,
+        "outliers": []
+      },
+      {
+        "channel": "The Autopsy Files",
+        "id": "UCKi-gBg4Rv2HTorS4w-y3Lg",
+        "subs": 17,
+        "age_days": 102,
+        "first5": 60,
+        "vpd": 49,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 9,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [],
+    "hungry": [
+      "Coffin Ledger",
+      "Paper Empires",
+      "Suited Criminals"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "pharmaceutical scandal documentary",
+    "depth": 107,
+    "suggestions": [
+      "pharmaceutical documentary",
+      "pharmaceutical industry documentary",
+      "pharmacist industry",
+      "pharmaceutical industry",
+      "pharmaceutical scandal documentary amazon prime",
+      "pharmaceutical scandal documentary anime",
+      "pharmaceutical scandal documentary all episodes",
+      "pharmaceutical scandal documentary amazon",
+      "pharmaceutical scandal documentary abs cbn",
+      "pharmaceutical scandal documentary bbc",
+      "pharmaceutical scandal documentary bengali",
+      "pharmaceutical scandal documentary bangla",
+      "pharmaceutical scandal documentary by",
+      "pharmaceutical scandal documentary by kara david",
+      "pharmaceutical scandal documentary cast",
+      "pharmaceutical scandal documentary chinese",
+      "pharmaceutical scandal documentary channel 4",
+      "pharmaceutical scandal documentary channel",
+      "pharmaceutical scandal documentary china",
+      "pharmaceutical scandal documentary download",
+      "pharmaceutical scandal documentary documentary",
+      "pharmaceutical scandal documentary dubbed",
+      "pharmaceutical scandal documentary dubbed in hindi",
+      "pharmaceutical scandal documentary deodorant",
+      "pharmaceutical scandal documentary english",
+      "pharmaceutical scandal documentary episode 1",
+      "pharmaceutical scandal documentary eng sub",
+      "pharmaceutical scandal documentary ep 1",
+      "pharmaceutical scandal documentary episode 2",
+      "pharmaceutical scandal documentary film",
+      "pharmaceutical scandal documentary full",
+      "pharmaceutical scandal documentary full movie",
+      "pharmaceutical scandal documentary free",
+      "pharmaceutical scandal documentary girl",
+      "pharmaceutical scandal documentary gma",
+      "pharmaceutical scandal documentary gacha",
+      "pharmaceutical scandal documentary genshin",
+      "pharmaceutical scandal documentary hai",
+      "pharmaceutical scandal documentary hair",
+      "pharmaceutical scandal documentary hai ki nahin",
+      "pharmaceutical scandal documentary haiti",
+      "pharmaceutical scandal documentary in hindi",
+      "pharmaceutical scandal documentary in english",
+      "pharmaceutical scandal documentary india",
+      "pharmaceutical scandal documentary japanese",
+      "pharmaceutical scandal documentary japan",
+      "pharmaceutical scandal documentary japanese movie",
+      "pharmaceutical scandal documentary korean",
+      "pharmaceutical scandal documentary kiss",
+      "pharmaceutical scandal documentary kdrama",
+      "pharmaceutical scandal documentary korean drama",
+      "pharmaceutical scandal documentary kiss scene",
+      "pharmaceutical scandal documentary latest",
+      "pharmaceutical scandal documentary list",
+      "pharmaceutical scandal documentary love",
+      "pharmaceutical scandal documentary latest episode",
+      "pharmaceutical scandal documentary love story",
+      "pharmaceutical scandal documentary movie",
+      "pharmaceutical scandal documentary malayalam",
+      "pharmaceutical scandal documentary movie trailer",
+      "pharmaceutical scandal documentary movie in hindi",
+      "pharmaceutical scandal documentary netflix",
+      "pharmaceutical scandal documentary on netflix",
+      "pharmaceutical scandal documentary official",
+      "pharmaceutical scandal documentary on youtube",
+      "pharmaceutical scandal documentary old",
+      "pharmaceutical scandal documentary on",
+      "pharmaceutical scandal documentary online",
+      "pharmaceutical scandal documentary philippines",
+      "pharmaceutical scandal documentary part 2",
+      "pharmaceutical scandal documentary part 1",
+      "pharmaceutical scandal documentary pakistan",
+      "pharmaceutical scandal documentary playlist",
+      "pharmaceutical scandal documentary questions",
+      "pharmaceutical scandal documentary questions and answers",
+      "pharmaceutical scandal documentary queen",
+      "pharmaceutical scandal documentary review",
+      "pharmaceutical scandal documentary reaction",
+      "pharmaceutical scandal documentary real",
+      "pharmaceutical scandal documentary real stories",
+      "pharmaceutical scandal documentary series",
+      "pharmaceutical scandal documentary season 1",
+      "pharmaceutical scandal documentary scene",
+      "pharmaceutical scandal documentary season 2",
+      "pharmaceutical scandal documentary trailer",
+      "pharmaceutical scandal documentary tamil",
+      "pharmaceutical scandal documentary telugu",
+      "pharmaceutical scandal documentary tagalog",
+      "pharmaceutical scandal documentary ullu",
+      "pharmaceutical scandal documentary uk",
+      "pharmaceutical scandal documentary usa",
+      "pharmaceutical scandal documentary urdu",
+      "pharmaceutical scandal documentary video",
+      "pharmaceutical scandal documentary with english subtitles",
+      "pharmaceutical scandal documentary web series",
+      "pharmaceutical scandal documentary with subtitles",
+      "pharmaceutical scandal documentary watch online",
+      "pharmaceutical scandal documentary xi jinping",
+      "pharmaceutical scandal documentary xi",
+      "pharmaceutical scandal documentary youtube",
+      "pharmaceutical scandal documentary yfn lucci",
+      "pharmaceutical scandal documentary youtube channel",
+      "pharmaceutical scandal documentary zara",
+      "pharmaceutical scandal documentary zee tv",
+      "pharmaceutical scandal documentary zong",
+      "pharmaceutical scandal documentary zeeshan",
+      "pharmaceutical scandal documentary zeeshan rokhri"
+    ]
+  },
+  "trends": {
+    "term": "pharmaceutical scandal documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "forensic-epidemics": [
+    ["COLD OPEN", 0.06, "a anomalia verificada do registro da investigacao (o caso que nao fechava, o funeral, a morte sem teste, o corredor do hotel); pergunta central: o que era e ha quanto tempo circulava"],
+    ["CONTEXTO", 0.13, "o lugar e as pessoas: a cidade, o hospital, a rotina normal; os primeiros rumores e as primeiras mortes; humaniza sem sentimentalismo"],
+    ["O SURTO SILENCIOSO", 0.15, "a janela em que circulou sem ser detectado: casos avulsos, diagnostico errado, atraso; por que ninguem testou; linha do tempo real vs oficial"],
+    ["A INVESTIGACAO", 0.18, "o metodo epidemiologico: line list, curva epidemica, pessoa-lugar-tempo, caso-controle, rastreamento de contatos, entrevistas; a hipotese que vira e o momento eureca"],
+    ["O PATOGENO", 0.14, "laboratorio e genomica: PCR e sequenciamento, a identidade do patogeno, BSL, o que ele faz no corpo; como a ciencia confirmou ou derrubou a historia (ex.: paciente zero reatribuido)"],
+    ["A RESPOSTA", 0.13, "isolamento, quarentena, ring vaccination, WHO/CDC/autoridade local; acertos e falhas; desconfianca e violencia contra equipes (somente com fonte)"],
+    ["AS CONSEQUENCIAS", 0.12, "custo humano e economico; o que mudou em vigilancia, lei ou norma (IHR, biosseguranca, aguas residuais); o que continua em aberto"],
+    ["ARQUIVO+LESSOES+TEASER", 0.09, "o que os documentos mostram e o que nao mostram; o que este caso ensinou; CTA + teaser do proximo caso"]
+  ]
+}

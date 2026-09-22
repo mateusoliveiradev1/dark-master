@@ -1,0 +1,12 @@
+{
+  "dark-history-forgotten-wars": [
+    ["COLD OPEN", 0.05, "cena concreta verificada do conflito: um detalhe estranho ou objeto de arquivo (nao a batalha); promessa central + pergunta 'por que esqueceram?'"],
+    ["MUNDO DA EPOCA", 0.16, "o tabuleiro antes da guerra: imperios, fronteiras, o que estava em jogo; mapa datado montado para o episodio"],
+    ["A FAISCA", 0.14, "o incidente ou decisao que comeca o conflito; quem apertou o gatilho e por que ninguem parou"],
+    ["A GUERRA", 0.22, "cronologia do conflito em beats curtos: frentes, viradas, erro de calculo; mapas e arquivo, sem glorificacao e sem gore"],
+    ["O ESQUECIMENTO", 0.14, "por que o mundo esqueceu: paz sem tratado, censura, outro conflito maior, o vencedor que nao escreveu a historia"],
+    ["O QUE FICOU", 0.14, "consequencias ate hoje: fronteiras, deslocamentos, memoria, arquivos abertos recentemente; o presente do espectador"],
+    ["O ARQUIVO", 0.10, "o que e FATO, o que e disputado, o que nunca saberemos; fontes e historiografia (camadas FATO/REPORTADO/LENDA)"],
+    ["OUTRO+TEASER", 0.05, "fecho sobrio + CTA (arquivo da semana) + teaser do proximo conflito esquecido"]
+  ]
+}

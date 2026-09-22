@@ -1,0 +1,11 @@
+{
+  "mystery-sky": [
+    ["COLD OPEN", 0.07, "o documento/registro oficial no presente: o numero, a frase ou a lacuna que nao fecha; pergunta central; sem data/local antes do gancho"],
+    ["O CASO", 0.15, "quem observou, quando e onde; o que estava no ar; testemunhas humanizadas, sem deboche; credibilidade descrita por fatos"],
+    ["A OBSERVACAO", 0.22, "cronologia minuto a minuto do relato; frases curtas; o que cada testemunha viu, reportou e registrou"],
+    ["OS DADOS", 0.20, "radar, video, sensores, transcricoes, laudos: o que e verificavel, o que e contraditorio e o que nao da para checar"],
+    ["TESTE CETICO", 0.16, "explicacoes convencionais testadas uma a uma: satelite/flare, balao, Starlink, aeronave, artefato de sensor; o que fecha e o que nao fecha"],
+    ["EM ABERTO", 0.12, "o que a investigacao oficial nao fechou e por que; o que resolveria o caso (dado que falta, documento ainda retido)"],
+    ["FECHAMENTO+TEASER", 0.08, "resumo do que o registro diz (fato vs relato) + teaser do proximo arquivo; sem CTA generico"]
+  ]
+}

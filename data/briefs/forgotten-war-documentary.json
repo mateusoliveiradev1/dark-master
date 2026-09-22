@@ -1,0 +1,281 @@
+{
+  "theme": "forgotten war documentary",
+  "cluster": {
+    "theme": "forgotten war documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "The Forgotten Empire",
+        "id": "UCcJFERTuzNQ5G8YS5KUPC0Q",
+        "subs": 9460,
+        "age_days": 317,
+        "first5": 4477,
+        "vpd": 5684,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 1667,
+        "outliers": [
+          {
+            "title": "(1899–1913) THE AMERICAN WAR IN THE PHILIPPINES: The Forgotten Conflict of 1899–1913",
+            "views": 184758,
+            "ratio": 110.8,
+            "published": "2026-08-23"
+          }
+        ]
+      },
+      {
+        "channel": "Sahel Chronicles",
+        "id": "UCk81xCIe0ot9-kuXy1tKHJg",
+        "subs": 25000,
+        "age_days": 316,
+        "first5": 85068,
+        "vpd": 7898,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 13048,
+        "outliers": [
+          {
+            "title": "The Forgotten War That Built Terror In West Africa",
+            "views": 47665,
+            "ratio": 3.7,
+            "published": "2026-08-28"
+          }
+        ]
+      },
+      {
+        "channel": "Historical Camp",
+        "id": "UC-rkCPcYADsU2x-Zg93ONVw",
+        "subs": 409,
+        "age_days": 76,
+        "first5": 331,
+        "vpd": 5774,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 96,
+        "outliers": []
+      },
+      {
+        "channel": "Geo World On Map",
+        "id": "UCu1Fot4Xs_71Q9qRnp9sw6w",
+        "subs": 1790,
+        "age_days": 81,
+        "first5": 13870,
+        "vpd": 25110,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1360,
+        "outliers": []
+      },
+      {
+        "channel": "Remnants of Time",
+        "id": "UCvwHug-VSdZv8w7MACmfSrQ",
+        "subs": 993,
+        "age_days": 154,
+        "first5": 1839,
+        "vpd": 181,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 111,
+        "outliers": [
+          {
+            "title": "The War of 1812: The Forgotten Fight Between America and Britain | Remnants of Time",
+            "views": 16245,
+            "ratio": 146.4,
+            "published": "2026-07-29"
+          }
+        ]
+      },
+      {
+        "channel": "History Without Fluff",
+        "id": "UCcEm85ZfZ_FE1mZFB0DFtQw",
+        "subs": 870,
+        "age_days": 278,
+        "first5": 1855,
+        "vpd": 491,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 216,
+        "outliers": []
+      },
+      {
+        "channel": "Mundos Reimaginados",
+        "id": "UCgP9a0iC_tbkrMChf5JFZZg",
+        "subs": 106000,
+        "age_days": 241,
+        "first5": 787162,
+        "vpd": 41623,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 23725,
+        "outliers": []
+      },
+      {
+        "channel": "Vinu Baloliya",
+        "id": "UCn3-dvqtwJ_XOgViUpIQGjQ",
+        "subs": 588,
+        "age_days": 25,
+        "first5": 7611,
+        "vpd": 18960,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 1279,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Geo World On Map",
+      "Vinu Baloliya"
+    ],
+    "hungry": [
+      "The Forgotten Empire",
+      "Sahel Chronicles",
+      "Remnants of Time"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "forgotten war documentary",
+    "depth": 106,
+    "suggestions": [
+      "forgotten war movie",
+      "the forgotten war documentary",
+      "forgotten war",
+      "forgotten history",
+      "forgotten war documentary audio",
+      "forgotten war documentary american experience",
+      "forgotten war documentary bbc",
+      "forgotten war documentary black",
+      "forgotten war documentary black metal",
+      "forgotten war documentary black hole",
+      "forgotten war documentary channel 4",
+      "forgotten war documentary channel",
+      "forgotten war documentary channel 5",
+      "forgotten war documentary documentary",
+      "forgotten war documentary disney plus",
+      "forgotten war documentary death",
+      "forgotten war documentary david attenborough",
+      "forgotten war documentary download",
+      "forgotten war documentary episode 1",
+      "forgotten war documentary english",
+      "forgotten war documentary edit",
+      "forgotten war documentary ending",
+      "forgotten war documentary episode 2",
+      "forgotten war documentary episodes",
+      "forgotten war documentary full movie",
+      "forgotten war documentary full",
+      "forgotten war documentary film",
+      "forgotten war documentary german",
+      "forgotten war documentary game",
+      "forgotten war documentary gacha",
+      "forgotten war documentary gacha life",
+      "forgotten war documentary ghost",
+      "forgotten war documentary hair",
+      "forgotten war documentary haircut",
+      "forgotten war documentary hail to the king",
+      "forgotten war documentary hailey",
+      "forgotten war documentary hail",
+      "forgotten war documentary history",
+      "forgotten war documentary in hindi",
+      "forgotten war documentary intro",
+      "forgotten war documentary in urdu",
+      "forgotten war documentary in english",
+      "forgotten war documentary imdb",
+      "forgotten war documentary japan",
+      "forgotten war documentary james cameron",
+      "forgotten war documentary japanese",
+      "forgotten war documentary jason statham",
+      "forgotten war documentary jason",
+      "forgotten war documentary ken burns",
+      "forgotten war documentary killer",
+      "forgotten war documentary korean",
+      "forgotten war documentary law of attraction",
+      "forgotten war documentary lost ark",
+      "forgotten war documentary lyrics",
+      "forgotten war documentary last scene",
+      "forgotten war documentary last episode",
+      "forgotten war documentary list",
+      "forgotten war documentary movie",
+      "forgotten war documentary music",
+      "forgotten war documentary netflix",
+      "forgotten war documentary national geographic",
+      "forgotten war documentary new",
+      "forgotten war documentary no commentary",
+      "forgotten war documentary no ads",
+      "forgotten war documentary opening",
+      "forgotten war documentary ost",
+      "forgotten war documentary old",
+      "forgotten war documentary on netflix",
+      "forgotten war documentary opening scene",
+      "forgotten war documentary online",
+      "forgotten war documentary part 1",
+      "forgotten war documentary playlist",
+      "forgotten war documentary part 2",
+      "forgotten war documentary part 3",
+      "forgotten war documentary part",
+      "forgotten war documentary pbs",
+      "forgotten war documentary quotes",
+      "forgotten war documentary queen",
+      "forgotten war documentary quality",
+      "forgotten war documentary queen elizabeth",
+      "forgotten war documentary question",
+      "forgotten war documentary reaction",
+      "forgotten war documentary review",
+      "forgotten war documentary roblox",
+      "forgotten war documentary real stories",
+      "forgotten war documentary reddit",
+      "forgotten war documentary series",
+      "forgotten war documentary scene",
+      "forgotten war documentary soundtrack",
+      "forgotten war documentary uk",
+      "forgotten war documentary urdu",
+      "forgotten war documentary usa",
+      "forgotten war documentary ukraine",
+      "forgotten war documentary video",
+      "forgotten war documentary ww2",
+      "forgotten war documentary war",
+      "forgotten war documentary ww1",
+      "forgotten war documentary with subtitles",
+      "forgotten war documentary with english subtitles",
+      "forgotten war documentary wiki",
+      "forgotten war documentary xi jinping",
+      "forgotten war documentary youtube",
+      "forgotten war documentary ytp",
+      "forgotten war documentary yfn lucci",
+      "forgotten war documentary zombie",
+      "forgotten war documentary zombie apocalypse"
+    ]
+  },
+  "trends": {
+    "term": "forgotten war documentary",
+    "avg_recent": 42.25,
+    "avg_prior": 0.0,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

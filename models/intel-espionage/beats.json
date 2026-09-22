@@ -1,0 +1,12 @@
+{
+  "intel-espionage": [
+    ["COLD OPEN", 0.05, "o documento: uma linha do arquivo que nao fecha (nome tarjado, data errada, assinatura); a pergunta central; sem intro"],
+    ["O ARQUIVO", 0.10, "o que foi declassificado e quando; onde vive o papel (FOIA/CREST, FBI Vault, NARA, KV); o que ele prova e o que ele esconde"],
+    ["QUEM ERA", 0.14, "o agente ou o alvo: recrutamento, rotina, motivacao, dividas; humano, sem sentimentalismo"],
+    ["A OPERACAO", 0.20, "cronologia minuto a minuto: vigilancia, dead drops, mensagens, entradas e saidas; frases curtas"],
+    ["A FALHA", 0.16, "o que deu errado: o vazamento, o erro de oficio, o traidor interno; quem sabia e quando; 1 peca primaria por video"],
+    ["A CACADA", 0.15, "contra-inteligencia: como chegaram nele, provas, vigilancia, interrogatorio; a ciencia e o comercio do caso"],
+    ["O DESFECHO", 0.12, "prisao, troca, exilio ou morte (sem gore); o custo para pessoas e agencias; consequencias documentadas"],
+    ["ARQUIVO ABERTO+OUTRO+TEASER", 0.08, "o que continua classificado; CTA especifico; teaser do proximo dossie"]
+  ]
+}

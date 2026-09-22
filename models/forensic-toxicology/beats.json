@@ -1,0 +1,13 @@
+{
+  "forensic-toxicology": [
+    ["HOOK", 0.05, "fato do laudo que nao fecha (detalhe verificado); sem dose, sem metodo, sem gore"],
+    ["CONTEXTO", 0.13, "quem era a vitima e o que parecia normal ate o primeiro sintoma; a suspeita inicial"],
+    ["O DIA", 0.18, "cronologia: sintomas, atendimento, morte, primeira autopsia e o que ela nao explicou"],
+    ["A AMOSTRA", 0.13, "cadeia de custodia: o que foi colhido, onde ficou guardado e o que podia dar errado"],
+    ["A PERICIA", 0.2, "o laboratorio como protagonista: triagem, confirmacao, limites do teste (sem dosagem/receita)"],
+    ["A VIRADA", 0.12, "exumacao/reanalise/nova tecnica: o resultado que reabre o caso"],
+    ["INVESTIGACAO+TRIBUNAL", 0.1, "acesso, oportunidade e o que ficou provado em juizo"],
+    ["CONSEQUENCIA+LEGADO", 0.05, "mudanca de lei/protocolo e a familia"],
+    ["LAUDO+OUTRO+TEASER", 0.04, "o que ainda nao se sabe (limite do exame) + proximo caso"]
+  ]
+}

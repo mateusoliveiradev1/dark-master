@@ -1,0 +1,270 @@
+{
+  "theme": "surveillance documentary",
+  "cluster": {
+    "theme": "surveillance documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "AntiGlomar",
+        "id": "UC8Cmx1cxgK2G9MirKTk62fQ",
+        "subs": 19800,
+        "age_days": 310,
+        "first5": 647298,
+        "vpd": 2074,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 323649.0,
+        "outliers": []
+      },
+      {
+        "channel": "FINAL FRAME CRIME",
+        "id": "UCKOtsJJBHv9UpNuaqEI0PGw",
+        "subs": 522,
+        "age_days": 56,
+        "first5": 705025,
+        "vpd": 12919,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 224,
+        "outliers": [
+          {
+            "title": "The Passenger Vanished — Then Airport CCTV Found This 84 KG Suitcase | CCTV",
+            "views": 418180,
+            "ratio": 1866.9,
+            "published": "2026-09-05"
+          }
+        ]
+      },
+      {
+        "channel": "Detective Diaries TV",
+        "id": "UCNH0zPkJPOlmPcdS-1iaRtA",
+        "subs": 4640,
+        "age_days": 352,
+        "first5": 398307,
+        "vpd": 2502,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1003,
+        "outliers": [
+          {
+            "title": "Cameras Caught Her Final Moments in a Waikiki Hotel",
+            "views": 388327,
+            "ratio": 387.2,
+            "published": "2026-09-02"
+          }
+        ]
+      },
+      {
+        "channel": "The Gambler's Mind",
+        "id": "UCeN2lTqUf864cu33DkBHixA",
+        "subs": 910,
+        "age_days": 129,
+        "first5": 6406,
+        "vpd": 6100,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 499,
+        "outliers": []
+      },
+      {
+        "channel": "Crime Watch UK-TV",
+        "id": "UCnYZv8RJW-muQ0W0hUMW9KQ",
+        "subs": 1840,
+        "age_days": 24,
+        "first5": 235091,
+        "vpd": 11323,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 15696.5,
+        "outliers": [
+          {
+            "title": "The CCTV That Exposed Met Police Constable Wayne Couzens — Kidnapper, Rapist, Murderer",
+            "views": 140544,
+            "ratio": 9.0,
+            "published": "2026-09-14"
+          }
+        ]
+      },
+      {
+        "channel": "FBI Investigates",
+        "id": "UCpm62a6Py6-gxNm1HGtydmw",
+        "subs": 68300,
+        "age_days": 315,
+        "first5": 859849,
+        "vpd": 80765,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 84475,
+        "outliers": []
+      },
+      {
+        "channel": "Sketch Itihas",
+        "id": "UCxCzGijFM3ekVgwN_Csg11Q",
+        "subs": 3590,
+        "age_days": 160,
+        "first5": 610735,
+        "vpd": 6204,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 58812,
+        "outliers": [
+          {
+            "title": "Kaise Ajit Doval Ne 3 Pakistani Jasoos Ko Pakda | 2D Animation",
+            "views": 195825,
+            "ratio": 3.3,
+            "published": "2026-09-13"
+          }
+        ]
+      },
+      {
+        "channel": "The Time Empire",
+        "id": "UCIm98UlwlcPnWg1W-L4RuYA",
+        "subs": 1770,
+        "age_days": 215,
+        "first5": 8235,
+        "vpd": 3066,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 897,
+        "outliers": [
+          {
+            "title": "India’s Border Spy Network | The Electrician Exposed a Secret Surveillance Network | 2D Animation",
+            "views": 96148,
+            "ratio": 107.2,
+            "published": "2026-09-11"
+          }
+        ]
+      }
+    ],
+    "passed": [
+      "Crime Watch UK-TV"
+    ],
+    "emerging": [
+      "FINAL FRAME CRIME"
+    ],
+    "hungry": [
+      "FINAL FRAME CRIME",
+      "Detective Diaries TV",
+      "Crime Watch UK-TV",
+      "Sketch Itihas",
+      "The Time Empire"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "surveillance documentary",
+    "depth": 81,
+    "suggestions": [
+      "surveillance documentary",
+      "mass surveillance documentary",
+      "china surveillance documentary",
+      "digital surveillance documentary",
+      "police surveillance documentary uk",
+      "surveillance technology documentary",
+      "uk surveillance documentary",
+      "surveillance capitalism documentary",
+      "surveillance state",
+      "surveillance capitalism",
+      "surveillance documentary australia",
+      "surveillance documentary amazon",
+      "surveillance documentary amazon prime",
+      "cctv documentary chinese",
+      "cctv crime documentary",
+      "security camera documentary",
+      "surveillance film complet en francais",
+      "cctv documentary english",
+      "cctv documentary english subtitles",
+      "surveillance movie explained",
+      "surveillance movie full",
+      "cctv food documentary",
+      "movie surveillance gaan",
+      "security guard documentary",
+      "government surveillance documentary",
+      "surveillance movie hot",
+      "surveillance horror movie",
+      "surveillance island movie",
+      "surveillance documentary joe rogan",
+      "surveillance documentary japan",
+      "surveillance documentary jordan",
+      "surveillance documentary john wayne",
+      "surveillance documentary korea",
+      "surveillance documentary kenya",
+      "surveillance documentary korean",
+      "surveillance documentary london",
+      "surveillance documentary latest",
+      "surveillance documentary law of attraction",
+      "surveillance documentary liam neeson",
+      "surveillance documentary liam",
+      "surveillance documentary netflix",
+      "surveillance documentary national geographic",
+      "surveillance documentary new",
+      "surveillance documentary netflix trailer",
+      "surveillance documentary new york",
+      "surveillance documentary on netflix",
+      "surveillance documentary old",
+      "surveillance documentary on youtube",
+      "surveillance documentary osama bin laden",
+      "surveillance documentary on camera",
+      "surveillance documentary online",
+      "surveillance documentary questions",
+      "surveillance documentary queen",
+      "surveillance documentary queen elizabeth",
+      "surveillance documentary questions and answers",
+      "surveillance movie romantic scenes",
+      "surveillance robot movie",
+      "surveillance rapprochée film",
+      "surveillance state documentary",
+      "surveillance movie scene",
+      "surveillance short film",
+      "surveillance movie trailer",
+      "surveillance film trailer",
+      "stingray surveillance technology documentary",
+      "surveillance",
+      "surveillance documentary video",
+      "surveillance documentary whitney houston",
+      "surveillance documentary with subtitles",
+      "surveillance documentary war",
+      "surveillance documentary wion",
+      "surveillance documentary xbox",
+      "surveillance documentary xrp",
+      "surveillance documentary xi jinping",
+      "surveillance documentary xbox series x",
+      "surveillance documentary youtube",
+      "surveillance documentary ytp",
+      "surveillance documentary yt",
+      "surveillance documentary zimbabwe",
+      "surveillance documentary zara",
+      "surveillance documentary zoom",
+      "surveillance documentary zombie"
+    ]
+  },
+  "trends": {
+    "term": "surveillance documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

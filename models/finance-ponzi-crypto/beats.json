@@ -1,0 +1,13 @@
+{
+  "finance-ponzi-crypto": [
+    ["COLD OPEN", 0.06, "o numero/documento mais estranho VERIFICADO (nao a acusacao): a cifra do extrato, a linha circulada, a pagina do auto, o relatorio de 4 minutos; abre a pergunta central (de onde vinha o pagamento)"],
+    ["A PROMESSA", 0.12, "o que foi vendido e por que pessoas racionais compraram: retorno prometido, evento, status, medo de ficar de fora; citar material promocional real (Wayback/manchete) - sem julgar a vitima"],
+    ["A MAQUINA", 0.16, "o mecanismo em si: dinheiro novo pagando dinheiro antigo, ausencia de trades/blockchain, contabilidade paralela, contas de custodia; o coracao do video; diagrama do fluxo do dinheiro"],
+    ["OS PERSONAGENS", 0.12, "quem construiu, quem vendeu, quem assinou; rotina, estilo de vida, credenciais; pessoa viva = charged/alleged; humanizar quem perdeu sem expor"],
+    ["A ASCENSAO", 0.12, "como virou credivel: auditorias de fachada, regulador dormindo, midia, celebridades, indicios de legitimidade; crescimento dos numeros ao longo do tempo"],
+    ["OS SINAIS IGNORADOS", 0.12, "a matematica que nao fechava e quem avisou: analista, jornalista, funcionario, whistleblower; o que o regulador fez com o aviso; camadas [FATO]/[REPORTADO]"],
+    ["A QUEDA", 0.14, "a cronologia da ruptura: saque trava, resgate falha, exchange congela, prisao, indiciamento; frases curtas, beats de 1 linha; so o que o documento sustenta"],
+    ["O DINHEIRO", 0.10, "onde foi e quanto voltou: bens apreendidos, relatorio do sindico, recuperacao por credor, cripto inalcancavel; o que nunca apareceu"],
+    ["ARQUIVO ABERTO+TEASER", 0.06, "o que segue em aberto (foragido, fundo, processo) + CTA especifico do caso + teaser do proximo esquema; sem promessa de solucao"]
+  ]
+}

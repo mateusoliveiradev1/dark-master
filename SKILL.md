@@ -7,12 +7,13 @@ description: >
   "thumbs", "organizar a pasta/canal", "nome/handle disponível", ou os comandos /dark, /dark-nicho, /dark-lancar,
   /dark-canal, /dark-organizar, /dark-build, /dark-audit, /dark-scan, /dark-revisar, /dark-focus, /dark-repurpose,
   /dark-monetizar. Cobre pesquisa de nicho real, algoritmo (CTR/AVD/AVP, bolhas de Shorts, engaged views),
-  hooks e títulos (Y1–Y11), thumbnails e A/B, retenção do MrBeast, storytelling de documentário, repurposing,
+  hooks e títulos (Y1–Y11), hooks de Short (frame 1, arquétipos, loop), modelos de canal por nicho/subnicho,
+  thumbnails e A/B, retenção do MrBeast, storytelling de documentário, repurposing,
   auto-dublagem, compliance YPP (conteúdo inautentico), RPM, monetização com produto digital e a trilha 0→YPP.
   NÃO usar para edição de vídeo comum, upload de terceiros, métricas de TikTok/Instagram, nem parecer jurídico.
 metadata:
   author: Liiiraa
-  version: "3.0.0"
+  version: "3.1.0"
 ---
 
 # dark-master
@@ -87,6 +88,8 @@ Ver `playbooks/README.md`.
 | **Auditorias automáticas (todos os gates)** | `references/28-auditorias.md` |
 | **Prompts de imagem + scaffolding de vídeo** | `references/29-prompts-de-imagem.md` |
 | **Sistema de roteiro (master)** | `references/30-roteiro-master.md` |
+| **Hooks de Short (frame 1, arquétipos, loop)** | `references/31-hooks-short.md` |
+| **Modelos de canal por nicho/subnicho (38, com evidência real)** | `models/README.md` + `models/<slug>/` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 
 ## Princípios de trabalho
@@ -107,6 +110,8 @@ Ver `playbooks/README.md`.
 14. **Mantenha a casa organizada.** Rode `channel_organize.py` (dry-run → aplicar) e siga a estrutura padrão (`26`).
 15. **Formato é decisão, não regra.** Short, long ou ambos dependem do **lane** do canal (`FOCUS.md` + `23`) — **não** assuma short+long sempre.
 16. **Roteiro sempre com pesquisa.** Use os subagentes (`dark-researcher`, `dark-scout`) e combine num brief antes de escrever; anti-IA e 1 peça de pesquisa primária por vídeo (`30`).
+17. **Short se ganha no frame 1.** Texto na tela (≤6 palavras) + fala ≤8 palavras nos 3s; loop projetado (AVP >100%). (`31`)
+18. **Modelo antes do canal.** Escolha um blueprint validado em `models/` e revalide com dados frescos (`23`) — modelo não é clone de playbook.
 
 ## Fluxo recomendado
 

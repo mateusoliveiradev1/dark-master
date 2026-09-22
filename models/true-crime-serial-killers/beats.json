@@ -1,0 +1,13 @@
+{
+  "true-crime-serial-killers": [
+    ["HOOK", 0.05, "detalhe mais estranho VERIFICADO do arquivo (nao o crime); pergunta central"],
+    ["ORIGENS", 0.14, "infancia/casa/trabalho; o que registros e vizinhos diziam; humaniza sem absolver"],
+    ["PADRAO", 0.13, "primeiros crimes e o que ligava as vitimas; sinais e alertas ignorados"],
+    ["CRONOLOGIA", 0.20, "os crimes em ordem; frases curtas; datas, mapas e distancias verificaveis"],
+    ["CACADA+PERICIA", 0.19, "task force, DNA/balistica/pegadas; o que cada exame provou ou falhou"],
+    ["CAPTURA+INTERROGATORIO", 0.12, "como caiu; o que ele disse vs o que a evidencia mostra"],
+    ["PERFIL+JULGAMENTO", 0.11, "analise comportamental com fonte + tribunal e destino judicial"],
+    ["VITIMAS+LEGADO", 0.04, "nomes e memoria; o que mudou na lei ou na policia"],
+    ["CHAVES+OUTRO+TEASER", 0.02, "o que ainda nao se sabe + proximo caso"]
+  ]
+}

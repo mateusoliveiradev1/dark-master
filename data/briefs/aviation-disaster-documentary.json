@@ -1,0 +1,277 @@
+{
+  "theme": "aviation disaster documentary",
+  "cluster": {
+    "theme": "aviation disaster documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "It's Aviation",
+        "id": "UCqITpJ_xP_p-_JX_tv5W9bw",
+        "subs": 29400,
+        "age_days": 260,
+        "first5": 24760882,
+        "vpd": 95233,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 9941927,
+        "outliers": []
+      },
+      {
+        "channel": "Koda Aviation",
+        "id": "UCdCIIEObdwIlbIXIEAhfSvg",
+        "subs": 8000,
+        "age_days": 42,
+        "first5": 706363,
+        "vpd": 185118,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 139224,
+        "outliers": [
+          {
+            "title": "When The Rudder Stops Working... 😳✈️",
+            "views": 4717882,
+            "ratio": 33.9,
+            "published": "2026-08-20"
+          }
+        ]
+      },
+      {
+        "channel": "Video Gallery 238",
+        "id": "UC4Ytu1VuuuQWEKmxIeXMZyg",
+        "subs": 47600,
+        "age_days": 89,
+        "first5": 11038,
+        "vpd": 212492,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 521,
+        "outliers": []
+      },
+      {
+        "channel": "Austrian Aviation",
+        "id": "UCBlon5PgVO4XunNqaQExI9A",
+        "subs": 9270,
+        "age_days": 84,
+        "first5": 561588,
+        "vpd": 94573,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 38762,
+        "outliers": []
+      },
+      {
+        "channel": "Beyond The Unknown",
+        "id": "UC1ZKLArCqTFVkYv_Z8VlQ8w",
+        "subs": 9040,
+        "age_days": 79,
+        "first5": 308133,
+        "vpd": 91585,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 828,
+        "outliers": []
+      },
+      {
+        "channel": "NextGen Briefs",
+        "id": "UCz8vzTNYdEFLeqwQGmN5kXw",
+        "subs": 8520,
+        "age_days": 96,
+        "first5": 2531936,
+        "vpd": 45125,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 35205,
+        "outliers": []
+      },
+      {
+        "channel": "Prime Action Films",
+        "id": "UCFIdF_lbrW92svslsths7Xg",
+        "subs": 106000,
+        "age_days": 238,
+        "first5": 1370693,
+        "vpd": 78374,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 50013,
+        "outliers": [
+          {
+            "title": "He Survived a Plane Crash… Then Faced the Canadian Wilderness Alone",
+            "views": 940180,
+            "ratio": 18.8,
+            "published": "2026-09-13"
+          }
+        ]
+      },
+      {
+        "channel": "Iqbal Production ",
+        "id": "UCDSPS5K0K_aP-wM38s4cVrg",
+        "subs": 54400,
+        "age_days": 298,
+        "first5": 737407,
+        "vpd": 17400,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 87433,
+        "outliers": [
+          {
+            "title": "PILOT की एक गलती और Boeing 737 Amazon में खो गया! 😱 | VARIG Flight 254",
+            "views": 531786,
+            "ratio": 6.1,
+            "published": "2026-07-09"
+          }
+        ]
+      }
+    ],
+    "passed": [
+      "Koda Aviation"
+    ],
+    "emerging": [
+      "Video Gallery 238",
+      "Austrian Aviation",
+      "Beyond The Unknown"
+    ],
+    "hungry": [
+      "Koda Aviation",
+      "Prime Action Films",
+      "Iqbal Production "
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "aviation disaster documentary",
+    "depth": 102,
+    "suggestions": [
+      "aviation disaster documentary",
+      "aviation crash documentary",
+      "air disaster documentary",
+      "flight disaster documentary",
+      "aviation incidents",
+      "aviation disaster documentary australia",
+      "aviation disaster documentary air crash investigation",
+      "aviation disaster documentary american experience",
+      "aviation disaster documentary american",
+      "aviation disaster documentary after effects",
+      "aviation disaster documentary bbc",
+      "aviation disaster documentary british",
+      "aviation disaster documentary black metal",
+      "aviation disaster documentary black",
+      "airline disaster film complet en francais",
+      "air crash investigation",
+      "aviation disaster documentary dw",
+      "aviation disaster documentary documentary",
+      "aviation disaster documentary deadliest roads",
+      "aviation disaster documentary english",
+      "aviation disaster documentary english subtitles",
+      "aviation disaster documentary ed sheeran",
+      "aviation disaster documentary edinburgh",
+      "airline disaster full movie in hindi",
+      "flight disaster full movie",
+      "airline disaster full movie",
+      "countdown to the next aviation disaster full documentary blaze originals",
+      "aviation documentary",
+      "aviation disasters documentary",
+      "aviation disaster documentary german",
+      "aviation disaster documentary germany",
+      "aviation disaster documentary gacha",
+      "aviation disaster documentary gma",
+      "aviation disasters documentary hindi",
+      "flight disaster movie hindi",
+      "aviation accident news",
+      "flight disaster movie in hindi",
+      "airline disaster movie in english",
+      "airline disaster film italiano",
+      "aviation disaster documentary japan",
+      "aviation disaster documentary japanese",
+      "aviation disaster documentary joe rogan",
+      "aviation disaster documentary korea",
+      "aviation disaster documentary korean",
+      "aviation disaster documentary lyrics",
+      "aviation disaster documentary live",
+      "aviation disaster documentary lion",
+      "aviation disaster documentary life",
+      "aviation disaster documentary lost",
+      "aviation disaster documentary movies",
+      "aviation disaster documentary music",
+      "aviation disaster documentary national geographic",
+      "aviation disaster documentary no copyright",
+      "aviation disaster documentary no commentary",
+      "aviation disaster documentary netflix",
+      "aviation disaster documentary oversimplified",
+      "aviation disaster documentary original",
+      "aviation disaster documentary overwatch",
+      "aviation disaster documentary online",
+      "aviation disaster documentary part 2",
+      "aviation disaster documentary philippines",
+      "aviation disaster documentary part 1",
+      "aviation disaster documentary playlist",
+      "aviation disaster documentary part 3",
+      "aviation disaster documentary queen",
+      "aviation disaster documentary qatar",
+      "aviation disaster documentary quebec",
+      "aviation disaster documentary queen elizabeth",
+      "aviation disaster documentary reaction",
+      "aviation disaster documentary russian",
+      "aviation disaster documentary russia",
+      "aviation disaster documentary south africa",
+      "aviation disaster documentary space",
+      "aviation disaster documentary short",
+      "aviation disaster documentary south america",
+      "aviation disaster documentary south korea",
+      "aviation disaster documentary series",
+      "airline disaster movie trailer",
+      "airline disaster movie tamil dubbed",
+      "aviation disaster documentary uk",
+      "aviation disaster documentary usa",
+      "aviation disaster documentary ukraine",
+      "aviation disaster documentary us",
+      "aviation disaster documentary video",
+      "aviation disaster documentary video in hindi",
+      "aviation disaster documentary ww2",
+      "aviation disaster documentary war",
+      "aviation disaster documentary world",
+      "aviation disaster documentary ww1",
+      "aviation disaster documentary with subtitles",
+      "aviation disaster documentary xdefiant",
+      "aviation disaster documentary xi jinping",
+      "aviation disaster documentary xbox",
+      "aviation disaster documentary xqc",
+      "aviation disaster documentary xd",
+      "aviation disaster documentary youtube",
+      "aviation disaster documentary ytp",
+      "aviation disaster documentary you",
+      "aviation disaster documentary zombies",
+      "aviation disaster documentary zone",
+      "aviation disaster documentary zedd",
+      "aviation disaster documentary zed"
+    ]
+  },
+  "trends": {
+    "term": "aviation disaster documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

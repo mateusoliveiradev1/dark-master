@@ -1,0 +1,270 @@
+{
+  "theme": "psychology experiment documentary",
+  "cluster": {
+    "theme": "psychology experiment documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Stories hub",
+        "id": "UCXc0khR5UkHYp5o0tyDaR_A",
+        "subs": 25100,
+        "age_days": 172,
+        "first5": 2113847,
+        "vpd": 912766,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 141248,
+        "outliers": []
+      },
+      {
+        "channel": "History Mark: Exposed",
+        "id": "UCVQ6PfvArbOwvbaySSqnsMQ",
+        "subs": 14600,
+        "age_days": 121,
+        "first5": 904398,
+        "vpd": 19857,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 27491.5,
+        "outliers": [
+          {
+            "title": "The Genain Quadruplets – 4 Identical Sisters With Schizophrenia and the Study That Failed Them",
+            "views": 1156973,
+            "ratio": 42.1,
+            "published": "2026-08-01"
+          }
+        ]
+      },
+      {
+        "channel": "Unbaffled with Jim Al-Khalili",
+        "id": "UC3_bHs6iNuOROAaTo0cUR1w",
+        "subs": 46600,
+        "age_days": 146,
+        "first5": 470675,
+        "vpd": 22348,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 23567,
+        "outliers": []
+      },
+      {
+        "channel": "En Dias Como Hoy...",
+        "id": "UCKhu_klaghvMvYL0MXrkUcQ",
+        "subs": 679,
+        "age_days": 55,
+        "first5": 10025,
+        "vpd": 3499,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1796,
+        "outliers": [
+          {
+            "title": "El experimento escolar que se salió de control en 4 días | La Tercera Ola (1967) Minidocumental",
+            "views": 130268,
+            "ratio": 72.5,
+            "published": "2026-09-15"
+          }
+        ]
+      },
+      {
+        "channel": "Layer Unlocked",
+        "id": "UCmRxAND17GtjwEzsQhG9x7A",
+        "subs": 42200,
+        "age_days": 259,
+        "first5": 85815,
+        "vpd": 33818,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 9871,
+        "outliers": []
+      },
+      {
+        "channel": "Strategy of Marketing",
+        "id": "UC5WpqojTTL9ca3J7G3_SN-A",
+        "subs": 11000,
+        "age_days": 299,
+        "first5": 143445,
+        "vpd": 259718,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 4886,
+        "outliers": []
+      },
+      {
+        "channel": "Singh Of War",
+        "id": "UCJY_LGa1os3j7sghYrPw53w",
+        "subs": 1680,
+        "age_days": 320,
+        "first5": 16166,
+        "vpd": 6320,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 5966,
+        "outliers": []
+      },
+      {
+        "channel": "ScenicMotionsBeyondVerse",
+        "id": "UCXwqZq5rtyGu2TTCrf1bC2A",
+        "subs": 2250,
+        "age_days": 77,
+        "first5": 111656,
+        "vpd": 122755,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 20077,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "En Dias Como Hoy...",
+      "ScenicMotionsBeyondVerse"
+    ],
+    "hungry": [
+      "History Mark: Exposed",
+      "En Dias Como Hoy..."
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "psychology experiment documentary",
+    "depth": 106,
+    "suggestions": [
+      "psychology experiment documentary",
+      "psychological experiments",
+      "psychology experiment documentary australia",
+      "psychology experiment documentary about money",
+      "psychology experiment documentary about life",
+      "psychology experiment documentary about science",
+      "psychology experiment documentary about human psychology",
+      "psychology the stanford prison experiment - bbc documentary",
+      "psychology experiment",
+      "psychology experiment documentary channel",
+      "psychology experiment documentary compilation",
+      "psychology experiment documentary channel 4",
+      "psychology experiment documentary china",
+      "psychology experiment documentary crime",
+      "psychology experiment documentary documentary",
+      "psychology experiment documentary drugs",
+      "psychology experiment documentary discovery",
+      "psychology experiment documentary debunked",
+      "psychology experiment documentary english",
+      "psychology experiment documentary examples",
+      "psychology experiment documentary episode 1",
+      "psychology experiment documentary film",
+      "psychology experiment documentary full",
+      "psychology experiment documentary filipino",
+      "psychology experiment documentary girl",
+      "psychology experiment documentary gacha",
+      "psychology experiment documentary green screen",
+      "psychology experiment documentary gacha life",
+      "psychology experiment documentary graph",
+      "psychology experiment documentary hair",
+      "psychology experiment documentary hai",
+      "psychology experiment documentary hailey",
+      "psychology experiment documentary hail",
+      "psychology experiment documentary hair transplant",
+      "psychology experiment documentary haiti",
+      "psychology experiment documentary in hindi",
+      "psychology experiment documentary in urdu",
+      "psychology experiment documentary in english",
+      "psychology experiment documentary in tamil",
+      "psychology experiment documentary india",
+      "psychology experiment documentary japan",
+      "psychology experiment documentary japanese",
+      "psychology experiment documentary jordan peterson",
+      "psychology experiment documentary jordan",
+      "psychology experiment documentary james cameron",
+      "psychology experiment documentary korea",
+      "psychology experiment documentary korean",
+      "psychology experiment documentary kannada",
+      "psychology experiment documentary law of attraction",
+      "psychology experiment documentary lecture",
+      "psychology experiment documentary life",
+      "psychology experiment documentary law",
+      "psychology experiment documentary malayalam",
+      "psychology experiment documentary movie",
+      "psychology experiment documentary music",
+      "psychology experiment documentary national geographic",
+      "psychology experiment documentary netflix",
+      "psychology experiment documentary new",
+      "psychology experiment documentary new zealand",
+      "psychology experiment documentary new york",
+      "psychology experiment documentary on science",
+      "psychology experiment documentary on social media",
+      "psychology experiment documentary on humans",
+      "psychology experiment documentary online",
+      "psychology experiment documentary philippines",
+      "psychology experiment documentary part 2",
+      "psychology experiment documentary part 1",
+      "psychology experiment documentary philosophy",
+      "psychology experiment documentary psychology",
+      "psychology experiment documentary questions",
+      "psychology experiment documentary quotes",
+      "psychology experiment documentary questions and answers",
+      "psychology experiment documentary queen",
+      "psychology experiment documentary real stories",
+      "psychology experiment documentary reaction",
+      "psychology experiment documentary real",
+      "psychology experiment documentary review",
+      "psychology experiment documentary real life",
+      "psychology experiment documentary shorts",
+      "psychology experiment documentary science",
+      "psychology experiment documentary series",
+      "psychology experiment documentary sociology",
+      "psychology experiment documentary summary",
+      "psychology experiment documentary tamil",
+      "psychology experiment documentary trailer",
+      "psychology experiment documentary tagalog",
+      "psychology experiment documentary telugu",
+      "psychology experiment documentary uk",
+      "psychology experiment documentary urdu",
+      "psychology experiment documentary usa",
+      "psychology experiment documentary video",
+      "psychology experiment documentary writing",
+      "psychology experiment documentary world",
+      "psychology experiment documentary why",
+      "psychology experiment documentary with english subtitles",
+      "psychology experiment documentary xi jinping",
+      "psychology experiment documentary xrp",
+      "psychology experiment documentary youtube",
+      "psychology experiment documentary yfn lucci",
+      "psychology experiment documentary youtube channel",
+      "psychology experiment documentary you",
+      "psychology experiment documentary youtube shorts",
+      "psychology experiment documentary zambia",
+      "psychology experiment documentary zoom",
+      "psychology experiment documentary zombie",
+      "psychology experiment documentary zimbabwe"
+    ]
+  },
+  "trends": {
+    "term": "psychology experiment documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

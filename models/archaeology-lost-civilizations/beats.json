@@ -1,0 +1,15 @@
+{
+  "archaeology-lost-civilizations": [
+    ["COLD OPEN", 0.05, "cena concreta de evidência: uma linha de LiDAR, uma peça de museu, a primeira foto do sítio; a pergunta central em 1 frase; sem intro"],
+    ["A PERGUNTA", 0.07, "o que se acreditava e o que foi encontrado; a contradição que o episódio resolve; 3 promessas abertas nos primeiros 20s"],
+    ["O SITIO", 0.12, "onde e o que é: geografia, escala, datação (séculos/radiocarbono), quem encontrou e quando; mapa + planta"],
+    ["COMO FOI CONSTRUIDO", 0.14, "engenharia e logística: água, terra, pedra, mão de obra; o que os cálculos permitem concluir; 1 peça primária (relatório/artigo)"],
+    ["A VIDA NA CIDADE", 0.12, "cotidiano: comida, saneamento, comércio, artefatos; população estimada e como se estima"],
+    ["A EVIDENCIA", 0.13, "linhas independentes: estratigrafia, radiocarbono, DNA, isótopos, clima (espeleotemas/sedimentos), LiDAR; o que cada uma sustenta e o que não sustenta"],
+    ["O COLAPSO", 0.14, "cronologia do abandono/queda: clima, água, comércio, instituições, conflito; hipóteses com prós e contras rotuladas FATO/REPORTADO/LENDA"],
+    ["O MITO", 0.08, "o que a cultura popular inventou sobre o caso (El Dorado, Atlântida, 'civilização secreta'); por que a evidência não sustenta; sem deboche do público"],
+    ["O QUE FICOU", 0.07, "legado concreto: descendentes, técnicas, patrimônio, pesquisa atual; o que escavações futuras podem responder"],
+    ["ABERTO", 0.05, "o que ainda não se sabe, sem hype; a pergunta que fica com o espectador"],
+    ["OUTRO+TEASER", 0.03, "CTA específico (arquivo do sítio) + teaser do próximo episódio"]
+  ]
+}

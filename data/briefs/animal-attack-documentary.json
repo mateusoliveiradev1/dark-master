@@ -1,0 +1,248 @@
+{
+  "theme": "animal attack documentary",
+  "cluster": {
+    "theme": "animal attack documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "WildLife Tv",
+        "id": "UCWT0iMoCQ0bAXnz-dKbz7ow",
+        "subs": 59500,
+        "age_days": 77,
+        "first5": 20640,
+        "vpd": 501150,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2950,
+        "outliers": []
+      },
+      {
+        "channel": "manishpedia",
+        "id": "UCvg9dw7JbzQJ34pFQPRbEEg",
+        "subs": 163000,
+        "age_days": 101,
+        "first5": 33220396,
+        "vpd": 2190526,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2753378,
+        "outliers": []
+      },
+      {
+        "channel": "GaiaDocs",
+        "id": "UCe9imMhDp6Kn3dn75mzUUZw",
+        "subs": 56000,
+        "age_days": 272,
+        "first5": 4556597,
+        "vpd": 97898,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 231271,
+        "outliers": [
+          {
+            "title": "WILD AMAZON | Only the Strongest Predators Will Survive | Nature Animal Documentary",
+            "views": 2379933,
+            "ratio": 10.3,
+            "published": "2026-08-19"
+          }
+        ]
+      },
+      {
+        "channel": "Decode Universe",
+        "id": "UCHZkWMvyUOT6K5NhfhCFUVg",
+        "subs": 116000,
+        "age_days": 157,
+        "first5": 490461,
+        "vpd": 826902,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 9242,
+        "outliers": []
+      },
+      {
+        "channel": "Creature Science Hub",
+        "id": "UCIHLn2ef1oAHlnryHZr4RMA",
+        "subs": 6920,
+        "age_days": 138,
+        "first5": 26863,
+        "vpd": 26735,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 995,
+        "outliers": []
+      },
+      {
+        "channel": "Animal Zone TV",
+        "id": "UCCoGbNNrY6SK8z-BQM7mbew",
+        "subs": 3960,
+        "age_days": 26,
+        "first5": 6864,
+        "vpd": 339317,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 1695,
+        "outliers": []
+      },
+      {
+        "channel": "Info Wild News",
+        "id": "UCnKbbCw492ygZNVR4bc2QNA",
+        "subs": 27100,
+        "age_days": 347,
+        "first5": 575875,
+        "vpd": 114289,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 87945,
+        "outliers": [
+          {
+            "title": "Why Animal Not Servive Crocodile Attack By info wild news",
+            "views": 1749394,
+            "ratio": 19.9,
+            "published": "2026-09-08"
+          }
+        ]
+      },
+      {
+        "channel": "JUNGLE x science",
+        "id": "UCVY-hUJfNaQVHH33Rsfdsjw",
+        "subs": 1600,
+        "age_days": 111,
+        "first5": 323,
+        "vpd": 29344,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 49,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "WildLife Tv",
+      "Animal Zone TV"
+    ],
+    "hungry": [
+      "GaiaDocs",
+      "Info Wild News"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "animal attack documentary",
+    "depth": 84,
+    "suggestions": [
+      "animal attack documentary",
+      "animal attack movie",
+      "animal attack movie in hindi dubbed",
+      "animal attack movie scene",
+      "animal attack movie in hindi",
+      "animal attack film",
+      "animal attack movie explained in hindi",
+      "animal attack movie in tamil dubbed",
+      "animal attack movie hollywood",
+      "animal attack movie sinhala review",
+      "animal attack movie trailer",
+      "animal attack movie name",
+      "animal attack movies list",
+      "animal attack movies tamil",
+      "animal attack action movie",
+      "animal.attack",
+      "animal attack tv show",
+      "animal attack movie best",
+      "wild animal attack documentary",
+      "animal attack movie clip",
+      "animal attack movie hindi dubbed",
+      "animal attack english movie",
+      "animal attack english movie hindi dubbed",
+      "animal attack full movie english",
+      "animal attack movie full",
+      "animal attack full movie in hindi",
+      "animal attack full movie tamil dubbed",
+      "animal attack documentary gone wrong",
+      "animal attack documentary girl",
+      "animal attack documentary geography",
+      "animal attack documentary green screen",
+      "animal attack documentary green",
+      "animal attack movie hindi",
+      "animal attack human documentary",
+      "animal attack movie hollywood hindi dubbed",
+      "animal attack hollywood movie in hindi",
+      "animal attack human movie",
+      "hollywood animal attack movies tamil",
+      "animal attack in movie",
+      "animal attack hollywood movie in hindi dubbed",
+      "animal attack documentary jungle",
+      "animal attack documentary jungle animals",
+      "animal attack documentary jungle safari",
+      "animal attack documentary kannada",
+      "animal attack documentary korean",
+      "animal attack documentary kill",
+      "animal planet hindi documentary lion attack",
+      "animal attack documentary malayalam",
+      "animal attack documentary movies",
+      "animal attack documentary music",
+      "animal attack new movie",
+      "animal movie attack on anil kapoor",
+      "animal attack documentary philippines",
+      "animal attack documentary part 2",
+      "animal attack documentary playlist",
+      "animal attack documentary part 1",
+      "animal attack documentary predator",
+      "animal attack documentary queen",
+      "animal attack documentary queen elizabeth",
+      "animal attack documentary qatar",
+      "animal attack movie review sinhala",
+      "animal movie attack song",
+      "animal attack survival movie",
+      "animal attack short film",
+      "best animal attack movie scenes",
+      "wild animal attack movie scene",
+      "hollywood animal attack movie scene",
+      "hollywood animal attack movies tamil dubbed",
+      "animal attacks",
+      "animal attack documentary uk",
+      "animal attack documentary urdu",
+      "animal attack documentary urdu zubaan",
+      "animal attack documentary video",
+      "animal attack documentary video in hindi",
+      "animal attack documentary xbox",
+      "animal attack documentary xi jinping",
+      "animal attack documentary youtube",
+      "animal attack documentary yeti",
+      "animal attack documentary youtube channel",
+      "animal attack documentary zoo",
+      "animal attack documentary zoology",
+      "animal attack documentary zimbabwe",
+      "animal attack documentary zombie",
+      "animal attack documentary zootopia"
+    ]
+  },
+  "trends": {
+    "term": "animal attack documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}

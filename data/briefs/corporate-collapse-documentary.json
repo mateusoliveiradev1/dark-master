@@ -1,0 +1,293 @@
+{
+  "theme": "corporate collapse documentary",
+  "cluster": {
+    "theme": "corporate collapse documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Company Killers",
+        "id": "UC9wnjiVLHIWLwpFkunGFgQQ",
+        "subs": 967,
+        "age_days": 81,
+        "first5": 3891,
+        "vpd": 254,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 695.5,
+        "outliers": [
+          {
+            "title": "How to Destroy a Billion-Dollar Empire (Corporate Fails Compilation)",
+            "views": 11365,
+            "ratio": 16.3,
+            "published": "2026-08-21"
+          }
+        ]
+      },
+      {
+        "channel": "Business Files Hindi",
+        "id": "UCvKTdrg9z8HWnT0zZVc0SJQ",
+        "subs": 5,
+        "age_days": 90,
+        "first5": 1217,
+        "vpd": 12,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 175.5,
+        "outliers": [
+          {
+            "title": "The Shocking Truth Behind Wirecard's Collapse",
+            "views": 786,
+            "ratio": 4.5,
+            "published": "2026-08-14"
+          }
+        ]
+      },
+      {
+        "channel": "Empire Lane",
+        "id": "UCydqsWovDC7JdeZmiX5JqZQ",
+        "subs": 170,
+        "age_days": 344,
+        "first5": 606,
+        "vpd": 124,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 98,
+        "outliers": []
+      },
+      {
+        "channel": "Sector Down",
+        "id": "UC6XBsBg8KXbHpcqcmBGXEsg",
+        "subs": 63,
+        "age_days": 109,
+        "first5": 2128,
+        "vpd": 60,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 176,
+        "outliers": [
+          {
+            "title": "Circuit City Cut Its Experts. Then It Collapsed.",
+            "views": 675,
+            "ratio": 3.8,
+            "published": "2026-07-29"
+          }
+        ]
+      },
+      {
+        "channel": "Read The Boardroom",
+        "id": "UC11cH44EHc2IeuR82jiapiQ",
+        "subs": 20,
+        "age_days": 103,
+        "first5": 1206,
+        "vpd": 12,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 46,
+        "outliers": [
+          {
+            "title": "Lehman Brothers' Fatal Flaw | The $50 Billion Cover-Up",
+            "views": 896,
+            "ratio": 19.5,
+            "published": "2026-07-24"
+          }
+        ]
+      },
+      {
+        "channel": "Billion Dollar Mistakes",
+        "id": "UCTojrp9tqUHumtt5jVugJNw",
+        "subs": 2,
+        "age_days": 30,
+        "first5": 975,
+        "vpd": 124,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 75,
+        "outliers": []
+      },
+      {
+        "channel": "Tech Of History",
+        "id": "UC1uqeIaXoOggm87s2Jq34og",
+        "subs": 1690,
+        "age_days": 73,
+        "first5": 16815,
+        "vpd": 2864,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 2640,
+        "outliers": []
+      },
+      {
+        "channel": "The Business Obituary",
+        "id": "UChmNeZEqdxCb3MZkXDmXuGg",
+        "subs": 210,
+        "age_days": 33,
+        "first5": 941,
+        "vpd": 149,
+        "gates": {
+          "age<=45": true,
+          "first5>=10k": false,
+          "vpd>=1k": false
+        },
+        "median": 117,
+        "outliers": [
+          {
+            "title": "Why Reliance Communications Failed | Anil Ambani’s Telecom Collapse",
+            "views": 570,
+            "ratio": 4.9,
+            "published": "2026-09-08"
+          }
+        ]
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Tech Of History"
+    ],
+    "hungry": [
+      "Company Killers",
+      "Business Files Hindi",
+      "Sector Down",
+      "Read The Boardroom",
+      "The Business Obituary"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "corporate collapse documentary",
+    "depth": 103,
+    "suggestions": [
+      "corporations documentary",
+      "collapse documentary",
+      "corporate consolidation",
+      "corporate state",
+      "corporate collapse documentary australia",
+      "corporate collapse documentary andrew",
+      "corporate collapse documentary after effects",
+      "corporate collapse documentary andrew tate",
+      "corporate collapse documentary bbc",
+      "corporate collapse documentary background music",
+      "corporate collapse documentary bangla",
+      "corporate collapse documentary bill",
+      "corporate collapse documentary background",
+      "corporate collapse documentary china",
+      "corporate collapse documentary canada",
+      "corporate collapse documentary channel 4",
+      "corporate collapse documentary covid",
+      "corporate collapse documentary cnn",
+      "corporate collapse documentary documentary",
+      "corporate collapse documentary debate",
+      "corporate collapse documentary debt",
+      "corporate collapse documentary dw",
+      "corporate collapse documentary development",
+      "corporate collapse documentary english",
+      "corporate collapse documentary explained",
+      "corporate collapse documentary episode 1",
+      "corporate collapse documentary full",
+      "corporate collapse documentary film",
+      "corporate collapse documentary full movie",
+      "corporate collapse documentary girl",
+      "corporate collapse documentary ghana",
+      "corporate collapse documentary gen z",
+      "corporate collapse documentary globalisation",
+      "corporate collapse documentary genghis khan",
+      "corporate collapse documentary haiti",
+      "corporate collapse documentary hail",
+      "corporate collapse documentary hair",
+      "corporate collapse documentary hair transplant",
+      "corporate collapse documentary hai",
+      "corporate collapse documentary in hindi",
+      "corporate collapse documentary india",
+      "corporate collapse documentary intro",
+      "corporate collapse documentary joe rogan",
+      "corporate collapse documentary japan",
+      "corporate collapse documentary joe dispenza",
+      "corporate collapse documentary john oliver",
+      "corporate collapse documentary jordan peterson",
+      "corporate collapse documentary korea",
+      "corporate collapse documentary korean",
+      "corporate collapse documentary kanye",
+      "corporate collapse documentary london",
+      "corporate collapse documentary latest",
+      "corporate collapse documentary lake",
+      "corporate collapse documentary lana",
+      "corporate collapse documentary lana del rey",
+      "corporate collapse documentary music",
+      "corporate collapse documentary movie",
+      "corporate collapse documentary malayalam",
+      "corporate collapse documentary netflix",
+      "corporate collapse documentary national geographic",
+      "corporate collapse documentary neil degrasse tyson",
+      "corporate collapse documentary new york",
+      "corporate collapse documentary osama bin laden",
+      "corporate collapse documentary on",
+      "corporate collapse documentary online",
+      "corporate collapse documentary philippines",
+      "corporate collapse documentary part 2",
+      "corporate collapse documentary pandemic",
+      "corporate collapse documentary part 1",
+      "corporate collapse documentary qatar",
+      "corporate collapse documentary quezon city",
+      "corporate collapse documentary questions",
+      "corporate collapse documentary queen",
+      "corporate collapse documentary reaction",
+      "corporate collapse documentary russia",
+      "corporate collapse documentary review",
+      "corporate collapse documentary release date",
+      "corporate collapse documentary release",
+      "corporate collapse documentary south africa",
+      "corporate collapse documentary south korea",
+      "corporate collapse documentary south america",
+      "corporate collapse documentary trailer",
+      "corporate collapse documentary tamil",
+      "corporate collapse documentary tagalog",
+      "corporate collapse documentary tv",
+      "corporate collapse documentary uk",
+      "corporate collapse documentary usa",
+      "corporate collapse documentary upsc",
+      "corporate collapse documentary urdu",
+      "corporate collapse documentary video",
+      "corporate collapse documentary war",
+      "corporate collapse documentary with subtitles",
+      "corporate collapse documentary with english subtitles",
+      "corporate collapse documentary xi jinping",
+      "corporate collapse documentary xrp",
+      "corporate collapse documentary xbox",
+      "corporate collapse documentary youtube",
+      "corporate collapse documentary yogi",
+      "corporate collapse documentary yfn lucci",
+      "corporate collapse documentary yba",
+      "corporate collapse documentary zambia",
+      "corporate collapse documentary zone",
+      "corporate collapse documentary zimbabwe"
+    ]
+  },
+  "trends": {
+    "term": "corporate collapse documentary",
+    "avg_recent": 1.75,
+    "avg_prior": 0.0,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

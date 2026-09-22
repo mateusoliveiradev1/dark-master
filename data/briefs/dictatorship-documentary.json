@@ -1,0 +1,223 @@
+{
+  "theme": "dictatorship documentary",
+  "cluster": {
+    "theme": "dictatorship documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "MILO",
+        "id": "UCZIKUGrRUlX_sMzBve2QIzg",
+        "subs": 13900,
+        "age_days": 341,
+        "first5": 348651,
+        "vpd": 3732,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 52753,
+        "outliers": [
+          {
+            "title": "MOBUTU : Le Dictateur qui a volé l'Afrique",
+            "views": 439415,
+            "ratio": 8.3,
+            "published": "2026-06-26"
+          }
+        ]
+      },
+      {
+        "channel": "Untold war Story",
+        "id": "UCnJ0Pvwn-w1-YM8tJAW4rPA",
+        "subs": 3110,
+        "age_days": 115,
+        "first5": 4903,
+        "vpd": 3362,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": false,
+          "vpd>=1k": true
+        },
+        "median": 412,
+        "outliers": [
+          {
+            "title": "When Romania Executed Its Dictator on Live TV *Warning Real Footage",
+            "views": 140841,
+            "ratio": 341.8,
+            "published": "2026-09-07"
+          }
+        ]
+      },
+      {
+        "channel": "COSMO FILE",
+        "id": "UCFiq7FmetiWEf4VeDLwAO-w",
+        "subs": 373,
+        "age_days": 188,
+        "first5": 81629,
+        "vpd": 434,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": false
+        },
+        "median": 732.0,
+        "outliers": [
+          {
+            "title": "Your Life as Kim Jong Un's Daughter",
+            "views": 72729,
+            "ratio": 99.4,
+            "published": "2026-07-03"
+          }
+        ]
+      },
+      {
+        "channel": "Investigate Africa",
+        "id": "UCXSuUMWcYRxmmJvtdBmJW6A",
+        "subs": 12500,
+        "age_days": 308,
+        "first5": 129690,
+        "vpd": 12504,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 11180,
+        "outliers": []
+      },
+      {
+        "channel": "Rafael Cerqueira",
+        "id": "UCgyVvBvKGKlL1zzX0JeOCUA",
+        "subs": 16600,
+        "age_days": 145,
+        "first5": 59066,
+        "vpd": 11830,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 9845,
+        "outliers": []
+      },
+      {
+        "channel": "GEOPOWERS",
+        "id": "UCpU89My7OVnEXLuzcPc_0OA",
+        "subs": 42800,
+        "age_days": 328,
+        "first5": 359819,
+        "vpd": 62011,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 1772,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [],
+    "hungry": [
+      "MILO",
+      "Untold war Story",
+      "COSMO FILE"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "dictatorship documentary",
+    "depth": 81,
+    "suggestions": [
+      "dictatorship documentary",
+      "dictator documentary netflix",
+      "dictator documentary",
+      "dictator documentary in hindi",
+      "brazil dictatorship documentary",
+      "portugal dictatorship documentary",
+      "venezuela dictatorship documentary",
+      "marcos dictatorship documentary",
+      "syria dictatorship documentary",
+      "turkmenistan dictatorship documentary",
+      "iran dictatorship documentary",
+      "chile dictatorship documentary",
+      "dictatorship",
+      "dictators of africa",
+      "dictatorship documentary dw",
+      "dictatorship documentary documentary",
+      "dictatorship documentary david attenborough",
+      "dictatorship documentary english",
+      "dictatorship documentary english subtitles",
+      "dictatorship documentary egypt",
+      "dictatorship documentary england",
+      "dictatorship documentary explained",
+      "dictatorship documentary full",
+      "dictatorship documentary full movie",
+      "dictatorship documentary film",
+      "dictatorship documentary funny",
+      "dictatorship documentary ghana",
+      "dictatorship documentary german",
+      "dictatorship documentary geography",
+      "dictatorship documentary germany",
+      "dictator history documentary",
+      "dictators documentary",
+      "dictators",
+      "dictatorship movie in hindi",
+      "dictatorship documentary joe rogan",
+      "dictatorship documentary japan",
+      "dictatorship documentary johnny depp",
+      "dictatorship documentary jordan peterson",
+      "dictatorship documentary korea",
+      "dictatorship documentary kenya",
+      "dictatorship documentary korean",
+      "dictatorship documentary london",
+      "dictatorship documentary language",
+      "dictatorship documentary libya",
+      "dictatorship documentary latest",
+      "dictatorship documentary last scene",
+      "dictator's dilemma",
+      "dictatorship documentary of africa",
+      "dictatorship documentary old",
+      "dictatorship documentary on pakistan",
+      "dictatorship documentary online",
+      "dictatorship in brazil",
+      "dictatorship documentary queen",
+      "dictatorship documentary queen elizabeth",
+      "dictatorship documentary quality",
+      "dictatorship documentary questions",
+      "dictatorship documentary queen elizabeth ii",
+      "dictatorship documentary reaction",
+      "dictatorship documentary russia",
+      "dictatorship documentary russian",
+      "dictatorship documentary real stories",
+      "dictatorship movie scene",
+      "dictatorship movie song",
+      "dictatorship movie trailer",
+      "dictatorship documentary uk",
+      "dictatorship documentary urdu",
+      "dictatorship documentary usa",
+      "dictatorship documentary war",
+      "dictatorship documentary with subtitles",
+      "dictatorship documentary wion",
+      "dictatorship documentary with english subtitles",
+      "dictatorship documentary xi jinping",
+      "dictatorship documentary xi",
+      "dictatorship documentary youtube",
+      "dictatorship documentary yogi",
+      "dictatorship documentary yacht",
+      "dictatorship documentary yogi adityanath",
+      "dictatorship documentary yates",
+      "dictatorship documentary zimbabwe",
+      "dictatorship documentary zambia",
+      "dictatorship documentary zemtv"
+    ]
+  },
+  "trends": {
+    "term": "dictatorship documentary",
+    "avg_recent": 36.75,
+    "avg_prior": 0.0,
+    "direction": "ALTA",
+    "rising": []
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "theme": "space mystery documentary",
+  "cluster": {
+    "theme": "space mystery documentary",
+    "window_days": 90,
+    "channels": [
+      {
+        "channel": "Tamil Unmaigal",
+        "id": "UCUPGqt7LGy9kQ4nGD0EypxA",
+        "subs": 57200,
+        "age_days": 307,
+        "first5": 5231226,
+        "vpd": 67038,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 6611,
+        "outliers": [
+          {
+            "title": "அமேசான் காடுகளின் 10 நடுங்கவைக்கும் ரகசியங்கள்! #tamildocumentary #facts #mysteryexplained #amazon",
+            "views": 2785390,
+            "ratio": 421.3,
+            "published": "2026-08-17"
+          }
+        ]
+      },
+      {
+        "channel": "Gupt vigyan",
+        "id": "UCSXtT_81eaC3v9EJqBFr6XQ",
+        "subs": 44200,
+        "age_days": 74,
+        "first5": 466178,
+        "vpd": 274841,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 37841,
+        "outliers": [
+          {
+            "title": "बारिश आते ही कहाँ से आते हैं ये Frogs? 🐸 | Frog Mystery Explained #facts #documentary  #birds",
+            "views": 526939,
+            "ratio": 13.9,
+            "published": "2026-08-24"
+          }
+        ]
+      },
+      {
+        "channel": "Calm Space",
+        "id": "UCXyJmt3PKv0fbsU9DtcreEw",
+        "subs": 106000,
+        "age_days": 276,
+        "first5": 962900,
+        "vpd": 61744,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 17999,
+        "outliers": [
+          {
+            "title": "Why Voyager 1 Still Hasn't Hit a Single Thing After 49 Years in Space",
+            "views": 535488,
+            "ratio": 29.8,
+            "published": "2026-09-09"
+          }
+        ]
+      },
+      {
+        "channel": "Magnetic Space",
+        "id": "UCEQbjUclRX991KHN5BjOJXg",
+        "subs": 9760,
+        "age_days": 143,
+        "first5": 131074,
+        "vpd": 13380,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 12081,
+        "outliers": [
+          {
+            "title": "Spacetime| The 4-Dimensional Mystery We Still Can't Explain | 100 Years Later",
+            "views": 51149,
+            "ratio": 4.2,
+            "published": "2026-09-10"
+          }
+        ]
+      },
+      {
+        "channel": "Sleepy Space Science ",
+        "id": "UCjI2JgTtiOAFTYXhfsAhHbg",
+        "subs": 15000,
+        "age_days": 158,
+        "first5": 391763,
+        "vpd": 10754,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 36139,
+        "outliers": []
+      },
+      {
+        "channel": "Cosmic Door",
+        "id": "UCV-XJSH-STnTOgZ8bAp-9iQ",
+        "subs": 22300,
+        "age_days": 169,
+        "first5": 131569,
+        "vpd": 32193,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 20248,
+        "outliers": [
+          {
+            "title": "ब्रह्मांड में हमारी जगह कहाँ है? | Laniakea Supercluster | Space Documentary Hindi",
+            "views": 145582,
+            "ratio": 7.2,
+            "published": "2026-08-30"
+          }
+        ]
+      },
+      {
+        "channel": "Sleepy Mystery Channel",
+        "id": "UCTPaH5uxhK1dq5fFaG5ob7Q",
+        "subs": 12800,
+        "age_days": 202,
+        "first5": 190041,
+        "vpd": 7910,
+        "gates": {
+          "age<=45": false,
+          "first5>=10k": true,
+          "vpd>=1k": true
+        },
+        "median": 25018,
+        "outliers": []
+      }
+    ],
+    "passed": [],
+    "emerging": [
+      "Gupt vigyan"
+    ],
+    "hungry": [
+      "Tamil Unmaigal",
+      "Gupt vigyan",
+      "Calm Space",
+      "Magnetic Space",
+      "Cosmic Door"
+    ],
+    "signal": true,
+    "verdict": "REPROVA"
+  },
+  "suggest": {
+    "seed": "space mystery documentary",
+    "depth": 103,
+    "suggestions": [
+      "space mystery documentary",
+      "space mystery documentary hindi",
+      "space mystery movies in hindi",
+      "space mystery movies",
+      "space mysteries",
+      "space secrets",
+      "space documentary 2023",
+      "space mystery documentary africa",
+      "space mystery documentary amazon",
+      "space mystery documentary adventure",
+      "space mystery documentary about space",
+      "space mystery documentary amazon prime",
+      "space mystery documentary bbc",
+      "space mystery documentary bangla",
+      "space mystery documentary bengali",
+      "space mystery documentary crime",
+      "space mystery documentary channel 4",
+      "space mystery documentary crime investigation",
+      "space mystery documentary documentary",
+      "space mystery documentary discovery",
+      "space mystery documentary discovery channel",
+      "space mystery documentary dw",
+      "space mystery documentary english",
+      "space mystery documentary egypt",
+      "space mystery documentary full",
+      "space mystery documentary full movie",
+      "space mystery documentary film",
+      "space mystery documentary girl",
+      "space mystery documentary greek mythology",
+      "space mystery documentary gold mafia",
+      "space mystery documentary ghost",
+      "space documentaries",
+      "space exploration documentary",
+      "space mystery documentary joe rogan",
+      "space mystery documentary james cameron",
+      "space mystery documentary japan",
+      "space mystery documentary kannada",
+      "space mystery documentary korea",
+      "space mystery documentary korean",
+      "space mystery documentary korean drama",
+      "space mystery documentary latest",
+      "space mystery documentary life",
+      "space mystery documentary love",
+      "space mystery documentary lost",
+      "space mystery documentary leo",
+      "space mystery documentary malayalam",
+      "space mystery documentary movie",
+      "space mystery documentary music",
+      "space mystery documentary movie in hindi",
+      "space mystery documentary netflix",
+      "space mystery documentary national geographic",
+      "space mystery documentary new",
+      "space mystery documentary nasa",
+      "space mystery documentary ocean",
+      "space mystery documentary odia",
+      "space mystery documentary on hindi",
+      "space mystery documentary old",
+      "space mystery documentary on netflix",
+      "space mystery documentary online",
+      "space mystery documentary philippines",
+      "space mystery documentary part 2",
+      "space mystery documentary part 1",
+      "space mystery documentary playlist",
+      "space mystery documentary plane",
+      "space mystery documentary quran",
+      "space mystery documentary queen",
+      "space mystery documentary queen elizabeth",
+      "space mystery documentary quantum",
+      "space mystery documentary real stories",
+      "space mystery documentary russian",
+      "space mystery documentary russia",
+      "space mystery documentary reaction",
+      "space mystery documentary real",
+      "space mystery documentary space",
+      "space mystery documentary science",
+      "space mystery documentary story",
+      "space mystery documentary south africa",
+      "space mystery documentary series",
+      "space mystery documentary shows",
+      "space mystery documentary tamil",
+      "space mystery documentary telugu",
+      "space mystery documentary tagalog",
+      "space mystery documentary true crime",
+      "space mystery documentary urdu",
+      "space mystery documentary uk",
+      "space mystery documentary universe",
+      "space mystery documentary usa",
+      "space mystery documentary video",
+      "space mystery documentary video in hindi",
+      "space mystery documentary with english subtitles",
+      "space mystery documentary war",
+      "space mystery documentary world",
+      "space mystery documentary wildlife",
+      "space mystery documentary with subtitles",
+      "space mystery documentary xqc",
+      "space mystery documentary xi jinping",
+      "space mystery documentary youtube",
+      "space mystery documentary yogi",
+      "space mystery documentary youtube channel",
+      "space mystery documentary yakuza",
+      "space mystery documentary youtube hindi",
+      "space mystery documentary zombie",
+      "space mystery documentary zemtv"
+    ]
+  },
+  "trends": {
+    "term": "space mystery documentary",
+    "error": "The request failed: Google returned a response with code 429"
+  }
+}
