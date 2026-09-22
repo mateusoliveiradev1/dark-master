@@ -1,6 +1,8 @@
 # 12 — Pipeline de produção
 
-Pipeline unificado + mapa para os scripts que já existem nos projetos do usuário.
+Pipeline unificado + mapas para os **engines** que já existem nos projetos do usuário.
+
+> **Canal novo:** siga o pipeline genérico abaixo. Os "engines" por projeto são reutilizáveis, mas **não obrigatórios** — um canal novo pode começar com scripts próprios. As vozes/regras de cada canal ficam no playbook (`playbooks/<canal>/`).
 
 ## Pipeline unificado
 
@@ -71,7 +73,7 @@ ideia/pacote → pesquisa → roteiro → linter → imagens (GATE 100%) → voz
 8. D+2/D+7: `revisao_d2` → atualizar `15-outliers-e-aprendizados.md`.
 
 ## Invariantes (não quebrar)
-- Voz oficial por canal (ver `canais/`).
+- Voz oficial por canal (ver o playbook do canal em `playbooks/<canal>/`).
 - 3 thumbs (Test & Compare).
 - Chapters remapeados ao vídeo real.
 - Upload **manual** (a não ser que o usuário peça API).

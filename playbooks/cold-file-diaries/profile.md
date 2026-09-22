@@ -76,7 +76,7 @@ Fonte autoritativa: `C:\Users\Liiiraa\Downloads\canal dark1\00_CANAL\`.
 - `videoNN/` — `01_roteiro`, `02_audio`, `03_imagens`, `04_video_final` + `youtube_package.txt`.
 
 ## Operação (metadata, PORTE, padrões de Short, anti-inauthentic)
-→ **`canais/cold-file-diaries-operacao.md`** (ler antes de gerar qualquer coisa).
+→ **`playbooks/cold-file-diaries/operacao.md`** (ler antes de gerar qualquer coisa).
 
 ## Status
 - Estoque fechado (≥17 prontos em 15/09); em produção video18+.

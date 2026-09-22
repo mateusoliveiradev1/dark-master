@@ -18,7 +18,7 @@ Antes de gerar, leia (na pasta do projeto):
 - `PIPELINE*` — cadência, regras de estoque, tempos.
 - `PROTOCOLO_ANTI_INAUTHENTIC*` — variação obrigatória.
 - `BRANDING*` — identidade visual/voz.
-- O perfil do canal na skill (`canais/<canal>.md` + `canais/<canal>-operacao.md`).
+- O playbook do canal na skill (`playbooks/<canal>/profile.md` + `operacao.md`).
 
 ## A CORRENTE DE TEASER (armadilha crítica)
 

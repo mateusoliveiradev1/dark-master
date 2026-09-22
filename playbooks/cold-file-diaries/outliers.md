@@ -24,7 +24,7 @@ Registro vivo do que funcionou no canal do usuário. **Atualize após cada rodad
 
 ## Cold File Diaries — outliers de Short (dados do usuário)
 - **Cooper (video02)** ~1.213 views · **Springfield (video03)** ~1.210 · **Yuba (video05)** ~1.2K.
-- Regras TRAVADAS derivadas deles (ver `canais/cold-file-diaries-operacao.md`):
+- Regras TRAVADAS derivadas deles (ver `playbooks/cold-file-diaries/operacao.md`):
   - **PADRÃO SHORT 2 VENCEDOR** — não mexer no video02 (está viral).
   - **PADRÃO SHORT 3** — hook 0–3s = impossibilidade completa (≤3 fragmentos ou pergunta em 2ª pessoa); sem data/local/abstração no hook; karaokê conta a história no mudo; corte em loop aberto.
   - **PADRÃO SHORT 4 TEASE** (video23+) — 32s: hook 0–8s + 2 blocos do meio + CTA falado específico.

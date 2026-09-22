@@ -29,12 +29,16 @@ https://image.pollinations.ai/prompt/{prompt_urlencoded}?width=1920&height=1080&
 ## Voz
 
 ### edge-tts (grátis, padrão de produção)
-| Canal | Voz | Ajuste |
-|---|---|---|
-| Cold File Diaries | `en-US-ChristopherNeural` | rate -10%, pitch -5Hz (mapa por série) |
-| Midnight Archive | `en-US-ChristopherNeural` | rate -12%, pitch -6Hz |
-| Financial Crime Files | `en-US-GuyNeural` | por bloco (hook -12%, body -8%, outro -6%) |
-| Laudo Final | `fr-FR-RemyMultilingualNeural` (PT) / `pt-BR-AntonioNeural` | mapa por série |
+
+Escolha **uma voz e trave-a** para o canal (identidade de marca). Sugestões por tom:
+
+| Tom | Voz sugerida (edge-tts) |
+|---|---|
+| Documentário EN (grave, medido) | `en-US-ChristopherNeural` (rate -8% a -12%) |
+| Investigativo EN (neutro) | `en-US-GuyNeural` |
+| PT-BR | `pt-BR-AntonioNeural` ou `fr-FR-RemyMultilingualNeural` |
+
+> A voz por canal fica no playbook (`playbooks/<canal>/`). **Canal novo define a própria** — não copie a de outro canal.
 
 - Prosódia por sentença (variação de rate/pitch), pausas 0.35s/0.15s, trim de silêncio.
 - Bed musical por série com ducking (sidechain) + `loudnorm I=-16` (ou -14 onde o projeto usa).

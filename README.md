@@ -49,7 +49,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 30 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 32 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -57,7 +57,11 @@ dark-master/
 │  ├─ 23-nichos-e-outliers.md
 │  ├─ 24-setup-oauth-passo-a-passo.md
 │  ├─ 25-contexto-do-canal.md
-│  └─ canais/                   # perfis por canal (branding, voz, calendário)
+│  ├─ 26-organizacao-e-arquivos.md
+│  └─ 27-nomes-e-handles.md
+├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
+│  ├─ cold-file-diaries/        # profile, operacao, outliers
+│  └─ financial-crime-files/ · laudo-final/ · midnight-archive/
 ├─ config/FOCUS.md              # objetivo atual (manda em tudo)
 ├─ data/                        # metrics.csv, outliers.json, learnings.md, nichos.md
 ├─ assets/                      # templates (roteiro, thumb, pacote, hook factory)
@@ -73,13 +77,15 @@ dark-master/
 
 | Comando | O que faz |
 |---|---|
-| `/dark-canal` | Entende o canal: escaneia o projeto, lê regras e a corrente de teaser. |
+| `/dark-nicho` | Pesquisa e valida **nichos reais** (discover/verify) com gates rígidos. |
+| `/dark-lancar` | Lança um canal do zero (nome, branding, calendário, settings). |
+| `/dark-organizar` | Organiza a pasta do canal (dry-run → aplicar) e checa nomes/handles. |
+| `/dark-canal` | Entende um canal existente: projeto, regras e corrente de teaser. |
 | `/dark` | Ideia → título → thumb → roteiro → checklist. |
 | `/dark-build` | Roda o pipeline de produção do canal alvo. |
 | `/dark-audit` | Gate anti-inauthentic + YPP + divulgação de IA. |
 | `/dark-scan` | Varre canais e alerta outliers acima da baseline. |
 | `/dark-revisar` | Loop semanal: métricas → aprendizados → propostas. |
-| `/dark-lancar` | Lança um canal do zero (nome, branding, calendário, settings). |
 | `/dark-focus` | Define/troca o foco (canal, objetivo, métrica norte). |
 | `/dark-repurpose` | Fatia long-form em Shorts multi-plataforma. |
 | `/dark-monetizar` | Trilha 0→YPP com metas e checkpoints. |
@@ -95,6 +101,9 @@ dark-master/
 | `yt_auth.py` | OAuth do YouTube (uma vez). |
 | `yt_metrics.py` | Puxa métricas por vídeo → banco + CSV. |
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
+| `niche_scan.py` | Pesquisa de nicho: gates rígidos + outliers via Data API. |
+| `channel_organize.py` | Organiza a pasta do canal (dry-run → aplicar). |
+| `name_check.py` | Checa disponibilidade de nome/handle. |
 | `yt_db.py` | Camada de dados (Neon Postgres ou SQLite). |
 | `channel_scan.py` | Lê o projeto do canal e a corrente de teaser. |
 | `audit-ypp.py` | Checklist do gate YPP. |
