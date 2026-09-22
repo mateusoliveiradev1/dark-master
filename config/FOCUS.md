@@ -12,19 +12,23 @@
 - **Orçamento:** free tier (edge-tts + Nano Banana manual + Pollinations fallback). Próximo gasto só ao faturar (ElevenLabs → editor de thumb).
 - **Idioma:** EN (auto-dub para os 27 idiomas quando ligado).
 
-## Diagnóstico atual (baseline)
+## Diagnóstico atual (baseline — dados reais via API, 21/09)
 
-- Shorts outliers ~1.2K views; **longs ~20–25 views** → **funil Short→long fraco**.
-- Estoque de vídeos agendados: ≥7 (manter).
-- **Gargalo #1:** tráfego para o long-form (não é metadata nem thumb).
-- **Gargalo #2:** converter a audiência do Short em inscritos/views de long.
+- **Shorts:** 3 outliers a **~1.190–1.202 views** (~48x a mediana). Melhor = **Springfield (AVP 136% = LOOP**, 4 inscritos).
+- **Longs:** 0–70 views; os que são assistidos retêm bem (**Zodiac: AVD 907s**; **Sodder/Cooper long: 3–5 inscritos** com poucas views).
+- **Watch hours (30d): ~26h.** Alvo 4.000h → falta ~150x. **O gargalo é TRÁFEGO, não conteúdo.**
+- **Funil Short→long:** existe (Short e long do mesmo caso em paralelo), mas converte pouco (~2%).
 
-## Prioridades (ordem)
+### Gargalos
+1. **#1 Tráfego para o long-form** — o Short não está puxando pro long.
+2. **#2 Escalar o padrão do Short vencedor (loop).**
 
+### Prioridades (ordem)
 1. Destravar o **funil Short→long** (Related Video, comentário fixado, CTA falado Padrão 4, end screen, playlist).
-2. **Auto-dub + títulos/descrições traduzidos** (alcance grátis).
-3. **Lives semanais** (watch hours).
-4. Rodar o **loop de dados** (`/dark-revisar`) para achar o que puxa views.
+2. **Replicar o loop** do Springfield (AVP >100%) nos próximos Shorts.
+3. **Auto-dub + títulos/descrições traduzidos** (alcance grátis).
+4. **Lives semanais** (watch hours).
+5. Rodar **`/dark-revisar`** semanalmente.
 
 ## Regras do foco
 

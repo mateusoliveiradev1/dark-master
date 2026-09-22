@@ -2,6 +2,26 @@
 
 Registro vivo do que funcionou no canal do usuário. **Atualize após cada rodada D+2/D+7.**
 
+## Dados reais (API, 21/09/2026)
+
+| Vídeo | Formato | Views | Engaged | AVD | AVP% | Watch h | Subs |
+|---|---|---|---|---|---|---|---|
+| Yuba County Five | short | 1202 | 498 | 14s | 43.8% | 2.27 | 1 |
+| D.B. Cooper ($200k) | short | 1190 | 451 | 22s | 67.2% | 3.05 | 1 |
+| **Springfield Three** | **short** | 1180 | 532 | 47s | **136.7% (loop)** | **7.25** | **4** |
+| Gardner Heist | long | 70 | 18 | 25s | 71.5% | 0.13 | 1 |
+| Zodiac Killer | long | 66 | 22 | **907s** | — | 5.55 | 0 |
+| D.B. Cooper (long) | long | 27 | 22 | 134s | 20.6% | 0.82 | 3 |
+| Sodder Children | long | 20 | 18 | 114s | 16.0% | 0.57 | **5** |
+| (demais longs) | long | 0–25 | | | | | |
+
+**Total watch hours (30d): ~26h.**
+
+### Leituras
+- **O loop é o sinal mais forte:** Springfield (AVP >100%) rendeu mais watch time (7,25h) e inscritos (4).
+- **O long retém quem chega** (Zodiac 907s; Sodder 20 views → 5 inscritos) — **falta é tráfego**.
+- **3 Shorts outliers a ~48x a mediana** = o padrão a escalar.
+
 ## Cold File Diaries — outliers de Short (dados do usuário)
 - **Cooper (video02)** ~1.213 views · **Springfield (video03)** ~1.210 · **Yuba (video05)** ~1.2K.
 - Regras TRAVADAS derivadas deles (ver `canais/cold-file-diaries-operacao.md`):

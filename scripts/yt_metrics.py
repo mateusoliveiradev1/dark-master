@@ -88,11 +88,25 @@ def main():
     def g(row, name):
         return row[idx[name]] if name in idx else None
 
+    # resolve titulos via Data API (mesmo token, escopo youtube.readonly)
+    titles = {}
+    try:
+        from googleapiclient.discovery import build as _build
+        ytdata = _build("youtube", "v3", credentials=creds())
+        ids = [row[idx["video"]] for row in rows]
+        for i in range(0, len(ids), 50):
+            v = ytdata.videos().list(part="snippet,contentDetails", id=",".join(ids[i:i+50])).execute()
+            for it in v.get("items", []):
+                titles[it["id"]] = it["snippet"]["title"]
+    except Exception as e:  # noqa
+        print(f"[i] (sem titulos: {e})")
+
     inserted = 0
     for row in rows:
         vid = row[idx["video"]]
         yt_db.save_snapshot({
             "ts": ts, "channel": a.channel, "video_id": vid,
+            "title": titles.get(vid, ""),
             "views": g(row, "views"), "engaged_views": g(row, "engagedViews"),
             "avd_seconds": g(row, "averageViewDuration"),
             "avp_percent": g(row, "averageViewPercentage"),
@@ -104,7 +118,7 @@ def main():
         inserted += 1
     print(f"[OK] {inserted} snapshot(s) gravados no banco ({yt_db.backend()})")
 
-    # atualiza CSV (append com cabecalho se nao existir)
+    # regenera o CSV a partir do snapshot mais recente por video (legivel)
     if not CSV.exists():
         CSV.write_text(
             "channel,video_id,title,format,published,views,engaged_views,avd_seconds,"
@@ -112,20 +126,32 @@ def main():
             "shares,subs_gained,watch_hours,revenue_usd,traffic_source,notes\n",
             encoding="utf-8",
         )
-    with CSV.open("a", newline="", encoding="utf-8") as f:
+    latest = yt_db._rows(yt_db.conn(), """
+        SELECT channel, video_id, title, views, engaged_views, avd_seconds, avp_percent,
+               likes, comments, shares, subs_gained, watch_hours, traffic_source
+        FROM snapshots s
+        WHERE ts = (SELECT MAX(ts) FROM snapshots s2 WHERE s2.video_id = s.video_id AND s2.channel = s.channel)
+        ORDER BY views DESC NULLS LAST
+    """) if yt_db.backend() == "postgres" else yt_db._rows(yt_db.conn(), """
+        SELECT channel, video_id, title, views, engaged_views, avd_seconds, avp_percent,
+               likes, comments, shares, subs_gained, watch_hours, traffic_source
+        FROM snapshots s
+        WHERE ts = (SELECT MAX(ts) FROM snapshots s2 WHERE s2.video_id = s.video_id AND s2.channel = s.channel)
+        ORDER BY views DESC
+    """)
+    with CSV.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        for row in rows:
-            vid = row[idx["video"]]
-            w.writerow([
-                a.channel, vid, "", "", "",
-                g(row, "views"), g(row, "engagedViews"), g(row, "averageViewDuration"),
-                g(row, "averageViewPercentage"), "", "", "",
-                g(row, "likes"), g(row, "comments"), g(row, "shares"),
-                g(row, "subscribersGained"),
-                round((g(row, "estimatedMinutesWatched") or 0) / 60.0, 2),
-                "", "", "api",
-            ])
-    print(f"[OK] linhas anexadas em {CSV}")
+        w.writerow(["channel", "video_id", "title", "format", "published", "views",
+                    "engaged_views", "avd_seconds", "avp_percent", "ctr_percent",
+                    "shown_in_feed", "chose_to_view_percent", "likes", "comments", "shares",
+                    "subs_gained", "watch_hours", "revenue_usd", "traffic_source", "notes"])
+        for r in latest:
+            fmt = "short" if (r["avd_seconds"] or 0) and (r["avd_seconds"] or 0) < 70 and (r["views"] or 0) > 200 else "long"
+            w.writerow([r["channel"], r["video_id"], r["title"], fmt, "", r["views"],
+                        r["engaged_views"], r["avd_seconds"], r["avp_percent"], "", "", "",
+                        r["likes"], r["comments"], r["shares"], r["subs_gained"],
+                        r["watch_hours"], "", r["traffic_source"], ""])
+    print(f"[OK] CSV regenerado (ultimo snapshot por video): {CSV}")
 
 
 if __name__ == "__main__":

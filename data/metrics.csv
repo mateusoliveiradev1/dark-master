@@ -1,5 +1,14 @@
 channel,video_id,title,format,published,views,engaged_views,avd_seconds,avp_percent,ctr_percent,shown_in_feed,chose_to_view_percent,likes,comments,shares,subs_gained,watch_hours,revenue_usd,traffic_source,notes
-# Preencha 1 linha por vídeo. Fonte: YouTube Studio (manual) ou youtube-analytics-cli (API).
-# format: long | short. traffic_source: feed|search|suggested|external|mixed
-# Exemplo:
-# cold-file-diaries,VIDEOID,Springfield Three Vanished Overnight,short,2026-09-16,1210,410,22,58,4.2,15000,62,88,12,5,38,0.11,0.03,feed,outlier
+cold-file-diaries,6FdLxmbamJs,Yuba County Five Drove to a Game — VANISHED,short,,1202,498,14.0,43.82,,,,6,1,0,1,2.27,,api,
+cold-file-diaries,sB2Twbce70Q,"He Jumped With $200,000 — Never Found",short,,1190,451,22.0,67.21,,,,10,1,0,1,3.05,,api,
+cold-file-diaries,FiWWSWJoOW8,Springfield Three Vanished Overnight — NEVER Found,short,,1180,532,47.0,136.74,,,,18,1,0,4,7.25,,api,
+cold-file-diaries,LbzUZJ-Q-tg,Gardner Heist: $500M Gone in 81 Minutes — NEVER Found,long,,70,18,25.0,71.51,,,,6,1,0,1,0.13,,api,
+cold-file-diaries,f-lbHgdVxcI,"Zodiac Killer: 5 Dead, 4 Ciphers — ZERO Arrests",long,,66,22,907.0,2834.67,,,,4,1,0,0,5.55,,api,
+cold-file-diaries,Zi3YBe0x3rc,"He Jumped With $200,000 — Never Found | D.B. Cooper",long,,27,22,134.0,20.56,,,,7,1,1,3,0.82,,api,
+cold-file-diaries,zQGCcd4aWlM,Sodder Children Vanished on Christmas Eve — NEVER Found,long,,25,18,20.0,52.67000000000001,,,,3,1,0,0,0.1,,api,
+cold-file-diaries,faDgcxUE31M,"The Zodiac Killer: 5 Dead, 4 Ciphers, Zero Arrests — Unsolved",long,,23,9,2583.0,320.15,,,,2,1,0,0,6.45,,api,
+cold-file-diaries,bCm48mW3VXg,The Sodder Children: 5 Kids Vanished on Christmas Eve,long,,20,18,114.0,15.97,,,,8,1,0,5,0.57,,api,
+cold-file-diaries,tRF2ZCcz0fw,3 Women Vanished From One House — Springfield Three,long,,14,6,12.0,1.8399999999999999,,,,4,1,0,0,0.02,,api,
+cold-file-diaries,FIRbb3CelJM,"Yuba County Five: 5 Went to a Game, 1 Vanished",long,,8,3,55.0,7.32,,,,2,1,0,0,0.03,,api,
+cold-file-diaries,ra4DDCqjupc,They Took $500 Million — Never Found | Gardner Museum Heist,long,,2,1,3.0,0.44,,,,5,1,0,0,0.0,,api,
+cold-file-diaries,69_IajVo1LE,"500 Suspects, 500 Confessions, 0 Charges — Black Dahlia",long,,0,0,0.0,0.0,,,,2,1,0,0,0.0,,api,
