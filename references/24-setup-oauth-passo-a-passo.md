@@ -67,3 +67,23 @@ Preencha na **Tela de permissão OAuth**:
 
 Depois clique em **"Publicar app"**. Assim o refresh token **não expira em 7 dias**.
 (Publicar com escopos sensíveis mostra o aviso "app não verificado" — normal para uso pessoal.)
+
+## Verificação de propriedade do domínio (Google Search Console)
+
+Ao publicar/verificar a marca, o Google pede para provar que o domínio (página inicial) é seu.
+Erro típico: *"O site do URL da sua página inicial não está registrado para você."*
+
+Como resolver:
+
+1. Abra **https://search.google.com/search-console/**
+2. **Adicionar propriedade → Prefixo do URL** → `https://dark-master.vercel.app/`
+3. Método **"Tag HTML"** → copie o valor de `content="..."`.
+4. Coloque esse valor na env do projeto Vercel:
+   - Nome: `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+   - Valor: o conteúdo copiado (sem as aspas)
+   - O site já injeta a meta tag automaticamente (`app/layout.tsx`).
+5. **Verify** no Search Console. (A env precisa de um novo deploy: qualquer push na `master` já deploya.)
+
+**Alternativa (arquivo HTML):** baixe o `googleXXXX.html` do Search Console e coloque em `site/public/` — o Next serve em `https://dark-master.vercel.app/googleXXXX.html`. Depois clique em Verify.
+
+> `*.vercel.app` não permite verificação por DNS. Use a **Tag HTML** ou o **arquivo HTML**.
