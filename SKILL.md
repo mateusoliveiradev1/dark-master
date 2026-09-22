@@ -84,6 +84,7 @@ Ver `playbooks/README.md`.
 | **Entender o canal** (convenções + corrente de teaser) | `references/25-contexto-do-canal.md` |
 | **Organização de arquivos e do PC** | `references/26-organizacao-e-arquivos.md` |
 | **Nomes e handles (disponibilidade)** | `references/27-nomes-e-handles.md` |
+| **Auditorias automáticas (todos os gates)** | `references/28-auditorias.md` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 
 ## Princípios de trabalho
@@ -113,6 +114,7 @@ Ver `playbooks/README.md`.
 /dark-focus   → define/troca o foco (canal, objetivo, métrica norte)
 /dark         → ideia → título → thumb → roteiro → checklist
 /dark-build   → roda o pipeline de produção do canal alvo
+/dark-auditar → auditoria completa (imagens + áudio + legendas + pacote) + compliance
 /dark-audit   → gate anti-inauthentic + YPP + IA
 /dark-repurpose → fatia long-form em Shorts multi-plataforma
 /dark-monetizar → trilha 0→YPP com metas e checkpoints

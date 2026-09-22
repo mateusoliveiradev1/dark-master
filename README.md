@@ -49,7 +49,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 32 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 33 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -83,6 +83,7 @@ dark-master/
 | `/dark-canal` | Entende um canal existente: projeto, regras e corrente de teaser. |
 | `/dark` | Ideia → título → thumb → roteiro → checklist. |
 | `/dark-build` | Roda o pipeline de produção do canal alvo. |
+| `/dark-auditar` | Auditoria completa: imagens + áudio + legendas + pacote + compliance. |
 | `/dark-audit` | Gate anti-inauthentic + YPP + divulgação de IA. |
 | `/dark-scan` | Varre canais e alerta outliers acima da baseline. |
 | `/dark-revisar` | Loop semanal: métricas → aprendizados → propostas. |
@@ -103,6 +104,9 @@ dark-master/
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
 | `niche_scan.py` | Pesquisa de nicho: gates rígidos + outliers via Data API. |
 | `image_audit.py` | Audita imagens geradas (resolução, aspecto, brilho, duplicatas) + contact sheet. |
+| `audio_audit.py` | Audita voz: loudness (LUFS), true peak, clipping, silêncios longos. |
+| `captions_audit.py` | Audita SRT/VTT: cues, sobreposição, CPS, cobertura vs áudio. |
+| `audit_all.py` | Orquestra todas as auditorias e dá o veredito por vídeo. |
 | `channel_organize.py` | Organiza a pasta do canal (dry-run → aplicar). |
 | `name_check.py` | Checa disponibilidade de nome/handle. |
 | `yt_db.py` | Camada de dados (Neon Postgres ou SQLite). |
