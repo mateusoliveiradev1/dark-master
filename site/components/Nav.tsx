@@ -9,7 +9,7 @@ export function Nav() {
   return (
     <header className="top">
       <div className="wrap top-in">
-        <a className="brand" href="#top"><Logo /> dark-master</a>
+        <a className="brand" href="/" aria-label="Início"><Logo /> dark-master</a>
         <nav>
           <a href="#capacidades">Capacidades</a>
           <a href="#fluxo">Fluxo</a>

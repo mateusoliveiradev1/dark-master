@@ -98,7 +98,30 @@ header.top{position:sticky;top:0;z-index:60;background:rgba(7,7,9,.6);backdrop-f
 .marquee .track{display:flex;gap:46px;width:max-content;font-family:var(--mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .marquee b{color:var(--red-bright);font-weight:500}
 
-/* sections */
+/* ---------- hero avançado ---------- */
+.redact-wrap{position:relative;display:inline-block;padding:0 .04em;isolation:isolate}
+.redact-wrap .redact-bar{position:absolute;inset:-.02em -.06em;background:var(--red);z-index:2;transform-origin:right center;box-shadow:0 0 0 1px rgba(226,59,59,.35)}
+.redact-wrap .redact-txt{position:relative;z-index:1;color:transparent;background:linear-gradient(90deg,var(--red-bright),var(--red));-webkit-background-clip:text;background-clip:text}
+.word{display:inline-block;overflow:hidden;vertical-align:top}
+.word>span{display:inline-block;will-change:transform}
+
+.hero-glow{position:absolute;left:-10%;top:-20%;width:60%;height:140%;pointer-events:none;z-index:0;
+  background:radial-gradient(closest-side,rgba(185,28,28,.16),transparent 70%);filter:blur(10px)}
+.float-label{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);pointer-events:none;white-space:nowrap}
+.float-label b{color:var(--red-bright);font-weight:500}
+.fl-1{top:14%;right:6%}
+.fl-2{bottom:16%;left:-2%}
+.fl-3{top:52%;right:2%}
+
+.scroll-cue{display:flex;align-items:center;gap:12px;margin-top:52px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2)}
+.scroll-cue .rail{position:relative;width:1px;height:46px;background:var(--line-2);overflow:hidden}
+.scroll-cue .rail::after{content:"";position:absolute;left:0;top:-40%;width:100%;height:40%;background:var(--red-bright);animation:rail 1.8s var(--ease) infinite}
+@keyframes rail{0%{top:-40%}100%{top:100%}}
+
+@media(max-width:900px){.float-label{display:none}}
+@media(prefers-reduced-motion:reduce){.scroll-cue .rail::after{animation:none}}
+
+/* ---------- sections ---------- */
 section{padding:clamp(66px,9vw,124px) 0;position:relative;border-bottom:1px solid var(--line)}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:44px}
 .sec-head p{max-width:52ch;color:var(--muted);margin:14px 0 0}
