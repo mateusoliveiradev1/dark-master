@@ -76,6 +76,7 @@ O loop é **propose-only**: `/dark-revisar` (semanal) puxa métricas → atualiz
 | Métricas via API (OAuth, queries, fallback manual) | `references/22-metricas-api.md` |
 | Nichos, subnichos e **outliers** (método + monitor) | `references/23-nichos-e-outliers.md` |
 | **Setup OAuth do YouTube (passo a passo)** | `references/24-setup-oauth-passo-a-passo.md` |
+| **Entender o canal** (convenções + corrente de teaser) | `references/25-contexto-do-canal.md` |
 
 Regras práticas dos vídeos-fonte: `references/20-videos-fonte.md`.
 
@@ -92,11 +93,13 @@ Regras práticas dos vídeos-fonte: `references/20-videos-fonte.md`.
 9. **Deixe rastro.** Registre métricas D+2/D+7 e replique o que funcionou (outliers). [PRATICANTE]
 10. **Urgência real:** o YPP **dobra** em 01/02/2027 (8.000h/20M). Priorize entrar antes. [OFICIAL]
 11. **Respeite o calendário travado do canal.** No Cold File Diaries: 1 LONG (21:00 BRT) + 1 SHORT (12:00 BRT) por dia, **mesmo caso**, e a **regra rolante** de produzir o vídeo do **dia+1** — nunca abaixo de 7 agendados. Leia `canais/cold-file-diaries-operacao.md` antes de gerar título/thumb/roteiro/pacote.
+12. **Entenda o canal antes de gerar.** Rode `channel_scan.py`, leia as convenções travadas e a **corrente de teaser** (cada vídeo anuncia o caso seguinte). Mudar a grade exige **regerar** o vídeo anterior + tease + Short afetados. Ver `25-contexto-do-canal.md`.
 
 ## Fluxo recomendado
 
 ```
 /dark-lancar  → cria/valida canal (nome, branding, calendário, settings)
+/dark-canal   → entende o canal (escaneia projeto, lê regras e a corrente de teaser)
 /dark-focus   → define/troca o FOCO atual (canal, objetivo, métrica norte)
 /dark         → ideia → título → thumb-brief → roteiro (long ou short) → checklist
 /dark-build   → roda o pipeline de produção do canal alvo (imagens → voz → motion → thumbs → pacote)

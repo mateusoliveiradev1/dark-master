@@ -54,6 +54,13 @@ Regras de voz: frases **12–15 palavras**; em-dash para ênfase; números por e
 ## Ponte (video23+) — sem quebrar lore
 PROIBIDO falar "short", "video", "channel", "subscribe" fora do CTA final. Fórmulas aprovadas: "You heard the call. You haven't heard the room." / "That was the door. Here is the house." O hook NUNCA repete as mesmas 10 palavras do tease.
 
+## Corrente de teaser (amarra o fluxo — ler antes de mudar qualquer coisa)
+Cada vídeo **anuncia o caso do dia seguinte pelo nome** no fim (ex.: video23 termina citando "Dorothy Arnold" = video24). O `tease.txt` alimenta o Short Padrão 4.
+- **Mudar a ordem/inserir/remover caso exige regerar**: (1) atualizar `CALENDARIO_30.txt`; (2) refazer o **outro/teaser do vídeo anterior**; (3) refazer o `tease.txt` + Short do vídeo afetado; (4) rebuild (`build_video.py videoNN --from voz`).
+- Rode `scripts/channel_scan.py "<pasta do canal>"` para ver a corrente e checar buracos.
+- A corrente **não pode** ter buraco nem apontar para o caso errado.
+Detalhes: `references/25-contexto-do-canal.md`.
+
 ## Anti-inauthentic (protocolo travado)
 - **Variação obrigatória por vídeo**: hook (pergunta/cena/número — nunca 2 seguidos iguais); ordem de 1 bloco (par/ímpar); motion por clima (KILLERS 8.5s lento, VANISHED 7.0s, HEISTS 6.0s); thumb (L1/L2 alternando cor + com/sem número, máx 5 palavras); título (numero/pergunta/aspas — nunca 3 seguidos iguais).
 - **Camada humana sem voz EN**: marcar IA, descrição com fontes, comentário fixado EN, captions revisadas, 1x/semana community com bastidor.
