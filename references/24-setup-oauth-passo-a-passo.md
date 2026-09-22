@@ -48,3 +48,20 @@ Faça login no Google com a **mesma conta** que vai autorizar o canal (a que tem
 ## Segurança
 - `client_secrets.json`, `yt-token.json` e `dark.env` ficam em `~/.config/opencode/secrets/` — **fora do repositório**.
 - Nunca cole essas strings em issues/commits.
+
+## Publicar o app (opcional) — valores de branding
+
+Site (GitHub Pages) já no ar:
+- Landing: `https://mateusoliveiradev1.github.io/dark-master/`
+- Privacidade: `https://mateusoliveiradev1.github.io/dark-master/privacy.html`
+
+Preencha na **Tela de permissão OAuth**:
+| Campo | Valor |
+|---|---|
+| Página inicial do aplicativo | `https://mateusoliveiradev1.github.io/dark-master/` |
+| Link da Política de Privacidade | `https://mateusoliveiradev1.github.io/dark-master/privacy.html` |
+| Link dos Termos de Serviço | `https://github.com/mateusoliveiradev1/dark-master` |
+| Domínios autorizados | `mateusoliveiradev1.github.io` |
+
+Depois clique em **"Publicar app"**. Assim o refresh token **não expira em 7 dias**.
+(Publicar com escopos sensíveis mostra o aviso "app não verificado" — normal para uso pessoal.)
