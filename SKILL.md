@@ -85,6 +85,7 @@ Ver `playbooks/README.md`.
 | **Organização de arquivos e do PC** | `references/26-organizacao-e-arquivos.md` |
 | **Nomes e handles (disponibilidade)** | `references/27-nomes-e-handles.md` |
 | **Auditorias automáticas (todos os gates)** | `references/28-auditorias.md` |
+| **Prompts de imagem + scaffolding de vídeo** | `references/29-prompts-de-imagem.md` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 
 ## Princípios de trabalho

@@ -49,7 +49,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 33 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 34 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -100,6 +100,8 @@ dark-master/
 | Script | Função |
 |---|---|
 | `yt_auth.py` | OAuth do YouTube (uma vez). |
+| `new_video.py` | Cria a pasta padrão de um vídeo (scaffold). |
+| `prompt_builder.py` | Gera os prompts de imagem (consistentes) e pode renderizar. |
 | `yt_metrics.py` | Puxa métricas por vídeo → banco + CSV. |
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
 | `niche_scan.py` | Pesquisa de nicho: gates rígidos + outliers via Data API. |
