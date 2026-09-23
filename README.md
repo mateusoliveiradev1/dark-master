@@ -53,7 +53,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 39 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 40 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -67,7 +67,8 @@ dark-master/
 │  ├─ 31-hooks-short.md         # hooks de Short (frame 1, arquétipos, loop)
 │  ├─ 32-branding-canal.md      # kit de branding (logo/banner/profile/watermark)
 │  ├─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
-│  └─ 34-voz-tts.md             # voz free + paga: providers, custos, licenças, QA
+│  ├─ 34-voz-tts.md             # voz free + paga: providers, custos, licenças, QA
+│  └─ 35-cronologia-e-timeline.md  # caso cronológico: tabela → roteiro → datestamps na edição
 ├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers

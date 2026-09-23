@@ -51,6 +51,20 @@ def channel_suffix(pb):
     except (OSError, ValueError):
         return None
 
+LINHA_TMPL = """# LINHA DO TEMPO — {case}
+
+> Tabela canonica do episodio (ref 35). Toda data falada no roteiro tem que existir aqui.
+> Camadas: [FATO] = documento oficial | [REPORTADO] = imprensa/relato | [LENDA] = evitar.
+> `fato` e ROTULO CURTO (<= ~60 chars) - e o que aparece no plate da edicao.
+> `data`: YYYY | YYYY-MM | YYYY-MM-DD | DD/MM/YYYY | ? (fato sem data).
+
+| data | fato | camada | fonte |
+|---|---|---|---|
+| ? | [preencher: evento 1] | FATO | |
+| ? | [preencher: evento 2] | REPORTADO | |
+| ? | [preencher: evento 3] | FATO | |
+"""
+
 PACKAGE_TMPL = """# {title}
 TITULO (40-60 chars, keyword nas 3 primeiras):
 1.
@@ -124,6 +138,10 @@ def main():
             "> Uma camada por linha: [FATO] / [REPORTADO] / [LENDA]. 2+ fontes por caso. Nada sem fonte.\n\n"
             "- [FATO] \n- [REPORTADO] \n- [LEGENDA/LENDA a evitar] \n- Fontes (links): \n",
             encoding="utf-8")
+    # linha do tempo (nao sobrescrever) — casos cronologicos (ref 35)
+    ldt = vid / "01_roteiro" / "LINHA_DO_TEMPO.md"
+    if not ldt.exists():
+        ldt.write_text(LINHA_TMPL.format(case=case), encoding="utf-8")
     # pacote
     pkg = vid / "youtube_package.txt"
     if not pkg.exists():
@@ -145,6 +163,7 @@ def main():
     print("     youtube_package.txt")
     print("\nProximos passos (scaffold completo = pastas + stubs + PROMPTS + package + voz):")
     print("  1. escreva o roteiro em 01_roteiro/narration_v3.txt e as fontes em PESQUISA_FONTE.md")
+    print("     caso cronologico (forense/truecrime): preencha 01_roteiro/LINHA_DO_TEMPO.md (ref 35)")
     print(f"  2. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
     print(f"  3. voz liberada (so depende da narracao); MOTION so com GATE 100% das imagens")
     print(f"  4. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")

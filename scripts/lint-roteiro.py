@@ -4,6 +4,7 @@
 Uso:
   python scripts/lint-roteiro.py caminho/para/narration_v3.txt
   python scripts/lint-roteiro.py caminho/para/narration_short.txt --short
+  python scripts/lint-roteiro.py caminho/narration_pt.txt --cronologia caminho/LINHA_DO_TEMPO.md
 
 Checa:
   - meta-linguagem banida (compliance) -> falha dura (exit 1)
@@ -99,6 +100,134 @@ SENSITIVE = [
 
 SUSPECT_WORDS = [r"\bsuspeit", r"\bacusad", r"\balegad", r"\bsupost"]
 
+MONTHS = {
+    "pt": {"janeiro": 1, "fevereiro": 2, "marco": 3, "março": 3, "abril": 4, "maio": 5, "junho": 6,
+           "julho": 7, "agosto": 8, "setembro": 9, "outubro": 10, "novembro": 11, "dezembro": 12},
+    "en": {"january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6, "july": 7,
+           "august": 8, "september": 9, "october": 10, "november": 11, "december": 12},
+}
+JUMP_MARKERS = [r"\bantes\b", r"\bmeses? antes\b", r"\banos? antes\b", r"\brecua\b", r"\bvolta a\b",
+                r"\bflashback\b", r"\bna [eé]poca\b", r"\bmais cedo\b", r"\bearlier\b",
+                r"\bbefore that\b", r"\bpreviously\b", r"\bmeses antes disso\b",
+                # pretérito mais-que-perfeito = rewind explicitamente marcado ("tinha sido apreendido")
+                r"\btinha sido\b", r"\bj[aá] tinha\b", r"\bhavia sido\b", r"\bhavia acontecido\b",
+                # referencias historicas ("desde 1982", "na decada de...") nao sao violacao de ordem
+                r"\bdesde\b", r"\bna d[eé]cada\b", r"\bno in[ií]cio dos anos\b"]
+
+
+def parse_cell(s):
+    """2010 | 2010-06 | 2010-06-09 | 09/06/2010 | ? -> (y,m,d) ou None."""
+    s = (s or "").strip()
+    if not s or s in ("?", "-"):
+        return None
+    for pat, order in ((r"^(\d{4})-(\d{1,2})-(\d{1,2})$", "ymd"),
+                       (r"^(\d{4})-(\d{1,2})$", "ym"),
+                       (r"^(\d{1,2})/(\d{1,2})/(\d{2,4})$", "dmy"),
+                       (r"^(\d{4})$", "y")):
+        m = re.match(pat, s)
+        if m:
+            g = [int(x) for x in m.groups()]
+            if order == "ymd":
+                return g[0], g[1], g[2]
+            if order == "ym":
+                return g[0], g[1], 0
+            if order == "dmy":
+                y = g[2] + 2000 if g[2] < 100 else g[2]
+                return y, g[1], g[0]
+            return g[0], 0, 0
+    return None
+
+
+def narration_dates(text, lang="pt"):
+    """Datas faladas, em ordem: [(pos, (y,m,d), paragrafo)].
+    Ano-solto que cai DENTRO de uma data mais especifica ('julho de 2010') nao conta de novo."""
+    out = []
+    months = "|".join(MONTHS[lang])
+    for pi, para in enumerate(re.split(r"\n\s*\n", text)):
+        low = para.lower()
+        hits, spans = [], []
+
+        def add(m, dt):
+            spans.append((m.start(), m.end()))
+            hits.append((m.start(), dt))
+
+        for m in re.finditer(r"\b(\d{1,2}) de (" + months + r")(?: de (\d{4}))?\b", low):
+            add(m, (int(m.group(3)) if m.group(3) else 0, MONTHS[lang][m.group(2)], int(m.group(1))))
+        for m in re.finditer(r"\b(" + months + r") de (\d{4})\b", low):
+            add(m, (int(m.group(2)), MONTHS[lang][m.group(1)], 0))
+        for m in re.finditer(r"\b(\d{1,2})/(\d{1,2})/(\d{2,4})\b", low):
+            y = int(m.group(3))
+            add(m, (y + 2000 if y < 100 else y, int(m.group(2)), int(m.group(1))))
+        for m in re.finditer(r"\b(19|20)\d{2}\b", low):
+            if any(s <= m.start() < e for s, e in spans):
+                continue  # ano ja coberto por 'mes de ano' / 'dia de mes'
+            add(m, (int(m.group(0)), 0, 0))
+
+        seen = set()
+        for pos, dt in sorted(hits):
+            if dt in seen:
+                continue
+            seen.add(dt)
+            out.append((pos, dt, para, pi))
+    return out
+
+
+def check_cronologia(text, tl_path, lang="pt", cold_open=3):
+    """Ordem cronologica, saltos marcados, cobertura e datas fora da linha do tempo."""
+    tl = []
+    if tl_path:
+        try:
+            for line in open(tl_path, encoding="utf-8").read().splitlines():
+                line = line.strip()
+                if line.startswith("|"):
+                    cells = [c.strip() for c in line.strip("|").split("|")]
+                    if cells and cells[0].lower() not in ("data", "date") and set(cells[0]) > set("-: "):
+                        dt = parse_cell(cells[0])
+                        if dt:
+                            tl.append(dt)
+        except OSError:
+            print(f"\n[CRONOLOGIA] linha do tempo nao encontrada: {tl_path}")
+    tl.sort(key=lambda d: (d[0], d[1] or 99, d[2] or 99))
+    dates = narration_dates(text, lang)
+    print(f"\n[CRONOLOGIA] {len(dates)} data(s) falada(s)" + (f" | linha do tempo: {len(tl)} evento(s)" if tl else ""))
+
+    def key(dt):
+        return (dt[0], dt[1] or 0, dt[2] or 0) if dt[0] else None
+
+    prev, jumps, min_seen = None, 0, None
+    for pos, dt, para, pi in dates:
+        k = key(dt)
+        if k is None:
+            continue
+        if pi < cold_open:  # hook/cold open pode abrir no futuro; nao entra na ordem
+            prev, min_seen = k, (k if min_seen is None or k < min_seen else min_seen)
+            continue
+        if prev and k < prev:
+            marked = any(re.search(p, para.lower()) for p in JUMP_MARKERS)
+            reset = min_seen is None or k < min_seen  # recuo ao inicio da historia (background) e ok
+            if marked:
+                jumps += 1
+            elif not reset:
+                snippet = para[max(0, pos - 40):pos + 60].replace("\n", " ")
+                print(f"  ORDEM: {dt[0]}-{dt[1]:02d} aparece depois de {prev[0]}-{prev[1]:02d} "
+                      f"sem marcador de salto -> \"...{snippet}...\"")
+        prev = k
+        min_seen = k if min_seen is None or k < min_seen else min_seen
+
+    if tl:
+        tl_years = {d[0] for d in tl}
+        nar_years = {d[0] for _, d, _, _ in dates if d[0]}
+        fora = sorted(nar_years - tl_years)
+        if fora:
+            print(f"  FORA DA LINHA DO TEMPO: {', '.join(str(y) for y in fora)} (falar so o que esta na tabela)")
+        sem_eco = sorted(tl_years - nar_years)
+        if sem_eco:
+            print(f"  SEM ECO NO ROTEIRO: {', '.join(str(y) for y in sem_eco)} (evento da tabela nao narrado)")
+    if jumps:
+        print(f"  saltos marcados (ok): {jumps}")
+    if not dates:
+        print("  nenhuma data falada - se o caso e cronologico, ancore os blocos (ref 35)")
+
 STOP = {"the", "a", "o", "e", "de", "do", "da", "que", "and", "of", "to", "in", "it",
         "was", "is", "um", "uma", "os", "as", "no", "na", "em", "para", "com"}
 
@@ -115,6 +244,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("path")
     ap.add_argument("--short", action="store_true", help="checagens de Short (hook <=12 palavras)")
+    ap.add_argument("--cronologia", help="LINHA_DO_TEMPO.md: checa ordem/saltos/cobertura das datas")
+    ap.add_argument("--lang", choices=["pt", "en"], default="pt", help="idioma dos meses (cronologia)")
+    ap.add_argument("--cold-open", type=int, default=3, help="blocos iniciais (hook/recuo) fora da checagem de ordem")
+    ap.add_argument("--genero", default="generic",
+                    choices=["generic", "truecrime", "forense", "darkhistory", "financial"],
+                    help="truecrime/forense: 'sangue/matar' vira advisory (vocabulario do genero)")
     a = ap.parse_args()
 
     text = open(a.path, encoding="utf-8").read()
@@ -129,10 +264,12 @@ def main():
     print(f"\n[META-LINGUAGEM BANIDA] {len(meta_hits)} ocorrência(s)")
     for p, g in meta_hits[:10]:
         print(f"  ...{g}...")
-    print(f"[TERMOS SENSÍVEIS (revisar)] {len(gore_hits)} ocorrência(s)")
+    gore_advisory = a.genero in ("truecrime", "forense")
+    label = "TERMOS SENSÍVEIS (advisory no gênero)" if gore_advisory else "TERMOS SENSÍVEIS (revisar)"
+    print(f"[{label}] {len(gore_hits)} ocorrência(s)")
     for p, g in gore_hits[:10]:
         print(f"  ...{g}...")
-    if meta_hits or gore_hits:
+    if meta_hits or (gore_hits and not gore_advisory):
         hard = 1
 
     tells_total = 0
@@ -169,6 +306,9 @@ def main():
     per100 = dash / total * 100 if total else 0
     if per100 > 1:
         print(f"\n[RITMO] travessoes: {dash} ({per100:.1f}/100 palavras > 1) — troque por '..' ou ponto")
+
+    if a.cronologia:
+        check_cronologia(text, a.cronologia, a.lang, a.cold_open)
 
     has_suspect = any(re.search(p, low, re.IGNORECASE) for p in SUSPECT_WORDS)
     print(f"\n[COMPLIANCE] 'suspeito/acusado/alegado' presente: "

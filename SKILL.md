@@ -93,6 +93,7 @@ Ver `playbooks/README.md`.
 | **Hooks de Short (frame 1, arquétipos, loop)** | `references/31-hooks-short.md` |
 | **Branding do canal (logo/banner/profile/watermark)** | `references/32-branding-canal.md` |
 | **Versionamento do canal (git sem mídia) + Notion** | `references/33-versionamento-e-notion.md` |
+| **Cronologia e linha do tempo (roteiro + edição)** | `references/35-cronologia-e-timeline.md` |
 | **Modelos de canal por nicho/subnicho (38, com evidência real)** | `models/README.md` + `models/<slug>/` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 

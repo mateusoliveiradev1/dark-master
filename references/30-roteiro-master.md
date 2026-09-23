@@ -96,6 +96,7 @@ COLD OPEN · O ESQUEMA · OS PERSONAGENS · A ASCENSÃO · A QUEDA · O DINHEIRO
 
 ### forense (10–15 min)
 HOOK (fato do laudo) · CONTEXTO · O DIA · PERÍCIA (coração) · FAMÍLIA · TEORIAS · LAUDO/OUTRO+TEASER.
+> Forense/truecrime: **O DIA é cronologia minuto a minuto** — linha do tempo obrigatória (`35`), com datestamps na edição.
 
 ### short (20–45s)
 HOOK (0–3s: impossibilidade completa ou pergunta em 2ª pessoa) · DESENVOLVIMENTO (1 ideia) · PAYOFF · LOOP (fim emenda no começo / loop aberto).
@@ -142,7 +143,7 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
 
 ## Fluxo de escrita (workflow)
 
-1. **Brief do caso** (pesquisa: quem/quando/onde/vítimas/fontes/pergunta central).
+1. **Brief do caso** (pesquisa: quem/quando/onde/vítimas/fontes/pergunta central). **Caso cronológico** (truecrime/forense/financial/desastres) → montar também a `LINHA_DO_TEMPO.md` (tabela canônica) e seguir o modo cronológico de `35`.
 2. **Gerar o esqueleto** com `scripts/script_builder.py` (beats + orçamento + checklist).
 3. **Escrever** bloco a bloco (com o `dark-roteirista`), batendo o orçamento.
 4. **Passar o linter** (`lint-roteiro.py`) e o **validador de estrutura** (`script_builder.py --validate`).
