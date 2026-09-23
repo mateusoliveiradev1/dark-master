@@ -11,10 +11,15 @@ Uso:
 
   python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_v3.txt" --porte padrao
 
+  # canal com formato proprio (le playbooks/<canal>/roteiro.json):
+  python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_pt.txt" \
+      --channel laudo-final --genre forense
+
 O roteiro (narration) fica SEM marcadores (o TTS nao fala nada alem da narracao).
 """
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -24,6 +29,35 @@ PORTE = {
     "padrao": (2900, 3300),
     "rico":   (3400, 3800),
 }
+
+PLAYBOOKS = Path(os.environ.get(
+    "DARK_MASTER_PLAYBOOKS",
+    str(Path.home() / ".config" / "opencode" / "skills" / "dark-master" / "playbooks")))
+
+
+def channel_roteiro(channel):
+    """Le playbooks/<canal>/roteiro.json -> (label, (lo, hi)) ou None (com AVISO).
+    Canal com formato proprio (ex. Laudo Final ~10min) nao deve ser medido pelo porte generico."""
+    p = Path(channel).expanduser()
+    pb = p if p.is_dir() else PLAYBOOKS / channel
+    if not pb.is_dir():
+        print(f"[AVISO] canal '{channel}' nao encontrado em {PLAYBOOKS} - usando porte generico da skill.")
+        return None
+    f = pb / "roteiro.json"
+    if not f.exists():
+        print(f"[AVISO] {f} ausente - usando porte generico da skill (crie o roteiro.json do canal).")
+        return None
+    try:
+        d = json.loads(f.read_text(encoding="utf-8"))
+    except ValueError as e:
+        print(f"[AVISO] roteiro.json invalido ({e}) - usando porte generico.")
+        return None
+    pw = d.get("palavras")
+    if not (isinstance(pw, list) and len(pw) == 2):
+        print("[AVISO] roteiro.json sem 'palavras': [lo, hi] - usando porte generico.")
+        return None
+    dur = d.get("duracao_min")
+    return f"canal:{pb.name}" + (f" ~{dur}min" if dur else ""), (int(pw[0]), int(pw[1]))
 
 # genero -> lista (beat, proporcao, guia)
 GENRES = {
@@ -92,8 +126,9 @@ META = [r"\bthis channel\b", r"\besse canal\b", r"\bin this video\b", r"\bnesse 
         r"\bwatch the short\b", r"\bassista o short\b", r"\bsubscribe\b.*\bnow\b"]
 GORE = [r"\bblood\b", r"\bsangue\b", r"\bgore\b", r"\bcorpse\b", r"\bdead body\b",
         r"\bintestin\w*\b", r"\bdismember\w*\b", r"\bmutilat\w*\b"]
-TEASER = [r"\btomorrow\b", r"\bnext case\b", r"\bnext file\b", r"\bcoming next\b",
-          r"\bamanh[ãa]\b", r"\bpr[óo]ximo caso\b"]
+TEASER = [r"\btomorrow\b", r"\bnext case\b", r"\bnext file\b", r"\bcoming next\b", r"\bnext week\b",
+          r"\bnext episode\b", r"\bamanh[ãa]\b", r"\bsemana que vem\b", r"\bpr[óo]xima semana\b",
+          r"\bpr[óo]xim[ao] (caso|epis[óo]dio|arquivo|laudo)\b"]
 ALLEGED = [r"\balleged\b", r"\bsuspect\b", r"\baccused\b", r"\bsuspeit\w*\b", r"\bacusad\w*\b"]
 
 # banco de arquetipos de hook (references/31) — {case} = caso/tema
@@ -232,7 +267,8 @@ def validate(narration_path, porte, genre, window=None):
     has_alleged = any(re.search(p, low) for p in ALLEGED)
     if meta_hits:
         flags.append(f"meta_linguagem({len(meta_hits)})")
-    if gore_hits:
+    gore_advisory = genre in ("truecrime", "forense")  # vocabulario do genero (sangue, corpo...)
+    if gore_hits and not gore_advisory:
         flags.append(f"gore({len(gore_hits)})")
     if genre != "short":
         if not has_teaser:
@@ -246,6 +282,8 @@ def validate(narration_path, porte, genre, window=None):
     if paras:
         print(f"  1o bloco (hook): {words(paras[0])} palavras")
     print(f"  teaser no fim: {'sim' if has_teaser else 'NAO'}")
+    if gore_hits and gore_advisory:
+        print(f"  [advisory] termos sensiveis do genero: {len(gore_hits)} (revisar gore real, nao a palavra)")
     print(f"\nRESULTADO: {'PASSOU' if not flags else 'FALHA'} {', '.join(flags)}")
     return not flags
 
@@ -300,6 +338,7 @@ def main():
     ap.add_argument("--question", default="")
     ap.add_argument("--out", help="pasta 01_roteiro (gera ROTEIRO_PLANO.md)")
     ap.add_argument("--validate", help="valida um narration existente")
+    ap.add_argument("--channel", help="playbook do canal: le roteiro.json (porte proprio do canal)")
     ap.add_argument("--hooks", type=int, help="gera N variacoes de hook (references/31)")
     ap.add_argument("--archetypes", help="arquetipos do banco, ex.: 1,3,4,5")
     ap.add_argument("--lang", default="en", choices=["en", "pt"])
@@ -327,11 +366,15 @@ def main():
             sys.exit(2)
         window = PORTE_SHORT[porte]
     else:
-        porte = a.porte or "padrao"
-        if porte not in PORTE:
-            print(f"[!] porte de long-form invalido: {porte}. Use fino | padrao | rico.")
-            sys.exit(2)
-        window = PORTE[porte]
+        cr = channel_roteiro(a.channel) if a.channel else None
+        if cr:
+            porte, window = cr  # formato proprio do canal vence o porte generico
+        else:
+            porte = a.porte or "padrao"
+            if porte not in PORTE:
+                print(f"[!] porte de long-form invalido: {porte}. Use fino | padrao | rico.")
+                sys.exit(2)
+            window = PORTE[porte]
 
     if a.validate:
         ok = validate(a.validate, porte, genre, window)
@@ -357,7 +400,10 @@ def main():
     print(f"[OK] roteiro: {nar} (escreva a narracao aqui, sem marcadores)")
     print("\nProximo: escreva bloco a bloco e rode:")
     short_flag = " --short" if is_short else ""
-    print(f'  python scripts/script_builder.py --validate "{nar}" --porte {porte} --genre {genre}{short_flag}')
+    if a.channel and not is_short:
+        print(f'  python scripts/script_builder.py --validate "{nar}" --channel {a.channel} --genre {genre}')
+    else:
+        print(f'  python scripts/script_builder.py --validate "{nar}" --porte {porte} --genre {genre}{short_flag}')
 
 
 if __name__ == "__main__":

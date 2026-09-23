@@ -66,21 +66,31 @@ LINHA_TMPL = """# LINHA DO TEMPO — {case}
 """
 
 PACKAGE_TMPL = """# {title}
-TITULO (40-60 chars, keyword nas 3 primeiras):
-1.
-2.
-3.
+TITLE: 
+ALT 2: 
+ALT 3: 
 
-DESCRICAO (5 blocos: hook 150 chars | expansao | chapters | fontes+disclaimer IA | CTA+hashtags)
-B1:
-B2:
-B3 CHAPTERS:
-B4 FONTES:
-B5 CTA:
+ANGULO: 
 
-TAGS (8-12):
-THUMB L1 / L2 / SUB:
-SHORT (title + desc + pinned):
+DESCRIPTION (copiar e colar):
+B1 HOOK (150 chars, keyword): 
+B2 RESUMO (150-250 palavras): 
+B3 FONTES + disclaimer IA: 
+B4 HASHTAGS (3-5): 
+
+TAGS: 
+
+CHAPTERS (PENDENTE - remapear pos-build com a duracao real):
+0:00 
+
+THUMB SPEC (validador): bg= | l1= | l2= | serie= | sub=
+
+CHECKLIST UPLOAD: [ ] conteudo alterado/IA [ ] legenda revisada [ ] playlist [ ] end screen [ ] comentario fixado
+
+SHORT (sobe junto):
+TITLE (copiar): 
+DESCRIPTION (copiar e colar): 
+FIXAR COMENTARIO: 
 """
 
 

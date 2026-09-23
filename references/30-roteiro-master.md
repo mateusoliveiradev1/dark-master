@@ -151,7 +151,7 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
 6. **Scaffold do vídeo** — o roteiro **não está entregue** sem esta etapa (**roteiro sem scaffold = entrega incompleta**):
    a. **Pastas + stubs**: `python scripts/novo_video.py NN "Caso" SERIE` (no canal real) ou `python scripts/new_video.py NN "Caso" SERIE --root "<canal>"` (skill) → cria `videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}` + `TEMPLATE.txt`, `narration_v3.txt`, `tease.txt`, `PESQUISA_FONTE.md` e `youtube_package.txt` (stubs). O scaffold **nunca sobrescreve** arquivos existentes: `narration_v3.txt`, `tease.txt` e `PESQUISA_FONTE.md` são preservados (aborta o overwrite).
    b. **PROMPTS.md completo por PORTE** — **FINO 26–30 · PADRÃO 32–36 · RICO 36–40** — com o **sufixo travado do canal** (contrato: `playbooks/<canal>/style.json` → `image_suffix`, via `--channel`) e o header da regra de geração (`29`); mapeie os blocos **TEASE-A/B** nos números de imagem correspondentes (blocos do meio, min 7–12). Gere com `scripts/prompt_builder.py --style <preset-do-canal> --suffix "<sufixo>" --count <porte>` ou complete o esqueleto do scaffold.
-   c. **youtube_package.txt base**: `TITLE` + alternativas + `ANGULO` + `DESCRIPTION` (Lego) + `TAGS` + `THUMB` spec + bloco `SHORT` + pinneds. **CHAPTERS ficam marcados `PENDENTE`** — só remapeie pós-build com a duração real (`ffprobe`/`remapar_chapters`), nunca antes.
+   c. **youtube_package.txt base**: `TITLE` + alternativas + `ANGULO` + `DESCRIPTION` (Lego) + `TAGS` + `THUMB` spec + bloco `SHORT` + pinneds. O template do scaffold já sai no **formato que o validador cobra** (`TITLE:`, `DESCRIPTION (copiar e colar):`, `TAGS:`, linha começando com `CHAPTERS ...`) — não edite os rótulos, só preencha. **CHAPTERS ficam marcados `PENDENTE`** — só remapeie pós-build com a duração real (`ffprobe`/`remapar_chapters`), nunca antes. Preencher o pacote (título/descrição/tags/chapters) é **etapa autoral manual** — não é gerada por script.
    d. **Voz liberada no scaffold** (`python scripts/gerar_voz_v3.py videoNN`; identidade no contrato `playbooks/<canal>/voice.json`): a voz depende **só da narração + GATE de fatos**. **MOTION continua bloqueado pelo GATE 100%** (só com todas as imagens). Distinção que vale de agora em diante (resolve a contradição com o `PROTOCOLO_ANTI_INAUTHENTIC` item 5): **`imagens < 100% → não gera MOTION`**; a **voz pode (e deve) ser gerada no scaffold**.
 
    **Verificação pós-scaffold** (antes de seguir):
@@ -172,6 +172,10 @@ python scripts/script_builder.py --genre truecrime --porte padrao \
 
 # validar estrutura/orcamento de um roteiro ja escrito
 python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_v3.txt" --genre truecrime
+
+# canal com formato proprio (usa o porte de playbooks/<canal>/roteiro.json)
+python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_pt.txt" \
+  --channel laudo-final --genre forense
 
 # Short (references/31)
 python scripts/script_builder.py --genre short --short --case "Hoffa" --out "<videoNN>/01_roteiro"

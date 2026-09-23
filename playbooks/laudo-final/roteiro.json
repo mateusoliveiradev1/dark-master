@@ -1,0 +1,9 @@
+{
+  "channel": "Laudo Final",
+  "duracao_min": 10,
+  "palavras": [1300, 1700],
+  "palavras_alvo": 1500,
+  "blocos_alvo": 40,
+  "wpm": 145,
+  "_nota": "Formato proprio do canal (profile.md: ~10 min). Medido no video01: 1540 palavras / 43 blocos. O script_builder --channel laudo-final usa esta faixa no plano e no --validate (o porte generico da skill nao vale aqui)."
+}

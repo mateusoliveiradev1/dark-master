@@ -34,9 +34,10 @@ playbooks/<canal>/
 ├─ profile.md     # identidade, branding, voz, calendário, projeto no disco
 ├─ operacao.md    # regras travadas (metadata, roteiro, padrões, checklists) — quando houver
 ├─ outliers.md    # dados reais e aprendizados daquele canal — quando houver
-├─ voice.json     # CONTRATO de voz: provider (motor TTS), voice id, normalize, regras por bloco/série, gaps, beds, ducking
+├─ voice.json     # CONTRATO de voz: provider (motor TTS), voice id, normalize, pronuncia, regras por bloco/série, gaps, beds, ducking
 ├─ motion.json    # CONTRATO de motion: clip_len default e por clima/série, variantes, grade, letterbox, grain
-└─ style.json     # CONTRATO de estilo: idioma, sufixo de imagem, séries, porte de imagens, thumb, short, package
+├─ style.json     # CONTRATO de estilo: idioma, sufixo de imagem, séries, porte de imagens, thumb, short, package
+└─ roteiro.json   # CONTRATO de roteiro (opcional): duração/palavras do canal quando o porte genérico não vale (ex. Laudo Final ~10min)
 ```
 
 ## Contrato de config do canal (anti-clone)
@@ -76,3 +77,15 @@ O `voice.json` aceita um bloco `provider` — o **motor** de voz, independente d
 - Chaves de API **nunca** vão no JSON: só o **nome** da variável de ambiente (`api_key_env`).
 - Guia completo de escolha, custos, licenças e receitas por provider: `references/34-voz-tts.md`.
 - Motor unificado: `python scripts/voice_engine.py videoNN --channel <canal> [--test|--estimate|--dry-run]`.
+
+### Bloco `roteiro` (porte do canal)
+
+`roteiro.json` (opcional) define o **formato de roteiro** quando o porte genérico da skill não vale:
+
+```json
+{ "duracao_min": 10, "palavras": [1300, 1700], "palavras_alvo": 1500, "blocos_alvo": 40, "wpm": 145 }
+```
+
+- `python scripts/script_builder.py --validate <narration> --channel <canal>` usa essa faixa (plano e validação).
+- Sem o arquivo, o script avisa e cai no porte genérico (`fino/padrao/rico`) — nunca silencioso.
+- Exemplo real: `playbooks/laudo-final/roteiro.json` (~10 min; medido no video01: 1540 palavras / 43 blocos).
