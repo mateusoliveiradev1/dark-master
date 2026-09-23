@@ -5,6 +5,7 @@ Uso:
   python scripts/voice_engine.py video27 --root "C:/.../canal dark1" --channel cold-file-diaries
   python scripts/voice_engine.py video27 --root <canal> --provider elevenlabs --voice <id> --test
   python scripts/voice_engine.py video27 --root <canal> --estimate
+  python scripts/voice_engine.py video27 --root <canal> --pronounce "rottweiler, Vespasiano"
   python scripts/voice_engine.py --list [--lang en]
 
 Providers: edge (free) | azure | elevenlabs | fish | gemini | openai | kokoro | piper.
@@ -31,6 +32,7 @@ import shutil
 import subprocess
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -554,6 +556,8 @@ def read_blocks(narr):
 def normalize_text(text, cfg):
     for k, v in (cfg.get("normalize") or {}).items():
         text = text.replace(k, v)
+    for k, v in (cfg.get("pronuncia") or {}).items():  # respellings calibrados, palavra inteira
+        text = re.sub(rf"\b{re.escape(k)}\b", v, text)
     return text
 
 
@@ -772,10 +776,12 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
         if silence:
             s = trim.get("silence") or {}
             sd, ed = s.get("start_duration", 0.06), s.get("end_duration", 0.10)
-            th = s.get("threshold", "-45dB")
+            th, fd = s.get("threshold", "-45dB"), s.get("fade", 0.02)
+            # fades de 20ms nas pontas (senao o corte do silenceremove vira CLIQUE na emenda)
             af = (f"silenceremove=start_periods=1:start_duration={sd}:start_threshold={th}:detection=peak,"
-                  f"areverse,silenceremove=start_periods=1:start_duration={ed}:start_threshold={th}:detection=peak,"
-                  f"areverse,asetpts=PTS-STARTPTS")
+                  f"areverse,"
+                  f"silenceremove=start_periods=1:start_duration={ed}:start_threshold={th}:detection=peak,"
+                  f"afade=t=in:st=0:d={fd},areverse,afade=t=in:st=0:d={fd},asetpts=PTS-STARTPTS")
         else:
             af = f"atrim=start={trim['start']}:end={max(d - trim['end_pad'], 0.05):.2f},asetpts=PTS-STARTPTS"
         run([FFMPEG, "-y", "-i", p, "-af", af, t])
@@ -895,6 +901,94 @@ def cmd_test(args, cfg, prov, blocks, outdir):
     print(f"TESTE OK: {out} ({dur(out):.1f}s) - ouca antes de gerar o video")
 
 
+def _pkey(s):
+    """Chave fonetica PT-BR grosseira para comparar o que o TTS falou com o termo esperado.
+    Colapsa dobras, w->v, y->i, acentos; nao e IPA — e um detector de erro grosseiro."""
+    s = unicodedata.normalize("NFKD", s.lower())
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = re.sub(r"[^a-z0-9]", "", s)
+    for a, b in (("ph", "f"), ("ck", "k"), ("w", "v"), ("y", "i"), ("ss", "s"), ("ou", "o"), ("ll", "l")):
+        s = s.replace(a, b)
+    s = re.sub(r"(.)\1+", r"\1", s)
+    return s
+
+
+def extract_terms(blocks, limit=25):
+    """Nomes proprios/ numeros/ siglas para revisar (mesma ideia do checar_pronuncia.py)."""
+    CAP = r"[A-ZÀ-Ú][a-zà-ú]+"
+    nums_re = re.compile(r"\b\d+\b")
+    acro_re = re.compile(r"\b[A-Z]{2,}\b")
+    found = []
+    for p in blocks:
+        for sent in re.split(r"(?<=[.!?…])\s+", p):
+            for w in sent.split()[1:]:
+                w2 = w.strip(",.;:!?()\"'—")
+                if re.fullmatch(CAP, w2) and w2 not in found:
+                    found.append(w2)
+        for m in nums_re.findall(p) + acro_re.findall(p):
+            if m not in found:
+                found.append(m)
+    return found[:limit]
+
+
+CARRIER = {"pt": "O laudo menciona {t} no caso.", "en": "The report mentions {t} in the case."}
+
+
+def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
+    """Gera o termo isolado + em contexto, transcreve com faster-whisper e flagra erro.
+    Salva os audios em 02_audio/_pronuncia/ para a oitiva humana (gate final)."""
+    try:
+        from faster_whisper import WhisperModel
+    except ImportError:
+        raise SystemExit("[ERRO] --pronounce exige faster-whisper: pip install faster-whisper")
+    terms = [t.strip() for t in (args.pronounce or "").split(",") if t.strip()] or extract_terms(blocks)
+    if not terms:
+        raise SystemExit("[ERRO] sem termos para testar (narracao vazia?) - passe --pronounce \"termo1, termo2\"")
+    lang = args.lang or (cfg.get("settings") or {}).get("lang") or "pt"
+    step = dict(prov)
+    if PROVIDER_META[step["type"]]["key"]:
+        keys = keys_for(step, args.root)
+        if not keys:
+            raise SystemExit(f"[ERRO] --pronounce com '{step['type']}' exige chave")
+        step["_ring"] = KeyRing(keys, step["type"])
+    pdir = os.path.join(outdir, "_pronuncia")
+    os.makedirs(pdir, exist_ok=True)
+    model_name = (step.get("settings") or {}).get("whisper_model") or "small"
+    print(f"pronuncia: {len(terms)} termo(s) | voz {step.get('voice_id')} | whisper {model_name}/{lang}")
+    wm = WhisperModel(model_name, device="cpu", compute_type="int8")
+
+    def transcribe(path):
+        segs, _ = wm.transcribe(path, language=lang, vad_filter=False)
+        return " ".join(s.text.strip() for s in segs)
+
+    rows, flags = [], 0
+    for i, t in enumerate(terms, 1):
+        norm = normalize_text(t, cfg)
+        say = norm if norm != t else t
+        iso = os.path.join(pdir, f"{i:02d}_{re.sub(r'[^A-Za-z0-9]+', '_', t)[:24]}_iso.mp3")
+        ctx = os.path.join(pdir, f"{i:02d}_{re.sub(r'[^A-Za-z0-9]+', '_', t)[:24]}_ctx.mp3")
+        s2, _ = provider_params(step, t, 3, 99, cfg, cfg.get("default_series"))
+        synth(s2, say, iso, args.root)
+        synth(s2, CARRIER.get(lang, CARRIER["en"]).format(t=say), ctx, args.root)
+        t_iso, t_ctx = transcribe(iso), transcribe(ctx)
+        exp, got_iso, got_ctx = _pkey(t), _pkey(t_iso), _pkey(t_ctx)
+        ok_iso = exp == got_iso or (len(exp) > 3 and exp in got_iso)
+        ok_ctx = len(exp) >= 3 and (exp in got_ctx or got_ctx in exp)
+        verdict = "OK" if (ok_iso or ok_ctx) else "REVISAR"
+        if verdict != "OK":
+            flags += 1
+        extra = "" if norm == t else f" (fala: '{say}')"
+        rows.append(f"{t}{extra}\n   isolado : {t_iso or '-'}  [{'ok' if ok_iso else 'X'}]\n"
+                    f"   contexto: {t_ctx or '-'}  [{'ok' if ok_ctx else 'X'}]  -> {verdict}")
+        print(f"  {verdict:7s} {t}" + (f" -> '{say}'" if norm != t else ""))
+    rep = os.path.join(vdir, "01_roteiro", "PRONUNCIA_TTS.txt") if vdir else os.path.join(outdir, "PRONUNCIA_TTS.txt")
+    with open(rep, "w", encoding="utf-8") as f:
+        f.write(f"# PRONUNCIA TTS - {len(terms)} termos | {flags} para revisar\n"
+                f"# audio em {pdir} (ouca os REVISAR antes de publicar)\n\n" + "\n\n".join(rows) + "\n")
+    print(f"\nPRONUNCIA: {flags}/{len(terms)} para revisar -> {rep}")
+    print(f"audios: {pdir}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="Motor de voz provider-agnostico (free + pago)")
     ap.add_argument("video", nargs="?", default=None, help="videoNN")
@@ -908,6 +1002,9 @@ def main():
     ap.add_argument("--no-cache", action="store_true", help="ignora cache e regenera")
     ap.add_argument("--dry-run", action="store_true", help="mostra o plano sem gerar")
     ap.add_argument("--test", action="store_true", help="teste de 200 palavras no provider real")
+    ap.add_argument("--pronounce", nargs="?", const="",
+                    help="checa pronuncia (TTS + whisper): --pronounce \"rottweiler, Vespasiano\" "
+                         "ou vazio para extrair da narracao")
     ap.add_argument("--estimate", action="store_true", help="custo estimado por provider")
     ap.add_argument("--list", action="store_true", help="lista providers e vozes curadas")
     ap.add_argument("--lang", help="filtro de idioma no --list (ex. en, pt)")
@@ -931,6 +1028,10 @@ def main():
     vdir = None
     if args.video:
         vdir = args.video if os.path.isabs(args.video) else os.path.join(args.root, args.video)
+        if not os.path.isdir(vdir):  # convencao videos/<tag> (Laudo Final)
+            alt = os.path.join(args.root, "videos", os.path.basename(args.video))
+            if os.path.isdir(alt):
+                vdir = alt
         narr = next((os.path.join(vdir, "01_roteiro", f) for f in
                      ("narration_v3.txt", "narration.txt", "narration_pt.txt")
                      if os.path.exists(os.path.join(vdir, "01_roteiro", f))), None)
@@ -940,8 +1041,8 @@ def main():
         outdir = os.path.join(vdir, "02_audio")
         os.makedirs(outdir, exist_ok=True)
     else:
-        if not (args.estimate or args.test):
-            raise SystemExit("Uso: voice_engine.py videoNN --root <canal> [--channel <canal>] | --list | --estimate")
+        if not (args.estimate or args.test or args.pronounce is not None):
+            raise SystemExit("Uso: voice_engine.py videoNN --root <canal> [--channel <canal>] | --list | --estimate | --pronounce")
         blocks = [args.text] if args.text else ["Texto de teste."]
         outdir = os.path.join(args.root, "02_audio")
         os.makedirs(outdir, exist_ok=True)
@@ -953,6 +1054,9 @@ def main():
         return
     if args.test:
         cmd_test(args, cfg, prov, blocks, outdir)
+        return
+    if args.pronounce is not None:
+        cmd_pronounce(args, cfg, prov, blocks, vdir, outdir)
         return
 
     voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir)

@@ -39,6 +39,14 @@
     "PC ": "polícia civil ",
     "Deleg.": "delegacia"
   },
+  "pronuncia": {
+    "Samudio": "Samúdio",
+    "rottweilers": "rótiváilers",
+    "Rottweilers": "rótiváilers",
+    "rottweiler": "rótiváiler",
+    "Rottweiler": "rótiváiler",
+    "Vespasiano": "Vespaziano"
+  },
   "series_detect": ["PERICIA", "PERÍCIA", "FRIOS", "MENTE"],
   "default_series": "PERICIA",
   "rules": {
@@ -50,11 +58,7 @@
     "beat_question_pos": 80
   },
   "series": {
-    "MENTE": { "rate": "-8%", "pitch": "-4Hz" },
-    "FRIOS": { "rate": "-6%", "pitch": "-2Hz" },
-    "PERICIA": { "rate": "-2%", "pitch": "+1Hz" },
-    "PERÍCIA": { "rate": "-2%", "pitch": "+1Hz" },
-    "default": { "rate": "-2%", "pitch": "+1Hz" }
+    "default": { "rate": "-6%", "pitch": "-2Hz" }
   },
   "gaps": { "short_max_len": 150, "short": 0.45, "normal": 0.20 },
   "beds": {
@@ -79,7 +83,7 @@
   },
   "trim": {
     "mode": "silence",
-    "silence": { "start_duration": 0.06, "end_duration": 0.10, "threshold": "-45dB" }
+    "silence": { "start_duration": 0.06, "end_duration": 0.10, "threshold": "-45dB", "fade": 0.02 }
   },
-  "_nota": "Primaria = Remy (gerar_voz_pt.py, declarada 'VOZ OFICIAL'; respiro BR 0.45/0.20; assinatura forense com aecho 9|15ms e loudnorm -14). Fallbacks reais do projeto: Algenib (gerar_voz_gemini.py, style+seed 7+chunk 2000+rotacao de chave), Piper local (gerar_voz_laudo.py, laudo.onnx treinado no Algenib) e clone Fish (canal/fish_voice.txt). A escolha final da voz oficial segue pendente no profile.md."
+  "_nota": "Estado 23/09: entrega em 3 zonas (hook -8/-4, corpo -6/-2, outro -4/+0; series nao muda mais o tom). Primaria = Remy (gerar_voz_pt.py, 'VOZ OFICIAL'; respiro BR 0.45/0.20; trim por silencio com fades 20ms; aecho 9|15ms; loudnorm -14). Pack pronuncia: Samudio->Samúdio (aprovado de ouvido na calibracao); rottweiler(s)->rótiváiler(s) e Vespasiano->Vespaziano (verificados por ida-e-volta TTS+whisper em 23/09 — ouvir antes de travar). Fallbacks reais: Algenib (gerar_voz_gemini.py), Piper local (gerar_voz_laudo.py, laudo.onnx) e clone Fish (canal/fish_voice.txt). Voz oficial ainda em decisao no profile.md."
 }

@@ -105,9 +105,19 @@ A voz é **ativo de marca**, não commodity. Regra zero: **uma voz por canal, tr
 
 ## Pronúncia e normalização (o que mais estraga narração)
 
-- **Mapa `normalize` no contrato** (por canal/idioma): siglas faladas como letras (`FBI` → `F. B. I.`), títulos (`Mr.` → `Mister`), unidades.
+Duas camadas no contrato, nesta ordem:
+1. **`normalize`** — troca simples: siglas faladas como letras (`FBI` → `F. B. I.`), títulos (`Mr.` → `Mister`), cargos PT (`Dr.` → `doutor`).
+2. **`pronuncia`** — respellings calibrados, com fronteira de palavra (`\b`): `Samudio` → `Samúdio`, `rottweiler` → `rótiváiler`, `Vespasiano` → `Vespaziano`. **Plural antes do singular** na ordem do JSON.
+
+**Como calibrar um respelling (método real):**
+1. `python scripts/voice_engine.py videoNN --root <canal> --channel <canal> --pronounce "termo"` — gera o termo **isolado e em contexto**, transcreve com faster-whisper e flagra erro; os áudios ficam em `02_audio/_pronuncia/` para **ouvir**.
+2. Ou faça A/B numerado de ouvido (ex.: `calibrar_pronuncia.py` do Laudo: baseline × grafias alternativas em um WAV com legenda).
+3. Só então trave o par no `pronuncia` do playbook — um lugar só, vale para todos os vídeos do canal.
+
+**Limites (seja honesto):** nenhum TTS é 100%; o checker é uma **rede**, não a verdade — o veredito usa o contexto (o isolado pode sair truncado no whisper small) e o gate final é a **oitiva humana** dos áudios salvos. Fish aceita phoneme controls (EN/ZH/JA) quando o respelling não resolve.
+
+Outras regras:
 - Números/anos/moeda: escreva como se fala na dúvida (`1998` → `nineteen ninety-eight`; `R$ 1,2 milhão` → `um vírgula dois milhão de reais`).
-- Nomes próprios: teste no `--test`; se falhar, respelle foneticamente no roteiro **só na narração** (não no título/descrição).
 - `?` no fim de bloco ajuda prosódia no edge; vírgula vira micro-pausa; reticências viram respiro.
 - Nunca conserte fala ruim com legenda — legenda é camada de compreensão (ref `13`).
 
