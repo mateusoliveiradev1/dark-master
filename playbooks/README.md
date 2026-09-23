@@ -80,12 +80,19 @@ O `voice.json` aceita um bloco `provider` — o **motor** de voz, independente d
 
 ### Bloco `roteiro` (porte do canal)
 
-`roteiro.json` (opcional) define o **formato de roteiro** quando o porte genérico da skill não vale:
+`roteiro.json` (opcional) define o **formato de roteiro** quando o porte genérico da skill não vale.
 
+**Formato único** (canais com um só tamanho, ex. Laudo Final ~10min):
 ```json
 { "duracao_min": 10, "palavras": [1300, 1700], "palavras_alvo": 1500, "blocos_alvo": 40, "wpm": 145 }
 ```
 
-- `python scripts/script_builder.py --validate <narration> --channel <canal>` usa essa faixa (plano e validação).
+**Múltiplos portes** (canais com fino/padrão/rico próprios, ex. CFD):
+```json
+{ "duracao_min": 20, "porte_default": "padrao",
+  "portes": { "fino": [2300, 2700], "padrao": [2900, 3200], "rico": [3400, 3700] } }
+```
+
+- `python scripts/script_builder.py --validate <narration> --channel <canal> [--porte rico]` usa a faixa do canal (plano e validação); `--porte` escolhe o porte quando o canal tem vários.
 - Sem o arquivo, o script avisa e cai no porte genérico (`fino/padrao/rico`) — nunca silencioso.
-- Exemplo real: `playbooks/laudo-final/roteiro.json` (~10 min; medido no video01: 1540 palavras / 43 blocos).
+- **Sempre que possível, calibre com narrações reais** (palavras medidas), não com o que o profile promete — foi assim que Money (2479–2992 reais vs 3400 prometido) e Laudo (1540 reais) entraram na faixa certa.

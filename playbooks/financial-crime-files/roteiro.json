@@ -1,0 +1,9 @@
+{
+  "channel": "Financial Crime Files",
+  "duracao_min": 18,
+  "palavras": [2400, 3100],
+  "palavras_alvo": 2700,
+  "blocos_alvo": 55,
+  "wpm": 150,
+  "_nota": "Medido em 6 episodios reais (EP01-EP06): 2479-2992 palavras / 36-75 blocos (~17-20 min). O profile.md dizia '~25 min (~3400 palavras)' - desatualizado; a faixa real manda. Revisar se o canal migrar para episodios mais longos."
+}

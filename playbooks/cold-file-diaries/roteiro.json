@@ -1,0 +1,12 @@
+{
+  "channel": "Cold File Diaries",
+  "duracao_min": 20,
+  "porte_default": "padrao",
+  "portes": {
+    "fino": [2300, 2700],
+    "padrao": [2900, 3200],
+    "rico": [3400, 3700]
+  },
+  "wpm": 150,
+  "_nota": "Tabela oficial do operacao.md (FINO 15-18min | PADRAO 20min | RICO 25min). Medido em 27 videos reais: 1463-3857 palavras, media 2678 (~18 min) - a cauda longa (video13/17) passa do RICO; revisar o teto se virar padrao."
+}

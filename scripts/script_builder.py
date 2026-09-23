@@ -35,9 +35,11 @@ PLAYBOOKS = Path(os.environ.get(
     str(Path.home() / ".config" / "opencode" / "skills" / "dark-master" / "playbooks")))
 
 
-def channel_roteiro(channel):
+def channel_roteiro(channel, porte=None):
     """Le playbooks/<canal>/roteiro.json -> (label, (lo, hi)) ou None (com AVISO).
-    Canal com formato proprio (ex. Laudo Final ~10min) nao deve ser medido pelo porte generico."""
+    Aceita 'palavras': [lo, hi] (formato unico, ex. Laudo ~10min) ou
+    'portes': {fino/padrao/rico: [lo, hi]} + 'porte_default' (ex. CFD).
+    Canal com formato proprio nao deve ser medido pelo porte generico da skill."""
     p = Path(channel).expanduser()
     pb = p if p.is_dir() else PLAYBOOKS / channel
     if not pb.is_dir():
@@ -52,11 +54,19 @@ def channel_roteiro(channel):
     except ValueError as e:
         print(f"[AVISO] roteiro.json invalido ({e}) - usando porte generico.")
         return None
+    dur = d.get("duracao_min")
+    portes = d.get("portes")
+    if isinstance(portes, dict) and portes:
+        use = porte if porte in portes else d.get("porte_default") or next(iter(portes))
+        pw = portes.get(use)
+        if not (isinstance(pw, list) and len(pw) == 2):
+            print(f"[AVISO] roteiro.json: portes['{use}'] invalido - usando porte generico.")
+            return None
+        return f"canal:{pb.name} {use}" + (f" ~{dur}min" if dur else ""), (int(pw[0]), int(pw[1]))
     pw = d.get("palavras")
     if not (isinstance(pw, list) and len(pw) == 2):
         print("[AVISO] roteiro.json sem 'palavras': [lo, hi] - usando porte generico.")
         return None
-    dur = d.get("duracao_min")
     return f"canal:{pb.name}" + (f" ~{dur}min" if dur else ""), (int(pw[0]), int(pw[1]))
 
 # genero -> lista (beat, proporcao, guia)
@@ -366,7 +376,7 @@ def main():
             sys.exit(2)
         window = PORTE_SHORT[porte]
     else:
-        cr = channel_roteiro(a.channel) if a.channel else None
+        cr = channel_roteiro(a.channel, a.porte) if a.channel else None
         if cr:
             porte, window = cr  # formato proprio do canal vence o porte generico
         else:
