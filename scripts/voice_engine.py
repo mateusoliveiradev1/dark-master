@@ -73,7 +73,17 @@ CURATED = {
     },
     "kokoro": {
         "en": ["am_michael", "am_onyx", "am_fenrir", "af_heart", "bm_george"],
-        "pt": ["pm_alex", "pf_dora", "pm_santa"],
+        "pt": ["pm_alex", "pm_santa", "pf_dora"],
+    },
+    "azure": {
+        "pt": ["pt-BR-AntonioNeural", "pt-BR-FabioNeural", "pt-BR-DonatoNeural",
+               "pt-BR-HumbertoNeural", "pt-BR-JulioNeural", "pt-BR-NicolauNeural",
+               "pt-BR-ValerioNeural", "pt-BR-MacerioMultilingualNeural",
+               "pt-BR-Macerio:DragonHDLatestNeural"],
+    },
+    "piper": {
+        "pt": ["pt_BR-faber-medium.onnx", "pt_BR-cadu-medium.onnx",
+               "pt_BR-jeff-medium.onnx", "pt_BR-edresson-low.onnx"],
     },
     "gemini": {
         "en": ["Algenib", "Charon", "Kore", "Orus", "Schedar", "Puck", "Fenrir"],
