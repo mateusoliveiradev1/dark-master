@@ -16,6 +16,8 @@
 - Funil Short→long: os longs têm poucas views; medir se Related Video + comentário fixado + CTA elevam.
 - Auto-dub: medir watch time por idioma após ligar.
 - Escalar o padrão de **loop** (AVP >100%) para os próximos Shorts.
+- [2026-09-23] **Voz Remy (Edge) — constância e pronúncia.** Teste de escuta do dono no video01 (Eliza Samudio, PT-BR): "ainda tinha partes que a voz mudava e algumas pronúncias erradas". O arquivo ouvido foi gerado com o mapa de entrega ANTIGO (rate/pitch trocando quase a cada bloco = variação audível) → fixes aplicados no `gerar_voz_pt.py` (mapa em 3 zonas hook/corpo/outro, fades de 20ms nas emendas, concat re-encode) **ainda NÃO validados em escuta**. Pronúncia: "Samudio"→respell "Samúdio" aprovado; demais nomes pendentes de calibração (`scripts/calibrar_pronuncia.py`). *(evidência: teste documentado 23/09)*
+- [2026-09-23] **Pronúncia agora tem rede automática.** Skill ganhou `voice_engine --pronounce` (gera isolado+contexto, transcreve com faster-whisper, flagra `REVISAR` e salva áudio para oitiva) + camada `pronuncia` no contrato (respell com fronteira de palavra, vale na produção via patch do `gerar_voz_pt.py`). Verificados por ida-e-volta: `rottweiler`→"rótiváiler" e `Vespasiano`→"Vespaziano" (Whisper ouviu "Rottweiler"/"Vespasiano"); **pendente a oitiva do dono** nos áudios de `02_audio/_pronuncia/`. Cronologia: `lint-roteiro --cronologia` + `timeline_kit` (plate + datestamps).
 
 ## Descartado (não repetir)
 
