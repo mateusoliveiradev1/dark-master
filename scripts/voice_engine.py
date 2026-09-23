@@ -257,6 +257,32 @@ def keys_for(prov, root):
 
 
 # ---------------------------------------------------------------- ffmpeg
+def lang_of(cfg):
+    """Idioma-alvo do canal: cfg['lang'] ('pt-BR') ou provider.settings.lang ou vazio."""
+    v = cfg.get("lang") or ((cfg.get("provider") or {}).get("settings") or {}).get("lang")
+    return str(v).strip() if v else ""
+
+
+def voice_lang(voice_id):
+    """Extrai o idioma do id quando ele tem prefixo de locale (pt-BR-AntonioNeural -> pt)."""
+    m = re.match(r"^([a-z]{2})[-_][A-Z]{2}[-_]", str(voice_id or ""))
+    return m.group(1) if m else ""
+
+
+def warn_voice_lang(step, cfg):
+    """Voz de outro idioma num canal X = risco de sotaque/drift (caso Remy fr-FR em PT)."""
+    want = lang_of(cfg)
+    got = voice_lang(step.get("voice_id"))
+    if want and got and got != want[:2]:
+        print(f"[AVISO] voz '{step['voice_id']}' e do idioma '{got}' mas o canal e '{want}': "
+              f"risco de sotaque/drift. Prefira voz NATIVA do idioma do canal ou clone PT (ref 34).")
+    if want[:2] == "pt" and step["type"] == "gemini":
+        style = str((step.get("settings") or {}).get("style") or "").lower()
+        if "portugu" not in style:
+            print("[AVISO] gemini sem direcao de idioma no style - adicione "
+                  "'Diga o texto a seguir em portugues do Brasil:' para travar o PT.")
+
+
 def get_ffmpeg():
     try:
         import imageio_ffmpeg
@@ -397,6 +423,9 @@ def synth_elevenlabs(text, out, prov, ring):
     if speed:
         vs["speed"] = max(0.7, min(1.2, float(speed)))
     body = {"text": text, "model_id": model, "voice_settings": vs}
+    lc = st.get("language_code")  # trava o idioma (modelos turbo/flash v2.5 aceitam ISO 639-1)
+    if lc:
+        body["language_code"] = lc
     url = (f"https://api.elevenlabs.io/v1/text-to-speech/{urllib.parse.quote(prov['voice_id'])}"
            f"?output_format=mp3_44100_128")
 
@@ -648,6 +677,7 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
     cache_on = not args.no_cache
 
     steps = build_chain(prov, cfg, args.root)
+    warn_voice_lang(steps[0], cfg)
     if not args.dry_run:
         usable = []
         for st in steps:
@@ -889,6 +919,7 @@ def cmd_test(args, cfg, prov, blocks, outdir):
     words = len(text.split())
     series = series_of(str(Path(outdir).parent), cfg)
     step, pr = provider_params(prov, text, 0, 99, cfg, series)
+    warn_voice_lang(step, cfg)
     ext = PROVIDER_META[step["type"]]["ext"]
     out = os.path.join(outdir, f"_teste_voz.{ext}")
     if PROVIDER_META[step["type"]]["key"]:
@@ -899,6 +930,88 @@ def cmd_test(args, cfg, prov, blocks, outdir):
     print(f"teste de voz: {words} palavras | provider {step['type']} | voz {step.get('voice_id')} | rate {pr.get('rate')}")
     synth(step, normalize_text(text, cfg), out, args.root)
     print(f"TESTE OK: {out} ({dur(out):.1f}s) - ouca antes de gerar o video")
+
+
+def cmd_consistencia(args, cfg, prov, outdir, vdir):
+    """Rede anti-drift: detecta idioma por janela do audio final (whisper, sem forcar idioma).
+    Pega troca de lingua/acento forte que passa batido na escuta rapida."""
+    try:
+        from faster_whisper import WhisperModel
+    except ImportError:
+        raise SystemExit("[ERRO] --consistencia exige faster-whisper: pip install faster-whisper")
+    audio = args.audio or (os.path.join(vdir, "02_audio", "voice_FINAL.wav") if vdir else None)
+    if not audio or not os.path.exists(audio):
+        raise SystemExit(f"[ERRO] audio nao encontrado: {audio} (rode a voz ou passe --audio <arquivo>)")
+    lang = (args.lang or lang_of(cfg) or "pt")[:2]
+    tmp = os.path.join(outdir, "_consistencia")
+    os.makedirs(tmp, exist_ok=True)
+    run([FFMPEG, "-y", "-i", audio, "-f", "segment", "-segment_time", str(args.window),
+         "-ac", "1", "-ar", "16000", os.path.join(tmp, "w_%03d.wav")])
+    files = sorted(glob.glob(os.path.join(tmp, "w_*.wav")))
+    model_name = (prov.get("settings") or {}).get("whisper_model") or "small"
+    print(f"consistencia: {dur(audio)/60:.1f} min -> {len(files)} janelas de {args.window}s "
+          f"| idioma alvo: {lang} | whisper {model_name}")
+    wm = WhisperModel(model_name, device="cpu", compute_type="int8")
+    drift = 0
+    for i, f in enumerate(files):
+        segs, info = wm.transcribe(f, language=None, vad_filter=False)
+        if info.language != lang or info.language_probability < args.min_prob:
+            drift += 1
+            t0 = i * args.window
+            txt = " ".join(s.text.strip() for s in segs)[:100]
+            print(f"  DRIFT [{t0//60}:{t0%60:02d}] {info.language} ({info.language_probability:.2f}): {txt}")
+    print(f"RESULTADO: {drift}/{len(files)} janelas suspeitas"
+          + (" - consistente" if not drift else " - ouvir os trechos acima"))
+
+
+def cmd_ab(args, cfg, prov, blocks, outdir):
+    """A/B de vozes: gera o MESMO texto com N vozes/providers e transcreve cada uma.
+    Uso: --ab "edge:pt-BR-AntonioNeural, edge:pt-BR-ThalitaMultilingualNeural, gemini:Algenib" """
+    specs = [s.strip() for s in (args.ab or "").split(",") if s.strip()]
+    if not specs:
+        raise SystemExit('[ERRO] --ab vazio. Ex.: --ab "edge:pt-BR-AntonioNeural, gemini:Algenib"')
+    text = args.text or " ".join(blocks)
+    text = " ".join(text.split()[:160])
+    adir = os.path.join(outdir, "_ab")
+    os.makedirs(adir, exist_ok=True)
+    lang = (args.lang or lang_of(cfg) or "pt")[:2]
+    pcfg = cfg.get("provider") or {}
+    wm = None
+    try:
+        from faster_whisper import WhisperModel
+        wm = WhisperModel((prov.get("settings") or {}).get("whisper_model") or "small",
+                          device="cpu", compute_type="int8")
+    except ImportError:
+        print("(faster-whisper ausente: gero os audios sem transcricao)")
+    print(f"A/B de {len(specs)} voz(es) | idioma alvo: {lang} | audios em {adir}\n")
+    for i, spec in enumerate(specs, 1):
+        provider, _, voice = spec.partition(":")
+        step = {"type": provider.strip().lower(), "voice_id": voice.strip() or None, "settings": {}}
+        if step["type"] not in PROVIDERS:
+            print(f"  [{i}] provider desconhecido: {provider}"); continue
+        if pcfg.get("type") == step["type"]:  # herda model/settings do contrato do canal
+            step["model"] = pcfg.get("model")
+            step["settings"] = dict(pcfg.get("settings") or {})
+        if PROVIDER_META[step["type"]]["key"]:
+            keys = keys_for(step, args.root)
+            if not keys:
+                print(f"  [{i}] {step['type']}: sem chave - pulando"); continue
+            step["_ring"] = KeyRing(keys, step["type"])
+        s2, pr = provider_params(step, text, 3, 99, cfg, cfg.get("default_series"))
+        out = os.path.join(adir, f"{i:02d}_{step['type']}_{re.sub(r'[^A-Za-z0-9]+', '_', step['voice_id'] or 'default')}"
+                                 f".{PROVIDER_META[step['type']]['ext']}")
+        try:
+            synth(s2, normalize_text(text, cfg), out, args.root)
+        except Exception as e:
+            print(f"  [{i}] {spec}: falhou ({str(e)[:120]})"); continue
+        heard = ""
+        if wm:
+            segs, info = wm.transcribe(out, language=lang, vad_filter=False)
+            heard = " ".join(s.text.strip() for s in segs)
+        print(f"  [{i}] {step['type']}:{step['voice_id']} (rate {pr.get('rate')}) d={dur(out):.1f}s")
+        if heard:
+            print(f"      ouviu: {heard[:160]}")
+    print(f"\nouca e escolha: {adir}")
 
 
 def _pkey(s):
@@ -960,6 +1073,7 @@ def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
         if not keys:
             raise SystemExit(f"[ERRO] --pronounce com '{step['type']}' exige chave")
         step["_ring"] = KeyRing(keys, step["type"])
+    warn_voice_lang(step, cfg)
     pdir = os.path.join(outdir, "_pronuncia")
     os.makedirs(pdir, exist_ok=True)
     model_name = (step.get("settings") or {}).get("whisper_model") or "small"
@@ -1014,6 +1128,12 @@ def main():
     ap.add_argument("--pronounce", nargs="?", const="",
                     help="checa pronuncia (TTS + whisper): --pronounce \"rottweiler, Vespasiano\" "
                          "ou vazio para extrair da narracao")
+    ap.add_argument("--consistencia", action="store_true",
+                    help="anti-drift: detecta idioma por janela do audio final (whisper)")
+    ap.add_argument("--audio", help="audio para --consistencia (default: 02_audio/voice_FINAL.wav)")
+    ap.add_argument("--window", type=int, default=20, help="janela em segundos no --consistencia (default 20)")
+    ap.add_argument("--min-prob", type=float, default=0.75, help="prob minima de idioma no --consistencia")
+    ap.add_argument("--ab", help='A/B de vozes: "edge:pt-BR-AntonioNeural, gemini:Algenib"')
     ap.add_argument("--estimate", action="store_true", help="custo estimado por provider")
     ap.add_argument("--list", action="store_true", help="lista providers e vozes curadas")
     ap.add_argument("--lang", help="filtro de idioma no --list (ex. en, pt)")
@@ -1050,7 +1170,7 @@ def main():
         outdir = os.path.join(vdir, "02_audio")
         os.makedirs(outdir, exist_ok=True)
     else:
-        if not (args.estimate or args.test or args.pronounce is not None):
+        if not (args.estimate or args.test or args.pronounce is not None or args.consistencia or args.ab):
             raise SystemExit("Uso: voice_engine.py videoNN --root <canal> [--channel <canal>] | --list | --estimate | --pronounce")
         blocks = [args.text] if args.text else ["Texto de teste."]
         outdir = os.path.join(args.root, "02_audio")
@@ -1066,6 +1186,12 @@ def main():
         return
     if args.pronounce is not None:
         cmd_pronounce(args, cfg, prov, blocks, vdir, outdir)
+        return
+    if args.consistencia:
+        cmd_consistencia(args, cfg, prov, outdir, vdir)
+        return
+    if args.ab:
+        cmd_ab(args, cfg, prov, blocks, outdir)
         return
 
     voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir)

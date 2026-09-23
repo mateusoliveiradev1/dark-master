@@ -4,6 +4,22 @@ A voz é **ativo de marca**, não commodity. Regra zero: **uma voz por canal, tr
 
 > Motor unificado: `scripts/voice_engine.py` lê o contrato do canal e gera com **qualquer provider** (edge, azure, elevenlabs, fish, gemini, openai, kokoro, piper). Mesma saída: blocos + gaps + filtros + loudnorm + SRT. Teste antes de lotear: `--test`.
 
+## Idioma, sotaque e consistência (a regra da voz nativa)
+
+**Voz do canal = voz NATIVA do idioma do canal.** Voz multilíngue (Remy `fr-FR`, Andrew `en-US`) fala PT **com sotaque estrangeiro** e escorrega em palavra estrangeira — caso real: "apreendido numa blitz" saiu como *"no Mablitz"* na Remy. Multilíngue só se o **mesmo canal publica em vários idiomas** (aí use clone PT que fala os outros).
+
+| Tier | Vozes PT-BR recomendadas |
+|---|---|
+| Grátis (edge) | `pt-BR-AntonioNeural` (masc., nativa) · `pt-BR-ThalitaMultilingualNeural` (fem., qualidade multilíngue com base PT) · `pt-BR-FranciscaNeural` (fem.) |
+| Grátis local | Kokoro `pm_alex` / `pf_dora` · Piper `pt_BR-*` (consistência total, naturalidade menor) |
+| Pago | **ElevenLabs** multilingual v2 com voz PT da library/clone PT (`language_code` em turbo/flash v2.5) · **Azure** `pt-BR-AntonioNeural` + phoneme/lexicon · **Fish** clone PT 10–30s · **Gemini** `Algenib` + style "Diga o texto a seguir em português do Brasil:" |
+
+Como o motor trava isso:
+- `"lang": "pt-BR"` no contrato → **AVISO automático** quando a voz não bate com o idioma do canal (`warn_voice_lang`); Gemini sem direção de idioma no `style` também avisa.
+- Escolha da voz com evidência: `--ab "edge:pt-BR-AntonioNeural, edge:pt-BR-ThalitaMultilingualNeural, gemini:Algenib"` gera o mesmo texto em N vozes, transcreve e salva para ouvir.
+- Auditoria do vídeo pronto: `--consistencia` detecta o idioma por janela de 20s do `voice_FINAL.wav` e aponta DRIFT.
+- **Limite honesto:** o whisper pega *troca de idioma*, **não pega sotaque** (a Remy deu 0/31 janelas "ok" mesmo com francês audível) — o gate final continua sendo a oitiva humana.
+
 ## Escolha em 30 segundos
 
 | Situação | Use | Por quê |
@@ -61,6 +77,7 @@ A voz é **ativo de marca**, não commodity. Regra zero: **uma voz por canal, tr
 - Key em `AZURE_SPEECH_KEY`, região em `AZURE_SPEECH_REGION` (ex. `brazilsouth`). Mesmo `voice_id` do edge.
 - SSML dá `rate`/`pitch`/`volume` nativos — prosódia idêntica ao edge.
 - Migração de canal edge→azure: **zero mudança de som**, só o header da API.
+- **Pronúncia perfeita de nome próprio:** SSML aceita `<phoneme alphabet="ipa" ph="...">` e **custom lexicon** (`.pls`/`.xml` público, suportado em pt-BR) — quando o respelling não resolve, é o recurso definitivo.
 
 ### kokoro (grátis, local, Apache 2.0)
 - `pip install kokoro soundfile` + `espeak-ng` no sistema (Windows: instalar e por no PATH).

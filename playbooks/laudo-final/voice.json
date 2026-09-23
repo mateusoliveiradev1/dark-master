@@ -1,5 +1,6 @@
 {
   "channel": "Laudo Final",
+  "lang": "pt-BR",
   "provider": {
     "type": "edge",
     "fallback": [
@@ -40,33 +41,74 @@
     "Deleg.": "delegacia"
   },
   "pronuncia": {
+    "Laudo Final": "Láudo Final",
     "Samudio": "Samúdio",
     "rottweilers": "rótiváilers",
     "Rottweilers": "rótiváilers",
     "rottweiler": "rótiváiler",
     "Rottweiler": "rótiváiler",
     "Vespasiano": "Vespaziano",
-    "Dayanne": "Daiane"
+    "Dayanne": "Daiane",
+    "DNA": "dê ene á",
+    "hexacampeonato": "éksacampeonato",
+    "futsal": "futsau"
   },
-  "series_detect": ["PERICIA", "PERÍCIA", "FRIOS", "MENTE"],
+  "series_detect": [
+    "PERICIA",
+    "PERÍCIA",
+    "FRIOS",
+    "MENTE"
+  ],
   "default_series": "PERICIA",
   "rules": {
-    "hook": { "rate": "-8%", "pitch": "-4Hz" },
-    "outro": { "rate": "-4%", "pitch": "+0Hz" },
+    "hook": {
+      "rate": "-8%",
+      "pitch": "-4Hz"
+    },
+    "outro": {
+      "rate": "-4%",
+      "pitch": "+0Hz"
+    },
     "outro_from_end": 2,
-    "beat": { "rate": "-6%", "pitch": "-2Hz" },
+    "beat": {
+      "rate": "-6%",
+      "pitch": "-2Hz"
+    },
     "beat_max_len": 150,
     "beat_question_pos": 80
   },
   "series": {
-    "default": { "rate": "-6%", "pitch": "-2Hz" }
+    "default": {
+      "rate": "-6%",
+      "pitch": "-2Hz"
+    }
   },
-  "gaps": { "short_max_len": 150, "short": 0.45, "normal": 0.20 },
+  "gaps": {
+    "short_max_len": 150,
+    "short": 0.45,
+    "normal": 0.2
+  },
   "beds": {
-    "PERICIA": { "file": "PERICIA_1.wav", "vol": 0.06 },
-    "FRIOS": { "file": "FRIOS_1.wav", "vol": 0.08 },
-    "MENTE": { "file": "MENTE_1.wav", "vol": 0.08 },
-    "default": { "file": "FRIOS_1.wav", "vol": 0.08 }
+    "PERICIA": {
+      "file": "HEISTS_1.wav",
+      "vol": 0.06
+    },
+    "FRIOS": {
+      "file": "VANISHED_1.wav",
+      "vol": 0.08
+    },
+    "MENTE": {
+      "file": "KILLERS_1.wav",
+      "vol": 0.08
+    },
+    "SMALL TOWN": {
+      "file": "SMALL TOWN_1.wav",
+      "vol": 0.06
+    },
+    "default": {
+      "file": "VANISHED_1.wav",
+      "vol": 0.08
+    }
   },
   "bed": {
     "crossfade": 4.0,
@@ -84,7 +126,12 @@
   },
   "trim": {
     "mode": "silence",
-    "silence": { "start_duration": 0.06, "end_duration": 0.10, "threshold": "-45dB", "fade": 0.02 }
+    "silence": {
+      "start_duration": 0.06,
+      "end_duration": 0.1,
+      "threshold": "-45dB",
+      "fade": 0.02
+    }
   },
-  "_nota": "Estado 23/09: entrega em 3 zonas (hook -8/-4, corpo -6/-2, outro -4/+0; series nao muda mais o tom). Primaria = Remy (gerar_voz_pt.py, 'VOZ OFICIAL'; respiro BR 0.45/0.20; trim por silencio com fades 20ms; aecho 9|15ms; loudnorm -14). Pack pronuncia APROVADO DE OUVIDO em 23/09: Samudio->Samúdio, rottweiler(s)->rótiváiler(s) ('perfeito'), Vespasiano->Vespaziano ('normal'); Dayanne->Daiane (ida-e-volta OK na frase real da narracao; pendente oitiva do dono em 02_audio/_pronuncia/01_Dayanne_ctx.mp3). Fallbacks reais: Algenib (gerar_voz_gemini.py), Piper local (gerar_voz_laudo.py, laudo.onnx) e clone Fish (canal/fish_voice.txt). Voz oficial ainda em decisao no profile.md."
+  "_nota": "A/B de voz ABERTO (23/09): a Remy (fr-FR) tem sotaque frances e escorrega em estrangeirismo (teste real: 'numa blitz' -> 'no Mablitz'); nativas PT testadas em 02_audio/_voz_ab e 02_audio/_ab (Antonio, Thalita, Francisca, Gemini Algenib) - decisao da voz oficial pendente de oitiva. lang=pt-BR ativo: o motor avisa se a voz nao bate com o idioma do canal. Estado 23/09: entrega em 3 zonas (hook -8/-4, corpo -6/-2, outro -4/+0; series nao muda mais o tom). Primaria = Remy (gerar_voz_pt.py, 'VOZ OFICIAL'; respiro BR 0.45/0.20; trim por silencio com fades 20ms; aecho 9|15ms; loudnorm -14). Pack pronuncia APROVADO DE OUVIDO em 23/09: Samudio->Samúdio, rottweiler(s)->rótiváiler(s) ('perfeito'), Vespasiano->Vespaziano ('normal'); Dayanne->Daiane (ida-e-volta OK na frase real da narracao; pendente oitiva do dono em 02_audio/_pronuncia/01_Dayanne_ctx.mp3). Fallbacks reais: Algenib (gerar_voz_gemini.py), Piper local (gerar_voz_laudo.py, laudo.onnx) e clone Fish (canal/fish_voice.txt). Voz oficial ainda em decisao no profile.md. BEDS (23/09): songs proprias do dono (direitos comerciais confirmados; vieram do canal EN) copiadas para canal/assets/songs/ — mapeamento por carater acustico medido (RMS/centroide/graves/onsets): PERICIA->HEISTS (mais escura/pesada/espaçada), FRIOS->VANISHED (misterio/luto), MENTE->KILLERS (tensao), SMALL TOWN de reserva; o tile sem-emenda (_1<->_2, crossfade 4s) + autoteste de emenda ficam no scripts/padrao_bed.py do projeto; mix com ducking loudnorm -14 (padrao_bed.mix_duck ajustado de -16 para -14 em 23/09)."
 }

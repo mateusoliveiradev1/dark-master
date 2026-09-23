@@ -73,7 +73,7 @@ Ver `playbooks/README.md`.
 | Auto-dublagem / multi-idioma | `references/11-autodub-multilingua.md` |
 | Pipeline de produção + mapas para os scripts locais | `references/12-producao-pipeline.md` |
 | Imagens e voz (Nano Banana/Pollinations · motor TTS) | `references/13-imagens-e-voz.md` |
-| **Voz free + paga** (providers, custos, licenças, clonagem, QA) | `references/34-voz-tts.md` |
+| **Voz free + paga** (providers, custos, licenças, clonagem, idioma/consistência, QA) | `references/34-voz-tts.md` |
 | Casos reais de canais que monetizam | `references/14-casos-canais-reais.md` |
 | Loop de aprendizado (genérico) | `references/15-loop-de-aprendizado.md` |
 | Trilha 0→YPP (4.000h e rota Shorts 10M) | `references/16-trilha-zero-a-ypp.md` |
