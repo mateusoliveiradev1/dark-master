@@ -1,0 +1,85 @@
+{
+  "channel": "Laudo Final",
+  "provider": {
+    "type": "edge",
+    "fallback": [
+      {
+        "type": "gemini",
+        "voice_id": "Algenib",
+        "settings": {
+          "style": "Narre gravemente, como um investigador experiente contando um caso real. Ritmo lento e pausado, tom baixo e autoritário. Diga o texto a seguir em português do Brasil: ",
+          "chunk_chars": 2000,
+          "seed": 7
+        },
+        "api_key_env": "GEMINI_API_KEY"
+      },
+      {
+        "type": "piper",
+        "voice_id": "D:/dark-forense/canal/assets/laudo.onnx",
+        "settings": {}
+      },
+      {
+        "type": "fish",
+        "settings": {}
+      }
+    ],
+    "voice_id": "fr-FR-RemyMultilingualNeural",
+    "model": null,
+    "api_key_env": null,
+    "settings": {}
+  },
+  "engine": "edge-tts",
+  "voice": "fr-FR-RemyMultilingualNeural",
+  "normalize": {
+    "Sr.": "senhor",
+    "Sra.": "senhora",
+    "Dr.": "doutor",
+    "Dra.": "doutora",
+    "PM ": "polícia militar ",
+    "PC ": "polícia civil ",
+    "Deleg.": "delegacia"
+  },
+  "series_detect": ["PERICIA", "PERÍCIA", "FRIOS", "MENTE"],
+  "default_series": "PERICIA",
+  "rules": {
+    "hook": { "rate": "-8%", "pitch": "-4Hz" },
+    "outro": { "rate": "-4%", "pitch": "+0Hz" },
+    "outro_from_end": 2,
+    "beat": { "rate": "-6%", "pitch": "-2Hz" },
+    "beat_max_len": 150,
+    "beat_question_pos": 80
+  },
+  "series": {
+    "MENTE": { "rate": "-8%", "pitch": "-4Hz" },
+    "FRIOS": { "rate": "-6%", "pitch": "-2Hz" },
+    "PERICIA": { "rate": "-2%", "pitch": "+1Hz" },
+    "PERÍCIA": { "rate": "-2%", "pitch": "+1Hz" },
+    "default": { "rate": "-2%", "pitch": "+1Hz" }
+  },
+  "gaps": { "short_max_len": 150, "short": 0.45, "normal": 0.20 },
+  "beds": {
+    "PERICIA": { "file": "PERICIA_1.wav", "vol": 0.06 },
+    "FRIOS": { "file": "FRIOS_1.wav", "vol": 0.08 },
+    "MENTE": { "file": "MENTE_1.wav", "vol": 0.08 },
+    "default": { "file": "FRIOS_1.wav", "vol": 0.08 }
+  },
+  "bed": {
+    "crossfade": 4.0,
+    "window": 8.0,
+    "max_seams": 6,
+    "seam_max_db": 6.0,
+    "songs_dir": "canal/assets/songs"
+  },
+  "post": {
+    "voice_filters": "highpass=f=65,lowpass=f=8800,aecho=0.65:0.45:9|15:0.16|0.09,equalizer=f=140:width_type=q:w=1.0:g=2.5,equalizer=f=3500:width_type=q:w=1.6:g=-3.0,acompressor=threshold=-18dB:ratio=2.2:attack=25:release=320,volume=1.5,alimiter=limit=0.95",
+    "loudnorm": "-14"
+  },
+  "ducking": {
+    "filters": "[0:a]asplit=2[voxmix][voxkey];[1:a][voxkey]sidechaincompress=threshold=0.02:ratio=8:attack=12:release=500:makeup=1[bedduck];[voxmix][bedduck]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=11,alimiter=limit=0.95"
+  },
+  "trim": {
+    "mode": "silence",
+    "silence": { "start_duration": 0.06, "end_duration": 0.10, "threshold": "-45dB" }
+  },
+  "_nota": "Primaria = Remy (gerar_voz_pt.py, declarada 'VOZ OFICIAL'; respiro BR 0.45/0.20; assinatura forense com aecho 9|15ms e loudnorm -14). Fallbacks reais do projeto: Algenib (gerar_voz_gemini.py, style+seed 7+chunk 2000+rotacao de chave), Piper local (gerar_voz_laudo.py, laudo.onnx treinado no Algenib) e clone Fish (canal/fish_voice.txt). A escolha final da voz oficial segue pendente no profile.md."
+}

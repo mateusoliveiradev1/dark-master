@@ -1,5 +1,13 @@
 {
   "channel": "Cold File Diaries",
+  "provider": {
+    "type": "edge",
+    "fallback": ["azure", "kokoro"],
+    "voice_id": "en-US-ChristopherNeural",
+    "model": null,
+    "api_key_env": null,
+    "settings": {}
+  },
   "engine": "edge-tts",
   "voice": "en-US-ChristopherNeural",
   "normalize": {

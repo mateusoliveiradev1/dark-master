@@ -9,11 +9,12 @@ description: >
   /dark-monetizar. Cobre pesquisa de nicho real, algoritmo (CTR/AVD/AVP, bolhas de Shorts, engaged views),
   hooks e títulos (Y1–Y11), hooks de Short (frame 1, arquétipos, loop), modelos de canal por nicho/subnicho,
   thumbnails e A/B, retenção do MrBeast, storytelling de documentário, repurposing,
-  auto-dublagem, compliance YPP (conteúdo inautentico), RPM, monetização com produto digital e a trilha 0→YPP.
+  auto-dublagem, voz/TTS (grátis e paga: edge, kokoro, piper, ElevenLabs, Fish, Gemini, OpenAI, Azure —
+  escolha, custo, licença, clonagem e QA), compliance YPP (conteúdo inautentico), RPM, monetização com produto digital e a trilha 0→YPP.
   NÃO usar para edição de vídeo comum, upload de terceiros, métricas de TikTok/Instagram, nem parecer jurídico.
 metadata:
   author: Liiiraa
-  version: "3.1.0"
+  version: "3.2.0"
 ---
 
 # dark-master
@@ -71,7 +72,8 @@ Ver `playbooks/README.md`.
 | RPM por nicho e matemática de receita | `references/10-rpm-e-nichos.md` |
 | Auto-dublagem / multi-idioma | `references/11-autodub-multilingua.md` |
 | Pipeline de produção + mapas para os scripts locais | `references/12-producao-pipeline.md` |
-| Imagens e voz (Nano Banana/Pollinations · edge-tts/ElevenLabs) | `references/13-imagens-e-voz.md` |
+| Imagens e voz (Nano Banana/Pollinations · motor TTS) | `references/13-imagens-e-voz.md` |
+| **Voz free + paga** (providers, custos, licenças, clonagem, QA) | `references/34-voz-tts.md` |
 | Casos reais de canais que monetizam | `references/14-casos-canais-reais.md` |
 | Loop de aprendizado (genérico) | `references/15-loop-de-aprendizado.md` |
 | Trilha 0→YPP (4.000h e rota Shorts 10M) | `references/16-trilha-zero-a-ypp.md` |
@@ -103,7 +105,7 @@ Ver `playbooks/README.md`.
 5. **Shorts = aquisição; long-form = receita.** Funil Short → inscrito → long-form. [PRATICANTE]
 6. **Formato pode repetir; substância não.** Ou cai na política de **conteúdo inautêntico**. Existencial para canal dark. [OFICIAL]
 7. **Escreva como uma pessoa.** Aplique o anti-IA (`17`). [PRATICANTE]
-8. **GATE 100%.** Sem todas as imagens, não gera voz/motion.
+8. **GATE 100% (motion).** Sem todas as imagens, não gera **motion**; a **voz sai no scaffold** (depende só da narração + fatos aprovados).
 9. **Deixe rastro.** Registre D+2/D+7 e replique outliers. [PRATICANTE]
 10. **Urgência:** o YPP **dobra** em 01/02/2027 (8.000h/20M). [OFICIAL]
 11. **Pesquisa antes de produzir.** Nicho se decide por **evidência de canal** (gates rígidos), não por lista pronta (`23`).

@@ -1,6 +1,6 @@
 # 13 — Imagens e voz
 
-Backends padronizados: **Nano Banana manual + Pollinations (fallback)** para imagem; **edge-tts + ElevenLabs** para voz.
+Backends padronizados: **Nano Banana manual + Pollinations (fallback)** para imagem; motor de voz **provider-agnóstico** (`scripts/voice_engine.py`) — edge/kokoro/piper (grátis) e Azure/ElevenLabs/Fish/Gemini/OpenAI (pago). Guia completo: **`34-voz-tts.md`**.
 
 ## Imagem
 
@@ -41,32 +41,23 @@ Flags: `baixa_res`, `aspecto`, `pequena`, `quase_solida`, `muito_escura`, `muito
 
 ## Voz
 
-### edge-tts (grátis, padrão de produção)
+Motor unificado: `python scripts/voice_engine.py videoNN --root <canal> --channel <canal>` — lê o **contrato** (`playbooks/<canal>/voice.json` > bloco `provider`) e gera com qualquer provider. O guia completo (escolha, custos, licenças, clonagem, pronúncia, QA) está em **`34-voz-tts.md`**.
 
-Escolha **uma voz e trave-a** para o canal (identidade de marca). Sugestões por tom:
+### Grátis (padrão de produção)
+- **edge-tts** — 400+ vozes; documentário EN `en-US-ChristopherNeural` (-8%), investigativo `en-US-GuyNeural`; PT-BR `pt-BR-AntonioNeural`. Uso comercial é zona cinzenta [ALEGADO] — canal monetizado migra a mesma voz para **Azure** (licença comercial, mesmas vozes).
+- **kokoro** (Apache 2.0, local, CPU) e **piper** (MIT nas vozes, local) — grátis e comercial-safe.
 
-| Tom | Voz sugerida (edge-tts) |
-|---|---|
-| Documentário EN (grave, medido) | `en-US-ChristopherNeural` (rate -8% a -12%) |
-| Investigativo EN (neutro) | `en-US-GuyNeural` |
-| PT-BR | `pt-BR-AntonioNeural` ou `fr-FR-RemyMultilingualNeural` |
+### Pago (naturalidade / clone)
+- **ElevenLabs** — `eleven_multilingual_v2` long-form, `eleven_v3` expressivo, `eleven_flash_v2_5` barato; **IVC** (1min) testa, **PVC** (30min+) é a voz de marca. $0,05–0,10/1k chars.
+- **Fish** — $15/1M bytes, clone 10–30s, 80+ idiomas, word timestamps. Licença comercial a partir do Plus.
+- **Gemini** (30 vozes + estilo por prompt) e **OpenAI** (13 vozes + `instructions`) — baratos; chunking obrigatório (cota por request).
 
-> A voz por canal fica no playbook (`playbooks/<canal>/`). **Canal novo define a própria** — não copie a de outro canal.
-
-- Prosódia por sentença (variação de rate/pitch), pausas 0.35s/0.15s, trim de silêncio.
-- Bed musical por série com ducking (sidechain) + `loudnorm I=-16` (ou -14 onde o projeto usa).
+### Regras
+- **Uma voz por canal, travada no contrato.** Canal novo define a própria — não copie de outro canal.
+- Teste **200 palavras** (`--test`) antes de gerar o vídeo; `--estimate` mostra o custo antes de gastar.
+- Cache por hash: bloco repetido nunca é pago 2x; fallback da cadeia **avisa** (nunca silencioso).
+- Prosódia por bloco (hook/beat/outro/série) vem do contrato; pausas 0.35s/0.15s, trim, filtros e `loudnorm` (I=-16 CFD | -14 Laudo) idênticos em todos os providers.
 - Legenda karaokê via faster-whisper (word timings) alinhada ao roteiro.
-
-### ElevenLabs (premium, naturalidade)
-- Melhor para storytelling/documentário dramático. **Professional Voice Clone** dá voz de marca consistente.
-- Uso: quando a voz é parte da marca e uma leitura fraca prejudica o vídeo.
-- Custo: Starter pago libera licença comercial; Creator ~$22/mês.
-- Cuidado: créditos acabam rápido em long-form.
-
-### Critério de escolha
-- Voz é a marca (documentário dramático) → **ElevenLabs / clone**.
-- Volume alto, custo controlado → **edge-tts** (grátis).
-- Multi-idioma → auto-dub do YouTube (`11`) ou clone multilíngue.
 
 ### Qualidade de narração (regras)
 - Combine a voz com o formato: calma/medida para documentário; energia só onde cabe.
@@ -77,7 +68,8 @@ Escolha **uma voz e trave-a** para o canal (identidade de marca). Sugestões por
 ## Checklist imagem/voz
 - [ ] 1 imagem teste aprovada antes de lotear.
 - [ ] GATE 100% (todas imagens prontas).
-- [ ] Voz oficial do canal aplicada.
-- [ ] Teste de 200 palavras (pronúncia/ritmo).
+- [ ] Voz oficial do canal aplicada (`--channel` certo; contrato confere).
+- [ ] `--test` de 200 palavras aprovado (pronúncia/ritmo) — ver `34`.
+- [ ] Custo conferido (`--estimate`) e licença do provider ok para monetização (`34`).
 - [ ] loudnorm no alvo do projeto.
 - [ ] Captions alinhadas ao roteiro.

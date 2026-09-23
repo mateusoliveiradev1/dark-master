@@ -1,0 +1,60 @@
+{
+  "channel": "Financial Crime Files",
+  "provider": {
+    "type": "edge",
+    "fallback": ["azure"],
+    "voice_id": "en-US-GuyNeural",
+    "model": null,
+    "api_key_env": null,
+    "settings": {}
+  },
+  "engine": "edge-tts",
+  "voice": "en-US-GuyNeural",
+  "normalize": {
+    "FBI": "F. B. I.",
+    "LAPD": "L. A. P. D.",
+    "US ": "U. S. ",
+    "Mr.": "Mister",
+    "Mrs.": "Missus",
+    "St.": "Saint"
+  },
+  "series_detect": ["BIG MONEY", "SCAMS", "HEISTS", "MISSING", "SPECIALS"],
+  "default_series": "BIG MONEY",
+  "rules": {
+    "hook": { "rate": "-12%", "pitch": "-2Hz" },
+    "outro": { "rate": "-6%", "pitch": "-2Hz" },
+    "outro_from_end": 2,
+    "beat": { "rate": "-10%", "pitch": "-2Hz" },
+    "beat_max_len": 150,
+    "beat_question_pos": 80
+  },
+  "series": {
+    "HEISTS": { "rate": "-6%", "pitch": "-1Hz" },
+    "MISSING": { "rate": "-10%", "pitch": "-2Hz" },
+    "default": { "rate": "-8%", "pitch": "-2Hz" }
+  },
+  "gaps": { "short_max_len": 150, "short": 0.35, "normal": 0.15 },
+  "beds": {
+    "BIG MONEY": { "file": "MONEY_1.wav", "vol": 0.07 },
+    "SCAMS": { "file": "MONEY_1.wav", "vol": 0.07 },
+    "HEISTS": { "file": "MONEY_1.wav", "vol": 0.06 },
+    "MISSING": { "file": "MONEY_1.wav", "vol": 0.08 },
+    "SPECIALS": { "file": "MONEY_1.wav", "vol": 0.07 },
+    "default": { "file": "MONEY_1.wav", "vol": 0.07 }
+  },
+  "bed": {
+    "crossfade": 4.0,
+    "window": 8.0,
+    "max_seams": 6,
+    "seam_max_db": 6.0,
+    "songs_dir": "02_ASSETS_GLOBAL/music"
+  },
+  "post": {
+    "voice_filters": "highpass=f=70,lowpass=f=8000,acompressor=threshold=-22dB:ratio=2.5:attack=20:release=200,volume=1.4"
+  },
+  "ducking": {
+    "filters": "[0:a]asplit=2[voxmix][voxkey];[1:a][voxkey]sidechaincompress=threshold=0.015:ratio=10:attack=8:release=450:makeup=1[bedduck];[voxmix][bedduck]amix=inputs=2:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11"
+  },
+  "trim": { "start": 0.1, "end_pad": 0.8 },
+  "_nota": "Valores do gerar_voz_money.py: GuyNeural; hook -12%, body -8% (HEISTS -6%, MISSING -10%), outro -6%; gaps 0.35/0.15; loudnorm -16. Bed MONEY_1 single-loop (MONEY_2 quando o Suno liberar). Fallback azure = mesma voz com licenca comercial. Migracao para ElevenLabs planejada no profile.md."
+}

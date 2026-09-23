@@ -43,6 +43,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 - **Auto-evolução** — `/dark-revisar` puxa métricas, detecta outliers e propõe mudanças com evidência.
 - **Entende o canal** — lê calendário, regras travadas e a **corrente de teaser** antes de gerar.
 - **Multi-idioma** — auto-dublagem e títulos/descrições traduzidos.
+- **Voz de verdade** — motor TTS provider-agnóstico (grátis: edge/kokoro/piper · pago: ElevenLabs/Fish/Gemini/OpenAI/Azure) com cache por hash, fallback com aviso e teste de 200 palavras.
 - **Seguro** — segredos fora do repositório; o token só acessa **leitura** do seu canal.
 
 ---
@@ -52,7 +53,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 38 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 39 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -65,7 +66,8 @@ dark-master/
 │  ├─ 30-roteiro-master.md      # sistema de roteiro (pesquisa + beats + orçamento)
 │  ├─ 31-hooks-short.md         # hooks de Short (frame 1, arquétipos, loop)
 │  ├─ 32-branding-canal.md      # kit de branding (logo/banner/profile/watermark)
-│  └─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
+│  ├─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
+│  └─ 34-voz-tts.md             # voz free + paga: providers, custos, licenças, QA
 ├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers
@@ -73,7 +75,7 @@ dark-master/
 ├─ config/FOCUS.md              # objetivo atual (manda em tudo)
 ├─ data/                        # metrics.csv, outliers.json, learnings.md, nichos.md
 ├─ assets/                      # templates (roteiro, thumb, pacote, hook factory)
-├─ scripts/                     # yt_auth, yt_metrics, yt_scan_outliers, yt_db, channel_scan…
+├─ scripts/                     # yt_auth, yt_metrics, yt_scan_outliers, voice_engine, channel_scan…
 ├─ site/                        # landing (Next.js) — deploy Vercel
 ├─ docs/                        # redirect do GitHub Pages → Vercel
 └─ vendors/                     # skills MIT + atribuições (não versionado)

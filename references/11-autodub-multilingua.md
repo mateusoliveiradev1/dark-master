@@ -29,7 +29,7 @@ O YouTube agora faz dublagem automática — um vídeo alcança dezenas de idiom
 - **Um idioma primário forte** (ex.: EN para público global; PT-BR para BR).
 - Deixe a auto-dublagem ligada desde o início.
 - Após 4–6 semanas, leia Analytics → Idiomas: 2–3 idiomas dominam 80%+ do watch time fora do principal → invista em **títulos/descriptions revisados** neles.
-- Para idiomas-chave, considere dublagem profissional (ou sua voz clonada — ver `13`).
+- Para idiomas-chave, considere dublagem profissional (ou sua voz clonada — ver `34`: IVC/PVC ElevenLabs, Fish 10–30s, clone local MIT).
 - **Título e descrição traduzidos são obrigatórios** para descoberta local.
 - **Áudio/voz:** fale claro, evite fala sobreposta (melhora a dublagem).
 

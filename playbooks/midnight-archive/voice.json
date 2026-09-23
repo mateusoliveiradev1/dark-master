@@ -1,0 +1,28 @@
+{
+  "channel": "The Midnight Archive",
+  "provider": {
+    "type": "edge",
+    "fallback": ["azure"],
+    "voice_id": "en-US-ChristopherNeural",
+    "model": null,
+    "api_key_env": null,
+    "settings": {}
+  },
+  "engine": "edge-tts",
+  "voice": "en-US-ChristopherNeural",
+  "normalize": {},
+  "series_detect": [],
+  "default_series": "default",
+  "rules": {
+    "hook": { "rate": "-12%", "pitch": "-6Hz" },
+    "outro": { "rate": "-12%", "pitch": "-6Hz" },
+    "outro_from_end": 2,
+    "beat": { "rate": "-12%", "pitch": "-6Hz" },
+    "beat_max_len": 150,
+    "beat_question_pos": 80
+  },
+  "series": {
+    "default": { "rate": "-12%", "pitch": "-6Hz" }
+  },
+  "_nota": "Identidade declarada no profile.md: edge-tts en-US-ChristopherNeural, rate -12%, pitch -6Hz, prosodia por sentenca no engine procedural (tts.py/visuals.py/render.py em C:/Users/Liiiraa/Downloads/canal-dark — pasta vazia nesta maquina). Gaps/filtros/bed/loudnorm ficam nos defaults do motor ate o canal lancar e travar os seus."
+}

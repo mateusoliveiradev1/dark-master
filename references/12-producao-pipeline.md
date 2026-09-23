@@ -5,6 +5,8 @@ Pipeline unificado + mapas para os **engines** que já existem nos projetos do u
 > **Canal novo:** siga o pipeline genérico abaixo. Os "engines" por projeto são reutilizáveis, mas **não obrigatórios** — um canal novo pode começar com scripts próprios. As vozes/regras de cada canal ficam no playbook (`playbooks/<canal>/`).
 >
 > **Contrato por canal (anti-clone):** voz, motion e estilo vêm de `playbooks/<canal>/{voice,motion,style}.json` — os scripts aceitam `--channel <nome>` (ou `canal.json` na raiz) e avisam quando caem no default. Contrato completo em `playbooks/README.md`. Nunca copie os valores de outro canal.
+>
+> **Motor de voz (free + pago):** `scripts/voice_engine.py` gera com qualquer provider do contrato (`provider.type`): edge/kokoro/piper (grátis) e Azure/ElevenLabs/Fish/Gemini/OpenAI (pago) — com `--test`, `--estimate`, cache por hash e fallback com aviso. Guia: `34-voz-tts.md`.
 
 ## Pipeline unificado
 
@@ -25,7 +27,7 @@ pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_vid
 | scaffold | `scripts/novo_video.py` |
 | orquestra tudo | `scripts/build_video.py videoNN [--from step]` |
 | roteiro/linter | `scripts/linter_roteiro.py` |
-| voz | `scripts/gerar_voz_v3.py` (contrato `voice.json`: edge-tts Christopher + bed) |
+| voz | `scripts/gerar_voz_v3.py` (contrato `voice.json`: edge-tts Christopher + bed) — ou `voice_engine.py` da skill para outro provider (`--channel`) |
 | SRT norm | `scripts/gerar_srt_norm.py` |
 | motion | `scripts/montar_motion.py` (contrato `motion.json`) |
 | tail | `scripts/finalizar_tail.py` |
