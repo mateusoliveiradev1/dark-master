@@ -934,6 +934,15 @@ def extract_terms(blocks, limit=25):
 CARRIER = {"pt": "O laudo menciona {t} no caso.", "en": "The report mentions {t} in the case."}
 
 
+def carrier_for(term, blocks, cfg, lang):
+    """Contexto REAL: a 1a frase da narracao que contem o termo (mais fiel que carrier generico)."""
+    for b in blocks:
+        for sent in re.split(r"(?<=[.!?…])\s+", b):
+            if term.lower() in sent.lower() and len(sent) > len(term) + 5:
+                return normalize_text(sent.strip(), cfg)
+    return CARRIER.get(lang, CARRIER["en"]).format(t=normalize_text(term, cfg))
+
+
 def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
     """Gera o termo isolado + em contexto, transcreve com faster-whisper e flagra erro.
     Salva os audios em 02_audio/_pronuncia/ para a oitiva humana (gate final)."""
@@ -969,7 +978,7 @@ def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
         ctx = os.path.join(pdir, f"{i:02d}_{re.sub(r'[^A-Za-z0-9]+', '_', t)[:24]}_ctx.mp3")
         s2, _ = provider_params(step, t, 3, 99, cfg, cfg.get("default_series"))
         synth(s2, say, iso, args.root)
-        synth(s2, CARRIER.get(lang, CARRIER["en"]).format(t=say), ctx, args.root)
+        synth(s2, carrier_for(t, blocks, cfg, lang), ctx, args.root)
         t_iso, t_ctx = transcribe(iso), transcribe(ctx)
         exp, got_iso, got_ctx = _pkey(t), _pkey(t_iso), _pkey(t_ctx)
         ok_iso = exp == got_iso or (len(exp) > 3 and exp in got_iso)
