@@ -95,7 +95,7 @@ Ver `playbooks/README.md`.
 | **Branding do canal (logo/banner/profile/watermark)** | `references/32-branding-canal.md` |
 | **Versionamento do canal (git sem mídia) + Notion** | `references/33-versionamento-e-notion.md` |
 | **Cronologia e linha do tempo (roteiro + edição)** | `references/35-cronologia-e-timeline.md` |
-| **Contrato de pesquisa, claims e funil Short→Long** | `references/36-pesquisa-claims-e-funil.md` |
+| **Contrato de pesquisa, claims, mapa semântico, duração real e funil Short→Long** | `references/36-pesquisa-claims-e-funil.md` + `scripts/timing_audit.py` |
 | **Modelos de canal por nicho/subnicho (38, com evidência real)** | `models/README.md` + `models/<slug>/` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 

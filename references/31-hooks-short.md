@@ -113,6 +113,7 @@ O Short deve ser satisfatório sozinho. O long deve explicar o que o Short deixo
 - [ ] Sem abstração, sem data/local antes do gancho, sem meta-linguagem.
 - [ ] Anti-IA (`17`): sem triads forçadas, sem "não é só X, é Y", sem travessão em excesso.
 - [ ] Passou no `script_builder.py --genre short --validate` e no `lint-roteiro.py`.
+- [ ] `short_qa.py` validou o vídeo final, frame 1, duração e loop visual.
 
 ## Ferramentas
 
@@ -123,6 +124,11 @@ python scripts/script_builder.py --genre short --short --case "D.B. Cooper" \
 
 # validar o roteiro do Short (hook, 1 ideia, loop, orçamento)
 python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_short.txt" --genre short
+
+# QA do Short final
+python scripts/short_qa.py --narration "<videoNN>/01_roteiro/narration_short.txt" \
+  --plan "<videoNN>/01_roteiro/SHORT_FUNNEL.md" --long "<videoNN>/01_roteiro/narration_v3.txt" \
+  --video "<videoNN>/04_video_final/videoNN_SHORT.mp4" --out "<videoNN>/01_roteiro/SHORT_QA.json"
 
 # banco de variações de hook (a partir do modelo do canal)
 python scripts/script_builder.py --hooks 10 --case "D.B. Cooper" --archetypes 1,3,4,5

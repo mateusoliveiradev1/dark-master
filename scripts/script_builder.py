@@ -112,7 +112,7 @@ GENRES = {
         ("OUTRO+TEASER", 0.04, "o proximo caso"),
     ],
     "forense": [
-        ("HOOK", 0.04, "fato estranho do LAUDO; sem crime; pergunta verificavel"),
+        ("HOOK", 0.03, "fato estranho do LAUDO; sem crime; pergunta verificavel"),
         ("VIDA_E_CONTEXTO", 0.13, "origem, familia, rotina e contexto que mudam a investigacao"),
         ("DESCOBERTA", 0.10, "primeira notificacao, horario, lugar, acao e reacoes"),
         ("LINHA_DO_TEMPO", 0.16, "antecedentes e sequencia do caso com datas e saltos marcados"),
@@ -120,7 +120,7 @@ GENRES = {
         ("PERICIA", 0.17, "exames, documentos e limites do que cada prova consegue mostrar"),
         ("CONTRADICAO", 0.07, "divergencia que muda a interpretacao ou enfraquece uma certeza"),
         ("RECONSTRUCAO", 0.05, "sequencia minima com graus de certeza"),
-        ("CONFIRMADO_DESCONHECIDO", 0.04, "o que sabemos, o que nao sabemos e a ultima pergunta"),
+        ("CONFIRMADO_DESCONHECIDO", 0.05, "o que sabemos, o que nao sabemos e a ultima pergunta"),
     ],
     "short": [
         ("HOOK", 0.12, "frame 1 + fala <=8 palavras (0-3s): impossibilidade/pergunta/contradicao"),
@@ -415,8 +415,108 @@ def build_plan(genre, porte, meta, window=None):
     return "\n".join(lines) + "\n"
 
 
+def build_roteiro_map(genre, porte, meta, window=None):
+    lo, hi = window or PORTE[porte]
+    mid = (lo + hi) / 2
+    blocks = []
+    for index, (beat, proportion, guide) in enumerate(GENRES[genre], 1):
+        target_words = int(mid * proportion)
+        blocks.append({
+            "id": f"B{index:03d}",
+            "beat": beat,
+            "guide": guide,
+            "text": "",
+            "claim_ids": [],
+            "target_words": target_words,
+            "target_seconds": round(target_words / 150 * 60, 1),
+            "question": "",
+            "state_change": "",
+            "rehook": False,
+            "payoff": False,
+        })
+    return {
+        "version": 1,
+        "case_id": meta.get("case", ""),
+        "genre": genre,
+        "target_minutes": meta.get("target_minutes", ""),
+        "target_words": [lo, hi],
+        "blocks": blocks,
+    }
+
+
+def normalize_text(value):
+    return re.sub(r"\s+", " ", value or "").strip()
+
+
+def validate_roteiro_map(path, narration_path, claims, genre, window):
+    errors = []
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        return [f"roteiro_map_invalid:{exc}"]
+    blocks = data.get("blocks") if isinstance(data, dict) else None
+    if not isinstance(blocks, list) or not blocks:
+        return ["roteiro_map_empty"]
+    expected = [beat for beat, _, _ in GENRES.get(genre, [])]
+    actual = [block.get("beat") for block in blocks if isinstance(block, dict)]
+    if expected and actual != expected:
+        errors.append("roteiro_map_beats_fora_de_ordem")
+    ids = set()
+    claim_ids = set(str(claim.get("id")) for claim in claims if isinstance(claim, dict) and claim.get("id"))
+    used_claims = set()
+    target_total = 0
+    rehooks = 0
+    for index, block in enumerate(blocks, 1):
+        if not isinstance(block, dict):
+            errors.append(f"map_block_{index}:invalid")
+            continue
+        block_id = str(block.get("id", "")).strip()
+        if not block_id or block_id in ids:
+            errors.append(f"map_block_{index}:invalid_id")
+        ids.add(block_id)
+        for field in ("beat", "text", "question", "state_change"):
+            if not str(block.get(field, "")).strip():
+                errors.append(f"map_block_{block_id or index}:missing_{field}")
+        if words(block.get("text", "")) == 0:
+            errors.append(f"map_block_{block_id or index}:empty_text")
+        if not isinstance(block.get("claim_ids"), list) or not block["claim_ids"]:
+            errors.append(f"map_block_{block_id or index}:missing_claim_ids")
+        for claim_id in block.get("claim_ids", []) if isinstance(block.get("claim_ids"), list) else []:
+            claim_id = str(claim_id)
+            if claim_id not in claim_ids:
+                errors.append(f"map_block_{block_id or index}:unknown_claim:{claim_id}")
+            used_claims.add(claim_id)
+        try:
+            target_words = int(block.get("target_words", 0))
+            target_seconds = float(block.get("target_seconds", 0))
+        except (TypeError, ValueError):
+            target_words, target_seconds = 0, 0
+        if target_words <= 0 or target_seconds <= 0:
+            errors.append(f"map_block_{block_id or index}:invalid_budget")
+        target_total += target_words
+        rehooks += int(bool(block.get("rehook")))
+    lo, hi = window or (0, 10 ** 9)
+    if not lo <= target_total <= hi:
+        errors.append(f"map_target_words({target_total}) fora de {lo}-{hi}")
+    required_rehooks = min(6, max(3, int(lo / 700)))
+    if rehooks < required_rehooks:
+        errors.append(f"map_rehooks_insuficientes({rehooks}<{required_rehooks})")
+    if not any(block.get("payoff") for block in blocks if isinstance(block, dict)):
+        errors.append("map_sem_payoff")
+    if not any(block.get("payoff") for block in reversed(blocks) if isinstance(block, dict)):
+        errors.append("map_payoff_nao_fechado")
+    if claim_ids - used_claims:
+        errors.append("claims_sem_bloco:" + ",".join(sorted(claim_ids - used_claims)))
+    narration = "\n".join(line for line in Path(narration_path).read_text(encoding="utf-8", errors="replace").splitlines()
+                         if not line.strip().startswith("#"))
+    map_text = "\n\n".join(str(block.get("text", "")) for block in blocks if isinstance(block, dict))
+    if normalize_text(narration) != normalize_text(map_text):
+        errors.append("map_narration_mismatch")
+    return errors
+
+
 def validate(narration_path, porte, genre, window=None, claims_path=None,
-             timeline_path=None, funnel_plan=None, strict=False):
+             timeline_path=None, funnel_plan=None, map_path=None, strict=False):
     narration_path = Path(narration_path)
     txt = narration_path.read_text(encoding="utf-8", errors="replace")
     body = "\n".join(l for l in txt.splitlines() if not l.strip().startswith("#"))
@@ -472,6 +572,9 @@ def validate(narration_path, porte, genre, window=None, claims_path=None,
         else:
             flags.extend(validate_claims(claims))
             flags.extend(validate_source_ledger(source_file, claims))
+        if genre != "short":
+            map_file = Path(map_path) if map_path else narration_path.parent / "ROTEIRO_MAP.json"
+            flags.extend(validate_roteiro_map(map_file, narration_path, claims, genre, (lo, hi)))
         if genre in {"forense", "truecrime", "darkhistory", "financial"}:
             timeline_file = Path(timeline_path) if timeline_path else narration_path.parent / "LINHA_DO_TEMPO.md"
             events, timeline_error = timeline_events(timeline_file)
@@ -568,6 +671,7 @@ def main():
     ap.add_argument("--claims", help="manifesto JSON de claims")
     ap.add_argument("--timeline", help="LINHA_DO_TEMPO.md")
     ap.add_argument("--funnel-plan", help="plano estruturado do Short")
+    ap.add_argument("--map", help="ROTEIRO_MAP.json para validar o mapa semântico")
     ap.add_argument("--strict", action="store_true", help="exige pesquisa, claims e linha do tempo")
     ap.add_argument("--channel", help="playbook do canal: le roteiro.json (porte proprio do canal)")
     ap.add_argument("--hooks", type=int, help="gera N variacoes de hook (references/31)")
@@ -618,7 +722,7 @@ def main():
             window = PORTE[porte]
 
     if a.validate:
-        ok = validate(a.validate, porte, genre, window, a.claims, a.timeline, a.funnel_plan, a.strict)
+        ok = validate(a.validate, porte, genre, window, a.claims, a.timeline, a.funnel_plan, a.map, a.strict)
         sys.exit(0 if ok else 1)
 
     if not a.out:
@@ -635,6 +739,17 @@ def main():
     nar = out / nar_name
     if not nar.exists():
         nar.write_text("", encoding="utf-8")
+    if not is_short:
+        map_path = out / "ROTEIRO_MAP.json"
+        map_needs_seed = not map_path.exists()
+        if not map_needs_seed:
+            try:
+                map_needs_seed = not json.loads(map_path.read_text(encoding="utf-8")).get("blocks")
+            except (OSError, ValueError, AttributeError):
+                map_needs_seed = True
+        if map_needs_seed:
+            map_path.write_text(json.dumps(build_roteiro_map(genre, porte, a.__dict__, window), ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[OK] mapa semântico: {map_path}")
     if a.funnel:
         short_plan = out / "ROTEIRO_SHORT_PLANO.md"
         short_plan.write_text(build_short_funnel(a.__dict__), encoding="utf-8")

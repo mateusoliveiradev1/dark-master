@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "case_id": "",
+  "genre": "",
+  "target_minutes": "",
+  "target_words": [],
+  "blocks": [
+    {
+      "id": "B001",
+      "beat": "HOOK",
+      "guide": "",
+      "text": "",
+      "claim_ids": [],
+      "target_words": 0,
+      "target_seconds": 0,
+      "question": "",
+      "state_change": "",
+      "rehook": false,
+      "payoff": false
+    }
+  ]
+}

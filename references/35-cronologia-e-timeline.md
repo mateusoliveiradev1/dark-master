@@ -76,12 +76,18 @@ Regras de edição:
 - [ ] Plate gerado e aprovado (rótulos curtos, legível).
 - [ ] `datestamps.ass` queimado no final; spot-check de 3 marcas no vídeo pronto.
 - [ ] Descrição/chapters coerentes com a cronologia (chapters pós-build, `12`).
+- [ ] `ROTEIRO_MAP.json` corresponde à narração e cada claim está ligada a um bloco.
+- [ ] Depois da voz, `TIMING_AUDIT.json` confirma a janela real de duração.
 
 ## Ferramentas
 
 ```bash
 # linter (estrutura + IA + cronologia)
 python scripts/lint-roteiro.py <narration> --cronologia <LINHA_DO_TEMPO.md> --lang pt --genero forense
+
+# duracao real da voz
+python scripts/timing_audit.py --narration <narration> --captions-times <captions_times.json> \
+  --target-minutes 30-35 --map <ROTEIRO_MAP.json> --voice <voice_FINAL.wav> --out <TIMING_AUDIT.json>
 
 # linha do tempo na edição (plate + datestamps)
 python scripts/timeline_kit.py videoNN --root "<canal>" --channel <canal>

@@ -6,7 +6,7 @@ Uso:
   python scripts/audit_all.py "C:/.../canal dark1"          # varre todos os videoNN
   python scripts/audit_all.py "<videoNN>" --json
 
-Gates: imagens (image_audit) + audio (audio_audit) + legendas (captions_audit) + presenca de pacote/final.
+Gates: imagens (image_audit) + audio (audio_audit) + legendas (captions_audit) + timing + Short QA + originalidade + compliance + scorecard + research + pacote/final.
 Sai com codigo 1 se qualquer gate falhar.
 """
 import argparse
@@ -64,6 +64,72 @@ def audit_video(v):
     else:
         res["gates"]["captions"] = "ausente"
 
+    timing = v / "01_roteiro" / "TIMING_AUDIT.json"
+    try:
+        timing_data = json.loads(timing.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        timing_data = {}
+    if timing_data.get("status") == "PASS":
+        res["gates"]["timing"] = "ok"
+    else:
+        res["gates"]["timing"] = "FALHA"
+        res["flags"].append("timing")
+
+    short_qa = v / "01_roteiro" / "SHORT_QA.json"
+    try:
+        short_qa_data = json.loads(short_qa.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        short_qa_data = {}
+    if short_qa_data.get("status") == "PASS":
+        res["gates"]["short_qa"] = "ok"
+    else:
+        res["gates"]["short_qa"] = "FALHA"
+        res["flags"].append("short_qa")
+
+    originality = v / "01_roteiro" / "ORIGINALITY_AUDIT.json"
+    try:
+        originality_data = json.loads(originality.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        originality_data = {}
+    if originality_data.get("status") in {"PASS", "REVIEW"}:
+        res["gates"]["originalidade"] = "ok"
+    else:
+        res["gates"]["originalidade"] = "FALHA"
+        res["flags"].append("originalidade")
+
+    compliance = v / "01_roteiro" / "COMPLIANCE_AUDIT.json"
+    try:
+        compliance_data = json.loads(compliance.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        compliance_data = {}
+    if compliance_data.get("status") == "PASS":
+        res["gates"]["compliance"] = "ok"
+    else:
+        res["gates"]["compliance"] = "FALHA"
+        res["flags"].append("compliance")
+
+    scorecard = v / "01_roteiro" / "SCRIPT_SCORECARD.json"
+    try:
+        scorecard_data = json.loads(scorecard.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        scorecard_data = {}
+    if scorecard_data.get("status") == "PASS":
+        res["gates"]["scorecard"] = "ok"
+    else:
+        res["gates"]["scorecard"] = "FALHA"
+        res["flags"].append("scorecard")
+
+    research_audit = v / "01_roteiro" / "RESEARCH_AUDIT.json"
+    try:
+        research_data = json.loads(research_audit.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        research_data = {}
+    if research_data.get("status") == "PASS":
+        res["gates"]["research"] = "ok"
+    else:
+        res["gates"]["research"] = "FALHA"
+        res["flags"].append("research")
+
     pkg = find(v, ["youtube_package.txt", "PACOTE_PUBLICACAO.txt"])
     res["gates"]["pacote"] = "ok" if pkg else "ausente"
     final = any(v.glob("04_video_final/*.mp4")) if (v / "04_video_final").exists() else False
@@ -95,11 +161,11 @@ def main():
         print(json.dumps(results, ensure_ascii=False, indent=1))
     else:
         print("# Auditoria geral\n")
-        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'pacote':<8} {'final':<8} veredito")
+        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
         for r in results:
             g = r["gates"]
             print(f"{r['video']:<20} {g['imagens']:<8} {g['audio']:<8} {g['captions']:<8} "
-                  f"{g['pacote']:<8} {g['final']:<8} {r['veredito']}")
+                  f"{g['timing']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
         print(f"\nTotal: {len(results)} | Falhas: {len(fails)}")
         print("Falhas:", ", ".join(r["video"] for r in fails) or "nenhuma")
 

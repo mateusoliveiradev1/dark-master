@@ -69,7 +69,7 @@ dark-master/
 │  ├─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
 │  ├─ 34-voz-tts.md             # voz free + paga: providers, custos, licenças, QA
 │  ├─ 35-cronologia-e-timeline.md  # caso cronológico: tabela → roteiro → datestamps na edição
-│  └─ 36-pesquisa-claims-e-funil.md  # brief, claims, timeline e Short→Long
+│  └─ 36-pesquisa-claims-e-funil.md  # brief, claims, mapa, timeline e Short→Long
 ├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers
@@ -114,7 +114,15 @@ dark-master/
 |---|---|
 | `yt_auth.py` | OAuth do YouTube (uma vez). |
 | `new_video.py` | Cria scaffold com brief, source ledger, claims, timeline, long e Short separados. |
-| `script_builder.py` | Gera planos long/Short, aceita 30–35/45–60/60–70, valida claims/timeline/funil e gera variações de hook. |
+| `script_builder.py` | Gera planos long/Short, aceita 30–35/45–60/60–70, cria o mapa semântico e valida claims/timeline/funil. |
+| `timing_audit.py` | Confere duração real via `captions_times.json`/TTS e grava `TIMING_AUDIT.json`. |
+| `short_qa.py` | Audita hook, frame 1, overlap com o long, duração e loop visual do Short final. |
+| `originality_audit.py` | Compara o roteiro com episódios anteriores e bloqueia cópia/repetição. |
+| `compliance_audit.py` | Detecta meta-linguagem, gore, atribuição de culpa e status jurídico para revisão. |
+| `script_scorecard.py` | Atribui score editorial de 100 pontos e exige threshold por lane. |
+| `script_feedback.py` | Compara métricas do canal e gera propostas de melhoria sem alterar regras. |
+| `research_audit.py` | Audita fontes, localizadores, confiança e independência das claims. |
+| `calibration_audit.py` | Compara scorecard com métricas D+2/D+7 sem ajustar regras automaticamente. |
 | `prompt_builder.py` | Gera os prompts de imagem (consistentes) e pode renderizar. |
 | `yt_metrics.py` | Puxa métricas, metadados, tráfego e retenção → banco + CSV. |
 | `yt_analysis.py` | Explica baseline, funil, retenção, outliers, calendário e experimentos. |
@@ -123,7 +131,7 @@ dark-master/
 | `image_audit.py` | Audita imagens geradas (resolução, aspecto, brilho, duplicatas) + contact sheet. |
 | `audio_audit.py` | Audita voz: loudness (LUFS), true peak, clipping, silêncios longos. |
 | `captions_audit.py` | Audita SRT/VTT: cues, sobreposição, CPS, cobertura vs áudio. |
-| `audit_all.py` | Orquestra todas as auditorias e dá o veredito por vídeo. |
+| `audit_all.py` | Orquestra imagens, áudio, legendas, timing, Short QA, originalidade, compliance, scorecard, research e vídeo final. |
 | `channel_organize.py` | Organiza a pasta do canal (dry-run → aplicar). |
 | `name_check.py` | Checa disponibilidade de nome/handle. |
 | `yt_db.py` | Camada de dados (Neon Postgres ou SQLite). |

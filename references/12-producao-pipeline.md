@@ -70,13 +70,14 @@ pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_vid
 
 1. Escrever roteiro → `linter_roteiro`.
 2. **Scaffold** (`novo_video`/`new_video`: pastas + stubs + PROMPTS + package) → **voz** (`gerar_voz`; só precisa da narração + fatos — `30` PASSO 6).
-3. Completar prompts (porte) → gerar/coletar **todas** as imagens (Nano Banana manual; ver `13`) → `image_audit` (**GATE 100% antes do motion**).
-4. `gerar_srt_norm` → `montar_motion` → `finalizar_tail` → (`anexar_outro` se long).
-5. `remapar_chapters` (duração real) → `padrao_short` → `endcard`.
-6. `fazer_thumb_v2` (3 variantes) → `pacote_dia` → `validar_pacote`.
-7. `auditar_tudo` → upload manual → publicar.
+3. **Auditar duração real** (`timing_audit.py` com `captions_times.json` + TTS) → `TIMING_AUDIT.json` precisa estar `PASS`.
+4. Completar prompts (porte) → gerar/coletar **todas** as imagens (Nano Banana manual; ver `13`) → `image_audit` (**GATE 100% antes do motion**).
+5. `gerar_srt_norm` → `montar_motion` → `finalizar_tail` → (`anexar_outro` se long).
+6. `remapar_chapters` (duração real) → `padrao_short` → `endcard`.
+7. `fazer_thumb_v2` (3 variantes) → `pacote_dia` → `validar_pacote`.
+8. `auditar_tudo` → upload manual → publicar.
    - **Etapas manuais no meio do pipeline:** o `build_video` **para no gate de thumbs** (3 variantes A/B/C são geradas por você) e o **pacote de publicação é autoral** (título/descrição/tags/chapters — o scaffold só cria os blocos vazios no formato do validador; `pacote_dia` monta o copiar-e-colar). Capítulos só depois do build (`remapar_chapters`).
-8. D+2/D+7: `revisao_d2` → atualizar `15-loop-de-aprendizado.md`.
+9. D+2/D+7: `revisao_d2` → atualizar `15-loop-de-aprendizado.md`.
 
 ## Invariantes (não quebrar)
 - Voz/motion/estilo oficiais por canal (contrato `playbooks/<canal>/{voice,motion,style}.json`).

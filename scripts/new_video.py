@@ -14,6 +14,7 @@ Cria:
   01_roteiro/PESQUISA_BRIEF.md
   01_roteiro/PESQUISA_FONTE.md
   01_roteiro/CLAIMS.json
+  01_roteiro/ROTEIRO_MAP.json
   01_roteiro/LINHA_DO_TEMPO.md
   01_roteiro/SHORT_FUNNEL.md
   03_imagens/PROMPTS.md           (esqueleto via prompt_builder, se disponivel)
@@ -115,6 +116,15 @@ CLAIMS_TMPL = {
     "case_id": "",
     "version": 1,
     "claims": []
+}
+
+MAP_TMPL = {
+    "version": 1,
+    "case_id": "",
+    "genre": "",
+    "target_minutes": "",
+    "target_words": [],
+    "blocks": []
 }
 
 SHORT_TMPL = """# SHORT→LONG — {case}
@@ -235,10 +245,10 @@ def main():
         pesq.write_text(
             f"# PESQUISA/FONTES — {case}\n\n"
             "> Uma camada por linha: [FATO] / [REPORTADO] / [LENDA]. 2+ fontes por caso. Nada sem fonte.\n\n"
-            "| ID | Camada | Afirmação | Fonte | URL | Localizador | Limitações |\n"
-            "|---|---|---|---|---|---|---|\n"
-            "| S001 | FATO | | | | | |\n"
-            "| S002 | REPORTADO | | | | | |\n\n"
+            "| ID | Camada | Tipo | Fonte | Depende de | URL | Trecho/localizador | Limitações |\n"
+            "|---|---|---|---|---|---|---|---|\n"
+            "| S001 | FATO | primária | | | | | |\n"
+            "| S002 | REPORTADO | secundária | | | | | |\n\n"
             "- [LEGENDA/LENDA a evitar] \n",
             encoding="utf-8")
     brief = vid / "01_roteiro" / "PESQUISA_BRIEF.md"
@@ -249,6 +259,11 @@ def main():
         claim_data = dict(CLAIMS_TMPL)
         claim_data["case_id"] = case
         claims.write_text(json.dumps(claim_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    map_path = vid / "01_roteiro" / "ROTEIRO_MAP.json"
+    if not map_path.exists():
+        map_data = dict(MAP_TMPL)
+        map_data["case_id"] = case
+        map_path.write_text(json.dumps(map_data, ensure_ascii=False, indent=2), encoding="utf-8")
     short_funnel = vid / "01_roteiro" / "SHORT_FUNNEL.md"
     if not short_funnel.exists():
         short_funnel.write_text(SHORT_TMPL.format(case=case), encoding="utf-8")
@@ -279,12 +294,12 @@ def main():
         print(f"     {s}/")
     print("     youtube_package.txt")
     print("\nProximos passos (scaffold completo = pastas + stubs + PROMPTS + package + voz):")
-    print("  1. preencha PESQUISA_BRIEF.md, PESQUISA_FONTE.md e CLAIMS.json")
+    print("  1. preencha PESQUISA_BRIEF.md, PESQUISA_FONTE.md, CLAIMS.json e ROTEIRO_MAP.json")
     print("     caso cronologico (forense/truecrime): preencha 01_roteiro/LINHA_DO_TEMPO.md")
     print("     escreva o long em 01_roteiro/narration_v3.txt e o Short em 01_roteiro/narration_short.txt")
     print("  2. planeje o Short em SHORT_FUNNEL.md e valide-o separadamente")
     print(f"  3. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
-    print("  4. voz liberada (so depende da narracao e do GATE de fatos); MOTION so com GATE 100% das imagens")
+    print("  4. voz liberada; depois rode timing_audit.py e salve TIMING_AUDIT.json")
     print(f"  5. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")
 
 

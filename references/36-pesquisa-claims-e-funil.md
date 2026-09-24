@@ -11,7 +11,8 @@ Todo episódio precisa ter, no mínimo:
 - `CLAIMS.json`: afirmações estruturadas que o roteiro pode usar.
 - `LINHA_DO_TEMPO.md`: linha do tempo canônica, incluindo biografia e contexto quando eles ajudam a explicar o caso.
 - `SHORT_FUNNEL.md`: Short de aquisição, ponte para o long e contrato de loop.
-- `narration_v3.txt`: só depois da aprovação da pesquisa.
+- `ROTEIRO_MAP.json`: mapa semântico do long, com um registro por bloco e referência às claims.
+- `narration_v3.txt`: só depois da aprovação da pesquisa e do preenchimento do mapa.
 - `narration_short.txt`: roteiro independente, nunca um corte automático do long.
 
 Um arquivo vazio ou com placeholders não conta como pesquisa. O readiness check deve devolver `INCONCLUSIVO` ou `FALHA`, nunca `PASSA`.
@@ -175,6 +176,12 @@ Um long não é aprovado para voz até que tudo isto seja verdadeiro:
 - o comprimento corresponde à duração escolhida;
 - cold open, rehooks, cascade de evidências, contradição, reconstrução e payoff final existem;
 - o Short tem plano, narração, bridge e loop próprios;
-- `script_builder.py --strict` e `lint-roteiro.py` passam.
+- `SHORT_QA.json` valida o vídeo final, frame 1, duração e loop visual;
+- `ROTEIRO_MAP.json` corresponde à narração e não deixa claims órfãs;
+- `script_builder.py --strict` e `lint-roteiro.py` passam;
+- `timing_audit.py` confirma a duração real depois da voz;
+- `research_audit.py --strict` confirma fontes, localizadores, confiança e independência;
+- `script_scorecard.py` atinge o threshold do lane;
+- `script_feedback.py` e `calibration_audit.py` só geram propostas após métricas reais, nunca alteram regras sozinhos.
 
 Se a pesquisa estiver incompleta, o resultado correto é `INCONCLUSIVO`, não um roteiro mais convincente.

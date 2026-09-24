@@ -61,6 +61,19 @@ Regras:
 - Para forense, a cronologia deve cobrir a vida inteira quando isso alterar acesso, oportunidade, risco, conflito ou interpretação; não force biografia irrelevante.
 - A reconstrução só usa sequência mínima sustentada pelas evidências e explicita o grau de certeza.
 
+### Gate semântico do long
+
+- `ROTEIRO_MAP.json` é o sidecar obrigatório do long: cada bloco tem `beat`, `text`, `claim_ids`, `target_words`, `target_seconds`, `question`, `state_change`, `rehook` e `payoff`.
+- O texto do mapa deve corresponder a `narration_v3.txt`; marcadores ficam apenas no sidecar, nunca na narração TTS.
+- Toda claim deve estar mapeada a pelo menos um bloco; claims não usadas só entram com justificativa explícita.
+- O validador estrito bloqueia beats fora de ordem, blocos sem pergunta, mudança de estado, payoff final, rehooks insuficientes, claims desconhecidas e divergência mapa/narração.
+- Depois da voz, rode `scripts/timing_audit.py` com `captions_times.json` e o TTS final; `TIMING_AUDIT.json` só pode ser `PASS` dentro da janela-alvo.
+- Rode `scripts/originality_audit.py` contra os últimos episódios; near-duplicate ou template repetitivo bloqueia a entrega.
+- Rode `scripts/compliance_audit.py`; qualquer `REVIEW` exige revisão humana antes da publicação.
+- Rode `scripts/research_audit.py --strict`; `RESEARCH_AUDIT.json` só passa com fontes, localizadores, confiança e independência rastreáveis.
+- Rode `scripts/script_scorecard.py`; `SCRIPT_SCORECARD.json` só passa no threshold do lane.
+- Após D+2/D+7, rode `scripts/script_feedback.py` e `scripts/calibration_audit.py`; ambos são propose-only e nunca reescrevem regras automaticamente.
+
 ### Short→Long obrigatório no lane misto
 - Gere `SHORT_FUNNEL.md`, `ROTEIRO_SHORT_PLANO.md` e `narration_short.txt` separados do long.
 - O Short usa uma claim verificada, frame 1, texto ≤6, fala ≤8, uma ideia, payoff e loop visual/sonoro.
@@ -164,14 +177,15 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
 
 ## Fluxo de escrita (workflow)
 
-1. **Brief do caso** (pesquisa: quem/quando/onde/vítimas/fontes/pergunta central). Preencha `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md` e `CLAIMS.json`; casos cronológicos também preenchem `LINHA_DO_TEMPO.md` (`35`, `36`).
+1. **Brief do caso** (pesquisa: quem/quando/onde/vítimas/fontes/pergunta central). Preencha `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json` e `ROTEIRO_MAP.json`; casos cronológicos também preenchem `LINHA_DO_TEMPO.md` (`35`, `36`).
 2. **Definir a duração e o formato** (`--target-minutes 30-35` ou playbook do canal). Para forense, incluir vida, contexto e investigação que mudem a interpretação, sem biografia automática.
-3. **Gerar o esqueleto** com `scripts/script_builder.py` (beats, orçamento, claims e checklist). Se o lane for misto, usar `--funnel` para gerar o plano do Short separado.
-4. **Escrever** `narration_v3.txt` bloco a bloco, mapeando cada afirmação material à claim correspondente. Escrever `narration_short.txt` como peça independente, não como corte automático.
+3. **Gerar o esqueleto** com `scripts/script_builder.py` (beats, orçamento, `ROTEIRO_MAP.json`, claims e checklist). Preencha o mapa com o texto real de cada bloco antes de validar. Se o lane for misto, usar `--funnel` para gerar o plano do Short separado.
+4. **Escrever** `narration_v3.txt` bloco a bloco, preenchendo o `ROTEIRO_MAP.json` com `claim_ids`, pergunta, mudança de estado, rehook e payoff. Escrever `narration_short.txt` como peça independente, não como corte automático.
 5. **Passar o linter** (`lint-roteiro.py`) e o **validador estrito** (`script_builder.py --validate --strict`). O Short usa hook ≤8 palavras e seu próprio plano de loop/bridge.
 6. **Aprovar fatos** antes de gerar voz (GATE de fatos). Se houver lacuna, registrar `INCONCLUSIVO` e cortar ou atribuir a hipótese.
-7. **Scaffold do vídeo** — o roteiro **não está entregue** sem esta etapa (**roteiro sem scaffold = entrega incompleta**):
-   a. **Pastas + stubs**: `python scripts/novo_video.py NN "Caso" SERIE` (no canal real) ou `python scripts/new_video.py NN "Caso" SERIE --root "<canal>"` (skill) → cria `videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}` + `TEMPLATE.txt`, `narration_v3.txt`, `narration_short.txt`, `tease.txt`, `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json`, `LINHA_DO_TEMPO.md`, `SHORT_FUNNEL.md` e `youtube_package.txt` (stubs). O scaffold **nunca sobrescreve** arquivos existentes: narração, pesquisa, claims, timeline e funil são preservados.
+7. **Auditar duração real depois da voz** com `scripts/timing_audit.py`; salvar `TIMING_AUDIT.json` com status `PASS` antes de considerar o roteiro pronto.
+8. **Scaffold do vídeo** — o roteiro **não está entregue** sem esta etapa (**roteiro sem scaffold = entrega incompleta**):
+   a. **Pastas + stubs**: `python scripts/novo_video.py NN "Caso" SERIE` (no canal real) ou `python scripts/new_video.py NN "Caso" SERIE --root "<canal>"` (skill) → cria `videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}` + `TEMPLATE.txt`, `narration_v3.txt`, `narration_short.txt`, `tease.txt`, `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json`, `ROTEIRO_MAP.json`, `LINHA_DO_TEMPO.md`, `SHORT_FUNNEL.md` e `youtube_package.txt` (stubs). O scaffold **nunca sobrescreve** arquivos existentes: narração, pesquisa, claims, mapa, timeline e funil são preservados.
    b. **PROMPTS.md completo por PORTE** — **FINO 26–30 · PADRÃO 32–36 · RICO 36–40 · FORENSE 30–35 38–48 · FORENSE 45–60 52–68 · FORENSE 60–70 68–88** — com o **sufixo travado do canal** (contrato: `playbooks/<canal>/style.json` → `image_suffix`, via `--channel`) e o header da regra de geração (`29`); mapeie os blocos **TEASE-A/B** nos números de imagem correspondentes (blocos do meio, min 7–12). Gere com `scripts/prompt_builder.py --style <preset-do-canal> --suffix "<sufixo>" --count <porte>` ou complete o esqueleto do scaffold.
    c. **youtube_package.txt base**: `TITLE` + alternativas + `ANGULO` + `DESCRIPTION` (Lego) + `TAGS` + `THUMB` spec + bloco `SHORT` + pinneds. O template do scaffold já sai no **formato que o validador cobra** (`TITLE:`, `DESCRIPTION (copiar e colar):`, `TAGS:`, linha começando com `CHAPTERS ...`) — não edite os rótulos, só preencha. **CHAPTERS ficam marcados `PENDENTE`** — só remapeie pós-build com a duração real (`ffprobe`/`remapar_chapters`), nunca antes. Preencher o pacote (título/descrição/tags/chapters) é **etapa autoral manual** — não é gerada por script.
    d. **Voz liberada no scaffold** (`python scripts/gerar_voz_v3.py videoNN`; identidade no contrato `playbooks/<canal>/voice.json`): a voz depende **só da narração + GATE de fatos**. **MOTION continua bloqueado pelo GATE 100%** (só com todas as imagens). Distinção que vale de agora em diante (resolve a contradição com o `PROTOCOLO_ANTI_INAUTHENTIC` item 5): **`imagens < 100% → não gera MOTION`**; a **voz pode (e deve) ser gerada no scaffold**.
@@ -179,11 +193,11 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
    **Verificação pós-scaffold** (antes de seguir):
    ```bash
    ls "<canal>/videoNN"                 # 01_roteiro 02_audio 03_imagens 04_video_final
-    ls "<canal>/videoNN/01_roteiro"      # narration_v3.txt narration_short.txt TEMPLATE.txt PESQUISA_BRIEF.md PESQUISA_FONTE.md CLAIMS.json LINHA_DO_TEMPO.md SHORT_FUNNEL.md
+     ls "<canal>/videoNN/01_roteiro"      # narration_v3.txt narration_short.txt TEMPLATE.txt PESQUISA_BRIEF.md PESQUISA_FONTE.md CLAIMS.json ROTEIRO_MAP.json LINHA_DO_TEMPO.md SHORT_FUNNEL.md
 
    ls "<canal>/videoNN/youtube_package.txt" "<canal>/videoNN/03_imagens/PROMPTS.md"
    ```
-   - [ ] 4 pastas existem · narração/tease/PESQUISA **preservados** · PROMPTS.md com o sufixo do canal e TEASE-A/B mapeados · chapters `PENDENTE` · voz gerada (fatos aprovados).
+    - [ ] 4 pastas existem · narração/tease/PESQUISA/mapa **preservados** · PROMPTS.md com o sufixo do canal e TEASE-A/B mapeados · chapters `PENDENTE` · voz gerada (fatos aprovados) · `TIMING_AUDIT.json` = PASS.
 
 ## Ferramentas
 
@@ -199,11 +213,37 @@ python scripts/script_builder.py --genre truecrime --porte padrao \
   --out "<videoNN>/01_roteiro"
 
 # validar estrutura/orcamento de um roteiro ja escrito
-python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_v3.txt" --genre truecrime --strict
+python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_v3.txt" --genre truecrime --strict \
+  --map "<videoNN>/01_roteiro/ROTEIRO_MAP.json"
 
 # canal com formato proprio (usa o porte de playbooks/<canal>/roteiro.json)
 python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_pt.txt" \
   --channel laudo-final --genre forense
+
+# comparar com episodios anteriores
+python scripts/originality_audit.py --narration "<videoNN>/01_roteiro/narration_v3.txt" \
+  --previous "<canal>" --out "<videoNN>/01_roteiro/ORIGINALITY_AUDIT.json"
+
+# compliance assistido
+python scripts/compliance_audit.py --narration "<videoNN>/01_roteiro/narration_v3.txt" \
+  --claims "<videoNN>/01_roteiro/CLAIMS.json" --out "<videoNN>/01_roteiro/COMPLIANCE_AUDIT.json"
+
+# scorecard editorial
+python scripts/script_scorecard.py --root "<videoNN>" --lane mixed --out "<videoNN>/01_roteiro/SCRIPT_SCORECARD.json"
+
+# auditoria de pesquisa e calibração
+python scripts/research_audit.py --root "<videoNN>" --strict --out "<videoNN>/01_roteiro/RESEARCH_AUDIT.json"
+python scripts/calibration_audit.py --scorecard "<videoNN>/01_roteiro/SCRIPT_SCORECARD.json" \
+  --channel "@Canal" --video-tag videoNN --out "<videoNN>/01_roteiro/CALIBRATION_AUDIT.json"
+
+# feedback D+2/D+7 (propose-only)
+python scripts/script_feedback.py --channel "@Canal" --video-tag videoNN --out "<videoNN>/01_roteiro/SCRIPT_FEEDBACK.json"
+
+# auditar duracao real depois da voz
+python scripts/timing_audit.py --narration "<videoNN>/01_roteiro/narration_v3.txt" \
+  --captions-times "<videoNN>/02_audio/captions_times.json" --target-minutes 30-35 \
+  --map "<videoNN>/01_roteiro/ROTEIRO_MAP.json" --voice "<videoNN>/02_audio/voice_FINAL.wav" \
+  --out "<videoNN>/01_roteiro/TIMING_AUDIT.json"
 
 # Short (references/31)
 python scripts/script_builder.py --genre short --short --case "Hoffa" --out "<videoNN>/01_roteiro"

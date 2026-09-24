@@ -137,7 +137,9 @@ def research_contract(vdir):
     source = script_dir / "PESQUISA_FONTE.md"
     claims = script_dir / "CLAIMS.json"
     timeline = script_dir / "LINHA_DO_TEMPO.md"
-    result = {"ready": False, "legacy": False, "brief": False, "sources": False, "claims": False, "timeline": False}
+    map_path = script_dir / "ROTEIRO_MAP.json"
+    timing = script_dir / "TIMING_AUDIT.json"
+    result = {"ready": False, "legacy": False, "brief": False, "sources": False, "claims": False, "map": False, "timeline": False, "timing": False}
     brief_text = brief.read_text(encoding="utf-8", errors="replace") if brief.exists() else ""
     source_text = source.read_text(encoding="utf-8", errors="replace") if source.exists() else ""
     result["brief"] = len(brief_text.strip()) > 120
@@ -155,10 +157,27 @@ def research_contract(vdir):
         )
     except (OSError, ValueError, AttributeError):
         result["claims"] = False
+    try:
+        map_data = json.loads(map_path.read_text(encoding="utf-8"))
+        map_blocks = map_data.get("blocks", [])
+        result["map"] = bool(map_blocks) and all(
+            isinstance(block, dict)
+            and block.get("text")
+            and block.get("claim_ids")
+            and block.get("question")
+            and block.get("state_change")
+            for block in map_blocks
+        )
+    except (OSError, ValueError, AttributeError):
+        result["map"] = False
     result["timeline"] = timeline.exists() and len([
         line for line in timeline.read_text(encoding="utf-8", errors="replace").splitlines()
         if line.strip().startswith("|") and "preencher" not in line.lower()
     ]) >= 3
+    try:
+        result["timing"] = json.loads(timing.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        result["timing"] = False
     legacy_candidate = (
         not brief.exists()
         and not claims.exists()
@@ -167,7 +186,7 @@ def research_contract(vdir):
         and "preencher" not in source_text.lower()
     )
     result["legacy"] = legacy_candidate
-    result["ready"] = all(result[key] for key in ("brief", "sources", "claims", "timeline")) or legacy_candidate
+    result["ready"] = all(result[key] for key in ("brief", "sources", "claims", "map", "timeline", "timing")) or legacy_candidate
     return result
 
 
@@ -181,6 +200,31 @@ def strict_state(vdir):
     for name in ("PESQUISA_FONTE.md", "PESQUISA_BRIEF.md", "CLAIMS.json", "case-brief.md", "TRADUCAO_PT.txt"):
         research_files.extend((vdir / "01_roteiro").rglob(name))
     research_contract_state = research_contract(vdir)
+    short_qa_path = vdir / "01_roteiro" / "SHORT_QA.json"
+    originality_path = vdir / "01_roteiro" / "ORIGINALITY_AUDIT.json"
+    compliance_path = vdir / "01_roteiro" / "COMPLIANCE_AUDIT.json"
+    scorecard_path = vdir / "01_roteiro" / "SCRIPT_SCORECARD.json"
+    research_audit_path = vdir / "01_roteiro" / "RESEARCH_AUDIT.json"
+    try:
+        short_qa_ready = json.loads(short_qa_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        short_qa_ready = False
+    try:
+        originality_ready = json.loads(originality_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        originality_ready = False
+    try:
+        compliance_ready = json.loads(compliance_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        compliance_ready = False
+    try:
+        scorecard_ready = json.loads(scorecard_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        scorecard_ready = False
+    try:
+        research_audit_ready = json.loads(research_audit_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        research_audit_ready = False
     image_files = [p for p in image_dir.rglob("*") if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}] \
         if image_dir.exists() else []
     thumbs = [p for p in final_dir.glob("thumb*.png")] + [p for p in final_dir.glob("thumb*.jpg")] \
@@ -197,7 +241,16 @@ def strict_state(vdir):
     thumbs_ready = len({p.name for p in thumbs}) >= 3
     package_ready = package_path.exists() and not package["pending"] and bool(package["long_title"])
     images_ready = bool(image_files) and (images_expected is None or len(image_files) >= images_expected)
-    core_ready = narration and research and audio and captions and long_video and short_video and thumbs_ready and package_ready and images_ready
+    if research_contract_state.get("legacy"):
+        timing_ready = True
+        short_qa_ready = True
+        originality_ready = True
+        compliance_ready = True
+        scorecard_ready = True
+        research_audit_ready = True
+    else:
+        timing_ready = research_contract_state.get("timing", False)
+    core_ready = narration and research and audio and captions and long_video and short_video and short_qa_ready and originality_ready and compliance_ready and scorecard_ready and research_audit_ready and thumbs_ready and package_ready and images_ready and timing_ready
     if core_ready:
         stage = "pronto"
     elif long_video and short_video and package_ready:
@@ -216,6 +269,12 @@ def strict_state(vdir):
         "roteiro": narration,
         "pesquisa": research,
         "research_contract": research_contract_state,
+        "timing": timing_ready,
+        "short_qa": short_qa_ready,
+        "originality": originality_ready,
+        "compliance": compliance_ready,
+        "scorecard": scorecard_ready,
+        "research_audit": research_audit_ready,
         "imagens": images_ready,
         "image_count": len(image_files),
         "images_expected": images_expected,
