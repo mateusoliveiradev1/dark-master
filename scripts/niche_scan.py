@@ -42,6 +42,8 @@ DEMAND_PATTERNS = [
     r"\b(voc[eê] pode|podia|deveria)\b", r"\b(o que aconteceu|cad[eê])\b",
 ]
 
+API_ERRORS = []
+
 
 def creds():
     from google.oauth2.credentials import Credentials
@@ -76,6 +78,7 @@ def api(fn, **kw):
             print(f"[!] QUOTA DA DATA API ESGOTADA ({reason}). Tente amanha ou use outro projeto.")
         else:
             print(f"[!] Erro na API: {reason}")
+        API_ERRORS.append(reason or str(e))
         return {}
 
 
@@ -105,22 +108,44 @@ def channel_info(yt, cid):
     }
 
 
-def channel_videos(yt, uploads, recent=15):
-    r = api(yt.playlistItems().list, part="contentDetails", playlistId=uploads, maxResults=recent)
-    ids = [i["contentDetails"]["videoId"] for i in r.get("items", [])]
+def channel_videos(yt, uploads, max_items=500):
+    ids, page_token = [], None
+    while len(ids) < max_items:
+        kwargs = {"part": "contentDetails", "playlistId": uploads,
+                  "maxResults": min(50, max_items - len(ids))}
+        if page_token:
+            kwargs["pageToken"] = page_token
+        r = api(yt.playlistItems().list, **kwargs)
+        items = r.get("items", [])
+        ids.extend(i["contentDetails"]["videoId"] for i in items if i.get("contentDetails", {}).get("videoId"))
+        if not items or not r.get("nextPageToken"):
+            break
+        page_token = r["nextPageToken"]
     if not ids:
         return []
-    v = api(yt.videos().list, part="statistics,snippet", id=",".join(ids))
-    return [{
-        "id": it["id"], "title": it["snippet"]["title"],
-        "channel": it["snippet"]["channelTitle"], "channelId": it["snippet"]["channelId"],
-        "published": it["snippet"]["publishedAt"][:10],
-        "views": int(it["statistics"].get("viewCount", 0) or 0),
-    } for it in v.get("items", [])]
+    videos = []
+    for start in range(0, len(ids), 50):
+        v = api(yt.videos().list, part="statistics,snippet,contentDetails", id=",".join(ids[start:start + 50]))
+        for it in v.get("items", []):
+            details = it.get("contentDetails", {})
+            duration = int(details.get("durationSeconds", 0) or 0)
+            videos.append({
+                "id": it["id"], "title": it["snippet"]["title"],
+                "channel": it["snippet"]["channelTitle"], "channelId": it["snippet"]["channelId"],
+                "published": it["snippet"]["publishedAt"][:10],
+                "views": int(it["statistics"].get("viewCount", 0) or 0),
+                "duration": duration, "is_short": duration > 0 and duration <= 180,
+            })
+    return videos
 
 
-def scan_channel(yt, info, ratio, small_max):
-    vids = channel_videos(yt, info["uploads"])
+def scan_channel(yt, info, ratio, small_max, fmt="all"):
+    max_items = min(max(info.get("videos", 50), 50), 500)
+    vids = channel_videos(yt, info["uploads"], max_items=max_items)
+    if fmt == "short":
+        vids = [v for v in vids if v["is_short"]]
+    elif fmt == "long":
+        vids = [v for v in vids if not v["is_short"]]
     if not vids:
         return None
     age = age_days(info["published"])
@@ -131,7 +156,8 @@ def scan_channel(yt, info, ratio, small_max):
     outs = [v for v in vids if v["views"] / med >= ratio]
     gates = {"age<=45": age <= 45, "first5>=10k": first5 >= 10000, "vpd>=1k": vpd >= 1000}
     return {"info": info, "age": age, "first5": first5, "vpd": round(vpd),
-            "median": med, "outliers": outs, "gates": gates, "small": info["subs"] <= small_max}
+            "median": med, "outliers": outs, "gates": gates, "small": info["subs"] <= small_max,
+            "format": fmt, "sample_size": len(vids), "history_truncated": info.get("videos", 0) > max_items}
 
 
 def cmd_scan(yt, a):
@@ -157,7 +183,7 @@ def cmd_scan(yt, a):
         info = channel_info(yt, cid)
         if not info:
             continue
-        res = scan_channel(yt, info, a.ratio, a.small)
+        res = scan_channel(yt, info, a.ratio, a.small, a.format)
         if not res:
             continue
         g = res["gates"]
@@ -173,6 +199,8 @@ def cmd_scan(yt, a):
         rows.append({"channel": info["title"], "id": info["id"], "subs": info["subs"],
                      "age_days": res["age"], "first5": res["first5"], "vpd": res["vpd"],
                      "median": res["median"], "gates": g, "small": res["small"],
+                     "format": res["format"], "sample_size": res["sample_size"],
+                     "history_truncated": res["history_truncated"],
                      "outliers": [{"title": o["title"], "views": o["views"],
                                    "ratio": round(o["views"] / res["median"], 1),
                                    "published": o["published"], "id": o["id"]} for o in res["outliers"][:5]]})
@@ -181,8 +209,9 @@ def cmd_scan(yt, a):
     print(f"\n=== Canais pequenos que passam os 3 gates: {len(passed)} ===")
     print(passed or "nenhum — estreite o cruzamento formato×topico")
     print("\nRegra: nicho aprovado exige >=3 canais pequenos passando os gates.")
+    verdict = "INCONCLUSIVO" if API_ERRORS or any(row.get("history_truncated") for row in rows) else ("PASSA" if len(passed) >= 3 else "REPROVA")
     return {"query": a.query or a.channel, "channels": rows, "passed": passed,
-            "verdict": "PASSA" if len(passed) >= 3 else "REPROVA"}
+            "verdict": verdict, "api_errors": list(dict.fromkeys(API_ERRORS))}
 
 
 def cmd_cluster(yt, a):
@@ -193,7 +222,7 @@ def cmd_cluster(yt, a):
     items = r.get("items", [])
     if not items:
         print("[!] nenhum video encontrado para o tema")
-        return {}
+        return {"theme": a.cluster, "verdict": "INCONCLUSIVO", "api_errors": list(dict.fromkeys(API_ERRORS))}
     found = {}
     for it in items:
         cid = it["snippet"]["channelId"]
@@ -223,6 +252,12 @@ def cmd_cluster(yt, a):
         if not info:
             continue
         vids = channel_videos(yt, info["uploads"])
+        if a.format == "short":
+            vids = [v for v in vids if v["is_short"]]
+        elif a.format == "long":
+            vids = [v for v in vids if not v["is_short"]]
+        if not vids:
+            continue
         med = statistics.median([v["views"] for v in vids]) or 1
         outs = []
         for fv in found[cid]["videos"]:
@@ -247,7 +282,8 @@ def cmd_cluster(yt, a):
             print(f"    outlier {o['ratio']}x  {o['views']:>8}  [{o['published']}] {o['title'][:60]}")
         rows.append({"channel": info["title"], "id": cid, "subs": info["subs"], "age_days": age,
                      "first5": first5, "vpd": round(vpd), "gates": gates,
-                     "median": med, "outliers": outs})
+                     "median": med, "outliers": outs, "format": a.format,
+                     "sample_size": len(vids), "history_truncated": info.get("videos", 0) > 500})
     print(f"\n=== GATES: {len(passed)} canal(is) pequeno(s) passando os 3 gates (meta >=3) ===")
     print(passed or "nenhum — estreite o cruzamento formato x topico")
     if emerging:
@@ -257,9 +293,10 @@ def cmd_cluster(yt, a):
     print(hungry or "nenhum — tema frio ou sem outlier na janela")
     if len(hungry) >= 2:
         print("SINAL: >=2 canais diferentes com outlier no mesmo tema -> janela de 2-6 semanas aberta.")
+    verdict = "INCONCLUSIVO" if API_ERRORS or any(row.get("history_truncated") for row in rows) else ("PASSA" if len(passed) >= 3 else "REPROVA")
     return {"theme": a.cluster, "window_days": a.window, "channels": rows,
             "passed": passed, "emerging": emerging, "hungry": hungry, "signal": len(hungry) >= 2,
-            "verdict": "PASSA" if len(passed) >= 3 else "REPROVA"}
+            "verdict": verdict, "api_errors": list(dict.fromkeys(API_ERRORS))}
 
 
 def cmd_comments(yt, a):
@@ -369,12 +406,33 @@ def cmd_brief(yt, a):
     DATA.mkdir(parents=True, exist_ok=True)
     print(f"# BRIEF DE NICHO — {theme}\n")
     cluster = cmd_cluster(yt, argparse.Namespace(cluster=theme, ratio=a.ratio, small=a.small,
-                                                 max=a.max, window=a.window, age=a.age))
+                                                 max=a.max, window=a.window, age=a.age, format=a.format))
     print("\n" + "=" * 60 + "\n")
     suggest = cmd_suggest(theme, a.lang)
     print("\n" + "=" * 60 + "\n")
     trends = cmd_trends(theme)
-    verdict = cluster.get("verdict", "REPROVA")
+    checks = [
+        {"name": "3 canais com gates", "status": "PASS" if len(cluster.get("passed", [])) >= 3 else "FAIL"},
+        {"name": "mesmo formato nos canais", "status": "UNKNOWN"},
+        {"name": "canal abaixo de 30 dias", "status": "UNKNOWN"},
+        {"name": "uploads recentes convergem", "status": "UNKNOWN"},
+        {"name": "formato claramente definido", "status": "UNKNOWN"},
+        {"name": "entradas recentes no feed", "status": "UNKNOWN"},
+        {"name": "Trends com trajetória", "status": "PASS" if trends.get("direction") in {"ALTA", "BAIXA", "ESTAVEL"} else "UNKNOWN"},
+        {"name": "autocomplete qualificado", "status": "UNKNOWN"},
+        {"name": "50 vídeos/20 ideias", "status": "UNKNOWN"},
+        {"name": "demanda em comentários", "status": "UNKNOWN"},
+        {"name": "monetização qualitativa", "status": "UNKNOWN"},
+        {"name": "pesquisa sem falsos positivos", "status": "UNKNOWN"},
+    ]
+    if API_ERRORS:
+        verdict = "INCONCLUSIVO"
+    elif checks[0]["status"] == "FAIL":
+        verdict = "REPROVA"
+    elif any(check["status"] == "UNKNOWN" for check in checks):
+        verdict = "INCONCLUSIVO"
+    else:
+        verdict = "PASSA"
     lines = [
         f"# BRIEF DE NICHO — {theme}",
         f"> Gerado em {datetime.now().strftime('%Y-%m-%d %H:%M')} por `scripts/niche_scan.py --brief`.",
@@ -388,6 +446,9 @@ def cmd_brief(yt, a):
         f"-> sinal {'SIM' if cluster.get('signal') else 'nao'}",
         f"- profundidade de autocomplete: {suggest.get('depth', 0)} termos (meta >=15)",
         f"- Trends: {trends.get('direction', trends.get('error', 'n/d'))}",
+        "",
+        "## Checklist (12 checks)",
+        *[f"- {check['status']}: {check['name']}" for check in checks],
         "",
         "## Canais-evidencia (pequenos)",
     ]
@@ -416,7 +477,7 @@ def cmd_brief(yt, a):
     md_path.write_text(md, encoding="utf-8")
     json_path = md_path.with_suffix(".json")
     json_path.write_text(json.dumps({"theme": theme, "cluster": cluster, "suggest": suggest,
-                                     "trends": trends}, ensure_ascii=False, indent=2), encoding="utf-8")
+                                     "trends": trends, "checks": checks, "verdict": verdict}, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n[OK] brief: {md_path}")
     print(f"[OK] dados: {json_path}")
     return {"brief": str(md_path), "json": str(json_path), "verdict": verdict}
@@ -436,10 +497,11 @@ def main():
     ap.add_argument("--trends")
     ap.add_argument("--brief")
     ap.add_argument("--ratio", type=float, default=3.0)
+    ap.add_argument("--format", choices=["all", "long", "short"], default="all", help="formato usado na baseline")
     ap.add_argument("--small", type=int, default=200000, help="max subs para 'pequeno'")
     ap.add_argument("--max", type=int, default=8, help="nº de canais a analisar")
     ap.add_argument("--window", type=int, default=90, help="janela em dias (cluster/busca de videos)")
-    ap.add_argument("--age", type=int, default=365, help="idade maxima do canal em dias (cluster)")
+    ap.add_argument("--age", type=int, default=90, help="idade maxima do canal em dias (cluster)")
     ap.add_argument("--lang", default="en", choices=["en", "pt", "es"])
     ap.add_argument("--out")
     ap.add_argument("--json", action="store_true")

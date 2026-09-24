@@ -76,7 +76,7 @@ pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_vid
 6. `fazer_thumb_v2` (3 variantes) → `pacote_dia` → `validar_pacote`.
 7. `auditar_tudo` → upload manual → publicar.
    - **Etapas manuais no meio do pipeline:** o `build_video` **para no gate de thumbs** (3 variantes A/B/C são geradas por você) e o **pacote de publicação é autoral** (título/descrição/tags/chapters — o scaffold só cria os blocos vazios no formato do validador; `pacote_dia` monta o copiar-e-colar). Capítulos só depois do build (`remapar_chapters`).
-8. D+2/D+7: `revisao_d2` → atualizar `15-outliers-e-aprendizados.md`.
+8. D+2/D+7: `revisao_d2` → atualizar `15-loop-de-aprendizado.md`.
 
 ## Invariantes (não quebrar)
 - Voz/motion/estilo oficiais por canal (contrato `playbooks/<canal>/{voice,motion,style}.json`).

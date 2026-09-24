@@ -11,6 +11,8 @@ O Short não é "vídeo curto": é um **teste de 3 segundos** seguido de um test
 5. **Payoff antes do fim** e **loop projetado** (o fim emenda no começo). Meta: AVP > 100%.
 6. **Zero cara de IA no hook.** Sem abstração, sem filosofia, sem "no mundo de hoje" (`17`). Detalhe concreto > afirmação.
 7. **O título importa menos que o frame 1** (Y10) — mas nunca prometa o que o frame não mostra.
+8. **O Short é uma peça independente.** Não é uma Introdução do long nem um resumo automático: abre uma pergunta, entrega um micro-payoff e deixa uma lacuna que o long expande.
+9. **O funil precisa ser mensurável.** Registre em `SHORT_FUNNEL.md` a claim usada, a ponte, o beat do long, o pinned comment, o related video e métricas D+2/D+7.
 
 ## Anatomia dos 3 segundos
 
@@ -61,6 +63,31 @@ Cada arquétipo tem: texto na tela (≤6) + fala (≤8). Use o arquétipo, não 
 - Ritmo: **mudança visual a cada 1,5–2s** (corte, zoom, overlay, cor).
 - Corte o silêncio: pausas > 0,3–0,5s fora.
 - Micro-payoffs ao longo; o payoff final **antes** dos últimos 2s.
+
+## Roteiro de aquisição Short→Long
+
+Cada Short tem um contrato próprio:
+
+1. **Hook** — uma claim verificada, contradição ou objeto visível.
+2. **Setup** — só o mínimo para compreender a pergunta.
+3. **Evidência** — um detalhe específico e documentado.
+4. **Turn** — o que muda a interpretação.
+5. **Payoff** — uma conclusão parcial real, não clickbait.
+6. **Bridge** — por que o long é necessário.
+7. **Loop** — última imagem e som conectam com o primeiro frame.
+
+O Short deve ser satisfatório sozinho. O long deve explicar o que o Short deixou aberto. Os dois não repetem as mesmas 10 primeiras palavras. Para 30–70 min, use a mesma base de claims e cronologia, mas nunca copie blocos inteiros.
+
+## Gate Short→Long
+
+- [ ] `CLAIMS.json` tem a claim usada pelo Short.
+- [ ] `SHORT_FUNNEL.md` tem target long, bridge, pinned comment e related video.
+- [ ] O hook falado tem no máximo 8 palavras.
+- [ ] O texto na tela tem no máximo 6 palavras.
+- [ ] O loop é visual, sonoro e semanticamente planejado.
+- [ ] A mesma prova não é repetida sem adicionar contexto.
+- [ ] O CTA não substitui o payoff.
+- [ ] D+2 e D+7 têm métrica definida.
 
 ## Engenharia do loop (AVP > 100%)
 

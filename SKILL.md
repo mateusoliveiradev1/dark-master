@@ -16,6 +16,7 @@ metadata:
   author: Liiiraa
   version: "3.2.0"
 ---
+---
 
 # dark-master
 
@@ -42,11 +43,11 @@ Nunca apresente [PRATICANTE]/[ALEGADO] como fato. O YouTube **não publica** lim
 ## Foco vigente (ler SEMPRE primeiro)
 
 Leia `config/FOCUS.md` — objetivo atual, canal alvo e métrica norte. Trocar via `/dark-focus`.
-Memória de aprendizado: `data/metrics.csv`, `outliers.json`, `learnings.md`, `nichos.md`.
+Memória de aprendizado: banco de métricas, `data/metrics.csv`, `outliers.json`, `learnings.md`, `nichos.md`.
 
 ## Como a skill se atualiza
 
-Loop **propose-only**: `/dark-revisar` puxa métricas → atualiza `data/` → **propõe** mudanças com evidência.
+Loop **propose-only** diário: `/dark-revisar` cruza calendário/estoque + API + histórico → persiste telemetria/experimentos → **propõe** mudanças com evidência.
 Regra travada **só muda com aprovação explícita**. Promoção só com evidência e sem quebrar baseline.
 
 ## Playbooks (casos de estudo — NÃO são regras gerais)
@@ -81,7 +82,7 @@ Ver `playbooks/README.md`.
 | Configurações do canal (checklist pré-publicação) | `references/18-configuracoes-canal.md` |
 | Produtos digitais (tripwire $7–27, bumps, upsells) | `references/19-produtos-digitais.md` |
 | Motor de monetização (funil, lives, produto, matemática) | `references/21-motor-de-monetizacao.md` |
-| Métricas via API (OAuth, queries, fallback) | `references/22-metricas-api.md` |
+| **Métricas via API, persistência, calendário e diagnóstico** | `references/22-metricas-api.md` + `scripts/yt_analysis.py` |
 | **Pesquisa de nicho e outliers (método real)** | `references/23-nichos-e-outliers.md` |
 | **Setup OAuth do YouTube (passo a passo)** | `references/24-setup-oauth-passo-a-passo.md` |
 | **Entender o canal** (convenções + corrente de teaser) | `references/25-contexto-do-canal.md` |
@@ -94,6 +95,7 @@ Ver `playbooks/README.md`.
 | **Branding do canal (logo/banner/profile/watermark)** | `references/32-branding-canal.md` |
 | **Versionamento do canal (git sem mídia) + Notion** | `references/33-versionamento-e-notion.md` |
 | **Cronologia e linha do tempo (roteiro + edição)** | `references/35-cronologia-e-timeline.md` |
+| **Contrato de pesquisa, claims e funil Short→Long** | `references/36-pesquisa-claims-e-funil.md` |
 | **Modelos de canal por nicho/subnicho (38, com evidência real)** | `models/README.md` + `models/<slug>/` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 
@@ -103,7 +105,7 @@ Ver `playbooks/README.md`.
 2. **Título e thumbnail são um par.** Nunca repetem palavras. [PRATICANTE]
 3. **Primeiros 30s (ou 3s no Short) são o algoritmo real.** Sem intro. [OFICIAL]
 4. **Retenção é o sinal mais pesado; satisfação > watch time bruto.** [OFICIAL]
-5. **Shorts = aquisição; long-form = receita.** Funil Short → inscrito → long-form. [PRATICANTE]
+5. **Shorts = aquisição; long-form = valor e retenção.** O Short é um roteiro separado, não um corte do long; o funil usa uma claim verificada, uma ponte e um loop. [PRATICANTE]
 6. **Formato pode repetir; substância não.** Ou cai na política de **conteúdo inautêntico**. Existencial para canal dark. [OFICIAL]
 7. **Escreva como uma pessoa.** Aplique o anti-IA (`17`). [PRATICANTE]
 8. **GATE 100% (motion).** Sem todas as imagens, não gera **motion**; a **voz sai no scaffold** (depende só da narração + fatos aprovados).
@@ -114,9 +116,11 @@ Ver `playbooks/README.md`.
 13. **Entenda o canal antes de gerar.** Rode `channel_scan.py`, respeite calendário e **corrente de teaser** (`25`).
 14. **Mantenha a casa organizada.** Rode `channel_organize.py` (dry-run → aplicar) e siga a estrutura padrão (`26`).
 15. **Formato é decisão, não regra.** Short, long ou ambos dependem do **lane** do canal (`FOCUS.md` + `23`) — **não** assuma short+long sempre.
-16. **Roteiro sempre com pesquisa.** Use os subagentes (`dark-researcher`, `dark-scout`) e combine num brief antes de escrever; anti-IA e 1 peça de pesquisa primária por vídeo (`30`).
-17. **Short se ganha no frame 1.** Texto na tela (≤6 palavras) + fala ≤8 palavras nos 3s; loop projetado (AVP >100%). (`31`)
+16. **Roteiro sempre com pesquisa rastreável.** Use `dark-researcher` e `dark-scout`, preencha `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json` e `LINHA_DO_TEMPO.md` antes de escrever; o gate estrito não aceita placeholders (`30`, `36`).
+17. **Short se ganha no frame 1.** Texto na tela (≤6 palavras) + fala ≤8 palavras nos 3s; uma ideia, payoff, loop visual/sonoro e bridge independente para o long (`31`, `36`).
 18. **Modelo antes do canal.** Escolha um blueprint validado em `models/` e revalide com dados frescos (`23`) — modelo não é clone de playbook.
+19. **Telemetria antes de palpite.** Toda conclusão mostra período, denominador, baseline, amostra, contraevidência e limitações; dado ausente é desconhecido.
+20. **Produção é consequência do diagnóstico.** `/dark-revisar` cruza `videoNN` com calendário, estoque, teaser e regras; ele propõe, não reescreve.
 
 ## Fluxo recomendado
 
@@ -126,14 +130,14 @@ Ver `playbooks/README.md`.
 /dark-organizar → organiza a pasta do canal (dry-run → aplicar) + nomes/handles
 /dark-canal   → entende um canal existente (projeto, regras, corrente de teaser)
 /dark-focus   → define/troca o foco (canal, objetivo, métrica norte)
-/dark         → ideia → título → thumb → roteiro → checklist
-/dark-roteiro → gera/valida o roteiro (plano com beats, orçamento e compliance)
+/dark         → ideia → título → thumb → delega ao fluxo canônico de pesquisa/roteiro
+/dark-roteiro → gera/valida o long, o Short separado e o funil Short→Long
 /dark-build   → roda o pipeline de produção do canal alvo
 /dark-auditar → auditoria completa (imagens + áudio + legendas + pacote) + compliance
 /dark-audit   → gate anti-inauthentic + YPP + IA
 /dark-repurpose → fatia long-form em Shorts multi-plataforma
 /dark-monetizar → trilha 0→YPP com metas e checkpoints
-/dark-revisar → loop semanal de métricas e evolução (propose-only)
+/dark-revisar → captura diária + diagnóstico do funil + experimentos + próximos 7 dias (propose-only)
 /dark-scan    → varre canais e alerta outliers
 ```
 
@@ -145,7 +149,7 @@ Ver `playbooks/README.md`.
 - `dark-packager` — títulos, thumbnails, capítulos, A/B.
 - `dark-auditor` — gate anti-inauthentic + YPP + IA.
 - `dark-produtor` — executa o pipeline por canal.
-- `dark-analyst` — métricas → evolução com evidência.
+- `dark-analyst` — métricas, funil, calendário e aprendizado com evidência.
 
 ## Limites
 

@@ -20,6 +20,9 @@ Criada **antes de escrever** (junto com o brief de pesquisa, `30`), em `<videoNN
 - **camada**: `FATO` / `REPORTADO` / `LENDA` (mesma regra de fontes do `30`).
 - **fonte**: o documento de origem (não o link; links vão para a descrição).
 - Ordem da tabela = ordem narrativa. Fato fora de ordem vira **salto explícito** no roteiro.
+- **Para forense de 30–70 min**, mantenha três camadas no mesmo arquivo: vida e contexto relevantes, sequência do caso/descoberta e investigação/reconstrução. Inclua nascimento, família, escola, trabalho, relações, deslocamentos e eventos anteriores somente quando alterarem acesso, oportunidade, risco, conflito ou interpretação.
+- **Não force uma biografia.** O objetivo é cobertura útil, não biografias. Um dado entra quando muda a hipótese ou dá contexto a uma ação.
+- **Toda data nova entra antes da narração.** O roteiro pode abrir no futuro, mas o recuo ao início deve ser marcado e a fonte deve estar disponível.
 - Template: `assets/template-linha-do-tempo.md`.
 
 ## Passo 2 — Roteiro ancorado

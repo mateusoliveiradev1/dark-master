@@ -5,7 +5,8 @@
 ## Conceito central: formato × tópico
 
 - **Tópico** = sobre o quê. **Formato** = como é construído (vertical TTS short, documentário long-form, voiceover+b-roll…).
-- O recomendador lê **formato** (duração, aspecto, cadência, thumb) e casa com audiência. O mesmo tópico pode bombar num formato e morrer em outro.
+- O recomendador lê formato, duração, aspecto, cadência e thumbnail. O mesmo tópico pode bombar num formato e morrer em outro.
+- O scanner separa a baseline por formato com `--format long`, `--format short` ou `--format all`; um outlier só é válido dentro do formato escolhido.
 - **Saturação é do cruzamento formato×tópico**, não do tópico pai. "História" está cheio; "dark history em 20 min com arte procedural" pode estar aberto.
 
 ## Outlier (o sinal)
@@ -33,7 +34,7 @@ Para cada canal-candidato:
 - **soma dos 5 primeiros vídeos ≥ 10.000 views**
 - **≥ 1.000 views/dia** de vida (views totais ÷ idade)
 
-Nicho passa se **3 canais** diferentes passarem os 3 gates. "Romper" tem que ter **número**, não "parece promissor".
+**INCONCLUSIVO** quando a API falhar, a amostra estiver truncada, o formato não puder ser separado ou dados essenciais estiverem ausentes. Falha operacional não é reprovação do nicho.
 
 **Tier emergente (watchlist — NÃO aprova sozinho):** canal pequeno com **≤90 dias** + **2 dos 3 gates** (5 primeiros ≥10k e/ou ≥1k views/dia). É o caso mais comum de canais que rompem entre 45–90 dias. O scan reporta como `emerging`; revalidar em **2–4 semanas** — se cruzar o gate de idade, vira evidência.
 
@@ -80,7 +81,7 @@ Para cada nicho que passa: nome, **interseção formato-tópico**, os 3 canais-e
 
 | Modo | O que dá | Custo |
 |---|---|---|
-| `--query "tema"` | canais do termo + **gates** + outliers vs mediana do canal | ~100 un (search) |
+| `--query "tema" --format long` | canais do termo + **gates** + outliers vs mediana do formato | ~100 un (search) |
 | `--channel @handle` | um canal: gates + outliers | ~5 un |
 | `--cluster "tema"` | **outliers cross-canal** (≥2 canais diferentes com outlier = fome) na janela de 90d | ~150 un |
 | `--brief "tema"` | **BRIEF DE NICHO** (.md + .json em `data/briefs/`) com veredito, evidência, autocomplete e Trends | ~150 un |

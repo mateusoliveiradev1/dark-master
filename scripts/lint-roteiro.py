@@ -11,7 +11,7 @@ Checa:
   - gore/termos sensiveis -> falha dura (exit 1)
   - 25 tells de IA (references/17) + densidade por 1000 palavras
   - ritmo: aberturas de frase repetidas, travessoes em excesso
-  - short: hook <= 12 palavras
+  - short: hook <= 8 palavras
 
 Exit code: 1 apenas em falha dura (meta-linguagem/gore). Tells de IA sao advisory.
 """
@@ -243,7 +243,7 @@ def main():
         pass
     ap = argparse.ArgumentParser()
     ap.add_argument("path")
-    ap.add_argument("--short", action="store_true", help="checagens de Short (hook <=12 palavras)")
+    ap.add_argument("--short", action="store_true", help="checagens de Short (hook <=8 palavras)")
     ap.add_argument("--cronologia", help="LINHA_DO_TEMPO.md: checa ordem/saltos/cobertura das datas")
     ap.add_argument("--lang", choices=["pt", "en"], default="pt", help="idioma dos meses (cronologia)")
     ap.add_argument("--cold-open", type=int, default=3, help="blocos iniciais (hook/recuo) fora da checagem de ordem")
@@ -319,7 +319,7 @@ def main():
         if paras:
             hook = words(paras[0])
             print(f"\n[SHORT] hook (1o bloco): {hook} palavras "
-                  f"{'OK' if hook <= 12 else '-> ENCURTAR (<=8 faladas)'}")
+                  f"{'OK' if hook <= 8 else '-> ENCURTAR (<=8 faladas)'}")
 
     print(f"\nRESULTADO: {'FALHA DURA (meta-linguagem/gore)' if hard else 'SEM FALHA DURA'}"
           f" | tells: {tells_total} | densidade: {density:.1f}/1000")

@@ -70,4 +70,4 @@ Exemplos:
 
 - `16-trilha-zero-a-ypp.md` (metas e checkpoints).
 - `19-produtos-digitais.md` (receita fora do AdSense).
-- `15-outliers-e-aprendizados.md` (o que funcionou no seu canal).
+- `15-loop-de-aprendizado.md` (o que funcionou no seu canal).

@@ -22,7 +22,7 @@ Algoritmo, roteiro, thumbnails, Shorts, outliers, monetização e auto-evoluçã
 
 - o **algoritmo do YouTube** (Shorts e long-form), validado por dados de 2026;
 - o **guia de produção do MrBeast**, destilado e adaptado a operador solo;
-- um **motor de dados** que puxa métricas reais via API e **propõe melhorias**;
+- um **motor de dados** que cruza API, tráfego, retenção, calendário e estoque para **explicar gargalos e propor melhorias**;
 - e a ligação aos **pipelines de produção** de canais dark que já existem na sua máquina.
 
 Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, produz e aprende com o resultado.
@@ -40,7 +40,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 - **38 modelos de canal** — blueprints por nicho/subnicho com gates, outliers, hooks, beats e monetização, validados com dados reais.
 - **Do zero de verdade** — kit de branding em arquivos (logo/banner/profile/watermark), versionamento git sem mídia e pacote Notion importável.
 - **Shorts de engenharia** — hook de 3s (frame 1 + texto na tela), 14 arquétipos, loop (AVP >100%) e validação automática.
-- **Auto-evolução** — `/dark-revisar` puxa métricas, detecta outliers e propõe mudanças com evidência.
+- **Auto-evolução** — `/dark-revisar` roda diariamente, explica a baseline, o funil e a retenção, e cria experimentos propostos a partir do calendário real.
 - **Entende o canal** — lê calendário, regras travadas e a **corrente de teaser** antes de gerar.
 - **Multi-idioma** — auto-dublagem e títulos/descrições traduzidos.
 - **Voz de verdade** — motor TTS provider-agnóstico (grátis: edge/kokoro/piper · pago: ElevenLabs/Fish/Gemini/OpenAI/Azure) com cache por hash, fallback com aviso e teste de 200 palavras.
@@ -53,7 +53,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 40 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 41 referências (algoritmo, roteiro, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -68,7 +68,8 @@ dark-master/
 │  ├─ 32-branding-canal.md      # kit de branding (logo/banner/profile/watermark)
 │  ├─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
 │  ├─ 34-voz-tts.md             # voz free + paga: providers, custos, licenças, QA
-│  └─ 35-cronologia-e-timeline.md  # caso cronológico: tabela → roteiro → datestamps na edição
+│  ├─ 35-cronologia-e-timeline.md  # caso cronológico: tabela → roteiro → datestamps na edição
+│  └─ 36-pesquisa-claims-e-funil.md  # brief, claims, timeline e Short→Long
 ├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers
@@ -93,12 +94,12 @@ dark-master/
 | `/dark-organizar` | Organiza a pasta do canal (dry-run → aplicar) e checa nomes/handles. |
 | `/dark-canal` | Entende um canal existente: projeto, regras e corrente de teaser. |
 | `/dark` | Ideia → título → thumb → roteiro → checklist. |
-| `/dark-roteiro` | Gera/valida o roteiro: plano com beats, orçamento e compliance. |
+| `/dark-roteiro` | Pesquisa, long forense de 30–70 min, Short separado, claims, timeline, funil e validação estrita. |
 | `/dark-build` | Roda o pipeline de produção do canal alvo. |
 | `/dark-auditar` | Auditoria completa: imagens + áudio + legendas + pacote + compliance. |
 | `/dark-audit` | Gate anti-inauthentic + YPP + divulgação de IA. |
 | `/dark-scan` | Varre canais e alerta outliers acima da baseline. |
-| `/dark-revisar` | Loop semanal: métricas → aprendizados → propostas. |
+| `/dark-revisar` | Captura diária: métricas + calendário + funil + retenção + experimentos. |
 | `/dark-focus` | Define/troca o foco (canal, objetivo, métrica norte). |
 | `/dark-repurpose` | Fatia long-form em Shorts multi-plataforma. |
 | `/dark-monetizar` | Trilha 0→YPP com metas e checkpoints. |
@@ -112,10 +113,11 @@ dark-master/
 | Script | Função |
 |---|---|
 | `yt_auth.py` | OAuth do YouTube (uma vez). |
-| `new_video.py` | Cria a pasta padrão de um vídeo (scaffold). |
-| `script_builder.py` | Gera o plano de roteiro (beats/orçamento), valida long **e Short** e gera variações de hook. |
+| `new_video.py` | Cria scaffold com brief, source ledger, claims, timeline, long e Short separados. |
+| `script_builder.py` | Gera planos long/Short, aceita 30–35/45–60/60–70, valida claims/timeline/funil e gera variações de hook. |
 | `prompt_builder.py` | Gera os prompts de imagem (consistentes) e pode renderizar. |
-| `yt_metrics.py` | Puxa métricas por vídeo → banco + CSV. |
+| `yt_metrics.py` | Puxa métricas, metadados, tráfego e retenção → banco + CSV. |
+| `yt_analysis.py` | Explica baseline, funil, retenção, outliers, calendário e experimentos. |
 | `yt_scan_outliers.py` | Detecta outliers (vídeos ≥ N× a mediana do canal). |
 | `niche_scan.py` | Pesquisa em tempo real: `--brief` (gates+outliers), `--cluster` (fome cross-canal), `--comments`, `--suggest`, `--trends`. |
 | `image_audit.py` | Audita imagens geradas (resolução, aspecto, brilho, duplicatas) + contact sheet. |
@@ -157,7 +159,8 @@ Reinicie o opencode. Depois use `/dark-canal` ou `/dark`.
 python -m pip install google-api-python-client google-auth-oauthlib
 python scripts/yt_db.py doctor       # testa o banco (Neon/SQLite)
 python scripts/yt_auth.py            # OAuth (abre o navegador)
-python scripts/yt_metrics.py         # puxa métricas
+python scripts/yt_metrics.py         # puxa métricas + tráfego + retenção
+python scripts/yt_analysis.py --channel cold-file-diaries --project "<pasta-do-canal>"
 python scripts/yt_scan_outliers.py --watch
 ```
 
@@ -171,7 +174,7 @@ Edite `config/FOCUS.md` (ou rode `/dark-focus`) para apontar o objetivo, o canal
 
 ## Banco de dados
 
-Usa **Neon Postgres** quando `DATABASE_URL` está definida; senão cai para **SQLite** local (`data/dark.db`). Tabelas: `snapshots`, `outliers`, `learnings`. A camada é agnóstica de backend.
+Usa **Neon Postgres** quando `DATABASE_URL` está definida; senão cai para **SQLite** local (`data/dark.db`). Tabelas: `snapshots`, `videos`, `traffic_sources`, `retention_points`, `outliers`, `learnings` e `experiments`. A camada é agnóstica de backend.
 
 ```
 DATABASE_URL=postgresql://…   # em ~/.config/opencode/secrets/dark.env

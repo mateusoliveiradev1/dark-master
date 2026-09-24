@@ -8,8 +8,14 @@ Uso:
 Cria:
   <root>/videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}
   01_roteiro/narration_v3.txt     (cabecalho + placeholder)
+  01_roteiro/narration_short.txt  (placeholder do Short separado)
   01_roteiro/TEMPLATE.txt         (copiado de 00_CANAL/TEMPLATE_ROTEIRO*.txt, se existir)
   01_roteiro/tease.txt            (placeholder)
+  01_roteiro/PESQUISA_BRIEF.md
+  01_roteiro/PESQUISA_FONTE.md
+  01_roteiro/CLAIMS.json
+  01_roteiro/LINHA_DO_TEMPO.md
+  01_roteiro/SHORT_FUNNEL.md
   03_imagens/PROMPTS.md           (esqueleto via prompt_builder, se disponivel)
   youtube_package.txt             (template de publicacao)
 """
@@ -63,6 +69,89 @@ LINHA_TMPL = """# LINHA DO TEMPO — {case}
 | ? | [preencher: evento 1] | FATO | |
 | ? | [preencher: evento 2] | REPORTADO | |
 | ? | [preencher: evento 3] | FATO | |
+"""
+
+BRIEF_TMPL = """# BRIEF DE PESQUISA — {case}
+
+## Caso
+- ID:
+- Gênero:
+- Duração-alvo:
+- Pergunta central:
+- Ângulo editorial:
+
+## Pessoas
+| Pessoa | Papel | Status jurídico | Fonte |
+|---|---|---|---|
+
+## Linha de vida
+| Data | Evento | Camada | Claim | Fonte |
+|---|---|---|---|---|
+| ? | | FATO | | |
+
+## Evidências
+| Evidência | O que mede | O que prova | O que não prova | Fonte |
+|---|---|---|---|
+
+## Contradições e lacunas
+- Contradição:
+- O que continua desconhecido:
+- Lendas a evitar:
+
+## Fontes
+| ID | Fonte | Tipo | Data | URL | Localizador | Limitações |
+|---|---|---|---|---|---|---|
+| S001 | | primária/secundária | | | | |
+
+## Plano narrativo
+- Cold Open:
+- Cadeia de evidências:
+- Virada:
+- Reconstrução:
+- Payoff:
+"""
+
+CLAIMS_TMPL = {
+    "case_id": "",
+    "version": 1,
+    "claims": []
+}
+
+SHORT_TMPL = """# SHORT→LONG — {case}
+
+## Roteiro
+- Long alvo:
+- Objetivo do Short:
+- Claim usada:
+- Pergunta que o Short abre:
+- Ponte:
+- Beat do long que expande a pergunta:
+- Motivo real para abrir o long:
+
+## Frame e hook
+- Frame 1 visual:
+- Texto na tela: (máximo 6 palavras)
+- Fala inicial: (máximo 8 palavras)
+- Promessa do Short:
+- Payoff:
+
+## Progressão
+- Evidência:
+- Virada:
+- Ponte:
+
+## Loop
+- Emenda visual:
+- Emenda sonora:
+- Loop semântico:
+- Comentário fixado:
+- Related Video:
+
+## QA
+- [ ] Short satisfatório sozinho
+- [ ] Long valioso sozinho
+- [ ] Não repete as 10 primeiras palavras
+- [ ] Não inventa prova, diálogo ou confissão
 """
 
 PACKAGE_TMPL = """# {title}
@@ -146,8 +235,26 @@ def main():
         pesq.write_text(
             f"# PESQUISA/FONTES — {case}\n\n"
             "> Uma camada por linha: [FATO] / [REPORTADO] / [LENDA]. 2+ fontes por caso. Nada sem fonte.\n\n"
-            "- [FATO] \n- [REPORTADO] \n- [LEGENDA/LENDA a evitar] \n- Fontes (links): \n",
+            "| ID | Camada | Afirmação | Fonte | URL | Localizador | Limitações |\n"
+            "|---|---|---|---|---|---|---|\n"
+            "| S001 | FATO | | | | | |\n"
+            "| S002 | REPORTADO | | | | | |\n\n"
+            "- [LEGENDA/LENDA a evitar] \n",
             encoding="utf-8")
+    brief = vid / "01_roteiro" / "PESQUISA_BRIEF.md"
+    if not brief.exists():
+        brief.write_text(BRIEF_TMPL.format(case=case), encoding="utf-8")
+    claims = vid / "01_roteiro" / "CLAIMS.json"
+    if not claims.exists():
+        claim_data = dict(CLAIMS_TMPL)
+        claim_data["case_id"] = case
+        claims.write_text(json.dumps(claim_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    short_funnel = vid / "01_roteiro" / "SHORT_FUNNEL.md"
+    if not short_funnel.exists():
+        short_funnel.write_text(SHORT_TMPL.format(case=case), encoding="utf-8")
+    short_narration = vid / "01_roteiro" / "narration_short.txt"
+    if not short_narration.exists():
+        short_narration.write_text("", encoding="utf-8")
     # linha do tempo (nao sobrescrever) — casos cronologicos (ref 35)
     ldt = vid / "01_roteiro" / "LINHA_DO_TEMPO.md"
     if not ldt.exists():
@@ -172,11 +279,13 @@ def main():
         print(f"     {s}/")
     print("     youtube_package.txt")
     print("\nProximos passos (scaffold completo = pastas + stubs + PROMPTS + package + voz):")
-    print("  1. escreva o roteiro em 01_roteiro/narration_v3.txt e as fontes em PESQUISA_FONTE.md")
-    print("     caso cronologico (forense/truecrime): preencha 01_roteiro/LINHA_DO_TEMPO.md (ref 35)")
-    print(f"  2. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
-    print(f"  3. voz liberada (so depende da narracao); MOTION so com GATE 100% das imagens")
-    print(f"  4. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")
+    print("  1. preencha PESQUISA_BRIEF.md, PESQUISA_FONTE.md e CLAIMS.json")
+    print("     caso cronologico (forense/truecrime): preencha 01_roteiro/LINHA_DO_TEMPO.md")
+    print("     escreva o long em 01_roteiro/narration_v3.txt e o Short em 01_roteiro/narration_short.txt")
+    print("  2. planeje o Short em SHORT_FUNNEL.md e valide-o separadamente")
+    print(f"  3. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
+    print("  4. voz liberada (so depende da narracao e do GATE de fatos); MOTION so com GATE 100% das imagens")
+    print(f"  5. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")
 
 
 if __name__ == "__main__":

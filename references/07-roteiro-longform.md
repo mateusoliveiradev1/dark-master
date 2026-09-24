@@ -11,18 +11,20 @@ Texto puro, um parágrafo por bloco de TTS (separado por linha em branco). Arqui
 - `tease.txt` (blocos de Short).
 - `PESQUISA_FONTE.md` (fontes com camadas de fato).
 
-## Template de blocos (dark/true crime)
+## Template rápido
 
-| Bloco | Palavras | Função |
-|---|---|---|
-| HOOK | ~130 | fato estranho verificado; sem intro |
-| CONTEXTO | ~350 | quem/quando/onde; stakes |
-| PRESSÃO | ~250 | o que aperta |
-| O DIA | ~450 | reconstrução da cena |
-| PERÍCIA/INVESTIGAÇÃO | ~400 | coração do canal (forense/documento) |
-| FAMÍLIA/POS | ~150 | camada humana |
-| TEORIAS | ~250 | até 3, pró/contra |
-| CHAVES + OUTRO + TEASER | ~150 | fecha e puxa o próximo |
+Os valores canônicos, incluindo forense de 30–70 minutos, estão em `30-roteiro-master.md`. Não copie números deste quadro para um canal específico: use o playbook ou `--target-minutes`.
+
+| Bloco | Função |
+|---|---|
+| HOOK | fato estranho verificado; sem intro |
+| CONTEXTO | quem, quando, onde e o que muda a interpretação |
+| DESCOBERTA | hora, lugar, ação e reação |
+| EVIDÊNCIA | o que mede, prova, não prova e dúvida |
+| INVESTIGAÇÃO | documentos, testes, entrevistas e decisões |
+| CONTRADIÇÃO | nova informação que muda a hipótese |
+| RECONSTRUÇÃO | sequência mínima com grau de certeza |
+| PAYOFF | confirmado, provável, possível e desconhecido |
 
 Adapte por canal (Midnight Archive = dark history, não perícia).
 

@@ -35,8 +35,9 @@ O vídeo-fonte afirma coisas úteis mas imprecisas. A skill corrige:
 1. Identifique a tarefa e siga o router do `SKILL.md`.
 2. Leia as referências exigidas **antes** de gerar saída.
 3. Sempre que citar número, mantenha o selo.
+4. Para material de caso, use o contrato de `36`: `PESQUISA_BRIEF.md`, source ledger, `CLAIMS.json` e `LINHA_DO_TEMPO.md`; não confie em um briefing textual sem IDs.
 4. Antes de publicar, rode o gate: `dark-auditor` (anti-inauthentic) + `18-configuracoes-canal.md`.
-5. Registre o resultado em `15-outliers-e-aprendizados.md`.
+5. Registre o resultado em `15-loop-de-aprendizado.md`.
 
 ## Cobertura do PDF do MrBeast
 

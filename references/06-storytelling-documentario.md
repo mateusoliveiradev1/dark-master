@@ -2,15 +2,27 @@
 
 Base: estruturas de 5 atos, blocos modulares, blueprint do Fern, e o guia MrBeast de documentário. [PRATICANTE/ALEGADO]
 
-## Estrutura de 5 atos (8–25 min)
+## Estrutura de 5 atos (8–70 min)
 
 1. **Cold Open (0:00–0:30)** — entra na cena **já acontecendo**. Sem contexto, sem intro. Plantar stakes antes de explicar.
-2. **Contexto (2–3 min)** — zoom out: quem, quando, onde, por que importa. Termina com micro-hook ("mas aqui é que fica interessante").
-3. **Investigação (3–5 min)** — o miolo. Sequência de **revelações**, não lista de fatos. Padrão "você pensaria X… mas na verdade Y".
-4. **Virada/Complicação (2–3 min)** — reengaja quem estava perdendo atenção (~6–8 min). Uma nova informação complica tudo.
-5. **Resolução (1–2 min)** — responde a pergunta do cold open e **reenquadra**. Fim com implicação que fica na cabeça.
+2. **Contexto (2–6 min)** — zoom out: quem, quando, onde, por que importa. Em forense, inclua a vida e o contexto que mudam acesso, risco, oportunidade ou interpretação.
+3. **Investigação (5–25 min)** — o miolo. Sequência de **revelações**, não lista de fatos. Cada evidência responde a uma pergunta e cria a próxima.
+4. **Virada/Complicação (3–10 min)** — reengaja quem estava perdendo atenção. Uma contradição ou nova limitação pericial muda a hipótese.
+5. **Reconstrução e resolução (5–20 min)** — monta a sequência mínima, responde o que foi confirmado, separa hipótese de fato e termina com a pergunta que permanece.
 
-## Blocos modulares (10–60 min)
+## Progressão obrigatória
+
+A cada 30–90 segundos, o roteiro deve mudar o estado do conhecimento: nova evidência, contradição, horário, testemunha, limite de laboratório, nova hipótese, evidência que perde força ou pergunta que continua aberta. Repetir o mesmo fato com palavras diferentes é preenchimento, não progressão.
+
+## Estrutura longa forense (30–70 min)
+
+Use pelo menos três camadas:
+
+1. vida e contexto relevantes;
+2. sequência do caso e da descoberta;
+3. investigação, perícia e reconstrução.
+
+Cada bloco deve ter uma pergunta, uma evidência, uma mudança de interpretação e um bridge para o próximo bloco. O comprimento é aprovado apenas quando a pesquisa sustenta a progressão.
 
 Quebre em blocos de **3–7 min**, cada um como um mini-vídeo (mini-hook → conteúdo → payoff). Cada transição reseta a atenção:
 
