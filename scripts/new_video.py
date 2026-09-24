@@ -322,6 +322,10 @@ def main():
         map_data = dict(MAP_TMPL)
         map_data["case_id"] = case
         map_path.write_text(json.dumps(map_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    visual_plan = Path(__file__).resolve().parent / "visual_plan.py"
+    if visual_plan.exists():
+        import subprocess, sys
+        subprocess.run([sys.executable, str(visual_plan), "init", "--episode", str(vid)], check=False)
     short_funnel = vid / "01_roteiro" / "SHORT_FUNNEL.md"
     if not short_funnel.exists():
         short_funnel.write_text(SHORT_TMPL.format(case=case), encoding="utf-8")
@@ -351,17 +355,17 @@ def main():
     for s in SUBS:
         print(f"     {s}/")
     print("     youtube_package.txt")
-    print("\nProximos passos (scaffold completo = pastas + stubs + PROMPTS + package + voz):")
+    print("\nProximos passos (scaffold completo = pastas + contracts + shot specs + package):")
     print("  1. preencha PESQUISA_BRIEF.md, PESQUISA_FONTE.md, CLAIMS.json e ROTEIRO_MAP.json")
     print("     caso cronologico (forense/truecrime): preencha 01_roteiro/LINHA_DO_TEMPO.md")
     print("     escreva o long em 01_roteiro/narration_v3.txt e o Short em 01_roteiro/narration_short.txt")
     print("  2. complete TITLE_RESEARCH.md e TITLE_CANDIDATES.txt, rode title_research.py e escolha o titulo final")
     print("  3. rode rotation_audit.py contra os ultimos 3 episodios antes de fechar o roteiro")
-    print("  4. planeje o Short em SHORT_FUNNEL.md e valide-o separadamente")
-    print(f"  5. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
-    print("  6. voz liberada; depois rode timing_audit.py e salve TIMING_AUDIT.json")
-    print(f"  7. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")
-    print(f"     depois gere o manifest: python scripts/asset_manifest.py --images \"{vid/'03_imagens'}\" --out \"{vid/'01_roteiro'/'PROMPT_STATUS.json'}\"")
+    print("  4. preencha SHOT_SPECS.json com a imagem perfeita, crops, claims, estados e prompts")
+    print("  5. rode: python scripts/visual_plan.py compile --episode \"%s\"" % vid)
+    print("  6. gere as imagens e valide: python scripts/image_audit.py \"%s\" --sheet" % (vid / "03_imagens"))
+    print("  7. rode asset_manifest.py; depois gere voz, captions e timing")
+    print("  8. só então rode remotion.py plan/stills/render")
 
 
 if __name__ == "__main__":

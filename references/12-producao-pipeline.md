@@ -11,14 +11,15 @@ Pipeline unificado + mapas para os **engines** que já existem nos projetos do u
 ## Pipeline unificado
 
 ```
-pesquisa → TITLE_RESEARCH + título escolhido → rotação dos últimos 3 → roteiro (script_builder) → linter → scaffold do vídeo (new_video: pastas + stubs + PROMPTS + package + voz)
-   → prompts completos (prompt_builder) → imagens (GATE 100%) → manifest/retries de assets → auditoria de imagens (image_audit.py)
-   → captions (SRT/karaoke) → direction plan (dark-artdirector + RENDER_PLAN) → Remotion ou motion legado
-   → visual QA (stills + dark-visual-reviewer) → tail/outro → chapters
-   → Short → endcard → thumbs 3x → pacote de publicação → auditoria YPP → upload manual
+pesquisa → claims → roteiro validado → ROTEIRO_MAP
+→ dark-artdirector + VISUAL_BIBLE + SHOT_SPECS
+→ PROMPT_PLAN/PROMPTS.md → imagens e image_audit
+→ manifest de assets → voz → captions/timing
+→ RENDER_PLAN v2 → F0/F50/F100 + revisão independente
+→ Remotion → RENDER_REPORT → auditoria final
 ```
 
-**GATES:** a **voz** só depende da narração + fatos (**liberada no scaffold**); o **motion** exige o **GATE 100%** (todas as imagens e `PROMPT_STATUS.json` = PASS). Sem todas as imagens, **não gera motion**. A rotação editorial é obrigatória quando há histórico; `ROTATION_AUDIT.json` = FAIL bloqueia e REVIEW exige aprovação humana. Fluxo completo de escrita + scaffold: `30-roteiro-master.md`, PASSO 6.
+Para novos episódios, a direção visual é planejada antes da voz, mas o motion permanece bloqueado até os assets e o timing passarem. O fallback de imagem-por-índice é legado e exige aprovação explícita.
 
 **Remotion:** `motion.json` escolhe `legacy` ou `remotion`. O fluxo novo é `plan → stills → dark-artdirector → dark-visual-reviewer → render → audit`; o motor de roteiro não é importado pelo renderer. Consulte `37-remotion-pipeline.md` e `38-remotion-contratos.md`.
 

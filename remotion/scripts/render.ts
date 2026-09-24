@@ -14,11 +14,11 @@ const { serveUrl, composition } = await getComposition(plan, compositionId);
 await renderMedia({
   serveUrl,
   composition,
-  codec: "h264",
-  audioCodec: "aac",
-  crf: 18,
-  imageFormat: "jpeg",
-  jpegQuality: 92,
+  codec: plan.render.codec,
+  audioCodec: plan.render.audioCodec,
+  crf: plan.render.crf,
+  imageFormat: plan.render.imageFormat,
+  jpegQuality: plan.render.jpegQuality,
   outputLocation: output,
   inputProps: { plan },
 });

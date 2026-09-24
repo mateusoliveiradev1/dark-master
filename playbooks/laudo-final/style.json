@@ -1,0 +1,89 @@
+{
+  "channel": "Laudo Final",
+  "language": "pt",
+  "image_suffix": "dark cinematic forensic illustration, desaturated cold tones, deep blacks, subtle red accent, volumetric fog, 16:9, no text, no watermark, no blood, no gore, no real face, silhouettes from behind",
+  "series": [
+    "PERICIA",
+    "FRIOS",
+    "MENTE"
+  ],
+  "serie_tag": {
+    "PERÍCIA RESOLVE": "PERICIA",
+    "ARQUIVOS FRIOS": "FRIOS",
+    "MENTE CRIMINOSA": "MENTE"
+  },
+  "porte": {
+    "FINO": [
+      26,
+      30
+    ],
+    "PADRAO": [
+      18,
+      22
+    ]
+  },
+  "palette": {
+    "bg": [
+      10,
+      10,
+      12
+    ],
+    "accent": [
+      185,
+      28,
+      28
+    ],
+    "gold": [
+      235,
+      180,
+      30
+    ],
+    "paper": [
+      245,
+      245,
+      244
+    ]
+  },
+  "thumb": {
+    "font": "canal/assets/fonts/BebasNeue.ttf",
+    "colors": {
+      "white": [
+        245,
+        245,
+        244
+      ],
+      "red": [
+        185,
+        28,
+        28
+      ],
+      "black": [
+        10,
+        10,
+        12
+      ]
+    },
+    "serie_colors": {
+      "PERICIA": [
+        185,
+        28,
+        28
+      ],
+      "FRIOS": [
+        30,
+        64,
+        110
+      ],
+      "MENTE": [
+        45,
+        45,
+        52
+      ]
+    },
+    "default_serie_color": [
+      185,
+      28,
+      28
+    ]
+  }
+}

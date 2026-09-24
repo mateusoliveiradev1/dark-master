@@ -73,7 +73,11 @@ O título não é gerado no vazio. Antes de escolher o título final:
 
 O `rotation_audit.py` compara somente os três episódios anteriores por padrão e mede título, hook, sequência de beats e CTA. `FAIL` exige mudança; `REVIEW` exige aprovação humana; `INCONCLUSIVO` significa que faltou título, mapa ou histórico. A rotação não proíbe repetir tema ou série: proíbe repetir a mesma substância sem ângulo, prova ou mudança editorial real.
 
-### Gate semântico do long
+### Gate visual antes da voz
+
+Depois que o mapa e as claims forem aprovados, o dark-artdirector deve criar `VISUAL_BIBLE.json` e `SHOT_SPECS.json`. Cada shot precisa indicar função editorial, imagem primária, apoio, exclusões, claims, crop, safe area, estados temporais e prompt. O `PROMPT_PLAN.json` deve estar em `PROMPTS_READY` antes de gerar ou selecionar assets.
+
+A voz pode ser gerada depois do design aprovado, mas o Remotion só é liberado quando `asset_manifest`, `image_audit`, captions e `TIMING_AUDIT` estiverem PASS. Stills nunca aprovam o vídeo final: o gate exige F0/F50/F100, derivados 120px, sequência completa e revisão independente.
 
 - `ROTEIRO_MAP.json` é o sidecar obrigatório do long: cada bloco tem `beat`, `text`, `claim_ids`, `target_words`, `target_seconds`, `question`, `state_change`, `rehook` e `payoff`.
 - O texto do mapa deve corresponder a `narration_v3.txt`; marcadores ficam apenas no sidecar, nunca na narração TTS.

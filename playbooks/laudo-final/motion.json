@@ -1,5 +1,5 @@
 {
-  "channel": "new-channel",
+  "channel": "Laudo Final",
   "engine": "remotion",
   "default_clip_len": 7.0,
   "fps": 30,
@@ -8,6 +8,7 @@
   "max_images": 120,
   "remotion": {
     "composition": "DarkMasterLong",
+    "shortComposition": "DarkMasterShort",
     "transition_seconds": 0.45,
     "statefulScenes": true,
     "requireVisualStates": true,

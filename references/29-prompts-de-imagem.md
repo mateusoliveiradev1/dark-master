@@ -103,4 +103,16 @@ python scripts/asset_manifest.py \
   --out "<video>/01_roteiro/PROMPT_STATUS.json"
 ```
 
-`PROMPT_STATUS.json` guarda o total esperado, os assets presentes e os IDs faltantes. Gere novamente os arquivos somente para os IDs em `missing`; não apague o manifesto para fazer o gate passar. `FAIL` bloqueia motion até todos os prompts numerados terem asset válido.
+## Prompt plan ligado ao roteiro
+
+Para novos episódios, `prompt_builder.py --episode <videoNN>` deve ser alimentado por `SHOT_SPECS.json`, não por uma lista genérica de imagens. Cada shot deve conter:
+
+- `shotId` e `promptId` estáveis;
+- `sourceBlockIds` e `claimIds`;
+- função editorial e mudança de estado;
+- imagem primária, imagens de apoio e assets excluídos;
+- composição, câmera, luz, crop e safe area;
+- `states` com entry, establishment, focus, emphasis e exit;
+- negative guards de segurança, identidade, prova e continuidade.
+
+O resultado `PROMPT_PLAN.json` é a fonte de verdade. `PROMPTS.md` é apenas a representação legível para o gerador. O status `NEEDS_ART_DIRECTION` bloqueia a geração final; `PROMPTS_READY` libera a etapa de assets, mas nunca aprova motion.

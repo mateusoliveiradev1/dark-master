@@ -113,6 +113,33 @@ def audit_video(v):
         res["gates"]["timing"] = "FALHA"
         res["flags"].append("timing")
 
+    prompt_plan = v / "01_roteiro" / "PROMPT_PLAN.json"
+    try:
+        prompt_data = json.loads(prompt_plan.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        prompt_data = {}
+    if prompt_data.get("status") == "PROMPTS_READY":
+        res["gates"]["prompt_plan"] = "ok"
+    else:
+        res["gates"]["prompt_plan"] = "FALHA"
+        res["flags"].append("prompt_plan")
+
+    shot_specs = v / "01_roteiro" / "SHOT_SPECS.json"
+    if shot_specs.exists():
+        res["gates"]["shot_specs"] = "ok"
+    else:
+        res["gates"]["shot_specs"] = "FALHA"
+        res["flags"].append("shot_specs")
+
+    if (v / "03_imagens").exists():
+        code, output = run("asset_manifest.py", [str(v / "03_imagens"), "--plan", str(prompt_plan)])
+        res["gates"]["assets"] = "ok" if code == 0 else "FALHA"
+        if code != 0:
+            res["flags"].append("assets")
+    else:
+        res["gates"]["assets"] = "FALHA"
+        res["flags"].append("assets")
+
     render_plans = list((v / "01_roteiro").glob("RENDER_PLAN_*.json")) if (v / "01_roteiro").exists() else []
     if render_plans:
         remotion_results = []
@@ -124,7 +151,25 @@ def audit_video(v):
         if any(code != 0 for code in remotion_results):
             res["flags"].append("remotion")
     else:
-        res["gates"]["remotion"] = "nao_ativo"
+        res["gates"]["remotion"] = "FALHA"
+        res["flags"].append("remotion")
+
+    visual_reviews = list((v / "01_roteiro").glob("VISUAL_REVIEW_*.json")) if (v / "01_roteiro").exists() else []
+    if visual_reviews:
+        review_statuses = []
+        for review in visual_reviews:
+            try:
+                review_statuses.append(str(json.loads(review.read_text(encoding="utf-8")).get("status", "FALHA")))
+            except (OSError, ValueError, TypeError):
+                review_statuses.append("FALHA")
+        if review_statuses and all(status == "PASS" for status in review_statuses):
+            res["gates"]["visual_review"] = "ok"
+        else:
+            res["gates"]["visual_review"] = "FALHA"
+            res["flags"].append("visual_review")
+    else:
+        res["gates"]["visual_review"] = "FALHA"
+        res["flags"].append("visual_review")
 
     pronunciation = v / "01_roteiro" / "PRONUNCIA_TTS.json"
     try:
@@ -173,7 +218,6 @@ def audit_video(v):
     optional_artifacts = (
         ("titulo", v / "01_roteiro" / "TITLE_RESEARCH.json"),
         ("rotacao", v / "01_roteiro" / "ROTATION_AUDIT.json"),
-        ("assets", v / "01_roteiro" / "PROMPT_STATUS.json"),
     )
     for key, path in optional_artifacts:
         if not path.exists():
@@ -222,8 +266,11 @@ def audit_video(v):
     if not pkg:
         res["flags"].append("pacote")
     final = any(v.glob("04_video_final/*.mp4")) if (v / "04_video_final").exists() else False
-    res["gates"]["final"] = "ok" if final else "ausente"
-    if not final:
+    reports = list((v / "01_roteiro").glob("RENDER_REPORT_*.json")) if (v / "01_roteiro").exists() else []
+    if final and reports:
+        res["gates"]["final"] = "ok"
+    else:
+        res["gates"]["final"] = "FALHA"
         res["flags"].append("final")
 
     res["veredito"] = "PASSOU" if not res["flags"] else "FALHA"

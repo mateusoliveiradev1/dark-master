@@ -11,14 +11,19 @@ export const Backdrop: FC<
     background: string;
     surface: string;
     accent: string;
+    bodyFont?: string;
+    headingFont?: string;
   }>
-> = ({ background, surface, accent, children }) => (
+> = ({ background, surface, accent, bodyFont = "Arial", headingFont = "Arial", children }) => (
   <AbsoluteFill
-    style={{
-      background: `radial-gradient(circle at 80% 12%, ${accent}33 0, transparent 34%), linear-gradient(135deg, ${background} 0%, ${surface} 100%)`,
-      color: "#F5F5F4",
-      fontFamily: "Arial, sans-serif",
-    }}
+    style={
+      {
+        background: `radial-gradient(circle at 80% 12%, ${accent}33 0, transparent 34%), linear-gradient(135deg, ${background} 0%, ${surface} 100%)`,
+        color: "#F5F5F4",
+        fontFamily: `${bodyFont}, Arial, sans-serif`,
+        "--heading-font": `${headingFont}, Arial, sans-serif`,
+      } as CSSProperties
+    }
   >
     {children}
   </AbsoluteFill>

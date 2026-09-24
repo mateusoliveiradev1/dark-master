@@ -156,27 +156,34 @@ def resolve_channel(root: Path, channel: str | None) -> Path | None:
 def load_contract(root: Path, channel: str | None, allow_defaults: bool = False) -> dict:
     channel_dir = resolve_channel(root, channel)
     contracts = {}
-    for name in ("style.json", "motion.json", "voice.json", "roteiro.json"):
+    required = ("style.json", "motion.json", "voice.json", "roteiro.json", "visual.json")
+    for name in required:
         path = channel_dir / name if channel_dir else None
         if path and path.exists():
             contracts[name.removesuffix(".json")] = read_json(path)
+        elif not allow_defaults and name == "visual.json" and contracts.get("motion", {}).get("engine") != "remotion":
+            continue
         elif not allow_defaults:
             raise FileNotFoundError(f"missing_contract:{name}:{channel_dir}")
     return contracts
 
 
-def theme_from_style(style: dict) -> dict:
+def theme_from_style(style: dict, visual: dict | None = None) -> dict:
     source = style.get("remotion", {}).get("theme", {}) if isinstance(style.get("remotion"), dict) else {}
     colors = source.get("colors", source) if isinstance(source, dict) else {}
+    palette = visual.get("palette", {}) if isinstance(visual, dict) else {}
+    typography = visual.get("typography", {}) if isinstance(visual, dict) else {}
+    safe = visual.get("safeAreas", {}).get("long", {}) if isinstance(visual, dict) else {}
+    action = safe.get("action", [72 / 1920, 54 / 1080, 0.9, 0.78]) if isinstance(safe, dict) else [72 / 1920, 54 / 1080, 0.9, 0.78]
     return {
-        "background": colors.get("background", style.get("background", DEFAULT_STYLE["background"])),
-        "surface": colors.get("surface", style.get("surface", DEFAULT_STYLE["surface"])),
-        "text": colors.get("text", style.get("text", DEFAULT_STYLE["text"])),
-        "muted": colors.get("muted", style.get("muted", DEFAULT_STYLE["muted"])),
-        "accent": colors.get("accent", style.get("accent", DEFAULT_STYLE["accent"])),
-        "headingFont": colors.get("headingFont", style.get("headingFont", DEFAULT_STYLE["headingFont"])),
-        "bodyFont": colors.get("bodyFont", style.get("bodyFont", DEFAULT_STYLE["bodyFont"])),
-        "safeArea": {"x": 72, "y": 54},
+        "background": palette.get("background", colors.get("background", style.get("background", DEFAULT_STYLE["background"]))),
+        "surface": palette.get("surface", colors.get("surface", style.get("surface", DEFAULT_STYLE["surface"]))),
+        "text": palette.get("text", colors.get("text", style.get("text", DEFAULT_STYLE["text"]))),
+        "muted": palette.get("muted", colors.get("muted", style.get("muted", DEFAULT_STYLE["muted"]))),
+        "accent": palette.get("accent", colors.get("accent", style.get("accent", DEFAULT_STYLE["accent"]))),
+        "headingFont": typography.get("heading", colors.get("headingFont", style.get("headingFont", DEFAULT_STYLE["headingFont"]))),
+        "bodyFont": typography.get("body", colors.get("bodyFont", style.get("bodyFont", DEFAULT_STYLE["bodyFont"]))),
+        "safeArea": {"x": round(float(action[0]) * 1920), "y": round(float(action[1]) * 1080)},
     }
 
 
@@ -237,7 +244,31 @@ def short_text(value: object, limit: int = 110) -> str:
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
 
 
-def scene_blocks(episode: Path, total: float, format_name: str) -> list[dict]:
+def load_visual_bible(contracts: dict) -> dict:
+    visual = contracts.get("visual")
+    return visual if isinstance(visual, dict) else {}
+
+
+def load_shot_specs(episode: Path) -> list[dict]:
+    path = episode / "01_roteiro" / "SHOT_SPECS.json"
+    if not path.exists():
+        return []
+    data = read_json(path)
+    shots = data.get("shots", []) if isinstance(data, dict) else data
+    return [shot for shot in shots if isinstance(shot, dict)] if isinstance(shots, list) else []
+
+
+def prompt_plan_status(episode: Path) -> str:
+    path = episode / "01_roteiro" / "PROMPT_PLAN.json"
+    if not path.exists():
+        return "MISSING"
+    try:
+        return str(read_json(path).get("status", "MISSING"))
+    except ValueError:
+        return "INVALID"
+
+
+def scene_blocks(episode: Path, total: float, format_name: str, shot_specs: list[dict] | None = None) -> list[dict]:
     blocks = map_blocks(episode)
     if not blocks:
         images = image_files(episode)
@@ -245,7 +276,7 @@ def scene_blocks(episode: Path, total: float, format_name: str) -> list[dict]:
             raise FileNotFoundError(f"no_visual_or_map:{episode}")
         motion = read_json(episode / "motion.json") if (episode / "motion.json").exists() else {}
         duration = float(motion.get("default_clip_len", 7.0))
-        blocks = [{"id": f"IMG{index:03d}", "beat": "HOOK" if index == 1 else "CONTEXTO", "question": "O que este beat mostra?", "state_change": "A imagem revela uma mudança."} for index in range(1, len(images) + 1)]
+        blocks = [{"id": f"IMG{index:03d}", "beat": "HOOK" if index == 1 else "CONTEXTO", "question": "O que este beat mostra?", "state_change": "A imagem revela uma mudança.", "target_seconds": duration} for index in range(1, len(images) + 1)]
     if total <= 0:
         total = sum(float(block.get("target_seconds", 0) or 0) for block in blocks) or 8.0
     timings, timed_blocks = parse_timing(episode / "02_audio" / "captions_times.json")
@@ -255,26 +286,44 @@ def scene_blocks(episode: Path, total: float, format_name: str) -> list[dict]:
         targets = [max(1.0, float(block.get("target_seconds", 0) or 0)) for block in blocks]
         scale = total / sum(targets)
         measures = [{"start": sum(targets[:index]) * scale, "end": sum(targets[: index + 1]) * scale, "dur": target * scale} for index, target in enumerate(targets)]
+    specs_by_block = {}
+    for spec in shot_specs or []:
+        for block_id in spec.get("sourceBlockIds", []):
+            specs_by_block[str(block_id)] = spec
     scenes = []
     for index, (block, measure) in enumerate(zip(blocks, measures), 1):
         beat = str(block.get("beat", ""))
         question = short_text(block.get("question"), 86)
         state_change = short_text(block.get("state_change"), 140)
+        block_id = str(block.get("id") or f"scene-{index:03d}")
+        spec = specs_by_block.get(block_id, {})
+        editorial = spec.get("editorial", {}) if isinstance(spec, dict) else {}
+        visual = spec.get("visual", {}) if isinstance(spec, dict) else {}
+        scene_type = visual.get("sceneType") or editorial.get("function") or block_type(block)
+        claims = spec.get("claimIds") or block.get("claim_ids") or []
+        states = spec.get("states") or []
         scene = {
-            "id": str(block.get("id") or f"scene-{index:03d}"),
-            "type": block_type(block),
-            "purpose": beat.lower().replace(" ", "-") or "editorial",
+            "id": block_id,
+            "type": scene_type,
+            "purpose": editorial.get("function") or beat.lower().replace(" ", "-") or "editorial",
             "startSeconds": round(max(0.0, float(measure["start"])), 3),
             "durationSeconds": round(max(0.5, float(measure["end"] - measure["start"])), 3),
-            "sourceBlockIds": [str(block.get("id"))] if block.get("id") else [],
-            "headline": question or "Uma mudança no arquivo",
+            "sourceBlockIds": [block_id],
+            "claimIds": [str(value) for value in claims],
+            "sourceIds": [str(value) for value in spec.get("sourceIds", [])],
+            "promptId": str(spec.get("promptId")) if spec.get("promptId") else None,
+            "headline": short_text(visual.get("headline") or question, 86) or "Uma mudança no arquivo",
             "body": state_change or "A evidência reorganiza a leitura.",
-            "metadata": {"label": beat or "DOCUMENTARY", "source": "ROTEIRO_MAP.json" if map_blocks(episode) else "visual plan"},
-            "motionVariant": "timeline" if "timeline" in block_type(block) else "push-in",
-            "transitionIn": "fade",
-            "transitionOut": "slide" if index % 3 else "fade",
+            "metadata": {"label": beat or "DOCUMENTARY", "source": "SHOT_SPECS.json" if spec else "ROTEIRO_MAP.json", "stateCount": str(len(states))},
+            "motionVariant": str(spec.get("motionVariant") or ("timeline" if "timeline" in scene_type else "push-in")),
+            "motionIntent": str(spec.get("motionIntent") or editorial.get("stateChange") or "purposeful editorial movement"),
+            "transitionIn": str(spec.get("transitionIn") or "dissolve"),
+            "transitionOut": str(spec.get("transitionOut") or "dissolve"),
+            "states": states,
         }
-        scenes.append(scene)
+        if spec.get("cropPolicy"):
+            scene["cropPolicy"] = spec["cropPolicy"]
+        scenes.append({key: value for key, value in scene.items() if value is not None})
     if scenes and scenes[-1]["startSeconds"] + scenes[-1]["durationSeconds"] < total:
         scenes[-1]["durationSeconds"] = round(total - scenes[-1]["startSeconds"], 3)
     return scenes
@@ -314,7 +363,7 @@ def stage_assets(episode: Path, public_dir: Path, audio: Path | None, style: dic
 
 def source_hash_map(episode: Path, contracts: dict, audio: Path | None, assets: list[Path] | None = None) -> dict:
     result = {}
-    for relative in ("01_roteiro/ROTEIRO_MAP.json", "01_roteiro/CLAIMS.json", "01_roteiro/TIMING_AUDIT.json", "02_audio/voice_FINAL.wav", "02_audio/captions.srt"):
+    for relative in ("01_roteiro/ROTEIRO_MAP.json", "01_roteiro/CLAIMS.json", "01_roteiro/SHOT_SPECS.json", "01_roteiro/PROMPT_PLAN.json", "01_roteiro/TIMING_AUDIT.json", "02_audio/voice_FINAL.wav", "02_audio/captions.srt"):
         path = episode / relative
         if path.exists():
             result[relative] = sha256(path)
@@ -327,9 +376,16 @@ def source_hash_map(episode: Path, contracts: dict, audio: Path | None, assets: 
     return result
 
 
-def build_plan(episode: Path, channel: str | None, format_name: str, contracts: dict) -> dict:
+def build_plan(episode: Path, channel: str | None, format_name: str, contracts: dict, allow_incomplete: bool = False) -> dict:
     style = contracts.get("style", {})
     motion = contracts.get("motion", {})
+    visual = load_visual_bible(contracts)
+    shot_specs = load_shot_specs(episode)
+    if motion.get("engine") == "remotion" and not allow_incomplete:
+        if not shot_specs:
+            raise FileNotFoundError(f"missing_visual_plan:{episode / '01_roteiro' / 'SHOT_SPECS.json'}")
+        if prompt_plan_status(episode) != "PROMPTS_READY":
+            raise FileNotFoundError(f"visual_gate_not_ready:{prompt_plan_status(episode)}:{episode / '01_roteiro' / 'PROMPT_PLAN.json'}")
     size = motion.get("size", [1920, 1080])
     width, height = (size if format_name == "long" else [1080, 1920])
     audio = audio_file(episode, format_name)
@@ -338,24 +394,52 @@ def build_plan(episode: Path, channel: str | None, format_name: str, contracts: 
     captions = parse_srt(captions_path) if captions_path else []
     if audio_seconds <= 0 and captions:
         audio_seconds = max(caption["endSeconds"] for caption in captions)
-    scenes = scene_blocks(episode, audio_seconds, format_name)
+    scenes = scene_blocks(episode, audio_seconds, format_name, shot_specs)
     total = audio_seconds or max(scene["startSeconds"] + scene["durationSeconds"] for scene in scenes)
     public_dir = episode / "04_video_final" / "_remotion" / "public"
     _, staged, _ = stage_assets(episode, public_dir, audio, style)
+    branding = dict(visual.get("branding", {})) if isinstance(visual.get("branding", {}), dict) else {}
+    watermark_source = branding.get("watermark")
+    if watermark_source:
+        source = Path(str(watermark_source)).expanduser()
+        if not source.is_absolute():
+            source = episode.parent.parent / source
+        if source.exists():
+            watermark_target = public_dir / "brand" / f"watermark{source.suffix.lower()}"
+            watermark_target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, watermark_target)
+            branding["watermark"] = watermark_target.relative_to(public_dir).as_posix()
+        else:
+            branding.pop("watermark", None)
+    render_config = motion.get("remotion", {}).get("render", {}) if isinstance(motion.get("remotion", {}), dict) else {}
+    render_plan = {"codec": render_config.get("codec", "h264"), "audioCodec": render_config.get("audio_codec", render_config.get("audioCodec", "aac")), "crf": int(render_config.get("crf", 18)), "imageFormat": "jpeg", "jpegQuality": 92}
+    asset_ledger = []
     for index, scene in enumerate(scenes):
         if staged:
-            scene["asset"] = staged[index % len(staged)].relative_to(public_dir).as_posix()
+            asset_path = staged[index % len(staged)].relative_to(public_dir).as_posix()
+            asset_id = f"A-{index + 1:03d}"
+            scene["asset"] = asset_path
+            scene["assets"] = [{"assetId": asset_id, "path": asset_path, "role": "primary", "kind": staged[index % len(staged)].suffix.lstrip("."), "origin": "synthetic-or-licensed", "rightsStatus": "pending"}]
+            for state in scene.get("states", []):
+                if not state.get("assetIds"):
+                    state["assetIds"] = [asset_id]
+            asset_ledger.append(scene["assets"][0])
     audio_plan = None
     if audio:
         audio_plan = {"src": f"audio/{audio.name}", "volume": 1.0}
     plan = {
-        "version": 1,
+        "version": 2,
         "channel": channel or episode.parent.name,
         "episode": episode.name,
         "format": format_name,
         "video": {"width": int(width), "height": int(height), "fps": int(motion.get("fps", 30)), "durationSeconds": round(total, 3)},
         "captions": captions,
-        "theme": theme_from_style(style),
+        "theme": theme_from_style(style, visual),
+        "visualBible": visual,
+        "render": render_plan,
+        "branding": branding,
+        "contractVersions": {name: hashlib.sha256(json.dumps(data, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest() for name, data in contracts.items()},
+        "assetLedger": asset_ledger,
         "scenes": scenes,
         "sources": source_hash_map(episode, contracts, audio, staged),
     }
@@ -374,7 +458,7 @@ def plan_command(args) -> int:
     root = Path(args.root).expanduser().resolve()
     episode = (root / args.episode).resolve()
     contracts = load_contract(root, args.channel, args.allow_defaults)
-    plan = build_plan(episode, args.channel, args.format, contracts)
+    plan = build_plan(episode, args.channel, args.format, contracts, args.allow_incomplete)
     destination = plan_path(episode, args.format)
     write_json(destination, plan)
     print(json.dumps({"status": "PASS", "plan": str(destination), "scenes": len(plan["scenes"]), "assets": len(plan["sources"])}, ensure_ascii=False))
@@ -499,6 +583,7 @@ def main() -> int:
     plan = sub.add_parser("plan")
     add_common(plan)
     plan.add_argument("--allow-defaults", action="store_true")
+    plan.add_argument("--allow-incomplete", action="store_true")
     plan.set_defaults(handler=plan_command)
     stills = sub.add_parser("stills")
     add_common(stills)

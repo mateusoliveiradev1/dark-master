@@ -32,17 +32,24 @@ def main() -> int:
         for name in REQUIRED:
             if not (channel_dir / name).exists():
                 errors.append(f"missing:{name}")
-        style = read(channel_dir / "style.json") or {}
+        style = read(channel_dir / "style.json")
         motion = read(channel_dir / "motion.json")
+        visual = read(channel_dir / "visual.json")
         voice = read(channel_dir / "voice.json") or {}
-        if motion:
-            if motion.get("engine") not in {"remotion", "legacy", None}:
-                errors.append("invalid_motion_engine")
-            if motion.get("engine") == "remotion" and motion.get("fps", 0) <= 0:
+        if not motion:
+            errors.append("missing:motion.json")
+        elif motion.get("engine") not in {"remotion", "legacy"}:
+            errors.append("invalid_motion_engine")
+        if style is None:
+            errors.append("missing:style.json")
+        if motion and motion.get("engine") == "remotion":
+            if motion.get("fps", 0) <= 0:
                 errors.append("invalid_fps")
-            if motion.get("engine") == "remotion" and not (channel_dir / "visual.json").exists():
+            if not visual:
                 errors.append("missing:visual.json")
-        if style.get("language") and voice.get("language") and style["language"] != voice["language"]:
+            elif visual.get("version", 0) < 2:
+                errors.append("invalid_visual_version")
+        if style and voice and style.get("language") and voice.get("language") and style["language"] != voice["language"]:
             errors.append("language_mismatch")
         if style and not style.get("image_suffix"):
             errors.append("missing_image_suffix")

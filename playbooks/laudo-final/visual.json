@@ -1,16 +1,16 @@
 {
-  "channel": "new-channel",
+  "channel": "Laudo Final",
   "version": 2,
   "identity": {
-    "mood": ["documentary", "investigative", "restrained"],
-    "audience": "",
-    "tone": ["calm", "precise", "respectful"]
+    "mood": ["documentary", "investigative", "sober", "forensic"],
+    "audience": "adult true crime and forensic documentary audience",
+    "tone": ["calm", "precise", "respectful", "unresolved"]
   },
   "palette": {
     "background": "#0A0A0C",
     "surface": "#17171B",
     "text": "#F5F5F4",
-    "muted": "#A1A1AA",
+    "muted": "#8A8A93",
     "accent": "#B91C1C",
     "evidence": "#EBB41E"
   },
@@ -33,11 +33,12 @@
     }
   },
   "image": {
-    "suffix": "dark cinematic documentary illustration, desaturated cold tones, deep blacks, subtle red accent, volumetric fog, no text, no watermark, no blood, no gore, no real face, silhouettes from behind, 16:9",
+    "suffix": "dark cinematic forensic illustration, desaturated cold tones, deep blacks, subtle red accent, volumetric fog, 16:9, no text, no watermark, no blood, no gore, no real face, silhouettes from behind",
     "negativeGuards": [
       "no gore",
       "no blood",
       "no body",
+      "no injury reconstruction",
       "no readable text",
       "no signage",
       "no invented logo",
@@ -46,9 +47,16 @@
       "no modern object in historical scenes"
     ]
   },
+  "branding": {
+    "watermark": "canal/assets/watermark_LF.png",
+    "watermarkOpacity": 0.32,
+    "endCard": "archive-end-card",
+    "tagline": "UM CASO REAL POR DIA"
+  },
   "motion": {
     "intensity": "controlled",
     "defaultTransition": "cut-or-dissolve-by-meaning",
+    "requireStateTimeline": true,
     "forbid": [
       "generic-slideshow",
       "image-plus-fade-plus-zoom",
@@ -60,12 +68,14 @@
     "minimumScore": 92,
     "requiredVisualChanges": [2, 4],
     "frameTest": ["F0", "F50", "F100"],
+    "requireIndependentReview": true,
     "forbid": [
       "crop-ruined",
       "text-outside-safe-area",
       "caption-overlap",
       "untraceable-asset",
-      "static-scene"
+      "static-scene",
+      "hypothesis-presented-as-fact"
     ]
   }
 }

@@ -28,35 +28,148 @@ const Panel: FC<{ children: ReactNode; color?: string; style?: React.CSSProperti
   </div>
 );
 
+const stateAt = (
+  frame: number,
+  durationInFrames: number,
+  states: Plan["scenes"][number]["states"],
+) => {
+  if (!states.length) return null;
+  const value = Math.min(1, Math.max(0, frame / Math.max(1, durationInFrames - 1)));
+  return (
+    states.find((state) => value >= state.timeRange[0] && value <= state.timeRange[1]) ??
+    states[states.length - 1]
+  );
+};
+
+const StateAnnotation: FC<{ scene: Plan["scenes"][number] }> = ({ scene }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const state = stateAt(frame, Math.round(scene.durationSeconds * fps), scene.states);
+  if (!state?.annotation) return null;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        right: 80,
+        bottom: 86,
+        maxWidth: 460,
+        padding: "10px 14px",
+        borderLeft: `3px solid ${scene.metadata.accent ?? "#EBB41E"}`,
+        background: "rgba(8,8,10,0.72)",
+        color: "#F5F5F4",
+        fontFamily: "Arial, sans-serif",
+        fontSize: 18,
+        letterSpacing: 0.4,
+        opacity: 0.9,
+      }}
+    >
+      {state.annotation}
+    </div>
+  );
+};
+
 const MotionLayer: FC<{ scene: Plan["scenes"][number]; children: ReactNode }> = ({
   scene,
   children,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const enter = progress(frame, Math.round(scene.durationSeconds * fps));
-  const scale =
-    scene.motionVariant === "push-in"
-      ? interpolate(enter, [0, 1], [1.04, 1.12])
-      : scene.motionVariant === "pull-out"
-        ? interpolate(enter, [0, 1], [1.12, 1.02])
-        : 1;
+  const durationInFrames = Math.max(1, Math.round(scene.durationSeconds * fps));
+  const enter = progress(frame, durationInFrames);
+  const exit = interpolate(
+    frame,
+    [
+      Math.max(
+        0,
+        durationInFrames - Math.min(24, Math.max(6, Math.round(durationInFrames * 0.12))),
+      ),
+      durationInFrames,
+    ],
+    [1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+  const state = stateAt(frame, durationInFrames, scene.states);
+  const stateProgress = state
+    ? interpolate(
+        frame,
+        [
+          state.timeRange[0] * Math.max(1, durationInFrames - 1),
+          state.timeRange[1] * Math.max(1, durationInFrames - 1),
+        ],
+        [0, 1],
+        {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.bezier(0.16, 1, 0.3, 1),
+        },
+      )
+    : 0;
+  const motion = state?.motion ?? scene.motionVariant;
+  const baseScale =
+    motion === "push-in" || motion === "controlled-crop"
+      ? interpolate(stateProgress, [0, 1], [1.02, 1.1])
+      : motion === "pull-out" || motion === "drift-with-purpose"
+        ? interpolate(stateProgress, [0, 1], [1.1, 1.02])
+        : motion === "detail-reveal"
+          ? interpolate(stateProgress, [0, 1], [1.16, 1.08])
+          : 1;
   const x =
-    scene.motionVariant === "track-left"
-      ? interpolate(enter, [0, 1], [40, 0])
-      : scene.motionVariant === "track-right"
-        ? interpolate(enter, [0, 1], [-40, 0])
+    motion === "track-right" || motion === "slow-spatial-entry"
+      ? interpolate(stateProgress, [0, 1], [42, 0])
+      : motion === "track-left" || motion === "line-drawing"
+        ? interpolate(stateProgress, [0, 1], [-42, 0])
         : 0;
+  const y = motion === "hold-and-transition" ? interpolate(stateProgress, [0, 1], [0, -8]) : 0;
+  const opacity = enter * exit;
   return (
-    <div
-      style={{
-        opacity: enter,
-        transform: `translateX(${x}px) scale(${scale})`,
-        transformOrigin: "center",
-      }}
-    >
-      {children}
-    </div>
+    <>
+      <div
+        style={{
+          opacity,
+          transform: `translate3d(${x}px, ${y}px, 0) scale(${baseScale})`,
+          transformOrigin: "center",
+          willChange: "transform, opacity",
+        }}
+      >
+        {children}
+      </div>
+      <StateAnnotation scene={scene} />
+    </>
+  );
+};
+
+const StatefulPlate: FC<{ scene: Plan["scenes"][number] }> = ({ scene }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const state = stateAt(frame, Math.round(scene.durationSeconds * fps), scene.states);
+  const stateAsset = state?.assetIds
+    .map((assetId) => scene.assets.find((asset) => asset.assetId === assetId))
+    .find((asset) => asset?.path);
+  const focalPoint = state?.focalPoint ?? scene.cropPolicy?.long?.focalPoint ?? [0.5, 0.5];
+  return (
+    <AssetImage
+      src={stateAsset?.path ?? scene.asset}
+      objectPosition={`${focalPoint[0] * 100}% ${focalPoint[1] * 100}%`}
+    />
+  );
+};
+
+const sceneProgress = (frame: number, scene: Plan["scenes"][number], fps: number): number => {
+  const durationInFrames = Math.max(1, Math.round(scene.durationSeconds * fps));
+  const state = stateAt(frame, durationInFrames, scene.states);
+  if (!state)
+    return interpolate(frame, [0, durationInFrames], [0, 1], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    });
+  return interpolate(
+    frame,
+    [
+      state.timeRange[0] * Math.max(1, durationInFrames - 1),
+      state.timeRange[1] * Math.max(1, durationInFrames - 1),
+    ],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) },
   );
 };
 
@@ -88,8 +201,8 @@ const Overlay: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scen
 
 const CinematicPhoto: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => (
   <AbsoluteFill>
-    <AssetImage src={scene.asset} />
     <MotionLayer scene={scene}>
+      <StatefulPlate scene={scene} />
       <Overlay plan={plan} scene={scene} />
     </MotionLayer>
   </AbsoluteFill>
@@ -103,7 +216,7 @@ const EvidenceReveal: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ pla
       color={plan.theme.surface}
       style={{ position: "relative", overflow: "hidden", padding: 0 }}
     >
-      <AssetImage src={scene.asset} />
+      <StatefulPlate scene={scene} />
     </Panel>
     <MotionLayer scene={scene}>
       <div
@@ -133,6 +246,9 @@ const EvidenceReveal: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ pla
 );
 
 const EvidenceTable: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const progress = sceneProgress(frame, scene, fps);
   const rows = scene.body.split("\n").filter(Boolean);
   return (
     <AbsoluteFill style={{ padding: 72, display: "flex", alignItems: "center" }}>
@@ -160,6 +276,16 @@ const EvidenceTable: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan
                   borderTop: "1px solid #18181B33",
                   padding: "14px 0",
                   fontSize: 20,
+                  opacity: interpolate(
+                    progress,
+                    [
+                      (index / Math.max(1, rows.length)) * 0.7,
+                      (index / Math.max(1, rows.length)) * 0.7 + 0.2,
+                    ],
+                    [0, 1],
+                    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+                  ),
+                  transform: `translateX(${interpolate(progress, [(index / Math.max(1, rows.length)) * 0.7, (index / Math.max(1, rows.length)) * 0.7 + 0.2], [-18, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}px)`,
                 }}
               >
                 <span>{row}</span>
@@ -175,91 +301,116 @@ const EvidenceTable: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan
   );
 };
 
-const InvestigationBoard: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => (
-  <AbsoluteFill style={{ padding: 58, background: "#16181C" }}>
-    <MotionLayer scene={scene}>
-      <div
-        style={{
-          position: "relative",
-          height: "100%",
-          border: `1px solid ${plan.theme.accent}55`,
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      >
+const InvestigationBoard: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const progress = sceneProgress(frame, scene, fps);
+  return (
+    <AbsoluteFill style={{ padding: 58, background: "#16181C" }}>
+      <MotionLayer scene={scene}>
         <div
           style={{
-            position: "absolute",
-            left: 70,
-            top: 70,
-            width: 350,
-            height: 230,
-            transform: "rotate(-5deg)",
-            overflow: "hidden",
+            position: "relative",
+            height: "100%",
+            border: `1px solid ${plan.theme.accent}55`,
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         >
-          <AssetImage src={scene.asset} />
+          <div
+            style={{
+              position: "absolute",
+              left: 70,
+              top: 70,
+              width: 350,
+              height: 230,
+              transform: `rotate(-5deg) scale(${interpolate(progress, [0, 0.6], [0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
+              opacity: interpolate(progress, [0, 0.35], [0, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }),
+              overflow: "hidden",
+            }}
+          >
+            <StatefulPlate scene={scene} />
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              right: 86,
+              top: 96,
+              width: 420,
+              padding: 22,
+              background: "#E7E2D8",
+              color: "#18181B",
+              transform: `rotate(4deg) scale(${interpolate(progress, [0.25, 0.75], [0.94, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
+              opacity: interpolate(progress, [0.2, 0.55], [0, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }),
+            }}
+          >
+            <div style={{ fontSize: 18, fontWeight: 800 }}>{scene.headline}</div>
+            <div style={{ fontSize: 16, marginTop: 10 }}>{scene.body}</div>
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              left: "35%",
+              bottom: 90,
+              width: 320,
+              borderTop: `3px solid ${plan.theme.accent}`,
+              paddingTop: 14,
+              color: plan.theme.text,
+              fontSize: 22,
+            }}
+          >
+            {scene.metadata.note ?? "Relacionar evidência → significado → hipótese"}
+          </div>
+          <svg
+            viewBox="0 0 1920 1080"
+            width="100%"
+            height="100%"
+            role="img"
+            aria-label="Investigation connections"
+            style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+          >
+            <title>Investigation connections</title>
+            <path
+              d="M420 250 C650 180 880 180 1210 300"
+              fill="none"
+              stroke={plan.theme.accent}
+              strokeWidth="3"
+              strokeDasharray="10 12"
+              strokeDashoffset={interpolate(progress, [0.15, 0.65], [220, 0], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              })}
+            />
+            <path
+              d="M1180 520 C980 680 820 760 650 820"
+              fill="none"
+              stroke={plan.theme.text}
+              strokeWidth="2"
+              strokeDasharray="6 8"
+              strokeDashoffset={interpolate(progress, [0.55, 0.9], [220, 0], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              })}
+              opacity="0.45"
+            />
+          </svg>
         </div>
-        <div
-          style={{
-            position: "absolute",
-            right: 86,
-            top: 96,
-            width: 420,
-            padding: 22,
-            background: "#E7E2D8",
-            color: "#18181B",
-            transform: "rotate(4deg)",
-          }}
-        >
-          <div style={{ fontSize: 18, fontWeight: 800 }}>{scene.headline}</div>
-          <div style={{ fontSize: 16, marginTop: 10 }}>{scene.body}</div>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            left: "35%",
-            bottom: 90,
-            width: 320,
-            borderTop: `3px solid ${plan.theme.accent}`,
-            paddingTop: 14,
-            color: plan.theme.text,
-            fontSize: 22,
-          }}
-        >
-          {scene.metadata.note ?? "Relacionar evidência → significado → hipótese"}
-        </div>
-        <svg
-          viewBox="0 0 1920 1080"
-          width="100%"
-          height="100%"
-          role="img"
-          aria-label="Investigation connections"
-          style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-        >
-          <title>Investigation connections</title>
-          <path
-            d="M420 250 C650 180 880 180 1210 300"
-            fill="none"
-            stroke={plan.theme.accent}
-            strokeWidth="3"
-            strokeDasharray="10 12"
-          />
-          <path
-            d="M1180 520 C980 680 820 760 650 820"
-            fill="none"
-            stroke={plan.theme.text}
-            strokeWidth="2"
-            opacity="0.45"
-          />
-        </svg>
-      </div>
-    </MotionLayer>
-  </AbsoluteFill>
-);
+      </MotionLayer>
+    </AbsoluteFill>
+  );
+};
 
 const Timeline: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const progress = sceneProgress(frame, scene, fps);
   const events = scene.body.split("\n").filter(Boolean);
   return (
     <AbsoluteFill
@@ -278,6 +429,15 @@ const Timeline: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, sce
             background: `${plan.theme.muted}77`,
           }}
         >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: plan.theme.accent,
+              transformOrigin: "left center",
+              transform: `scaleX(${progress})`,
+            }}
+          />
           {events.map((event, index) => (
             <div
               key={event}
@@ -289,6 +449,16 @@ const Timeline: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, sce
                 height: 20,
                 borderRadius: 20,
                 background: index === 0 ? plan.theme.accent : plan.theme.text,
+                opacity: interpolate(
+                  progress,
+                  [
+                    (index / Math.max(1, events.length)) * 0.65,
+                    (index / Math.max(1, events.length)) * 0.65 + 0.2,
+                  ],
+                  [0, 1],
+                  { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+                ),
+                transform: `scale(${interpolate(progress, [(index / Math.max(1, events.length)) * 0.65, (index / Math.max(1, events.length)) * 0.65 + 0.2], [0.5, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
               }}
             />
           ))}
@@ -303,6 +473,15 @@ const Timeline: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, sce
                 color: plan.theme.muted,
                 fontSize: 18,
                 lineHeight: 1.2,
+                opacity: interpolate(
+                  progress,
+                  [
+                    (index / Math.max(1, events.length)) * 0.65,
+                    (index / Math.max(1, events.length)) * 0.65 + 0.2,
+                  ],
+                  [0, 1],
+                  { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+                ),
               }}
             >
               {event}
@@ -316,7 +495,9 @@ const Timeline: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, sce
 
 const Location: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => (
   <AbsoluteFill>
-    <AssetImage src={scene.asset} objectPosition="center" filter="saturate(0.72) contrast(1.08)" />
+    <MotionLayer scene={scene}>
+      <StatefulPlate scene={scene} />
+    </MotionLayer>
     <div
       style={{
         position: "absolute",
@@ -465,7 +646,7 @@ const Portrait: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, sce
     style={{ display: "grid", gridTemplateColumns: "0.8fr 1.2fr", gap: 30, padding: 54 }}
   >
     <div style={{ position: "relative", overflow: "hidden" }}>
-      <AssetImage src={scene.asset} objectPosition="center top" />
+      <StatefulPlate scene={scene} />
       <div
         style={{
           position: "absolute",
@@ -496,71 +677,85 @@ const Portrait: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, sce
   </AbsoluteFill>
 );
 
-const Comparison: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => (
-  <AbsoluteFill style={{ padding: 54, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-    {[
-      ["A", scene.asset],
-      ["B", scene.secondaryAsset],
-    ].map(([label, src], index) => (
-      <div
-        key={label}
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          border: `1px solid ${index ? plan.theme.accent : plan.theme.text}55`,
-        }}
-      >
-        <AssetImage src={src} />
+const Comparison: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const progress = sceneProgress(frame, scene, fps);
+  return (
+    <AbsoluteFill style={{ padding: 54, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      {[
+        ["A", scene.asset],
+        ["B", scene.secondaryAsset],
+      ].map(([label, src], index) => (
         <div
+          key={label}
           style={{
-            position: "absolute",
-            left: 24,
-            top: 22,
-            color: plan.theme.text,
-            fontSize: 52,
-            fontWeight: 900,
+            position: "relative",
+            overflow: "hidden",
+            border: `1px solid ${index ? plan.theme.accent : plan.theme.text}55`,
+            opacity: interpolate(progress, [index * 0.28, index * 0.28 + 0.32], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }),
+            transform: `scale(${interpolate(progress, [index * 0.28, index * 0.28 + 0.32], [0.94, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
           }}
         >
-          {label}
+          <AssetImage src={src} />
+          <div
+            style={{
+              position: "absolute",
+              left: 24,
+              top: 22,
+              color: plan.theme.text,
+              fontSize: 52,
+              fontWeight: 900,
+            }}
+          >
+            {label}
+          </div>
         </div>
+      ))}
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          width: 72,
+          height: 72,
+          marginLeft: -36,
+          marginTop: -36,
+          display: "grid",
+          placeItems: "center",
+          borderRadius: 99,
+          background: plan.theme.accent,
+          color: plan.theme.text,
+          fontSize: 30,
+          fontWeight: 900,
+        }}
+      >
+        VS
       </div>
-    ))}
-    <div
-      style={{
-        position: "absolute",
-        left: "50%",
-        top: "50%",
-        width: 72,
-        height: 72,
-        marginLeft: -36,
-        marginTop: -36,
-        display: "grid",
-        placeItems: "center",
-        borderRadius: 99,
-        background: plan.theme.accent,
-        color: plan.theme.text,
-        fontSize: 30,
-        fontWeight: 900,
-      }}
-    >
-      VS
-    </div>
-    <div
-      style={{
-        position: "absolute",
-        left: 72,
-        right: 72,
-        bottom: 38,
-        textAlign: "center",
-        color: plan.theme.text,
-        fontSize: 26,
-        fontWeight: 750,
-      }}
-    >
-      {scene.headline}
-    </div>
-  </AbsoluteFill>
-);
+      <div
+        style={{
+          position: "absolute",
+          left: 72,
+          right: 72,
+          bottom: 38,
+          textAlign: "center",
+          color: plan.theme.text,
+          fontSize: 26,
+          fontWeight: 750,
+          opacity: interpolate(progress, [0.45, 0.75], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          }),
+        }}
+      >
+        {scene.headline}
+      </div>
+    </AbsoluteFill>
+  );
+};
 
 const Quote: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => (
   <AbsoluteFill
@@ -745,11 +940,7 @@ const Surveillance: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan,
           overflow: "hidden",
         }}
       >
-        <AssetImage
-          src={scene.asset}
-          objectPosition="center"
-          filter="grayscale(0.6) contrast(1.25)"
-        />
+        <StatefulPlate scene={scene} />
         <div
           style={{
             position: "absolute",
@@ -802,8 +993,8 @@ const Surveillance: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan,
 
 const Generic: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = ({ plan, scene }) => (
   <AbsoluteFill>
-    <AssetImage src={scene.asset} />
     <MotionLayer scene={scene}>
+      <StatefulPlate scene={scene} />
       <Overlay plan={plan} scene={scene} />
     </MotionLayer>
   </AbsoluteFill>
@@ -815,8 +1006,11 @@ export const SceneRenderer: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = 
 }) => {
   switch (scene.type) {
     case "cinematic-photo":
+    case "photo-reconstruction":
       return <CinematicPhoto plan={plan} scene={scene} />;
     case "evidence-reveal":
+    case "forensic-reveal":
+    case "evidence-focus":
       return <EvidenceReveal plan={plan} scene={scene} />;
     case "evidence-table":
       return <EvidenceTable plan={plan} scene={scene} />;
@@ -824,20 +1018,26 @@ export const SceneRenderer: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = 
       return <InvestigationBoard plan={plan} scene={scene} />;
     case "timeline":
     case "timeline-detail":
+    case "timeline-build":
       return <Timeline plan={plan} scene={scene} />;
     case "geographic-location":
+    case "location-sequence":
       return <Location plan={plan} scene={scene} />;
     case "animated-map":
     case "evidence-map":
       return <MapScene plan={plan} scene={scene} />;
     case "document-report":
     case "newspaper-archive":
+    case "document-dive":
       return <Document plan={plan} scene={scene} />;
     case "portrait-investigation":
     case "object-detail":
+    case "detail-extraction":
       return <Portrait plan={plan} scene={scene} />;
     case "split-screen":
     case "compare-contrast":
+    case "split-evidence":
+    case "hypothesis-comparator":
       return <Comparison plan={plan} scene={scene} />;
     case "quote":
       return <Quote plan={plan} scene={scene} />;
@@ -846,11 +1046,13 @@ export const SceneRenderer: FC<{ plan: Plan; scene: Plan["scenes"][number] }> = 
     case "concept-diagram":
       return <Diagram plan={plan} scene={scene} />;
     case "chapter-break":
+    case "negative-space-beat":
       return <ChapterBreak plan={plan} scene={scene} />;
     case "surveillance-footage":
     case "security-camera":
       return <Surveillance plan={plan} scene={scene} />;
     case "end-card-cta":
+    case "archive-end-card":
       return (
         <EndCard plan={plan} asset={scene.asset} headline={scene.headline} body={scene.body} />
       );

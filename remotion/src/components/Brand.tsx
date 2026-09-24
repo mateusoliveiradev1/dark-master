@@ -25,18 +25,33 @@ export const ChannelBrand: FC<{ plan: RenderPlan }> = ({ plan }) => (
       <span style={{ width: 8, height: 8, borderRadius: 99, background: plan.theme.accent }} />
       {plan.channel}
     </div>
-    <div
-      style={{
-        position: "absolute",
-        right: 34,
-        bottom: 24,
-        width: 25,
-        height: 25,
-        border: `2px solid ${plan.theme.text}`,
-        borderRadius: 7,
-        opacity: 0.72,
-      }}
-    />
+    {plan.branding.watermark ? (
+      <Img
+        src={staticFile(plan.branding.watermark)}
+        style={{
+          position: "absolute",
+          right: 34,
+          bottom: 24,
+          width: 76,
+          height: 76,
+          objectFit: "contain",
+          opacity: plan.branding.watermarkOpacity,
+        }}
+      />
+    ) : (
+      <div
+        style={{
+          position: "absolute",
+          right: 34,
+          bottom: 24,
+          width: 25,
+          height: 25,
+          border: `2px solid ${plan.theme.text}`,
+          borderRadius: 7,
+          opacity: 0.72,
+        }}
+      />
+    )}
   </AbsoluteFill>
 );
 

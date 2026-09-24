@@ -15,6 +15,24 @@ O `RENDER_PLAN_LONG.json` ou `RENDER_PLAN_SHORT.json` é uma projeção visual d
 
 Cada cena contém `id`, `type`, `purpose`, `startSeconds`, `durationSeconds`, `sourceBlockIds`, assets, headline, body, metadata, motion e transições. O renderer não aceita path absoluto, `..`, URL externa ou asset não rastreável.
 
+## Fluxo obrigatório para novos episódios
+
+```text
+roteiro validado
+→ ROTEIRO_MAP + CLAIMS
+→ SHOT_SPECS + VISUAL_BIBLE
+→ PROMPT_PLAN + PROMPTS.md
+→ imagens + asset_manifest + image_audit
+→ voz + captions + timing
+→ RENDER_PLAN v2
+→ F0/F50/F100 + review independente
+→ render + RENDER_REPORT
+```
+
+O Remotion não deve transformar uma pasta de imagens em cenas por ordem numérica. Para episódios novos, `ROTEIRO_MAP.json`, `SHOT_SPECS.json`, `PROMPT_PLAN.json`, claims e assets rastreáveis são gates de entrada. O fallback de imagem-por-índice existe apenas para material legado e exige `--allow-incomplete`.
+
+Cada cena precisa declarar estados, crops, assets, claims e intenção de movimento. O renderer só pode usar imagem + fade + zoom como comportamento de entrada; não é uma solução editorial padrão.
+
 ## Comandos
 
 ```bash

@@ -43,7 +43,19 @@ A escolha é por função editorial:
 - surveillance e security-camera: tratar câmera como evidência;
 - end-card-cta: fechar identidade e ação.
 
-## QA visual
+## Contrato v2 do RenderPlan
+
+Novos episódios usam `RenderPlan.version: 2`. O plano deve carregar:
+
+- `visualBible` e hashes dos contratos;
+- `claimIds`, `sourceBlockIds` e `sourceIds` por cena;
+- `promptId` e `assetLedger` com origem, direitos e hash;
+- `states` com `timeRange`, `intent`, camadas, assets, anotação e movimento;
+- `cropPolicy` para Long e Short;
+- transições interpretadas pelo runtime;
+- captions dentro da duração do plano.
+
+O schema aceita planos v1 apenas para compatibilidade legada. Novos planos não podem usar o fallback silencioso de imagem por índice, asset sem manifest, claim sem fonte ou cena sem rastro de estado.
 
 A pontuação vai de 0 a 100 e cobre clareza, marca, hierarquia, tipografia, composição, crop, repetição, motion, captions, pacing, assets, sync e segurança. O render só é aprovado sem BLOCKER/MAJOR e com score mínimo 92. A revisão independente é obrigatória; o diretor de arte não se autoaprove.
 

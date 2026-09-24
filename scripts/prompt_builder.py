@@ -15,6 +15,7 @@ O estilo (sufixo) e travado por preset -> consistencia visual. Descricoes com te
 proibidos (gore, sangue, etc.) sao bloqueadas.
 """
 import argparse
+import json
 import re
 import urllib.parse
 import urllib.request
@@ -98,9 +99,18 @@ def main():
     ap.add_argument("--count", type=int, default=0)
     ap.add_argument("--title", default="")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--episode")
+    ap.add_argument("--visual")
+    ap.add_argument("--specs")
     ap.add_argument("--render", action="store_true")
     ap.add_argument("--outdir")
     a = ap.parse_args()
+
+    if a.episode:
+        from visual_plan import compile_prompt_plan
+        result = compile_prompt_plan(a.episode, a.visual, a.specs)
+        print(json.dumps({"status": result["status"], "prompts": len(result["prompts"]), "plan": str(Path(a.episode) / "01_roteiro" / "PROMPT_PLAN.json")}, ensure_ascii=False))
+        return 0 if result["status"] == "PROMPTS_READY" else 1
 
     suffix = a.suffix or PRESETS[a.style]
     style_label = f"{a.style} + sufixo do canal" if a.suffix else a.style
