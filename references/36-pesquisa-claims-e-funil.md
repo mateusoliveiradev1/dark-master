@@ -8,6 +8,8 @@ Todo episódio precisa ter, no mínimo:
 
 - `PESQUISA_BRIEF.md`: caso, pergunta central, ângulo editorial, lacunas, contradições, pessoas, riscos e plano de reconstrução.
 - `PESQUISA_FONTE.md`: fontes com título, autor, data, tipo, URL, trecho/localizador e limitações.
+- `TITLE_RESEARCH.md` e `TITLE_RESEARCH.json`: tema, subtema, ângulo, candidatos, evidências de busca, fórmula, decisão humana e limitações;
+- `ROTATION_AUDIT.json`: comparação do título, hook, sequência de beats e CTA com os três episódios anteriores;
 - `CLAIMS.json`: afirmações estruturadas que o roteiro pode usar.
 - `LINHA_DO_TEMPO.md`: linha do tempo canônica, incluindo biografia e contexto quando eles ajudam a explicar o caso.
 - `SHORT_FUNNEL.md`: Short de aquisição, ponte para o long e contrato de loop.
@@ -57,7 +59,19 @@ Regras:
 - Divergência numérica vira uma claim separada ou um `contradiction_id`; nunca é arredondada silenciosamente.
 - O roteiro pode ser mais fluente, mas não pode criar fato novo durante a escrita.
 
-## 3. Pesquisa completa para long forense
+## 3. Pesquisa de título e rotação
+
+A pesquisa editorial é separada da pesquisa factual:
+
+- `TITLE_RESEARCH.md` registra tema, subtema, ângulo, nicho, formato, idioma, mercado e candidatos;
+- cada evidência de demanda, concorrência, autocomplete, Data API ou comentário tem URL, data e limitação;
+- `title_research.py` só compara overlap, fórmula e histórico; não produz score de demanda;
+- `rotation_audit.py` compara o candidato e o roteiro final com os três episódios anteriores, separando tema, hook, estrutura, ângulo e CTA;
+- repetição de tema ou série é permitida quando a prova, a pergunta, o ângulo ou o estado final mudam; `REVIEW` exige aprovação humana e `FAIL` bloqueia.
+
+A pesquisa factual continua sendo pré-requisito: título escolhido não autoriza inventar claim.
+
+## 4. Pesquisa completa para long forense
 
 Um long de 30–70 minutos não é uma biografia automática. A completeness é definida por cobertura útil:
 
@@ -72,7 +86,7 @@ Um long de 30–70 minutos não é uma biografia automática. A completeness é 
 
 Não copie uma biografia inteira. Cada frase biográfica precisa passar neste teste: muda quem tinha acesso, motivo, oportunidade, risco, percepção ou interpretação? Se não muda, mova para o apêndice da pesquisa ou corte.
 
-## 4. Evidência forense
+## 5. Evidência forense
 
 Cada evidência follows a chain:
 
@@ -90,7 +104,7 @@ Registro obrigatório de evidência:
 - contradictions;
 - visual evidence plan and rights status.
 
-## 5. Long de 30–35, 45–60 e 60–70 minutos
+## 6. Long de 30–35, 45–60 e 60–70 minutos
 
 O comprimento não é preenchimento. O roteiro precisa conter mais progressão verificada, não fatos repetidos.
 
@@ -115,7 +129,7 @@ For a forensic channel, use a block structure with a new state change every 30�
 
 Para um caso de 30–35 minutos, use pelo menos três camadas: vida e contexto, sequência do caso e investigação posterior. Cada rehook deve mudar evidência, interpretação, cronologia ou risco.
 
-## 6. Short de aquisição
+## 7. Short de aquisição
 
 O Short não é uma introdução encurtada do long. É uma promessa separada.
 
@@ -139,7 +153,7 @@ Estrutura recomendada do Short:
 
 CTA deve ficar no comentário fixado ou no related video quando quebrar o loop. Não use linguagem genérica de inscrição, like ou “assista até o fim”.
 
-## 7. Ponte do funil
+## 8. Ponte do funil
 
 Antes de publicar, registre em `SHORT_FUNNEL.md`:
 
@@ -155,7 +169,7 @@ Antes de publicar, registre em `SHORT_FUNNEL.md`:
 
 O funil só é válido quando o Short é satisfatório sozinho e o long é valioso sozinho. O Short não pode ser clickbait; o long não pode começar como se o Short já tivesse contado a história inteira.
 
-## 8. Compliance e confiança
+## 9. Compliance e confiança
 
 - Pessoa viva é descrita como `suspeito`, `acusado`, `alegado`, `condenado` ou `inculpado`, conforme o status jurídico verificado.
 - Não invente diálogo, memória, motivo, resultado de DNA, confissão, conclusão pericial ou pensamento privado.
@@ -164,11 +178,14 @@ O funil só é válido quando o Short é satisfatório sozinho e o long é valio
 - O narrador deve declarar a incerteza quando o registro for incerto.
 - A resposta final distingue `estabelecido`, `provável`, `possível` e `desconhecido`.
 
-## 9. Gate final
+## 10. Gate final
 
 Um long não é aprovado para voz até que tudo isto seja verdadeiro:
 
 - `PESQUISA_BRIEF.md` está preenchido;
+- `TITLE_RESEARCH.md` e `TITLE_RESEARCH.json` registram candidatos, evidências e decisão humana;
+- `ROTATION_AUDIT.json` é PASS ou tem REVIEW aprovado contra os três episódios anteriores;
+- `PROMPT_STATUS.json` é PASS antes de motion;
 - `CLAIMS.json` não tem claim material sem fonte;
 - `LINHA_DO_TEMPO.md` tem eventos reais, não placeholders;
 - o roteiro usa IDs de claim ou permite mapear cada frase material a uma claim;

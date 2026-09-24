@@ -93,6 +93,7 @@ def main():
     timeline_text = read_text(script_dir / "LINHA_DO_TEMPO.md")
     timing = status(script_dir / "TIMING_AUDIT.json")
     originality = status(script_dir / "ORIGINALITY_AUDIT.json")
+    rotation = status(script_dir / "ROTATION_AUDIT.json")
     compliance = status(script_dir / "COMPLIANCE_AUDIT.json")
     short_qa = status(script_dir / "SHORT_QA.json")
     short_plan = (script_dir / "SHORT_FUNNEL.md").exists()
@@ -120,7 +121,7 @@ def main():
         "score": total,
         "maximum": maximum,
         "threshold": threshold,
-        "human_review_required": originality == "REVIEW" or compliance == "REVIEW" or short_qa == "REVIEW",
+        "human_review_required": originality == "REVIEW" or rotation == "REVIEW" or compliance == "REVIEW" or short_qa == "REVIEW",
         "dimensions": {
             "facts": {"points": facts, "max": 25, "details": fact_details},
             "structure": {"points": structure, "max": 20, "details": structure_details},

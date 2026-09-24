@@ -92,3 +92,15 @@ python scripts/prompt_builder.py --style truecrime-cfd --scenes cenas.txt \
 > `new_video.py` cria a estrutura; `prompt_builder.py` cria os prompts; `image_audit.py` valida. O trio fecha o "scaffold perfeito".
 
 > **Pollinations (fallback) pode devolver menos que 1920** (ex.: 1024×576). O `image_audit.py` **flag `baixa_res`** e você reusa/refaz. Para produção, prefira **Nano Banana/higgsfield** no tamanho-alvo (1280–1920).
+
+## Manifest e retry de prompts
+
+O GATE 100% compara a lista de prompts com os assets, não apenas a existência de uma pasta com imagens:
+
+```bash
+python scripts/asset_manifest.py \
+  --images "<video>/03_imagens" \
+  --out "<video>/01_roteiro/PROMPT_STATUS.json"
+```
+
+`PROMPT_STATUS.json` guarda o total esperado, os assets presentes e os IDs faltantes. Gere novamente os arquivos somente para os IDs em `missing`; não apague o manifesto para fazer o gate passar. `FAIL` bloqueia motion até todos os prompts numerados terem asset válido.

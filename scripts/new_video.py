@@ -13,6 +13,8 @@ Cria:
   01_roteiro/tease.txt            (placeholder)
   01_roteiro/PESQUISA_BRIEF.md
   01_roteiro/PESQUISA_FONTE.md
+  01_roteiro/TITLE_RESEARCH.md
+  01_roteiro/TITLE_CANDIDATES.txt
   01_roteiro/CLAIMS.json
   01_roteiro/ROTEIRO_MAP.json
   01_roteiro/LINHA_DO_TEMPO.md
@@ -110,6 +112,56 @@ BRIEF_TMPL = """# BRIEF DE PESQUISA — {case}
 - Virada:
 - Reconstrução:
 - Payoff:
+"""
+
+TITLE_RESEARCH_TMPL = """# PESQUISA DE TÍTULOS — {case}
+
+## Contexto
+- Tema:
+- Subtema:
+- Ângulo:
+- Nicho:
+- Formato:
+- Idioma e mercado:
+- Data da busca:
+
+## Candidatos
+| # | Título | Fórmula | Evidência de demanda | Lacuna | Status |
+|---|---|---|---|---|---|
+| 1 | | | | | |
+| 2 | | | | | |
+| 3 | | | | | |
+| 4 | | | | | |
+| 5 | | | | | |
+
+## Pesquisa
+| Fonte | URL | Data | O que demonstra | Limitação |
+|---|---|---|---|---|
+| | | | | |
+
+## Histórico
+| Episódio | Título | Fórmula | Ângulo | Hook | CTA |
+|---|---|---|---|---|---|
+| videoNN-1 | | | | | |
+| videoNN-2 | | | | | |
+| videoNN-3 | | | | | |
+
+## Decisão
+- Título escolhido:
+- Motivo:
+- Evidência que ainda falta:
+- Confiança: baixa | média | alta
+- Human review: [ ] pendente [ ] aprovado
+
+> A pontuação de demanda, saturação e disponibilidade não é inventada pelo script. Registre fontes e datas em `TITLE_RESEARCH.json` ou neste arquivo.
+"""
+
+TITLE_CANDIDATES_TMPL = """# Uma linha por candidato; Title Research exige evidência externa separada.
+TITLE: [preencher]
+TITLE: [preencher]
+TITLE: [preencher]
+TITLE: [preencher]
+TITLE: [preencher]
 """
 
 CLAIMS_TMPL = {
@@ -254,6 +306,12 @@ def main():
     brief = vid / "01_roteiro" / "PESQUISA_BRIEF.md"
     if not brief.exists():
         brief.write_text(BRIEF_TMPL.format(case=case), encoding="utf-8")
+    title_research = vid / "01_roteiro" / "TITLE_RESEARCH.md"
+    if not title_research.exists():
+        title_research.write_text(TITLE_RESEARCH_TMPL.format(case=case), encoding="utf-8")
+    title_candidates = vid / "01_roteiro" / "TITLE_CANDIDATES.txt"
+    if not title_candidates.exists():
+        title_candidates.write_text(TITLE_CANDIDATES_TMPL, encoding="utf-8")
     claims = vid / "01_roteiro" / "CLAIMS.json"
     if not claims.exists():
         claim_data = dict(CLAIMS_TMPL)
@@ -297,10 +355,13 @@ def main():
     print("  1. preencha PESQUISA_BRIEF.md, PESQUISA_FONTE.md, CLAIMS.json e ROTEIRO_MAP.json")
     print("     caso cronologico (forense/truecrime): preencha 01_roteiro/LINHA_DO_TEMPO.md")
     print("     escreva o long em 01_roteiro/narration_v3.txt e o Short em 01_roteiro/narration_short.txt")
-    print("  2. planeje o Short em SHORT_FUNNEL.md e valide-o separadamente")
-    print(f"  3. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
-    print("  4. voz liberada; depois rode timing_audit.py e salve TIMING_AUDIT.json")
-    print(f"  5. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")
+    print("  2. complete TITLE_RESEARCH.md e TITLE_CANDIDATES.txt, rode title_research.py e escolha o titulo final")
+    print("  3. rode rotation_audit.py contra os ultimos 3 episodios antes de fechar o roteiro")
+    print("  4. planeje o Short em SHORT_FUNNEL.md e valide-o separadamente")
+    print(f"  5. complete os prompts por PORTE (header ja com o sufixo do canal): {prompts}")
+    print("  6. voz liberada; depois rode timing_audit.py e salve TIMING_AUDIT.json")
+    print(f"  7. gere as imagens e valide: python scripts/image_audit.py \"{vid/'03_imagens'}\" --sheet")
+    print(f"     depois gere o manifest: python scripts/asset_manifest.py --images \"{vid/'03_imagens'}\" --out \"{vid/'01_roteiro'/'PROMPT_STATUS.json'}\"")
 
 
 if __name__ == "__main__":

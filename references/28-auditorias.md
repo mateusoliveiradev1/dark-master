@@ -17,6 +17,9 @@ Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualq
 | Gate | Script | Verifica |
 |---|---|---|
 | **Imagens** | `image_audit.py` | resolução, aspecto 16:9, tamanho, brilho/desvio (imagem quase sólida), saturação, **duplicatas** + contact sheet |
+| **Manifest de assets** | `asset_manifest.py` | cada prompt numerado tem asset; IDs faltantes ficam disponíveis para retry |
+| **Pesquisa de título** | `title_research.py` | candidatos, fórmula, overlap com histórico e decisão humana; não infere demanda |
+| **Rotação editorial** | `rotation_audit.py` | título, hook, sequência de beats e CTA contra os três episódios anteriores |
 | **Áudio/voz** | `audio_audit.py` | duração, sample rate/canais, **loudness (LUFS)**, **true peak**, LRA, **clipping**, **silêncios longos** |
 | **Legendas** | `captions_audit.py` | nº de cues, 1ª perto de 0:00, duração por cue, **sobreposições**, gaps, linhas/chars, **velocidade de leitura (CPS)**, cobertura vs áudio |
 | **Pacote** | (presença) | `youtube_package.txt` / `PACOTE_PUBLICACAO.txt` |
@@ -24,6 +27,8 @@ Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualq
 | **Remotion** | `remotion.py audit` | RENDER_PLAN, RENDER_REPORT, duração, output e paths rastreáveis |
 | **Visual** | `dark-visual-reviewer` | hierarquia, crop, safe area, captions, repetição, motion, pacing e score mínimo 92 |
 | **Compliance/YPP** | `audit-ypp.py` | conteúdo inautêntico, gore, IA, etc. (`references/09`) |
+
+`audit_all.py` consome `TITLE_RESEARCH.json`, `ROTATION_AUDIT.json` e `PROMPT_STATUS.json` quando eles existem. `INCONCLUSIVO` fica visível sem liberar motion; `FAIL` bloqueia. Rode os três pelo fluxo de `30-roteiro-master.md` antes da auditoria final.
 
 ## Alvos por canal
 
@@ -39,10 +44,10 @@ Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualq
 ## Fluxo recomendado
 
 ```
-roteiro → lint_roteiro → imagens → image_audit → voz → audio_audit
-        → captions.srt → captions_audit → RENDER_PLAN → stills
-        → dark-artdirector → dark-visual-reviewer → Remotion/motion → final
-        → audit_all → audit-ypp → publicar
+título → title_research → rotação dos últimos 3 → roteiro → lint_roteiro → imagens → image_audit → asset_manifest
+         → voz → audio_audit → captions.srt → captions_audit → RENDER_PLAN → stills
+         → dark-artdirector → dark-visual-reviewer → Remotion/motion → final
+         → audit_all → audit-ypp → publicar
 ```
 
 ## Comando

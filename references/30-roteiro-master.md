@@ -61,6 +61,18 @@ Regras:
 - Para forense, a cronologia deve cobrir a vida inteira quando isso alterar acesso, oportunidade, risco, conflito ou interpretação; não force biografia irrelevante.
 - A reconstrução só usa sequência mínima sustentada pelas evidências e explicita o grau de certeza.
 
+### Pesquisa de título e rotação antes do roteiro
+
+O título não é gerado no vazio. Antes de escolher o título final:
+
+1. preencha `01_roteiro/TITLE_RESEARCH.md` com tema, subtema, ângulo, idioma, mercado, formato, candidatos, URLs e datas;
+2. rode `python scripts/title_research.py --candidates <candidatos> --history <pasta-do-canal> --current <video> --out <video>/01_roteiro/TITLE_RESEARCH.json --markdown <video>/01_roteiro/TITLE_RESEARCH_CHECK.md`;
+3. compare o resultado com o histórico, mas não trate heurística como demanda ou CTR;
+4. escolha o título humano e grave-o em `youtube_package.txt`;
+5. depois de fechar o esqueleto, rode `python scripts/rotation_audit.py --current <video> --previous <pasta-do-canal> --out <video>/01_roteiro/ROTATION_AUDIT.json`.
+
+O `rotation_audit.py` compara somente os três episódios anteriores por padrão e mede título, hook, sequência de beats e CTA. `FAIL` exige mudança; `REVIEW` exige aprovação humana; `INCONCLUSIVO` significa que faltou título, mapa ou histórico. A rotação não proíbe repetir tema ou série: proíbe repetir a mesma substância sem ângulo, prova ou mudança editorial real.
+
 ### Gate semântico do long
 
 - `ROTEIRO_MAP.json` é o sidecar obrigatório do long: cada bloco tem `beat`, `text`, `claim_ids`, `target_words`, `target_seconds`, `question`, `state_change`, `rehook` e `payoff`.
@@ -69,6 +81,9 @@ Regras:
 - O validador estrito bloqueia beats fora de ordem, blocos sem pergunta, mudança de estado, payoff final, rehooks insuficientes, claims desconhecidas e divergência mapa/narração.
 - Depois da voz, rode `scripts/timing_audit.py` com `captions_times.json` e o TTS final; `TIMING_AUDIT.json` só pode ser `PASS` dentro da janela-alvo.
 - Rode `scripts/originality_audit.py` contra os últimos episódios; near-duplicate ou template repetitivo bloqueia a entrega.
+- `TITLE_RESEARCH.md` e `TITLE_RESEARCH.json` registram os candidatos e a decisão humana; a demanda não é inferida sem fonte.
+- Rode `scripts/rotation_audit.py` contra os três episódios anteriores; `REVIEW` bloqueia a aprovação automática e `FAIL` exige mudança editorial.
+- `asset_manifest.py` deve fechar o GATE 100% comparando cada prompt numerado com o asset correspondente; `PROMPT_STATUS.json` guarda os faltantes para retry.
 - Rode `scripts/compliance_audit.py`; qualquer `REVIEW` exige revisão humana antes da publicação.
 - Rode `scripts/research_audit.py --strict`; `RESEARCH_AUDIT.json` só passa com fontes, localizadores, confiança e independência rastreáveis.
 - Rode `scripts/script_scorecard.py`; `SCRIPT_SCORECARD.json` só passa no threshold do lane.
@@ -178,26 +193,30 @@ Quem veio do Short precisa acolhimento, sem citar o Short: *"You heard the call.
 ## Fluxo de escrita (workflow)
 
 1. **Brief do caso** (pesquisa: quem/quando/onde/vítimas/fontes/pergunta central). Preencha `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json` e `ROTEIRO_MAP.json`; casos cronológicos também preenchem `LINHA_DO_TEMPO.md` (`35`, `36`).
-2. **Definir a duração e o formato** (`--target-minutes 30-35` ou playbook do canal). Para forense, incluir vida, contexto e investigação que mudem a interpretação, sem biografia automática.
-3. **Gerar o esqueleto** com `scripts/script_builder.py` (beats, orçamento, `ROTEIRO_MAP.json`, claims e checklist). Preencha o mapa com o texto real de cada bloco antes de validar. Se o lane for misto, usar `--funnel` para gerar o plano do Short separado.
-4. **Escrever** `narration_v3.txt` bloco a bloco, preenchendo o `ROTEIRO_MAP.json` com `claim_ids`, pergunta, mudança de estado, rehook e payoff. Escrever `narration_short.txt` como peça independente, não como corte automático.
-5. **Passar o linter** (`lint-roteiro.py`) e o **validador estrito** (`script_builder.py --validate --strict`). O Short usa hook ≤8 palavras e seu próprio plano de loop/bridge.
-6. **Aprovar fatos** antes de gerar voz (GATE de fatos). Se houver lacuna, registrar `INCONCLUSIVO` e cortar ou atribuir a hipótese.
-7. **Auditar duração real depois da voz** com `scripts/timing_audit.py`; salvar `TIMING_AUDIT.json` com status `PASS` antes de considerar o roteiro pronto.
-8. **Scaffold do vídeo** — o roteiro **não está entregue** sem esta etapa (**roteiro sem scaffold = entrega incompleta**):
-   a. **Pastas + stubs**: `python scripts/novo_video.py NN "Caso" SERIE` (no canal real) ou `python scripts/new_video.py NN "Caso" SERIE --root "<canal>"` (skill) → cria `videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}` + `TEMPLATE.txt`, `narration_v3.txt`, `narration_short.txt`, `tease.txt`, `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json`, `ROTEIRO_MAP.json`, `LINHA_DO_TEMPO.md`, `SHORT_FUNNEL.md` e `youtube_package.txt` (stubs). O scaffold **nunca sobrescreve** arquivos existentes: narração, pesquisa, claims, mapa, timeline e funil são preservados.
-   b. **PROMPTS.md completo por PORTE** — **FINO 26–30 · PADRÃO 32–36 · RICO 36–40 · FORENSE 30–35 38–48 · FORENSE 45–60 52–68 · FORENSE 60–70 68–88** — com o **sufixo travado do canal** (contrato: `playbooks/<canal>/style.json` → `image_suffix`, via `--channel`) e o header da regra de geração (`29`); mapeie os blocos **TEASE-A/B** nos números de imagem correspondentes (blocos do meio, min 7–12). Gere com `scripts/prompt_builder.py --style <preset-do-canal> --suffix "<sufixo>" --count <porte>` ou complete o esqueleto do scaffold.
-   c. **youtube_package.txt base**: `TITLE` + alternativas + `ANGULO` + `DESCRIPTION` (Lego) + `TAGS` + `THUMB` spec + bloco `SHORT` + pinneds. O template do scaffold já sai no **formato que o validador cobra** (`TITLE:`, `DESCRIPTION (copiar e colar):`, `TAGS:`, linha começando com `CHAPTERS ...`) — não edite os rótulos, só preencha. **CHAPTERS ficam marcados `PENDENTE`** — só remapeie pós-build com a duração real (`ffprobe`/`remapar_chapters`), nunca antes. Preencher o pacote (título/descrição/tags/chapters) é **etapa autoral manual** — não é gerada por script.
-   d. **Voz liberada no scaffold** (`python scripts/gerar_voz_v3.py videoNN`; identidade no contrato `playbooks/<canal>/voice.json`): a voz depende **só da narração + GATE de fatos**. **MOTION continua bloqueado pelo GATE 100%** (só com todas as imagens). Distinção que vale de agora em diante (resolve a contradição com o `PROTOCOLO_ANTI_INAUTHENTIC` item 5): **`imagens < 100% → não gera MOTION`**; a **voz pode (e deve) ser gerada no scaffold**.
+2. **Pesquisar e escolher o título** com `TITLE_RESEARCH.md`, `title_research.py` e evidência datada de busca/Data API; a decisão final é humana e vai para `youtube_package.txt`.
+3. **Definir a duração e o formato** (`--target-minutes 30-35` ou playbook do canal). Para forense, incluir vida, contexto e investigação que mudem a interpretação, sem biografia automática.
+4. **Gerar o esqueleto** com `scripts/script_builder.py` (beats, orçamento, `ROTEIRO_MAP.json`, claims e checklist). Preencha o mapa com o texto real de cada bloco antes de validar. Se o lane for misto, usar `--funnel` para gerar o plano do Short separado.
+5. **Escrever** `narration_v3.txt` bloco a bloco, preenchendo o `ROTEIRO_MAP.json` com `claim_ids`, pergunta, mudança de estado, rehook e payoff. Escrever `narration_short.txt` como peça independente, não como corte automático.
+6. **Comparar com os últimos três episódios** com `scripts/rotation_audit.py`; mudar hook, ordem dos beats, ângulo, CTA ou fórmula se `ROTATION_AUDIT.json` retornar FAIL ou REVIEW.
+7. **Passar o linter** (`lint-roteiro.py`) e o **validador estrito** (`script_builder.py --validate --strict`). O Short usa hook ≤8 palavras e seu próprio plano de loop/bridge.
+8. **Aprovar fatos** antes de gerar voz (GATE de fatos). Se houver lacuna, registrar `INCONCLUSIVO` e cortar ou atribuir a hipótese.
+9. **Auditar duração real depois da voz** com `scripts/timing_audit.py`; salvar `TIMING_AUDIT.json` com status `PASS` antes de considerar o roteiro pronto.
+10. **Scaffold do vídeo** — o roteiro **não está entregue** sem esta etapa (**roteiro sem scaffold = entrega incompleta**):
+    a. **Pastas + stubs**: `python scripts/novo_video.py NN "Caso" SERIE` (no canal real) ou `python scripts/new_video.py NN "Caso" SERIE --root "<canal>"` (skill) → cria `videoNN/{01_roteiro,02_audio,03_imagens,04_video_final}` + `TEMPLATE.txt`, `narration_v3.txt`, `narration_short.txt`, `tease.txt`, `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `TITLE_RESEARCH.md`, `TITLE_CANDIDATES.txt`, `CLAIMS.json`, `ROTEIRO_MAP.json`, `LINHA_DO_TEMPO.md`, `SHORT_FUNNEL.md` e `youtube_package.txt` (stubs). O scaffold **nunca sobrescreve** arquivos existentes: narração, pesquisa, claims, mapa, timeline, título e funil são preservados.
+    b. **PROMPTS.md completo por PORTE** — **FINO 26–30 · PADRÃO 32–36 · RICO 36–40 · FORENSE 30–35 38–48 · FORENSE 45–60 52–68 · FORENSE 60–70 68–88** — com o **sufixo travado do canal** (contrato: `playbooks/<canal>/style.json` → `image_suffix`, via `--channel`) e o header da regra de geração (`29`); mapeie os blocos **TEASE-A/B** nos números de imagem correspondentes (blocos do meio, min 7–12). Gere com `scripts/prompt_builder.py --style <preset-do-canal> --suffix "<sufixo>" --count <porte>` ou complete o esqueleto do scaffold.
+    c. **youtube_package.txt base**: `TITLE` + alternativas + `ANGULO` + `DESCRIPTION` (Lego) + `TAGS` + `THUMB` spec + bloco `SHORT` + pinneds. O template do scaffold já sai no **formato que o validador cobra** (`TITLE:`, `DESCRIPTION (copiar e colar):`, `TAGS:`, linha começando com `CHAPTERS ...`) — não edite os rótulos, só preencha. **CHAPTERS ficam marcados `PENDENTE`** — só remapeie pós-build com a duração real (`ffprobe`/`remapar_chapters`), nunca antes. Preencher o pacote (título/descrição/tags/chapters) é **etapa autoral manual** — não é gerada por script.
+    d. **Voz liberada no scaffold** (`python scripts/gerar_voz_v3.py videoNN`; identidade no contrato `playbooks/<canal>/voice.json`): a voz depende **só da narração + GATE de fatos**. **MOTION continua bloqueado pelo GATE 100%** (só com todas as imagens). Distinção que vale de agora em diante (resolve a contradição com o `PROTOCOLO_ANTI_INAUTHENTIC` item 5): **`imagens < 100% → não gera MOTION`**; a **voz pode (e deve) ser gerada no scaffold**.
+    e. **Fechar o manifest dos assets** depois de gerar ou coletar as imagens: `python scripts/asset_manifest.py --images <video>/03_imagens --out <video>/01_roteiro/PROMPT_STATUS.json`. `FAIL` bloqueia motion; os IDs em `missing` entram no retry de prompts.
 
-   **Verificação pós-scaffold** (antes de seguir):
-   ```bash
-   ls "<canal>/videoNN"                 # 01_roteiro 02_audio 03_imagens 04_video_final
-     ls "<canal>/videoNN/01_roteiro"      # narration_v3.txt narration_short.txt TEMPLATE.txt PESQUISA_BRIEF.md PESQUISA_FONTE.md CLAIMS.json ROTEIRO_MAP.json LINHA_DO_TEMPO.md SHORT_FUNNEL.md
+    **Verificação pós-scaffold** (antes de seguir):
+    ```bash
+    ls "<canal>/videoNN"                 # 01_roteiro 02_audio 03_imagens 04_video_final
+    ls "<canal>/videoNN/01_roteiro"      # narration_v3.txt narration_short.txt TEMPLATE.txt PESQUISA_BRIEF.md PESQUISA_FONTE.md TITLE_RESEARCH.md TITLE_CANDIDATES.txt CLAIMS.json ROTEIRO_MAP.json LINHA_DO_TEMPO.md SHORT_FUNNEL.md
 
-   ls "<canal>/videoNN/youtube_package.txt" "<canal>/videoNN/03_imagens/PROMPTS.md"
-   ```
-    - [ ] 4 pastas existem · narração/tease/PESQUISA/mapa **preservados** · PROMPTS.md com o sufixo do canal e TEASE-A/B mapeados · chapters `PENDENTE` · voz gerada (fatos aprovados) · `TIMING_AUDIT.json` = PASS.
+    ls "<canal>/videoNN/youtube_package.txt" "<canal>/videoNN/03_imagens/PROMPTS.md"
+    ```
+    - [ ] 4 pastas existem · narração/tease/PESQUISA/título/mapa **preservados** · `TITLE_RESEARCH.json` gerado · `ROTATION_AUDIT.json` PASS ou aprovado · PROMPTS.md com o sufixo do canal e TEASE-A/B mapeados · chapters `PENDENTE` · voz gerada (fatos aprovados) · `TIMING_AUDIT.json` = PASS.
+
 
 ## Ferramentas
 
@@ -223,6 +242,19 @@ python scripts/script_builder.py --validate "<videoNN>/01_roteiro/narration_pt.t
 # comparar com episodios anteriores
 python scripts/originality_audit.py --narration "<videoNN>/01_roteiro/narration_v3.txt" \
   --previous "<canal>" --out "<videoNN>/01_roteiro/ORIGINALITY_AUDIT.json"
+
+# comparar candidatos de título com o histórico
+python scripts/title_research.py --candidates "<videoNN>/01_roteiro/TITLE_CANDIDATES.txt" \
+  --history "<canal>" --current "<videoNN>" --out "<videoNN>/01_roteiro/TITLE_RESEARCH.json" \
+  --markdown "<videoNN>/01_roteiro/TITLE_RESEARCH_CHECK.md"
+
+# comparar título, hook, beats e CTA com os três últimos episódios
+python scripts/rotation_audit.py --current "<videoNN>" --previous "<canal>" \
+  --out "<videoNN>/01_roteiro/ROTATION_AUDIT.json"
+
+# fechar o GATE 100% de assets
+python scripts/asset_manifest.py --images "<videoNN>/03_imagens" \
+  --out "<videoNN>/01_roteiro/PROMPT_STATUS.json"
 
 # compliance assistido
 python scripts/compliance_audit.py --narration "<videoNN>/01_roteiro/narration_v3.txt" \

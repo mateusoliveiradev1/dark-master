@@ -1,6 +1,6 @@
 # 20 — Vídeos-fonte (transcrições destiladas)
 
-Os 5 vídeos que o usuário forneceu (`link.txt` na raiz) e o que cada um contribui. Transcrições limpas geradas em execução.
+Os vídeos que o usuário forneceu (`link.txt` e `roteiros.txt` na raiz) e o que cada um contribui. Transcrições limpas geradas em execução.
 
 ## 1. `XgrFWGSuQAU` — "Por Que Seus Shorts Travam em 1.000 Views" (O Milionário)
 - **Tema:** algoritmo de Shorts em "bolhas".
@@ -28,6 +28,16 @@ Os 5 vídeos que o usuário forneceu (`link.txt` na raiz) e o que cada um contri
 - **Contribui:** configuração (moeda BRL, país correto, dublagem automática, Shopping, clipes, melhoria IA, verificações) · **capa do Short no celular** (frame customizado no Photoshop inserido no vídeo) · título 5–8 palavras com termo de busca · ≤3 hashtags **padronizadas** · descrição enxuta + **vídeo relacionado** · colab só com quem está no vídeo · publicar **não listado** → esperar 10–15 min → público · edição no CapCut · stacks de receita (AdSense + Shopping/afiliado + brand deals + produto próprio "Vivendo de YouTube").
 - **Uso na skill:** `18-configuracoes-canal.md`, `02-algoritmo-shorts.md`, `10-rpm-e-nichos.md`.
 - **Nota:** números do vídeo são auto-reportados [ALEGADO]; usados como direção, não como prova.
+
+## 6. `Y7GrkaiLB-4` — "Automação COMPLETA de Canais Dark em Dólar"
+- **Tema:** pipeline de produção dark em 13 etapas, com pesquisa de título, roteiro, áudio, prompts de vídeo, edição e overlays.
+- **Contribui:** separar a pesquisa de título da produção; organizar tema, subtema, ângulo e fórmula; comparar candidatos com o histórico do canal; ler os últimos três roteiros para variar hook, estrutura, emoção, CTA e passagens; sincronizar prompts por bloco; registrar e repetir apenas prompts que falharam; exportar a base e aplicar overlays depois.
+- **Uso na skill:** `TITLE_RESEARCH.md` em `30-roteiro-master.md`; `title_research.py`; `rotation_audit.py`; `asset_manifest.py`; `12-producao-pipeline.md`; `29-prompts-de-imagem.md`.
+- **Limite:** as métricas, claims de demanda, “títulos aprovados” e números de eficiência são [ALEGADO]/[PRATICANTE]. A skill só usa a estrutura do processo; não transforma a alegação do vídeo em regra do YouTube.
+
+## Proveniência
+
+O quarto link de `roteiros.txt` foi analisado pela transcrição pública do YouTube. O vídeo é uma demonstração comercial e não é documentação oficial do YouTube. A skill registra os aprendizados como hipóteses operacionais e exige data, URL, idioma, coorte e evidência própria antes de promover qualquer regra.
 
 ## Como atualizar
 

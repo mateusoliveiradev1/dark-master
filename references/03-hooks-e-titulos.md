@@ -96,6 +96,19 @@ Ex.: "this one setting doubled my views and it is off by default".
 - **Um número específico** no título/1ª linha ("em 28 dias" > "rápido").
 - Mediana de hook: 11 palavras (Short) vs 12 (long-form) — a diferença é **compressão**, não "linguagem diferente".
 
+## Pesquisa e rotação editorial
+
+Antes de fechar o título, compare o candidato com o histórico do canal, não com uma lista genérica:
+
+- registre **tema, subtema, ângulo, idioma, mercado e formato**; “tema” deve ser específico o bastante para o público pesquisar, enquanto o nicho pode continuar amplo;
+- compare a fórmula do título com as fórmulas dos últimos três episódios;
+- mantenha o tema quando performar, mas troque o ângulo, a fórmula, a promessa ou a estrutura que já esteja saturada;
+- se título, hook, ordem dos beats e CTA forem quase iguais, revise a substância; formato repetível não é autorização para substância repetida;
+- demanda, disponibilidade e saturação exigem busca, autocomplete, Data API ou comentários com data e URL. O script só mede overlap e avisos de heurística; ele não inventa um score de demanda;
+- a escolha final do título é humana e deve ficar em `youtube_package.txt`.
+
+Use `scripts/title_research.py` para comparar candidatos com `youtube_package.txt` históricos e `scripts/rotation_audit.py` para comparar título, hook, beats e CTA com os últimos três episódios. `REVIEW` exige leitura humana; `FAIL` bloqueia a entrega editorial.
+
 ## Nunca
 
 - Prometer além do que os primeiros 30s entregam.

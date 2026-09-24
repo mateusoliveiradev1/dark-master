@@ -11,14 +11,14 @@ Pipeline unificado + mapas para os **engines** que já existem nos projetos do u
 ## Pipeline unificado
 
 ```
-pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_video: pastas + stubs + PROMPTS + package + voz)
-   → prompts completos (prompt_builder) → imagens (GATE 100%) → auditoria de imagens (image_audit.py)
+pesquisa → TITLE_RESEARCH + título escolhido → rotação dos últimos 3 → roteiro (script_builder) → linter → scaffold do vídeo (new_video: pastas + stubs + PROMPTS + package + voz)
+   → prompts completos (prompt_builder) → imagens (GATE 100%) → manifest/retries de assets → auditoria de imagens (image_audit.py)
    → captions (SRT/karaoke) → direction plan (dark-artdirector + RENDER_PLAN) → Remotion ou motion legado
    → visual QA (stills + dark-visual-reviewer) → tail/outro → chapters
    → Short → endcard → thumbs 3x → pacote de publicação → auditoria YPP → upload manual
 ```
 
-**GATES:** a **voz** só depende da narração + fatos (**liberada no scaffold**); o **motion** exige o **GATE 100%** (todas as imagens). Sem todas as imagens, **não gera motion**. Fluxo completo de escrita + scaffold: `30-roteiro-master.md`, PASSO 6.
+**GATES:** a **voz** só depende da narração + fatos (**liberada no scaffold**); o **motion** exige o **GATE 100%** (todas as imagens e `PROMPT_STATUS.json` = PASS). Sem todas as imagens, **não gera motion**. A rotação editorial é obrigatória quando há histórico; `ROTATION_AUDIT.json` = FAIL bloqueia e REVIEW exige aprovação humana. Fluxo completo de escrita + scaffold: `30-roteiro-master.md`, PASSO 6.
 
 **Remotion:** `motion.json` escolhe `legacy` ou `remotion`. O fluxo novo é `plan → stills → dark-artdirector → dark-visual-reviewer → render → audit`; o motor de roteiro não é importado pelo renderer. Consulte `37-remotion-pipeline.md` e `38-remotion-contratos.md`.
 
@@ -71,16 +71,18 @@ pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_vid
 
 ## Ordem de execução prática
 
-1. Escrever roteiro → `linter_roteiro`.
-2. **Scaffold** (`novo_video`/`new_video`: pastas + stubs + PROMPTS + package) → **voz** (`gerar_voz`; só precisa da narração + fatos — `30` PASSO 6).
-3. **Auditar duração real** (`timing_audit.py` com `captions_times.json` + TTS) → `TIMING_AUDIT.json` precisa estar `PASS`.
-4. Completar prompts (porte) → gerar/coletar **todas** as imagens (Nano Banana manual; ver `13`) → `image_audit` (**GATE 100% antes do motion**).
-5. `gerar_srt_norm` → `montar_motion` → `finalizar_tail` → (`anexar_outro` se long).
-6. `remapar_chapters` (duração real) → `padrao_short` → `endcard`.
-7. `fazer_thumb_v2` (3 variantes) → `pacote_dia` → `validar_pacote`.
-8. `auditar_tudo` → upload manual → publicar.
-   - **Etapas manuais no meio do pipeline:** o `build_video` **para no gate de thumbs** (3 variantes A/B/C são geradas por você) e o **pacote de publicação é autoral** (título/descrição/tags/chapters — o scaffold só cria os blocos vazios no formato do validador; `pacote_dia` monta o copiar-e-colar). Capítulos só depois do build (`remapar_chapters`).
-9. D+2/D+7: `revisao_d2` → atualizar `15-loop-de-aprendizado.md`.
+1. Escrever `TITLE_RESEARCH.md`, rodar `title_research.py` com o histórico e escolher o título final.
+2. Gerar o esqueleto do roteiro, preencher `ROTEIRO_MAP.json` e rodar `rotation_audit.py` contra os três episódios anteriores.
+3. Escrever roteiro → `linter_roteiro`.
+4. **Scaffold** (`novo_video`/`new_video`: pastas + stubs + PROMPTS + package) → **voz** (`gerar_voz`; só precisa da narração + fatos — `30` PASSO 6).
+5. **Auditar duração real** (`timing_audit.py` com `captions_times.json` + TTS) → `TIMING_AUDIT.json` precisa estar `PASS`.
+6. Completar prompts (porte) → gerar/coletar **todas** as imagens (Nano Banana manual; ver `13`) → `image_audit` e `asset_manifest.py` (**GATE 100% antes do motion**).
+7. `gerar_srt_norm` → `montar_motion` → `finalizar_tail` → (`anexar_outro` se long).
+8. `remapar_chapters` (duração real) → `padrao_short` → `endcard`.
+9. `fazer_thumb_v2` (3 variantes) → `pacote_dia` → `validar_pacote`.
+10. `auditar_tudo` → upload manual → publicar.
+    - **Etapas manuais no meio do pipeline:** o `build_video` **para no gate de thumbs** (3 variantes A/B/C são geradas por você) e o **pacote de publicação é autoral** (título/descrição/tags/chapters — o scaffold só cria os blocos vazios no formato do validador; `pacote_dia` monta o copiar-e-colar). Capítulos só depois do build (`remapar_chapters`).
+11. D+2/D+7: `revisao_d2` → atualizar `15-loop-de-aprendizado.md`, registrando fórmula de título, hook, ordem dos beats, CTA e resultado.
 
 ## Invariantes (não quebrar)
 - Voz/motion/estilo oficiais por canal (contrato `playbooks/<canal>/{voice,motion,style}.json`).
