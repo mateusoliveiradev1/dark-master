@@ -13,11 +13,14 @@ Pipeline unificado + mapas para os **engines** que já existem nos projetos do u
 ```
 pesquisa → roteiro (script_builder) → linter → scaffold do vídeo (new_video: pastas + stubs + PROMPTS + package + voz)
    → prompts completos (prompt_builder) → imagens (GATE 100%) → auditoria de imagens (image_audit.py)
-   → captions (SRT/karaoke) → motion/assembly → tail/outro → chapters
+   → captions (SRT/karaoke) → direction plan (dark-artdirector + RENDER_PLAN) → Remotion ou motion legado
+   → visual QA (stills + dark-visual-reviewer) → tail/outro → chapters
    → Short → endcard → thumbs 3x → pacote de publicação → auditoria YPP → upload manual
 ```
 
 **GATES:** a **voz** só depende da narração + fatos (**liberada no scaffold**); o **motion** exige o **GATE 100%** (todas as imagens). Sem todas as imagens, **não gera motion**. Fluxo completo de escrita + scaffold: `30-roteiro-master.md`, PASSO 6.
+
+**Remotion:** `motion.json` escolhe `legacy` ou `remotion`. O fluxo novo é `plan → stills → dark-artdirector → dark-visual-reviewer → render → audit`; o motor de roteiro não é importado pelo renderer. Consulte `37-remotion-pipeline.md` e `38-remotion-contratos.md`.
 
 ## Mapa etapa → script (projetos do usuário)
 

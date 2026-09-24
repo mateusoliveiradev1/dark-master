@@ -1,0 +1,8 @@
+{
+  "channel": "new-channel",
+  "language": "pt",
+  "provider": {
+    "type": "edge",
+    "voice_id": "pt-BR-AntonioNeural"
+  }
+}

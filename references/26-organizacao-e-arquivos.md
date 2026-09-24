@@ -22,6 +22,8 @@ Como a skill mantém a pasta do canal **100% organizada** — vídeos separados,
 │  ├─ 03_imagens/            # 01.jpg…, PROMPTS.md, _contact_sheet.jpg
 │  ├─ 04_video_final/        # *_FINAL.mp4, *_YOUTUBE.mp4, *_SHORT.mp4, thumb_*.png
 │  └─ youtube_package.txt    # título/descrição/tags/chapters
+│  └─ 01_roteiro/RENDER_PLAN_LONG.json  # contrato visual read-only para Remotion
+│  └─ 01_roteiro/RENDER_REPORT_LONG.json # versão, hashes e resultado do render
 └─ 99_ARCHIVE/               # o que não é mais usado, mas não pode sumir
 ```
 

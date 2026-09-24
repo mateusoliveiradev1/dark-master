@@ -2,6 +2,11 @@
 __pycache__/
 *.pyc
 data/dark.db
+node_modules/
+remotion/node_modules/
+remotion/.cache/
+remotion/out/
+remotion/.remotion/
 
 # vendors clonados (grandes; reinstaláveis via git clone)
 vendors/*/

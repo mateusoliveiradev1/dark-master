@@ -21,6 +21,8 @@ Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualq
 | **Legendas** | `captions_audit.py` | nº de cues, 1ª perto de 0:00, duração por cue, **sobreposições**, gaps, linhas/chars, **velocidade de leitura (CPS)**, cobertura vs áudio |
 | **Pacote** | (presença) | `youtube_package.txt` / `PACOTE_PUBLICACAO.txt` |
 | **Final** | (presença) | `04_video_final/*.mp4` |
+| **Remotion** | `remotion.py audit` | RENDER_PLAN, RENDER_REPORT, duração, output e paths rastreáveis |
+| **Visual** | `dark-visual-reviewer` | hierarquia, crop, safe area, captions, repetição, motion, pacing e score mínimo 92 |
 | **Compliance/YPP** | `audit-ypp.py` | conteúdo inautêntico, gore, IA, etc. (`references/09`) |
 
 ## Alvos por canal
@@ -38,7 +40,8 @@ Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualq
 
 ```
 roteiro → lint_roteiro → imagens → image_audit → voz → audio_audit
-        → captions.srt → captions_audit → motion → final
+        → captions.srt → captions_audit → RENDER_PLAN → stills
+        → dark-artdirector → dark-visual-reviewer → Remotion/motion → final
         → audit_all → audit-ypp → publicar
 ```
 

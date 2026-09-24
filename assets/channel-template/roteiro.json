@@ -1,0 +1,7 @@
+{
+  "channel": "new-channel",
+  "duration_min": 12,
+  "palavras": [1800, 2400],
+  "palavras_alvo": 2100,
+  "wpm": 150
+}

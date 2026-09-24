@@ -1,0 +1,29 @@
+{
+  "channel": "new-channel",
+  "version": 1,
+  "identity": {
+    "mood": [],
+    "audience": "",
+    "tone": []
+  },
+  "palette": {
+    "background": "#0A0A0C",
+    "surface": "#17171B",
+    "text": "#F5F5F4",
+    "muted": "#A1A1AA",
+    "accent": "#B91C1C"
+  },
+  "typography": {
+    "heading": "Arial",
+    "body": "Arial"
+  },
+  "motion": {
+    "intensity": "controlled",
+    "default_transition": "fade",
+    "forbid": ["generic-slideshow", "excessive-zoom", "glitch-without-purpose"]
+  },
+  "qa": {
+    "minimum_score": 92,
+    "forbid": ["crop-ruined", "text-outside-safe-area", "caption-overlap", "untraceable-asset"]
+  }
+}

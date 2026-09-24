@@ -37,6 +37,7 @@ playbooks/<canal>/
 ├─ voice.json     # CONTRATO de voz: provider (motor TTS), voice id, normalize, pronuncia, regras por bloco/série, gaps, beds, ducking
 ├─ motion.json    # CONTRATO de motion: clip_len default e por clima/série, variantes, grade, letterbox, grain
 ├─ style.json     # CONTRATO de estilo: idioma, sufixo de imagem, séries, porte de imagens, thumb, short, package
+├─ visual.json    # CONTRATO de direção visual: Visual Bible, tokens, safe areas, cenas, motion e QA
 └─ roteiro.json   # CONTRATO de roteiro (opcional): duração/palavras do canal quando o porte genérico não vale (ex. Laudo Final ~10min)
 ```
 
@@ -53,6 +54,7 @@ Os scripts de produção **não têm identidade hardcoded**: cada canal define a
 
 - Playbooks procurados em `DARK_MASTER_PLAYBOOKS` ou `~/.config/opencode/skills/dark-master/playbooks`.
 - Scripts que já aceitam `--channel`: `gerar_voz_v3`, `padrao_bed`, `montar_motion`, `padrao_short`, `fazer_thumb_v2`, `novo_video` (canal) e `new_video`/`prompt_builder --suffix` (skill).
+- `remotion.py` e `contract_audit.py` usam o mesmo contrato; `motion.json.engine` seleciona `legacy` ou `remotion`.
 - O **CFD** está migrado para o contrato: os JSONs reproduzem exatamente os valores anteriores (prova: 272 comparações dry-run, zero divergência).
 
 ### Bloco `provider` (motor TTS)

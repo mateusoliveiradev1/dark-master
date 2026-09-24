@@ -1,6 +1,6 @@
 # 32 — Branding do canal (identidade visual de verdade)
 
-O branding é **decisão do canal** (`/dark-lancar`) e vale para tudo: thumb, banner, profile, watermark, abertura, end card. **Canal novo ≠ clone** — não copie paleta/fonte/logo de outro canal.
+O branding é **decisão do canal** (`/dark-lancar`) e vale para tudo: thumb, banner, profile, watermark, abertura, end card. **Canal novo ≠ clone** — não copie paleta/fonte/logo de outro canal. O `style.json` e o `visual.json` são as fontes técnicas da direção visual; a identidade resolvida deve chegar ao `RENDER_PLAN` sem alterar o roteiro.
 
 ## Componentes
 

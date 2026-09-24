@@ -5,7 +5,7 @@ description: >
   Use quando o usuário falar de "canal dark", "faceless", "criar canal", "pesquisar nicho", "nicho", "outliers",
   "monetizar canal", "bater 4000 horas", "10 milhões de views de Shorts", "short viral", "hook", "retenção",
   "thumbs", "organizar a pasta/canal", "nome/handle disponível", ou os comandos /dark, /dark-nicho, /dark-lancar,
-  /dark-canal, /dark-organizar, /dark-build, /dark-audit, /dark-scan, /dark-revisar, /dark-focus, /dark-repurpose,
+  /dark-canal, /dark-organizar, /dark-build, /dark-visual, /dark-auditar, /dark-audit, /dark-scan, /dark-revisar, /dark-focus, /dark-repurpose,
   /dark-monetizar. Cobre pesquisa de nicho real, algoritmo (CTR/AVD/AVP, bolhas de Shorts, engaged views),
   hooks e títulos (Y1–Y11), hooks de Short (frame 1, arquétipos, loop), modelos de canal por nicho/subnicho,
   thumbnails e A/B, retenção do MrBeast, storytelling de documentário, repurposing,
@@ -72,7 +72,7 @@ Ver `playbooks/README.md`.
 | Monetização + compliance (YPP, conteúdo inautêntico, IA) | `references/09-monetizacao-e-compliance.md` |
 | RPM por nicho e matemática de receita | `references/10-rpm-e-nichos.md` |
 | Auto-dublagem / multi-idioma | `references/11-autodub-multilingua.md` |
-| Pipeline de produção + mapas para os scripts locais | `references/12-producao-pipeline.md` |
+| **Pipeline de produção + Remotion + mapas para os scripts locais** | `references/12-producao-pipeline.md` + `references/37-remotion-pipeline.md` + `references/38-remotion-contratos.md` |
 | Imagens e voz (Nano Banana/Pollinations · motor TTS) | `references/13-imagens-e-voz.md` |
 | **Voz free + paga** (providers, custos, licenças, clonagem, idioma/consistência, QA) | `references/34-voz-tts.md` |
 | Casos reais de canais que monetizam | `references/14-casos-canais-reais.md` |
@@ -109,18 +109,19 @@ Ver `playbooks/README.md`.
 6. **Formato pode repetir; substância não.** Ou cai na política de **conteúdo inautêntico**. Existencial para canal dark. [OFICIAL]
 7. **Escreva como uma pessoa.** Aplique o anti-IA (`17`). [PRATICANTE]
 8. **GATE 100% (motion).** Sem todas as imagens, não gera **motion**; a **voz sai no scaffold** (depende só da narração + fatos aprovados).
-9. **Deixe rastro.** Registre D+2/D+7 e replique outliers. [PRATICANTE]
-10. **Urgência:** o YPP **dobra** em 01/02/2027 (8.000h/20M). [OFICIAL]
-11. **Pesquisa antes de produzir.** Nicho se decide por **evidência de canal** (gates rígidos), não por lista pronta (`23`).
-12. **Canal novo ≠ clone.** Não importe decisões de um playbook; defina as suas (`playbooks/README.md`).
-13. **Entenda o canal antes de gerar.** Rode `channel_scan.py`, respeite calendário e **corrente de teaser** (`25`).
-14. **Mantenha a casa organizada.** Rode `channel_organize.py` (dry-run → aplicar) e siga a estrutura padrão (`26`).
-15. **Formato é decisão, não regra.** Short, long ou ambos dependem do **lane** do canal (`FOCUS.md` + `23`) — **não** assuma short+long sempre.
-16. **Roteiro sempre com pesquisa rastreável.** Use `dark-researcher` e `dark-scout`, preencha `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json` e `LINHA_DO_TEMPO.md` antes de escrever; o gate estrito não aceita placeholders (`30`, `36`).
-17. **Short se ganha no frame 1.** Texto na tela (≤6 palavras) + fala ≤8 palavras nos 3s; uma ideia, payoff, loop visual/sonoro e bridge independente para o long (`31`, `36`).
-18. **Modelo antes do canal.** Escolha um blueprint validado em `models/` e revalide com dados frescos (`23`) — modelo não é clone de playbook.
-19. **Telemetria antes de palpite.** Toda conclusão mostra período, denominador, baseline, amostra, contraevidência e limitações; dado ausente é desconhecido.
-20. **Produção é consequência do diagnóstico.** `/dark-revisar` cruza `videoNN` com calendário, estoque, teaser e regras; ele propõe, não reescreve.
+9. **Remotion é o renderer visual, não o dono do roteiro.** `dark-artdirector` cria a Visual Bible e o `RENDER_PLAN`; `dark-produtor` executa; `dark-visual-reviewer` aprova de forma independente.
+10. **Deixe rastro.** Registre D+2/D+7 e replique outliers. [PRATICANTE]
+11. **Urgência:** o YPP **dobra** em 01/02/2027 (8.000h/20M). [OFICIAL]
+12. **Pesquisa antes de produzir.** Nicho se decide por **evidência de canal** (gates rígidos), não por lista pronta (`23`).
+13. **Canal novo ≠ clone.** Não importe decisões de um playbook; defina as suas (`playbooks/README.md`).
+14. **Entenda o canal antes de gerar.** Rode `channel_scan.py`, respeite calendário e **corrente de teaser** (`25`).
+15. **Mantenha a casa organizada.** Rode `channel_organize.py` (dry-run → aplicar) e siga a estrutura padrão (`26`).
+16. **Formato é decisão, não regra.** Short, long ou ambos dependem do **lane** do canal (`FOCUS.md` + `23`) — **não** assuma short+long sempre.
+17. **Roteiro sempre com pesquisa rastreável.** Use `dark-researcher` e `dark-scout`, preencha `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json` e `LINHA_DO_TEMPO.md` antes de escrever; o gate estrito não aceita placeholders (`30`, `36`).
+18. **Short se ganha no frame 1.** Texto na tela (≤6 palavras) + fala ≤8 palavras nos 3s; uma ideia, payoff, loop visual/sonoro e bridge independente para o long (`31`, `36`).
+19. **Modelo antes do canal.** Escolha um blueprint validado em `models/` e revalide com dados frescos (`23`) — modelo não é clone de playbook.
+20. **Telemetria antes de palpite.** Toda conclusão mostra período, denominador, baseline, amostra, contraevidência e limitações; dado ausente é desconhecido.
+21. **Produção é consequência do diagnóstico.** `/dark-revisar` cruza `videoNN` com calendário, estoque, teaser e regras; ele propõe, não reescreve.
 
 ## Fluxo recomendado
 
@@ -132,8 +133,9 @@ Ver `playbooks/README.md`.
 /dark-focus   → define/troca o foco (canal, objetivo, métrica norte)
 /dark         → ideia → título → thumb → delega ao fluxo canônico de pesquisa/roteiro
 /dark-roteiro → gera/valida o long, o Short separado e o funil Short→Long
+/dark-visual  → cria/revisa a Visual Bible, o plano de cenas e os stills Remotion
 /dark-build   → roda o pipeline de produção do canal alvo
-/dark-auditar → auditoria completa (imagens + áudio + legendas + pacote) + compliance
+/dark-auditar → auditoria completa (imagens + áudio + Remotion + legendas + pacote) + compliance
 /dark-audit   → gate anti-inauthentic + YPP + IA
 /dark-repurpose → fatia long-form em Shorts multi-plataforma
 /dark-monetizar → trilha 0→YPP com metas e checkpoints
@@ -147,6 +149,8 @@ Ver `playbooks/README.md`.
 - `dark-researcher` — brief de pesquisa de um caso/tema (fatos, fontes, ângulos, contradições).
 - `dark-roteirista` — roteiro long-form/short (beats, orçamento, anti-IA).
 - `dark-packager` — títulos, thumbnails, capítulos, A/B.
+- `dark-artdirector` — Visual Bible, direção de cenas, assets e iteração visual.
+- `dark-visual-reviewer` — revisão independente de stills, frames, motion e acabamento.
 - `dark-auditor` — gate anti-inauthentic + YPP + IA.
 - `dark-produtor` — executa o pipeline por canal.
 - `dark-analyst` — métricas, funil, calendário e aprendizado com evidência.

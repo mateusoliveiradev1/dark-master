@@ -1,0 +1,12 @@
+CANAL NOVO
+
+1. Preencha profile.md com identidade, público, idioma, lane e caminho do projeto.
+2. Adapte voice.json, style.json, motion.json e roteiro.json sem copiar valores de outro canal.
+3. Rode `python scripts/contract_audit.py --channel <canal>` antes de produzir.
+4. Use `/dark-roteiro` para pesquisa, claims, mapa semântico, narração e Short separado.
+5. Use `python scripts/remotion.py doctor --root "<canal>" --channel <canal>`.
+6. Use `python scripts/remotion.py plan <canal>/videoNN --root "<canal>" --channel <canal>`.
+7. Revise a direção visual antes do render completo.
+8. Rode `python scripts/remotion.py stills <canal>/videoNN --root "<canal>" --channel <canal>`.
+9. Rode `python scripts/remotion.py render <canal>/videoNN --root "<canal>" --channel <canal>` somente após QA.
+10. Rode `/dark-auditar` e mantenha o upload manual.

@@ -1,0 +1,18 @@
+{
+  "channel": "new-channel",
+  "engine": "remotion",
+  "default_clip_len": 7.0,
+  "fps": 30,
+  "size": [1920, 1080],
+  "min_images": 3,
+  "max_images": 120,
+  "remotion": {
+    "composition": "DarkMasterLong",
+    "transition_seconds": 0.45,
+    "render": {
+      "codec": "h264",
+      "audio_codec": "aac",
+      "crf": 18
+    }
+  }
+}

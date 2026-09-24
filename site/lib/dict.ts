@@ -63,6 +63,7 @@ export const dict = {
       cmds: [
         ["/dark-canal", "Lê o projeto: calendário, regras e corrente de teaser."],
         ["/dark", "Ideia → título → thumb → roteiro → checklist."],
+        ["/dark-visual", "Visual Bible, cenas, stills e iteração visual Remotion."],
         ["/dark-build", "Roda o pipeline de produção do canal alvo."],
         ["/dark-audit", "Gate anti-inauthentic + YPP + divulgação de IA."],
         ["/dark-scan", "Varre canais e alerta outliers acima da baseline."],
@@ -73,6 +74,8 @@ export const dict = {
         ["strategist", "Ideação, packaging e diagnóstico por métrica."],
         ["roteirista", "Long-form (5 atos) e Shorts (hook + loop)."],
         ["packager", "Títulos, capítulos e plano de A/B."],
+        ["artdirector", "Visual Bible, cenas, assets e iteração visual."],
+        ["visual-reviewer", "Revisão independente de render, motion e acabamento."],
         ["auditor", "Compliance YPP e conteúdo inautêntico."],
         ["produtor", "Executa imagens, voz e motion por canal."],
         ["analyst", "Lê métricas e propõe evolução com evidência."],
@@ -179,6 +182,7 @@ export const dict = {
       cmds: [
         ["/dark-canal", "Reads the project: calendar, rules and teaser chain."],
         ["/dark", "Idea → title → thumb → script → checklist."],
+        ["/dark-visual", "Visual Bible, scenes, stills and Remotion iterations."],
         ["/dark-build", "Runs the target channel's production pipeline."],
         ["/dark-audit", "Anti-inauthentic + YPP + AI disclosure gate."],
         ["/dark-scan", "Scans channels and alerts on outliers above baseline."],
@@ -189,6 +193,8 @@ export const dict = {
         ["strategist", "Ideation, packaging and metric diagnosis."],
         ["roteirista", "Long-form (5 acts) and Shorts (hook + loop)."],
         ["packager", "Titles, chapters and A/B plan."],
+        ["artdirector", "Visual Bible, scenes, assets and visual iteration."],
+        ["visual-reviewer", "Independent render, motion and finishing review."],
         ["auditor", "YPP compliance and inauthentic content."],
         ["produtor", "Runs images, voice and motion per channel."],
         ["analyst", "Reads metrics and proposes evidence-based changes."],

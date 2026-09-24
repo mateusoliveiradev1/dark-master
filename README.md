@@ -53,7 +53,7 @@ Ela não "chuta": lê o seu canal, respeita o calendário e as regras travadas, 
 ```
 dark-master/
 ├─ SKILL.md                     # entrada da skill (router + princípios)
-├─ references/                  # 41 referências (algoritmo, roteiro, monetização…)
+├─ references/                  # 43 referências (algoritmo, roteiro, Remotion, monetização…)
 │  ├─ 05…05e*                   # MrBeast: retenção, por minuto, criativo, produção, métricas
 │  ├─ 09-monetizacao-e-compliance.md
 │  ├─ 21-motor-de-monetizacao.md
@@ -69,7 +69,9 @@ dark-master/
 │  ├─ 33-versionamento-e-notion.md  # git sem mídia + pacote Notion
 │  ├─ 34-voz-tts.md             # voz free + paga: providers, custos, licenças, QA
 │  ├─ 35-cronologia-e-timeline.md  # caso cronológico: tabela → roteiro → datestamps na edição
-│  └─ 36-pesquisa-claims-e-funil.md  # brief, claims, mapa, timeline e Short→Long
+│  ├─ 36-pesquisa-claims-e-funil.md  # brief, claims, mapa, timeline e Short→Long
+│  ├─ 37-remotion-pipeline.md      # renderer, planos, stills, assets e render
+│  └─ 38-remotion-contratos.md     # Visual Bible, cenas e QA visual
 ├─ models/                      # 38 modelos de canal por nicho/subnicho (com evidência real)
 ├─ playbooks/                   # casos de estudo por canal (não são regras gerais)
 │  ├─ cold-file-diaries/        # profile, operacao, outliers
@@ -77,7 +79,8 @@ dark-master/
 ├─ config/FOCUS.md              # objetivo atual (manda em tudo)
 ├─ data/                        # metrics.csv, outliers.json, learnings.md, nichos.md
 ├─ assets/                      # templates (roteiro, thumb, pacote, hook factory)
-├─ scripts/                     # yt_auth, yt_metrics, yt_scan_outliers, voice_engine, channel_scan…
+├─ remotion/                    # renderer reutilizável, cenas, QA e compositions
+├─ scripts/                     # yt_auth, yt_metrics, yt_scan_outliers, voice_engine, remotion, channel_scan…
 ├─ site/                        # landing (Next.js) — deploy Vercel
 ├─ docs/                        # redirect do GitHub Pages → Vercel
 └─ vendors/                     # skills MIT + atribuições (não versionado)
@@ -95,8 +98,9 @@ dark-master/
 | `/dark-canal` | Entende um canal existente: projeto, regras e corrente de teaser. |
 | `/dark` | Ideia → título → thumb → roteiro → checklist. |
 | `/dark-roteiro` | Pesquisa, long forense de 30–70 min, Short separado, claims, timeline, funil e validação estrita. |
-| `/dark-build` | Roda o pipeline de produção do canal alvo. |
-| `/dark-auditar` | Auditoria completa: imagens + áudio + legendas + pacote + compliance. |
+| `/dark-visual` | Cria a Visual Bible, planos de cenas, stills e iterações visuais Remotion. |
+| `/dark-build` | Roda o pipeline de produção do canal alvo, incluindo Remotion ou legacy. |
+| `/dark-auditar` | Auditoria completa: imagens + áudio + Remotion + legendas + pacote + compliance. |
 | `/dark-audit` | Gate anti-inauthentic + YPP + divulgação de IA. |
 | `/dark-scan` | Varre canais e alerta outliers acima da baseline. |
 | `/dark-revisar` | Captura diária: métricas + calendário + funil + retenção + experimentos. |
@@ -106,7 +110,7 @@ dark-master/
 
 ## Subagentes
 
-`dark-scout` · `dark-researcher` · `dark-roteirista` · `dark-strategist` · `dark-packager` · `dark-auditor` · `dark-produtor` · `dark-analyst`
+`dark-scout` · `dark-researcher` · `dark-roteirista` · `dark-strategist` · `dark-packager` · `dark-artdirector` · `dark-visual-reviewer` · `dark-auditor` · `dark-produtor` · `dark-analyst`
 
 ## Scripts
 
@@ -131,6 +135,9 @@ dark-master/
 | `image_audit.py` | Audita imagens geradas (resolução, aspecto, brilho, duplicatas) + contact sheet. |
 | `audio_audit.py` | Audita voz: loudness (LUFS), true peak, clipping, silêncios longos. |
 | `captions_audit.py` | Audita SRT/VTT: cues, sobreposição, CPS, cobertura vs áudio. |
+| `remotion.py` | Gera RENDER_PLAN, staging de assets, stills, render H.264/AAC e auditoria do renderer. |
+| `bootstrap_channel.py` | Cria estrutura de canal, playbook, contratos de voz/motion/style/roteiro/visual e pipeline inicial. |
+| `contract_audit.py` | Valida profile, contratos, idioma, imagem e readiness do Remotion por canal. |
 | `audit_all.py` | Orquestra imagens, áudio, legendas, timing, Short QA, originalidade, compliance, scorecard, research e vídeo final. |
 | `channel_organize.py` | Organiza a pasta do canal (dry-run → aplicar). |
 | `name_check.py` | Checa disponibilidade de nome/handle. |
