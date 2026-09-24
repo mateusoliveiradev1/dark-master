@@ -1,22 +1,9 @@
 #!/usr/bin/env python3
-"""prompt_builder.py — gera PROMPTS.md perfeitos (consistentes) para as imagens.
-
-Uso:
-  # esqueleto com N imagens distribuidas pelos beats (para preencher as cenas)
-  python scripts/prompt_builder.py --style truecrime-cfd --count 34 --title "video27 Hoffa" --out PROMPTS.md
-
-  # a partir das cenas (uma por linha; opcional "BEAT | descricao")
-  python scripts/prompt_builder.py --style photoreal --scenes cenas.txt --out PROMPTS.md
-
-  # (opcional) renderizar de verdade via Pollinations
-  python scripts/prompt_builder.py --style truecrime-cfd --scenes cenas.txt --render --outdir "<videoNN>/03_imagens"
-
-O estilo (sufixo) e travado por preset -> consistencia visual. Descricoes com termos
-proibidos (gore, sangue, etc.) sao bloqueadas.
-"""
 import argparse
+import hashlib
 import json
 import re
+import sys
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -29,141 +16,146 @@ PRESETS = {
     "dark-history": "moody dark history documentary still, painterly muted palette, volumetric haze, film grain, no text, no watermark, no gore, 16:9",
 }
 
-BEATS = ["ESTABELECEDOR", "COTIDIANO", "PRESSAO", "O DIA", "DESCOBERTA", "BUSCA",
-         "PISTA", "PERICIA", "INVESTIGACAO", "FAMILIA", "MIDIA",
-         "TEORIA 1", "TEORIA 2", "TEORIA 3", "LAUDO", "LEGADO", "TEASER"]
+BEATS = ["ESTABELECEDOR", "COTIDIANO", "PRESSAO", "O DIA", "DESCOBERTA", "BUSCA", "PISTA", "PERICIA", "INVESTIGACAO", "FAMILIA", "MIDIA", "TEORIA 1", "TEORIA 2", "TEORIA 3", "LAUDO", "LEGADO", "TEASER"]
 
 BEAT_HINT = {
-    "ESTABELECEDOR": "vista ampla do lugar, epoca e clima",
-    "COTIDIANO": "rotina das pessoas (de costas), ambiente domestico",
-    "PRESSAO": "tensao antes do fato (dividas, brigas, telefonema)",
-    "O DIA": "a cena-chave, sem gore — foco em objetos/ambiente",
-    "DESCOBERTA": "o que foi encontrado, em plano de detalhe",
-    "BUSCA": "equipes/busca em campo, silhuetas ao longe",
-    "PISTA": "evidencia fisica isolada (objeto, marca, documento sem texto)",
-    "PERICIA": "laboratorio/pericia, luvas, equipamento",
-    "INVESTIGACAO": "mesa de investigacao, mapa, arquivo, lampada",
-    "FAMILIA": "retrato respeitoso — objetos, retrato sem rosto, cadeira vazia",
-    "MIDIA": "jornal/manchete sem texto legivel, radio, TV desligada",
-    "TEORIA 1": "cena simbolica da teoria 1",
-    "TEORIA 2": "cena simbolica da teoria 2",
-    "TEORIA 3": "cena simbolica da teoria 3",
-    "LAUDO": "documento/laudo sem texto legivel, selo, lupa",
-    "LEGADO": "memorial, lugar hoje, homenagem sobria",
-    "TEASER": "gancho do proximo caso (visual forte, sem entregar)",
+    "ESTABELECEDOR": "local, época e clima",
+    "COTIDIANO": "rotina das pessoas ao fundo",
+    "PRESSAO": "tensão antes do fato",
+    "O DIA": "momento central sem violência gráfica",
+    "DESCOBERTA": "descoberta material em plano de detalhe",
+    "BUSCA": "equipes vistas à distância",
+    "PISTA": "evidência física isolada",
+    "PERICIA": "laboratório e equipe sem rosto identificável",
+    "INVESTIGACAO": "mesa de investigação e relações",
+    "FAMILIA": "objetos e ausência respeitosa",
+    "MIDIA": "mídia sem texto legível",
+    "TEORIA 1": "hipótese um em imagem simbólica",
+    "TEORIA 2": "hipótese dois em imagem simbólica",
+    "TEORIA 3": "hipótese três em imagem simbólica",
+    "LAUDO": "documento sem texto legível",
+    "LEGADO": "memorial ou lugar atual",
+    "TEASER": "gancho visual do próximo caso",
 }
 
-FORBIDDEN = ["blood", "sangue", "gore", "corpse", "dead body", "dismember", "mutilat",
-             "wound", "guts", "torture", "bloody"]
+FORBIDDEN = ["blood", "sangue", "gore", "corpse", "dead body", "dismember", "mutilat", "wound", "guts", "torture", "bloody"]
+NEGATION_RE = re.compile(r"(?:\bno\b|\bsem\b|\bwithout\b|\bnever\b)\s*$", re.IGNORECASE)
 
 
 def load_scenes(path):
-    out = []
+    scenes = []
     for line in Path(path).read_text(encoding="utf-8", errors="replace").splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
         if "|" in line:
-            beat, desc = line.split("|", 1)
-            out.append((beat.strip().upper(), desc.strip()))
+            beat, description = line.split("|", 1)
+            scenes.append((beat.strip().upper(), description.strip()))
         else:
-            out.append((None, line))
-    return out
+            scenes.append((None, line))
+    return scenes
 
 
-def check(desc):
-    if desc.strip().startswith("[preencher:"):
+def check(description):
+    if description.strip().startswith("[preencher:"):
         return []
-    low = desc.lower()
-    return [w for w in FORBIDDEN if w in low]
+    lowered = description.lower()
+    found = []
+    for term in FORBIDDEN:
+        for match in re.finditer(re.escape(term), lowered):
+            prefix = lowered[max(0, match.start() - 20):match.start()]
+            if not NEGATION_RE.search(prefix):
+                found.append(term)
+                break
+    return sorted(set(found))
+
+
+def draft_identity(beat, description):
+    payload = f"{beat or 'UNTITLED'}\n{description}".encode("utf-8")
+    return f"DRAFT-PROMPT-{hashlib.sha256(payload).hexdigest()[:12].upper()}"
 
 
 def render(prompt, out_path):
-    url = ("https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt)
-           + "?width=1920&height=1080&nologo=true&model=flux")
+    url = "https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt) + "?width=1920&height=1080&nologo=true&model=flux"
     try:
         data = urllib.request.urlopen(url, timeout=120).read()
         if len(data) > 10000:
             Path(out_path).write_bytes(data)
             return True
-    except Exception as e:  # noqa
-        print(f"    [!] falha ao renderizar {out_path}: {e}")
+    except Exception as exc:
+        print(f"[!] falha ao renderizar {out_path}: {exc}")
     return False
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--style", default="truecrime-cfd", choices=list(PRESETS))
-    ap.add_argument("--suffix", help="sufixo do canal (playbooks/<canal>/style.json > image_suffix); sobrepoe o preset")
-    ap.add_argument("--scenes")
-    ap.add_argument("--count", type=int, default=0)
-    ap.add_argument("--title", default="")
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--episode")
-    ap.add_argument("--visual")
-    ap.add_argument("--specs")
-    ap.add_argument("--render", action="store_true")
-    ap.add_argument("--outdir")
-    a = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--style", default="truecrime-cfd", choices=list(PRESETS))
+    parser.add_argument("--suffix")
+    parser.add_argument("--scenes")
+    parser.add_argument("--count", type=int, default=0)
+    parser.add_argument("--title", default="")
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--episode")
+    parser.add_argument("--visual")
+    parser.add_argument("--specs")
+    parser.add_argument("--render", action="store_true")
+    parser.add_argument("--outdir")
+    args = parser.parse_args()
 
-    if a.episode:
+    if args.episode:
         from visual_plan import compile_prompt_plan
-        result = compile_prompt_plan(a.episode, a.visual, a.specs)
-        print(json.dumps({"status": result["status"], "prompts": len(result["prompts"]), "plan": str(Path(a.episode) / "01_roteiro" / "PROMPT_PLAN.json")}, ensure_ascii=False))
+        result = compile_prompt_plan(args.episode, args.visual, args.specs)
+        print(json.dumps({"status": result["status"], "prompts": len(result["prompts"]), "plan": str(Path(args.episode) / "01_roteiro" / "PROMPT_PLAN.json")}, ensure_ascii=False))
         return 0 if result["status"] == "PROMPTS_READY" else 1
 
-    suffix = a.suffix or PRESETS[a.style]
-    style_label = f"{a.style} + sufixo do canal" if a.suffix else a.style
-
-    # monta a lista (beat, descricao)
+    suffix = args.suffix or PRESETS[args.style]
     items = []
-    if a.scenes:
-        items = load_scenes(a.scenes)
-    elif a.count > 0:
-        for i in range(a.count):
-            beat = BEATS[i % len(BEATS)]
+    if args.scenes:
+        items = load_scenes(args.scenes)
+    elif args.count > 0:
+        for index in range(args.count):
+            beat = BEATS[index % len(BEATS)]
             items.append((beat, f"[preencher: {BEAT_HINT.get(beat, beat)}]"))
-    # se sem scenes e sem count -> cabecalho so (usado pelo new_video)
 
-    header = [
-        f"# {a.title or 'PROMPTS'} ",
-        f"# Estilo travado ({style_label}):",
-        f'# "{suffix}"',
-        "# Nomes exatos 01.jpg ... NN.jpg. Cole a descricao + sufixo no seu gerador.",
-        "# Guarda-corpos: sem gore, sem rosto real, sem texto legivel, sem watermark, sem anacronismo.",
+    lines = [
+        f"# {args.title or 'RASCUNHO DE PROMPTS'}",
+        "MODE: DRAFT",
+        f"STYLE: {args.suffix or args.style}",
+        f"SUFFIX: {suffix}",
+        "Production requires --episode and a complete research-backed PROMPT_PLAN.",
         "",
     ]
-    lines = list(header)
     blocked = 0
-    for i, (beat, desc) in enumerate(items, 1):
-        bad = check(desc)
+    contracts = []
+    for beat, description in items:
+        prompt_id = draft_identity(beat, description)
+        bad = check(description)
         if bad:
             blocked += 1
-            desc = desc + f"  [BLOQUEADO: remover {bad}]"
+        contracts.append({"promptId": prompt_id, "beat": beat, "description": description, "negativeGuards": bad, "suffix": suffix})
         label = f"{beat}: " if beat else ""
-        lines.append(f"{i:02d}.jpg — {label}{desc}, {suffix}")
-
-    out = Path(a.out).expanduser()
+        lines.append(f"{prompt_id} — {label}{description}, {suffix}")
+        if bad:
+            lines.append(f"NEGATIVE GUARDS REQUIRED: {', '.join(bad)}")
+    out = Path(args.out).expanduser()
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"[OK] {len(items)} prompt(s) -> {out}")
-    if blocked:
-        print(f"[!] {blocked} descricao(oes) com termos proibidos (marcadas).")
+    print(json.dumps({"mode": "DRAFT", "status": "INCOMPLETE", "prompts": len(items), "out": str(out), "blocked": blocked}, ensure_ascii=False))
 
-    if a.render and a.outdir and items:
-        od = Path(a.outdir).expanduser(); od.mkdir(parents=True, exist_ok=True)
-        ok = 0
-        for i, (beat, desc) in enumerate(items, 1):
-            if check(desc):
+    if args.render and args.outdir and items:
+        output_dir = Path(args.outdir).expanduser()
+        output_dir.mkdir(parents=True, exist_ok=True)
+        rendered = 0
+        for contract in contracts:
+            if contract["negativeGuards"]:
                 continue
-            p = f"{desc}, {suffix}"
-            dst = od / f"{i:02d}.jpg"
-            print(f"  render {dst.name} ...")
-            if render(p, dst):
-                ok += 1
-        print(f"[OK] {ok}/{len(items)} imagens renderizadas em {od}")
-        print("  valide com: python scripts/image_audit.py \"%s\" --sheet" % od)
+            prompt = f"{contract['description']}, {contract['suffix']}"
+            destination = output_dir / f"{contract['promptId']}.jpg"
+            if render(prompt, destination):
+                rendered += 1
+        print(json.dumps({"mode": "DRAFT", "rendered": rendered, "expected": len(items), "outdir": str(output_dir)}, ensure_ascii=False))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

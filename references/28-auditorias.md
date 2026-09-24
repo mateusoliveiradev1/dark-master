@@ -5,25 +5,30 @@ Nada sobe sem passar pelos gates. Cada script sai com **código 1 se falhar** (d
 ## Orquestrador
 
 ```bash
+python scripts/orchestrate.py plan --root "<canal>" --episode videoNN --channel-state existing
+python scripts/orchestrate.py plan --root "<canal>" --episode videoNN --channel-state new
 python scripts/audit_all.py "<videoNN>"            # um vídeo
 python scripts/audit_all.py "<pasta do canal>"     # varre todos os videoNN
 python scripts/audit_all.py "<videoNN>" --json     # saída para máquina
 ```
 
-Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualquer gate falhar.
+Para canal existente, o orquestrador não exige nicho/outlier. Para canal novo, ambos permanecem etapas explícitas. O escopo visual é isolado do canal e nunca copia identidade. A auditoria final exige o mesmo `runId`/`planHash` em todos os outputs e não aceita review ausente, divergente ou sem receipt independente.
 
 ## Gates
 
 | Gate | Script | Verifica |
 |---|---|---|
 | **Imagens** | `image_audit.py` | resolução, aspecto 16:9, tamanho, brilho/desvio (imagem quase sólida), saturação, **duplicatas** + contact sheet |
-| **Manifest de assets** | `asset_manifest.py` | cada prompt numerado tem asset; IDs faltantes ficam disponíveis para retry |
+| **Manifest de assets** | `asset_manifest.py` | cada prompt tem asset por identidade; hash, direitos e `blocked` são closed gates |
+| **Planner closed** | `remotion.py plan` | research/map/claims, shot specs, prompt READY, manifest, image audit, captions/timing, voice/audio quando exigido e visual profile |
+| **Staging/run** | `remotion.py` + `run_ledger.py` | staging isolado por run/hash, somente assets do ledger, `run.json` append-only e hashes |
+| **Review independiente** | `visual_review.py` | F0/F50/F100, contact sheet por cena/sequência, derivados 120px quando ffmpeg existe e receipt com score/findings/`planHash` |
 | **Pesquisa de título** | `title_research.py` | candidatos, fórmula, overlap com histórico e decisão humana; não infere demanda |
 | **Rotação editorial** | `rotation_audit.py` | título, hook, sequência de beats e CTA contra os três episódios anteriores |
 | **Áudio/voz** | `audio_audit.py` | duração, sample rate/canais, **loudness (LUFS)**, **true peak**, LRA, **clipping**, **silêncios longos** |
 | **Legendas** | `captions_audit.py` | nº de cues, 1ª perto de 0:00, duração por cue, **sobreposições**, gaps, linhas/chars, **velocidade de leitura (CPS)**, cobertura vs áudio |
 | **Pacote** | (presença) | `youtube_package.txt` / `PACOTE_PUBLICACAO.txt` |
-| **Final** | (presença) | `04_video_final/*.mp4` |
+| **Final** | `remotion.py audit` + `audit_all.py` | output, report, staging, run e receipt do mesmo `RenderPlan` |
 | **Remotion** | `remotion.py audit` | RENDER_PLAN, RENDER_REPORT, duração, output e paths rastreáveis |
 | **Visual** | `dark-visual-reviewer` | hierarquia, crop, safe area, captions, repetição, motion, pacing e score mínimo 92 |
 | **Compliance/YPP** | `audit-ypp.py` | conteúdo inautêntico, gore, IA, etc. (`references/09`) |
@@ -44,11 +49,13 @@ Roda todos os gates e imprime uma tabela com veredito por vídeo. Falha se qualq
 ## Fluxo recomendado
 
 ```
-título → title_research → rotação dos últimos 3 → roteiro → lint_roteiro → imagens → image_audit → asset_manifest
-         → voz → audio_audit → captions.srt → captions_audit → RENDER_PLAN → stills
-         → dark-artdirector → dark-visual-reviewer → Remotion/motion → final
-         → audit_all → audit-ypp → publicar
+canal existente (sem nicho/outlier) ou canal novo (nicho + outlier)
+→ research → script → art direction → image prompts → assets
+→ motion prompts → Remotion → QA
+→ receipt visual independente → render final → audit_all → publicar
 ```
+
+`--allow-incomplete` produz apenas diagnóstico com `releaseEligible=false`; ele nunca libera render, report ou output final.
 
 ## Comando
 

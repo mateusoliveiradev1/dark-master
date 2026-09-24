@@ -109,7 +109,7 @@ Ver `playbooks/README.md`.
 6. **Formato pode repetir; substância não.** Ou cai na política de **conteúdo inautêntico**. Existencial para canal dark. [OFICIAL]
 7. **Escreva como uma pessoa.** Aplique o anti-IA (`17`). [PRATICANTE]
 8. **GATE 100% (motion).** Sem todas as imagens, não gera **motion**; a **voz sai no scaffold** (depende só da narração + fatos aprovados).
-9. **Remotion é o renderer visual, não o dono do roteiro.** `dark-artdirector` cria a Visual Bible e o `RENDER_PLAN`; `dark-produtor` executa; `dark-visual-reviewer` aprova de forma independente.
+9. **Remotion é o renderer visual canônico, não o dono do roteiro.** `dark-artdirector` cria a Visual Bible e o `RENDER_PLAN`; `dark-produtor` executa; `dark-visual-reviewer` aprova de forma independente. FFmpeg não cria visuals de novos episódios; fica só em encode/mux e derivados declarados.
 10. **Deixe rastro.** Registre D+2/D+7 e replique outliers. [PRATICANTE]
 11. **Urgência:** o YPP **dobra** em 01/02/2027 (8.000h/20M). [OFICIAL]
 12. **Pesquisa antes de produzir.** Nicho se decide por **evidência de canal** (gates rígidos), não por lista pronta (`23`).
@@ -122,26 +122,30 @@ Ver `playbooks/README.md`.
 19. **Modelo antes do canal.** Escolha um blueprint validado em `models/` e revalide com dados frescos (`23`) — modelo não é clone de playbook.
 20. **Telemetria antes de palpite.** Toda conclusão mostra período, denominador, baseline, amostra, contraevidência e limitações; dado ausente é desconhecido.
 21. **Produção é consequência do diagnóstico.** `/dark-revisar` cruza `videoNN` com calendário, estoque, teaser e regras; ele propõe, não reescreve.
+22. **Motion design não é poster animado.** Cada cena não estática precisa evoluir em estados visuais; zoom/fade isolados, repetição de layout e transição genérica reprovam no QA. `references/37-remotion-pipeline.md` exige assets/camadas por estado, movimento por alvo e auditoria semântica anti-slideshow.
+
+## Fluxo canônico de produção
+
+```text
+canal existente:Sem exigir nicho/outlier
+canal novo:nicho → outlier
+→ research → script → art direction → image prompts → assets
+→ motion prompts → Remotion → QA
+→ receipt visual independente → render final → auditoria
+```
+
+O planner falha closed em research/map/claims, shot specs, prompt plan READY, manifest, image audit, direitos, assets bloqueados, captions/timing, áudio quando o lane exigir, Visual Profile e review. `--allow-incomplete` é somente diagnóstico e nunca libera render. O escopo visual vive no episódio, separado do canal, e não copia identidade.
 
 ## Fluxo recomendado
 
 ```
-/dark-nicho   → pesquisa/valida NICHOS reais (discover/verify) com gates
-/dark-lancar  → cria canal do zero (nome, branding, calendário, settings)
-/dark-organizar → organiza a pasta do canal (dry-run → aplicar) + nomes/handles
-/dark-canal   → entende um canal existente (projeto, regras, corrente de teaser)
-/dark-focus   → define/troca o foco (canal, objetivo, métrica norte)
-/dark         → ideia → título → thumb → delega ao fluxo canônico de pesquisa/roteiro
-/dark-roteiro → gera/valida o long, o Short separado e o funil Short→Long
-/dark-visual  → cria/revisa a Visual Bible, o plano de cenas e os stills Remotion
-/dark-build   → roda o pipeline de produção do canal alvo
-/dark-auditar → auditoria completa (imagens + áudio + Remotion + legendas + pacote) + compliance
-/dark-audit   → gate anti-inauthentic + YPP + IA
-/dark-repurpose → fatia long-form em Shorts multi-plataforma
-/dark-monetizar → trilha 0→YPP com metas e checkpoints
-/dark-revisar → captura diária + diagnóstico do funil + experimentos + próximos 7 dias (propose-only)
-/dark-scan    → varre canais e alerta outliers
+canal existente: /dark-canal → /dark-focus → /dark
+canal novo: /dark-nicho → /dark-lancar → /dark-focus → /dark
+/dark → research → script → art direction → image prompts → assets
+     → motion prompts → /dark-visual → /dark-build → /dark-auditar
 ```
+
+`/dark-auditar` inclui o gate closed de Remotion, receipt independente, run ledger e auditoria final; métricas e outliers só entram quando explicitamente solicitados.
 
 ## Subagentes
 

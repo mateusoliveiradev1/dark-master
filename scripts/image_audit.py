@@ -17,8 +17,11 @@ Gera: relatorio no terminal, `AUDITORIA_IMAGENS.md` e (com --sheet) `_contact_sh
 Exit code 1 se houver falhas.
 """
 import argparse
+import json
 import sys
 from pathlib import Path
+
+import asset_manifest as asset_tools
 
 try:
     import numpy as np
@@ -106,13 +109,30 @@ def main():
     ap.add_argument("--min-kb", type=int, default=50)
     ap.add_argument("--sheet", action="store_true", help="gera _contact_sheet.jpg")
     ap.add_argument("--hash", action="store_true", help="detecta duplicatas proximas")
+    ap.add_argument("--plan")
+    ap.add_argument("--manifest")
     a = ap.parse_args()
 
     root = Path(a.path).expanduser()
     if not root.exists():
         print(f"[!] pasta nao existe: {root}")
         sys.exit(2)
-    files = sorted([p for p in root.rglob("*") if p.suffix.lower() in EXTS and not p.name.startswith("_")])
+    identity_by_path = {}
+    if a.plan or a.manifest:
+        plan_path = Path(a.plan) if a.plan else root.parent / "01_roteiro" / "PROMPT_PLAN.json"
+        resolution = asset_tools.resolve_assets(root, plan_path, a.manifest)
+        if resolution.get("status") != "PASS":
+            print(f"[!] manifesto de assets: {json.dumps(resolution, ensure_ascii=False)}")
+            sys.exit(1)
+        files = []
+        for asset in resolution.get("assets", []):
+            path, path_error = asset_tools.resolve_asset_path(root, asset.get("path"))
+            if path_error or not path:
+                continue
+            files.append(path)
+            identity_by_path[path] = {key: asset.get(key) for key in ("assetId", "promptId", "shotId", "hash", "rightsStatus", "blocked", "sourceBlockIds")}
+    else:
+        files = sorted([p for p in root.rglob("*") if p.suffix.lower() in EXTS and not p.name.startswith("_")])
     if not files:
         print("Nenhuma imagem encontrada.")
         sys.exit(2)
@@ -121,6 +141,8 @@ def main():
     results, hashes, fails = [], [], 0
     for p in files:
         r, hh = analyze(p, a.min_width, a.aspect, a.min_kb, a.tol)
+        if p in identity_by_path:
+            r["identity"] = identity_by_path[p]
         results.append(r)
         if hh is not None:
             hashes.append((p, hh))
@@ -152,7 +174,8 @@ def main():
         fh.write(f"- Imagens: {len(files)}\n- Com falha: {fails}\n- Duplicatas: {len(dups)}\n\n")
         for r in results:
             mark = "ok" if not r["flags"] else "FALHA"
-            fh.write(f"- [{mark}] `{r['path'].name}` {', '.join(r['flags'])}\n")
+            identity = f" {json.dumps(r['identity'], ensure_ascii=False, sort_keys=True)}" if "identity" in r else ""
+            fh.write(f"- [{mark}] `{r['path'].name}` {', '.join(r['flags'])}{identity}\n")
     print(f"[OK] relatorio: {rep}")
 
     print(f"\nRESULTADO: {'PASSOU' if fails == 0 else f'{fails} FALHA(S)'}")

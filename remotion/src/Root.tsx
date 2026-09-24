@@ -20,14 +20,21 @@ const calculateMetadata: CalculateMetadataFunction<CompositionProps> = ({ props 
   fps: props.plan.video.fps,
 });
 
+const defaultShortScenes = defaultRenderPlan.scenes.reduce<RenderPlan["scenes"]>(
+  (scenes, scene) => {
+    const previous = scenes.at(-1);
+    const startSeconds = previous ? previous.startSeconds + previous.durationSeconds : 0;
+    scenes.push({ ...scene, startSeconds });
+    return scenes;
+  },
+  [],
+);
+
 const defaultShortPlan: RenderPlan = {
   ...defaultRenderPlan,
   format: "short",
   video: { width: 1080, height: 1920, fps: 30, durationSeconds: 8 },
-  scenes: defaultRenderPlan.scenes.map((scene) => ({
-    ...scene,
-    durationSeconds: scene.durationSeconds / 2,
-  })),
+  scenes: defaultShortScenes,
 };
 
 export const Root: FC = () => (

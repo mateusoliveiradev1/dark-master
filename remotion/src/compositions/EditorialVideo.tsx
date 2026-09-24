@@ -1,54 +1,124 @@
 import { Audio } from "@remotion/media";
-import type { FC } from "react";
-import {
-  AbsoluteFill,
-  Easing,
-  interpolate,
-  Series,
-  staticFile,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { linearTiming, type TransitionPresentation, TransitionSeries } from "@remotion/transitions";
+import { crossZoom } from "@remotion/transitions/cross-zoom";
+import { dissolve } from "@remotion/transitions/dissolve";
+import { slide } from "@remotion/transitions/slide";
+import { wipe } from "@remotion/transitions/wipe";
+import type { FC, ReactNode } from "react";
+import { AbsoluteFill, Easing, Sequence, staticFile, useCurrentFrame } from "remotion";
+
 import { ChannelBrand } from "../components/Brand";
 import { Captions } from "../components/Captions";
 import { Backdrop, vignetteStyle } from "../components/Frame";
-import { secondsToFrames } from "../lib/timeline";
+import { VisualError } from "../components/VisualError";
+import { activeSceneAtFrame, buildPlanTimeline } from "../lib/timeline";
 import { SceneRenderer } from "../scenes/SceneRenderer";
-import type { RenderPlan } from "../schema";
+import type { RenderPlan, TransitionKind } from "../schema";
 
 const SceneFrame: FC<{ plan: RenderPlan; scene: RenderPlan["scenes"][number] }> = ({
   plan,
   scene,
-}) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const duration = Math.max(1, secondsToFrames(scene.durationSeconds, fps));
-  const edgeFrames = Math.min(18, Math.max(5, Math.round(duration * 0.12)));
-  const entering = interpolate(frame, [0, edgeFrames], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-  });
-  const leaving = interpolate(frame, [duration - edgeFrames, duration], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-  });
-  const transition = scene.transitionIn || "dissolve";
-  const opacity = transition === "cut" ? 1 : entering * leaving;
-  const translateX =
-    transition === "slide"
-      ? interpolate(entering, [0, 1], [plan.format === "short" ? 90 : 160, 0])
-      : 0;
+}) => (
+  <AbsoluteFill style={{ overflow: "hidden" }}>
+    <SceneRenderer plan={plan} scene={scene} />
+  </AbsoluteFill>
+);
+
+const asTransitionPresentation = (
+  value: unknown,
+): TransitionPresentation<Record<string, unknown>> =>
+  value as TransitionPresentation<Record<string, unknown>>;
+
+const transitionPresentation = (
+  kind: Exclude<TransitionKind, "cut" | "hold" | "none">,
+): TransitionPresentation<Record<string, unknown>> => {
+  switch (kind) {
+    case "slide":
+      return asTransitionPresentation(slide({ direction: "from-right" }));
+    case "wipe":
+      return asTransitionPresentation(wipe({ direction: "from-left" }));
+    case "match-cut":
+      return asTransitionPresentation(crossZoom({ strength: 0.18 }));
+    case "luminance-dissolve":
+      return asTransitionPresentation(dissolve({ intensity: 0.36 }));
+    case "fade":
+    case "dissolve":
+      return asTransitionPresentation(dissolve({ intensity: 0.18 }));
+  }
+};
+
+const AbsoluteScenes: FC<{ plan: RenderPlan; timeline: ReturnType<typeof buildPlanTimeline> }> = ({
+  plan,
+  timeline,
+}) => (
+  <>
+    {timeline.scenes.map((range) => (
+      <Sequence
+        key={range.scene.id}
+        from={range.from}
+        durationInFrames={range.duration}
+        layout="none"
+        name={range.scene.id}
+      >
+        <SceneFrame plan={plan} scene={range.scene} />
+      </Sequence>
+    ))}
+  </>
+);
+
+const TransitionScenes: FC<{
+  plan: RenderPlan;
+  timeline: ReturnType<typeof buildPlanTimeline>;
+}> = ({ plan, timeline }) => {
+  const first = timeline.scenes[0];
+  const last = timeline.scenes.at(-1);
+  if (!first || !last) return null;
+  const contentDuration = last.from + last.renderDuration - first.from;
   return (
-    <AbsoluteFill style={{ opacity, transform: `translateX(${translateX}px)`, overflow: "hidden" }}>
-      <SceneRenderer plan={plan} scene={scene} />
-    </AbsoluteFill>
+    <Sequence
+      from={first.from}
+      durationInFrames={contentDuration}
+      layout="none"
+      name="declared-transitions"
+    >
+      <TransitionSeries>
+        {timeline.scenes.flatMap((range) => {
+          const transition = timeline.transitions.find(
+            (candidate) => candidate.fromSceneId === range.scene.id,
+          );
+          const nodes: ReactNode[] = [
+            <TransitionSeries.Sequence
+              key={`${range.scene.id}-sequence`}
+              durationInFrames={range.renderDuration}
+              layout="none"
+              name={range.scene.id}
+            >
+              <SceneFrame plan={plan} scene={range.scene} />
+            </TransitionSeries.Sequence>,
+          ];
+          if (transition) {
+            nodes.push(
+              <TransitionSeries.Transition
+                key={`${transition.fromSceneId}-${transition.toSceneId}`}
+                presentation={transitionPresentation(transition.kind)}
+                timing={linearTiming({
+                  durationInFrames: transition.durationInFrames,
+                  easing: Easing.bezier(0.22, 1, 0.36, 1),
+                })}
+              />,
+            );
+          }
+          return nodes;
+        })}
+      </TransitionSeries>
+    </Sequence>
   );
 };
 
 export const EditorialVideo: FC<{ plan: RenderPlan }> = ({ plan }) => {
-  const { fps } = useVideoConfig();
+  const frame = useCurrentFrame();
+  const timeline = buildPlanTimeline(plan);
+  const activeScene = activeSceneAtFrame(plan, frame);
   return (
     <Backdrop
       background={plan.theme.background}
@@ -57,21 +127,15 @@ export const EditorialVideo: FC<{ plan: RenderPlan }> = ({ plan }) => {
       bodyFont={plan.theme.bodyFont}
       headingFont={plan.theme.headingFont}
     >
-      <Series>
-        {plan.scenes.map((scene) => (
-          <Series.Sequence
-            key={scene.id}
-            offset={secondsToFrames(scene.startSeconds, fps)}
-            durationInFrames={secondsToFrames(scene.durationSeconds, fps)}
-            layout="none"
-          >
-            <SceneFrame plan={plan} scene={scene} />
-          </Series.Sequence>
-        ))}
-      </Series>
+      {timeline.transitions.length ? (
+        <TransitionScenes plan={plan} timeline={timeline} />
+      ) : (
+        <AbsoluteScenes plan={plan} timeline={timeline} />
+      )}
+      {timeline.errors.length ? <VisualError sceneId="timeline" errors={timeline.errors} /> : null}
       {plan.audio ? <Audio src={staticFile(plan.audio.src)} volume={plan.audio.volume} /> : null}
-      <ChannelBrand plan={plan} />
-      <Captions plan={plan} />
+      <ChannelBrand plan={plan} scene={activeScene} />
+      <Captions plan={plan} scene={activeScene} />
       <AbsoluteFill style={vignetteStyle} />
     </Backdrop>
   );

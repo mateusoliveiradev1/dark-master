@@ -25,7 +25,7 @@ Modelo **explore → exploit**: o YouTube mostra para uma **seed audience** pequ
 - AVD típico: sub-15s → 60–75%; 15–30s → 50–65%; 30–60s → 40–55%.
 - Completion rate: ~30–40% (até 30s); >40% é forte; >50% é top.
 - Swipe-away médio: 20–25% nos primeiros 3s; >25% = problema de hook.
-- **Loops >100%** = melhor sinal secundário.
+- **AVP >100%** = sinal de rewatch; loop projetado é hipótese a testar com 4–6 Shorts comparáveis, não causalidade comprovada.
 - 3 minutos é permitido desde out/2024, mas comprimento **não muda a medição**.
 
 ## Regras de ouro para o Short [PRATICANTE/OFICIAL]
@@ -56,10 +56,12 @@ Tela preta no fim · silêncio no 1º segundo · começar com logo · voz lenta 
 
 ## Diagnóstico rápido [PRATICANTE]
 
+Shown-in-feed e chose-to-view só entram quando vierem do YouTube Studio ou de uma fonte declarada. A Analytics API coletada pelo dark-master não os fornece; ausência significa desconhecido, nunca zero.
+
 | Sintoma | Problema provável | Conserto |
 |---|---|---|
-| Baixo "shown in feed" | sem match de audiência | estreitar nicho/tema |
+| Baixo "shown in feed" (quando disponível) | sem match de audiência | estreitar nicho/tema |
 | Mostrado mas low "chose to view" | swipe alto | frame 1, frase 1, legenda |
 | Chose to view bom, AVD fraco | hook ok, corpo arrasta | cortar setup, antecipar payoff |
 | Retenção boa, poucos likes/subs | sem conexão | opinião/identidade/CTA de série |
-| Loop spike >100% | loop funcionando | repetir o padrão |
+| AVP >100% | rewatch unusually high | testar loop, don't assume causality |

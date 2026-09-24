@@ -15,6 +15,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import remotion
+
 HERE = Path(__file__).resolve().parent
 VIDEO_RE = __import__("re").compile(r"^(video|ep|episode)[ _-]?\d+", __import__("re").IGNORECASE)
 
@@ -147,26 +149,25 @@ def audit_video(v):
             format_name = plan.stem.removeprefix("RENDER_PLAN_").lower()
             code, output = run("remotion.py", ["audit", v.name, "--root", str(v.parent), "--format", format_name])
             remotion_results.append(code)
+        integrity = remotion.audit_render_outputs(v)
+        res["render"] = integrity
         res["gates"]["remotion"] = "ok" if all(code == 0 for code in remotion_results) else "FALHA"
-        if any(code != 0 for code in remotion_results):
+        res["gates"]["render_integrity"] = "ok" if integrity.get("status") == "PASS" else "FALHA"
+        if any(code != 0 for code in remotion_results) or integrity.get("status") != "PASS":
             res["flags"].append("remotion")
     else:
+        res["render"] = remotion.audit_render_outputs(v)
         res["gates"]["remotion"] = "FALHA"
+        res["gates"]["render_integrity"] = "FALHA"
         res["flags"].append("remotion")
 
-    visual_reviews = list((v / "01_roteiro").glob("VISUAL_REVIEW_*.json")) if (v / "01_roteiro").exists() else []
-    if visual_reviews:
-        review_statuses = []
-        for review in visual_reviews:
-            try:
-                review_statuses.append(str(json.loads(review.read_text(encoding="utf-8")).get("status", "FALHA")))
-            except (OSError, ValueError, TypeError):
-                review_statuses.append("FALHA")
-        if review_statuses and all(status == "PASS" for status in review_statuses):
-            res["gates"]["visual_review"] = "ok"
-        else:
-            res["gates"]["visual_review"] = "FALHA"
-            res["flags"].append("visual_review")
+    review_results = []
+    if render_plans:
+        for plan in render_plans:
+            format_name = plan.stem.removeprefix("RENDER_PLAN_").lower()
+            review_results.append(remotion.review_gate(v, format_name, plan))
+    if review_results and all(result.get("status") == "PASS" for result in review_results):
+        res["gates"]["visual_review"] = "ok"
     else:
         res["gates"]["visual_review"] = "FALHA"
         res["flags"].append("visual_review")
@@ -265,9 +266,8 @@ def audit_video(v):
     res["gates"]["pacote"] = "ok" if pkg else "ausente"
     if not pkg:
         res["flags"].append("pacote")
-    final = any(v.glob("04_video_final/*.mp4")) if (v / "04_video_final").exists() else False
-    reports = list((v / "01_roteiro").glob("RENDER_REPORT_*.json")) if (v / "01_roteiro").exists() else []
-    if final and reports:
+    integrity = remotion.audit_render_outputs(v)
+    if integrity.get("status") == "PASS":
         res["gates"]["final"] = "ok"
     else:
         res["gates"]["final"] = "FALHA"
@@ -299,11 +299,11 @@ def main():
         print(json.dumps(results, ensure_ascii=False, indent=1))
     else:
         print("# Auditoria geral\n")
-        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'remotion':<8} {'titulo':<8} {'rotacao':<8} {'assets':<8} {'pron':<8} {'cons':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
+        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'remotion':<8} {'integrity':<8} {'titulo':<8} {'rotacao':<8} {'assets':<8} {'pron':<8} {'cons':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
         for r in results:
             g = r["gates"]
             print(f"{r['video']:<20} {g['imagens']:<8} {g['audio']:<8} {g['caps']:<8} "
-                  f"{g['timing']:<8} {g['remotion']:<8} {g['titulo']:<8} {g['rotacao']:<8} {g['assets']:<8} {g['pronuncia']:<8} {g['consistencia']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
+                  f"{g['timing']:<8} {g['remotion']:<8} {g['render_integrity']:<8} {g['titulo']:<8} {g['rotacao']:<8} {g['assets']:<8} {g['pronuncia']:<8} {g['consistencia']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
         print(f"\nTotal: {len(results)} | Falhas: {len(fails)}")
         print("Falhas:", ", ".join(r["video"] for r in fails) or "nenhuma")
 

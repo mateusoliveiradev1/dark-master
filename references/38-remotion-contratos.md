@@ -2,9 +2,10 @@
 
 ## Fontes de verdade
 
-- `profile.md` define identidade, público, tom e operação.
+- `profile.md` define identidade, público, tom e operação do canal.
 - `style.json` define idioma, branding, imagem, tipografia, captions, safe areas e tokens visuais.
 - `motion.json` define engine, tamanho, FPS, duração, motion, transições e render.
+- `VISUAL_BIBLE.json` é o escopo visual do episódio, separado do canal e sem cópia de identidade.
 - `ROTEIRO_MAP.json` define semântica, ordem e estado de cada bloco.
 - `RENDER_PLAN` combina esses dados sem modificar o roteiro.
 
@@ -47,18 +48,20 @@ A escolha é por função editorial:
 
 Novos episódios usam `RenderPlan.version: 2`. O plano deve carregar:
 
-- `visualBible` e hashes dos contratos;
-- `claimIds`, `sourceBlockIds` e `sourceIds` por cena;
-- `promptId` e `assetLedger` com origem, direitos e hash;
-- `states` com `timeRange`, `intent`, camadas, assets, anotação e movimento;
-- `cropPolicy` para Long e Short;
+- `visualBible`, `visualProfile` e `profileHash` do escopo visual do episódio;
+- `runId`, `inputHash`, `staging` e `releaseEligible` do run que produzirá os outputs;
+- `shotId`, `promptId`, `claimIds`, `sourceBlockIds` e `sourceIds` por cena;
+- `purpose`, `question`, `stateChange`, `classification`, `subject`, `setting`, `composition`, `layers`, `cropPolicy`, `safeAreas`, `negativeGuards`, `continuity` e `states`;
+- `imagePrompt` estruturado, com prompt cinematográfico completo e proibição de texto baked-in;
+- `motionPrompt` separado, com intensidade `0-4`, estados `0-100`, layers, camera path, crop, transições, audio cues, static exception e negative motion;
+- `assetLedger` com `assetId`, `promptId`, `shotId`, origem, direitos, hash, `blocked` e `sourceBlockIds`;
 - transições interpretadas pelo runtime;
 - captions dentro da duração do plano.
 
-O schema aceita planos v1 apenas para compatibilidade legada. Novos planos não podem usar o fallback silencioso de imagem por índice, asset sem manifest, claim sem fonte ou cena sem rastro de estado.
+O schema aceita planos v1 apenas para diagnóstico explícito. Novos planos não podem usar fallback de imagem por índice, asset sem manifest, claim sem fonte, cena sem rastro de estado, staging compartilhado ou `releaseEligible=false`. O Remotion é o único renderer visual de novos episódios.
 
-A pontuação vai de 0 a 100 e cobre clareza, marca, hierarquia, tipografia, composição, crop, repetição, motion, captions, pacing, assets, sync e segurança. O render só é aprovado sem BLOCKER/MAJOR e com score mínimo 92. A revisão independente é obrigatória; o diretor de arte não se autoaprove.
+A pontuação vai de 0 a 100 e cobre clareza, marca, hierarquia, tipografia, composição, crop, repetição, motion, captions, pacing, assets, sync e segurança. O render só é aprovado sem BLOCKER/MAJOR e com score mínimo 92. A revisão independente é obrigatória; o diretor de arte não se autoaprove. O receipt registra reviewer, score, findings, `runId` e `planHash`; a auditoria final rejeita receipt ausente ou divergente.
 
 ## Imagens geradas por IA
 
-Imagens IA entram como assets de cena, nunca como slideshow automático. A skill pode usar imagens para fundos, plates, retratos, documentos, mapas, texturas, objetos e reconstruções. O Remotion responde por crop, parallax, composição, overlays, motion, captions, áudio, sincronização e export. Assets externos/sintéticos devem ter origem e status de direitos registrados no ledger do canal.
+Imagens IA entram como assets de cena, nunca como slideshow automático. A skill pode usar imagens para fundos, plates, retratos, documentos, mapas, texturas, objetos e reconstruções. O Remotion responde por crop, parallax, composição, overlays, motion, captions, áudio, sincronização e export. Assets externos/sintéticos devem ter origem e status de direitos registrados no ledger do episódio. O `run.json` é append-only, contém hashes de entrada/saída, versões de Remotion/Node/ffmpeg, gates e hashes de plano/perfil, sem segredos.

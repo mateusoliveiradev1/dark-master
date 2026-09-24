@@ -16,8 +16,6 @@ def target_bounds(value):
     last = int(match.group(2) or first)
     if first < 1 or last < first or last > 180:
         raise ValueError("target-minutes fora do intervalo")
-    if (first, last) not in {(30, 30), (30, 35), (45, 45), (45, 60), (60, 60), (60, 70)}:
-        raise ValueError("target-minutes deve ser 30-35, 45-60 ou 60-70")
     return first * 60, last * 60
 
 

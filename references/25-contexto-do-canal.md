@@ -1,68 +1,118 @@
-# 25 — Contexto do canal (a skill entende onde está operando)
+# 25 — Contexto real do canal
 
-Cada canal tem **fluxo, convenções e amarras próprias**. Antes de gerar qualquer coisa, a skill precisa **ler o canal** e respeitar o encadeamento — senão produz em cima de um fluxo já amarrado e quebra tudo.
+A skill precisa operar dentro do fluxo real do canal. Arquivo, calendário e regras do projeto têm precedência sobre notas antigas.
 
-## Passo 1 — Escanear o canal
+## Scan obrigatório
 
 ```bash
-python scripts/channel_scan.py "C:/Users/Liiiraa/Downloads/canal dark1"
-```
-Reporta: arquivos de contexto (branding, metadados, pipeline, template), estado de cada vídeo (roteiro/tease/imagens/áudio/final/thumbs/pacote), o **próximo a produzir** e a **corrente de teaser**.
-
-## Passo 2 — Ler as convenções travadas do canal
-
-Antes de gerar, leia (na pasta do projeto):
-- `CALENDARIO*` — ordem/datas dos casos e séries.
-- `REGRA_METADATA*` — títulos/descrições/chapters/tags.
-- `TEMPLATE_ROTEIRO*` — blocos, tamanhos ("PORTE"), regras de voz.
-- `PIPELINE*` — cadência, regras de estoque, tempos.
-- `PROTOCOLO_ANTI_INAUTHENTIC*` — variação obrigatória.
-- `BRANDING*` — identidade visual/voz.
-- O playbook do canal na skill (`playbooks/<canal>/profile.md` + `operacao.md`).
-
-## A CORRENTE DE TEASER (armadilha crítica)
-
-No Cold File Diaries, **o fim de cada vídeo anuncia o caso do dia seguinte pelo nome**:
-> *"And tomorrow — New York, nineteen ten ... Dorothy Arnold of New York ... The full file — tomorrow night."*
-
-Isso amarra os vídeos em corrente:
-```
-videoNN  --(outro cita)-->  caso do videoNN+1
-videoNN  --(tease.txt)---->  Short Padrão 4 (blocos do meio + CTA específico)
+python scripts/channel_scan.py "<pasta-do-canal>" --today AAAA-MM-DD --json
 ```
 
-### Consequência: mudar o fluxo exige regerar
-Se você **reordenar, inserir ou remover** um caso no calendário:
+O scanner:
 
-1. **Atualize** o `CALENDARIO_30.txt`.
-2. **Regere o outro/teaser do vídeo ANTERIOR** (ele cita o caso que mudou).
-   - No projeto: refazer voz + motion + tail + short do vídeo anterior.
-3. **Regere o `tease.txt`** do vídeo afetado e o **Short (Padrão 4)** correspondente.
-4. **Rebuild** dos vídeos tocados (`build_video.py videoNN --from voz`).
-5. Se um vídeo sair/entrar, **conserte a ponta** antes e depois dele.
+- encontra o `CALENDARIO*` real;
+- lê data, `videoNN`, caso, série e status;
+- exclui pastas auxiliares, `video--help` e recaps;
+- detecta apenas `videoNN`, `EPNN` ou `episodeNN` regulares;
+- separa estado de Long, Short, roteiro, pesquisa, áudio, captions, imagens, thumbs e pacote;
+- calcula estoque futuro, dia atual, próximos 7 dias, próximo a produzir e corrente de teasers;
+- mostra a verdade do disco, não apenas o texto “PRONTOS” no calendário.
 
-> Regra: **a corrente não pode ter buraco nem apontar para o caso errado.** O `channel_scan.py` mostra a corrente; revise-a após qualquer mudança de grade.
+## Prontidão real
 
-## Passo 3 — Operar dentro do fluxo
+Um vídeo só aparece como `pronto` quando possui:
 
-- **Nunca** escolha o caso por conta própria num canal com calendário travado — use o caso do dia/dia+1.
-- Respeite a **regra rolante** (produzir o dia+1) e a **série do dia da semana**.
-- Ao gerar roteiro, o bloco `CHAVES+OUTRO+TEASER` **já deve citar o próximo caso do calendário**.
-- Ao gerar Short, use o `tease.txt` (Padrão 4) e o CTA específico.
+1. pesquisa aprovada;
+2. `narration_v3.txt` ou narration canônico;
+3. imagens completas conforme o porte declarado;
+4. voz final canônica;
+5. `captions.srt`;
+6. `videoNN_YOUTUBE.mp4` ou `videoNN_FINAL.mp4`;
+7. `videoNN_SHORT.mp4`;
+8. pelo menos 3 thumbnails;
+9. `youtube_package.txt` sem `PENDENTE`, com título e chapters válidos.
 
-## Passo 4 — Se o canal NÃO tiver calendário (canal novo)
+Backup, arquivo parcial, peça temporária ou qualquer MP4 dentro de `_parts` não conta como final.
 
-Use `/dark-lancar` para criar: nicho → séries → calendário → branding → settings. A partir daí a corrente passa a valer.
+Estados:
 
-## Checklist de contexto (antes de gerar)
+- `pronto`
+- `validar_acessorios`
+- `montagem`
+- `imagens`
+- `roteiro`
+- `backlog`
+- `ausente`
 
-- [ ] Rodei `channel_scan.py` e li a corrente.
-- [ ] Sei o **caso do dia** e o **caso do dia+1**.
-- [ ] Li as regras travadas do canal (metadata, template, pipeline, anti-inauthentic).
-- [ ] O outro/teaser do vídeo **anterior** aponta para o caso certo.
-- [ ] Se mudei a ordem, **regenerei** o vídeo anterior + tease + Short afetados.
-- [ ] Respeitei a série do dia da semana e o PORTE.
+## Fontes de contexto
 
-## Multi-canal
+Ler no projeto:
 
-A skill serve vários canais. Sempre identifique **qual** (pelo `FOCUS.md` ou perguntando) e carregue o perfil + contexto daquele canal — as convenções NÃO são intercambiáveis (voz, idioma, séries, metadados, fluxo).
+- `CALENDARIO*`
+- `REGRA_METADATA*`
+- `TEMPLATE_ROTEIRO*`
+- `PIPELINE*`
+- `PROTOCOLO_ANTI_INAUTHENTIC*`
+- `BRANDING*`
+- `CHECKLIST*`
+
+Ler na skill:
+
+- `config/FOCUS.md`
+- `playbooks/<canal>/profile.md`
+- `playbooks/<canal>/operacao.md`
+- `playbooks/<canal>/outliers.md`
+
+Playbook descreve o canal; não é copiado para canais novos.
+
+## Mapeamento publicado
+
+O relatório cruza:
+
+```text
+data/caso/série + título publicado + formato → videoNN
+```
+
+Regras:
+
+- título exato e formato compatível podem ser confirmados automaticamente;
+- ambiguidade exige confirmação do usuário;
+- sem título, data ou duração, o item fica `unmatched`/`unknown`;
+- dois IDs na mesma tag/par formato entram em `conflitos_mapeamento`;
+- não inferir caso de uma métrica isolada.
+
+Depois da confirmação, o vínculo é persistido no banco para D+2, D+7, tráfego e retenção.
+
+## Corrente de teasers
+
+```text
+videoNN --(outro cita)--> caso do videoNN+1
+videoNN --(tease.txt)---> Short Padrão 4 / CTA específico
+```
+
+O scanner compara o caso esperado com o final do narration e marca:
+
+- `ok`: próximo caso comprovado;
+- `revisar`: sem menção inequívoca.
+
+Se o calendário mudar:
+
+1. atualizar `CALENDARIO*`;
+2. revisar o vídeo anterior;
+3. regenerar voz/motion/outro apenas se aprovado;
+4. regenerar `tease.txt` e Short afetado;
+5. validar novamente o scan;
+6. registrar a mudança no experimento/checkpoint.
+
+## Uso pelo `/dark-revisar`
+
+A análise só produz recomendação de calendário depois de:
+
+1. rodar o scanner;
+2. validar estoque e corrente;
+3. cruzar métricas com `videoNN`;
+4. medir impacto e retrabalho;
+5. respeitar regras travadas;
+6. pedir aprovação.
+
+O scanner nunca altera arquivos. Ele é a fonte de diagnóstico; `/dark-build` continua sendo responsável por produção.

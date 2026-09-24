@@ -1,0 +1,381 @@
+{
+  "version": 2,
+  "channel": "runtime-fixture",
+  "episode": "runtime-01",
+  "format": "short",
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationSeconds": 4
+  },
+  "captions": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 1.8,
+      "text": "A primeira evidência entra no quadro."
+    },
+    {
+      "startSeconds": 1.8,
+      "endSeconds": 4,
+      "text": "O detalhe muda a leitura do caso."
+    }
+  ],
+  "theme": {
+    "background": "#0A0A0C",
+    "surface": "#17171B",
+    "text": "#F5F5F4",
+    "muted": "#A1A1AA",
+    "accent": "#B91C1C",
+    "headingFont": "Arial",
+    "bodyFont": "Arial",
+    "safeArea": {
+      "x": 72,
+      "y": 54
+    }
+  },
+  "render": {
+    "codec": "h264",
+    "audioCodec": "aac",
+    "crf": 18,
+    "imageFormat": "jpeg",
+    "jpegQuality": 92
+  },
+  "branding": {
+    "watermarkOpacity": 0.32,
+    "tagline": "",
+    "endCard": "archive-end-card"
+  },
+  "contractVersions": {},
+  "assetLedger": [
+    {
+      "assetId": "asset-first",
+      "promptId": "prompt-first",
+      "shotId": "scene-first",
+      "path": "images/asset-first.jpg",
+      "role": "primary",
+      "kind": "image",
+      "origin": "synthetic",
+      "rightsStatus": "cleared",
+      "blocked": false,
+      "sourceBlockIds": ["block-first"]
+    },
+    {
+      "assetId": "asset-second",
+      "promptId": "prompt-second",
+      "shotId": "scene-second",
+      "path": "images/asset-second.jpg",
+      "role": "primary",
+      "kind": "image",
+      "origin": "synthetic",
+      "rightsStatus": "cleared",
+      "blocked": false,
+      "sourceBlockIds": ["block-second"]
+    }
+  ],
+  "blockedAssetIds": [],
+  "scenes": [
+    {
+      "id": "scene-first",
+      "shotId": "scene-first",
+      "type": "cinematic-photo",
+      "purpose": "establish",
+      "question": "O que entra primeiro?",
+      "stateChange": "A evidência torna-se visível.",
+      "classification": "FATO",
+      "subject": "um detalhe de arquivo",
+      "setting": "sala de arquivo",
+      "composition": "detalhe documental com caminho de leitura",
+      "layers": ["environment", "subject", "evidence"],
+      "startSeconds": 0,
+      "durationSeconds": 2,
+      "sourceBlockIds": ["block-first"],
+      "claimIds": ["claim-first"],
+      "sourceIds": ["source-first"],
+      "promptId": "prompt-first",
+      "safeAreas": {
+        "long": {
+          "action": [0.05, 0.05, 0.9, 0.78],
+          "captions": [0.06, 0.78, 0.88, 0.16],
+          "watermark": [0.88, 0.04, 0.08, 0.08]
+        },
+        "short": {
+          "action": [0.1, 0.1, 0.8, 0.72],
+          "captions": [0.08, 0.78, 0.84, 0.16],
+          "watermark": [0.84, 0.04, 0.1, 0.08]
+        }
+      },
+      "negativeGuards": ["no baked-in text", "no watermark"],
+      "continuity": { "evidenceTreatment": "documented reconstruction only" },
+      "cropPolicy": {
+        "masterAspect": "16:9",
+        "long": { "focalPoint": [0.2, 0.8] },
+        "short": { "focalPoint": [0.7, 0.3], "dedicatedReframeRequired": true }
+      },
+      "imagePrompt": {
+        "contractVersion": 1,
+        "promptId": "prompt-first",
+        "shotId": "scene-first",
+        "purpose": "establish",
+        "question": "O que entra primeiro?",
+        "stateChange": "A evidência torna-se visível.",
+        "classification": "FATO",
+        "subject": "um detalhe de arquivo",
+        "setting": "sala de arquivo",
+        "composition": {
+          "description": "detalhe documental com caminho de leitura",
+          "focalPoint": [0.2, 0.8],
+          "shotScale": "close",
+          "camera": "fixed documentary position",
+          "lighting": "low-key"
+        },
+        "layers": ["environment", "subject", "evidence"],
+        "cropPolicy": {
+          "masterAspect": "16:9",
+          "long": { "focalPoint": [0.2, 0.8] },
+          "short": { "focalPoint": [0.7, 0.3], "dedicatedReframeRequired": true }
+        },
+        "safeAreas": {
+          "long": { "action": [0.05, 0.05, 0.9, 0.78] },
+          "short": { "action": [0.1, 0.1, 0.8, 0.72] }
+        },
+        "continuity": { "evidenceTreatment": "documented reconstruction only" },
+        "negativeGuards": ["no baked-in text", "no watermark"],
+        "full": "IMAGE_PROMPT[prompt-first/scene-first] | no baked-in text"
+      },
+      "motionPrompt": {
+        "contractVersion": 1,
+        "promptId": "prompt-first",
+        "shotId": "scene-first",
+        "intensity": 2,
+        "layers": ["environment", "subject", "evidence"],
+        "states": [
+          {
+            "id": "entry",
+            "timeRange": [0, 50],
+            "intent": "establish the subject",
+            "visibleLayers": ["environment", "subject"],
+            "motion": "static-hold",
+            "transition": "hold",
+            "audioCue": "room tone"
+          },
+          {
+            "id": "focus",
+            "timeRange": [50, 100],
+            "intent": "make the evidence visible",
+            "visibleLayers": ["subject", "evidence"],
+            "motion": "slow-push",
+            "transition": "hold",
+            "audioCue": "evidence resolves"
+          }
+        ],
+        "cameraPath": {
+          "kind": "controlled-crop",
+          "description": "Move from um detalhe de arquivo to make A evidência torna-se visível.",
+          "keyframes": [
+            { "at": 0, "focalPoint": [0.2, 0.8] },
+            { "at": 100, "focalPoint": [0.7, 0.3] }
+          ]
+        },
+        "cropPolicy": {
+          "masterAspect": "16:9",
+          "long": { "focalPoint": [0.2, 0.8] },
+          "short": { "focalPoint": [0.7, 0.3], "dedicatedReframeRequired": true }
+        },
+        "transitions": {
+          "in": "cut",
+          "out": "dissolve",
+          "rationale": "reveal after the evidence resolves"
+        },
+        "audioCues": ["room tone", "evidence resolves"],
+        "staticException": {
+          "allowed": true,
+          "reason": "entry preserves the first state"
+        },
+        "negativeMotion": ["no generic fade"],
+        "full": "MOTION_PROMPT[prompt-first/scene-first] | declared operators"
+      },
+      "asset": "images/asset-first.jpg",
+      "assets": [
+        {
+          "assetId": "asset-first",
+          "promptId": "prompt-first",
+          "shotId": "scene-first",
+          "path": "images/asset-first.jpg",
+          "role": "primary",
+          "kind": "image",
+          "origin": "synthetic",
+          "rightsStatus": "cleared",
+          "blocked": false,
+          "sourceBlockIds": ["block-first"]
+        }
+      ],
+      "states": [
+        {
+          "id": "entry",
+          "timeRange": [0, 0.5],
+          "intent": "establish",
+          "visibleLayers": ["environment"],
+          "hiddenLayers": ["subject", "evidence"],
+          "assetIds": ["asset-first"],
+          "motion": "static-hold",
+          "focalPoint": [0.2, 0.8]
+        },
+        {
+          "id": "focus",
+          "timeRange": [0.5, 1],
+          "intent": "reveal",
+          "visibleLayers": ["subject", "evidence"],
+          "hiddenLayers": ["environment"],
+          "assetIds": ["asset-first"],
+          "motion": "slow-push",
+          "focalPoint": [0.7, 0.3],
+          "annotation": "evidência localizada"
+        }
+      ],
+      "headline": "A evidência entra",
+      "body": "O primeiro detalhe organiza a leitura.",
+      "metadata": { "label": "ESTADO" },
+      "motionVariant": "controlled-crop",
+      "motionIntent": "make the evidence visible",
+      "transitionIn": "cut",
+      "transitionOut": "dissolve"
+    },
+    {
+      "id": "scene-second",
+      "shotId": "scene-second",
+      "type": "evidence-reveal",
+      "purpose": "reveal",
+      "question": "O que a prova preserva?",
+      "stateChange": "A segunda prova altera a hierarquia.",
+      "classification": "REPORTADO",
+      "subject": "a prova isolada",
+      "setting": "laboratório ligado ao caso",
+      "composition": "prova dominante com contexto separado",
+      "layers": ["environment", "subject", "evidence"],
+      "startSeconds": 2,
+      "durationSeconds": 2,
+      "sourceBlockIds": ["block-second"],
+      "claimIds": ["claim-second"],
+      "sourceIds": ["source-second"],
+      "promptId": "prompt-second",
+      "safeAreas": {
+        "long": { "action": [0.05, 0.05, 0.9, 0.78] },
+        "short": { "action": [0.1, 0.1, 0.8, 0.72] }
+      },
+      "negativeGuards": ["no baked-in text"],
+      "continuity": { "evidenceTreatment": "reported account" },
+      "cropPolicy": {
+        "masterAspect": "16:9",
+        "long": { "focalPoint": [0.2, 0.8] },
+        "short": { "focalPoint": [0.7, 0.3], "dedicatedReframeRequired": true }
+      },
+      "imagePrompt": {
+        "contractVersion": 1,
+        "promptId": "prompt-second",
+        "shotId": "scene-second",
+        "purpose": "reveal",
+        "question": "O que a prova preserva?",
+        "stateChange": "A segunda prova altera a hierarquia.",
+        "classification": "REPORTADO",
+        "subject": "a prova isolada",
+        "setting": "laboratório ligado ao caso",
+        "composition": {
+          "description": "prova dominante com contexto separado",
+          "focalPoint": [0.2, 0.8],
+          "shotScale": "medium",
+          "camera": "controlled crop",
+          "lighting": "low-key"
+        },
+        "layers": ["environment", "subject", "evidence"],
+        "cropPolicy": {
+          "masterAspect": "16:9",
+          "long": { "focalPoint": [0.2, 0.8] },
+          "short": { "focalPoint": [0.7, 0.3], "dedicatedReframeRequired": true }
+        },
+        "safeAreas": {
+          "long": { "action": [0.05, 0.05, 0.9, 0.78] },
+          "short": { "action": [0.1, 0.1, 0.8, 0.72] }
+        },
+        "continuity": { "evidenceTreatment": "reported account" },
+        "negativeGuards": ["no baked-in text"],
+        "full": "IMAGE_PROMPT[prompt-second/scene-second] | no baked-in text"
+      },
+      "motionPrompt": {
+        "contractVersion": 1,
+        "promptId": "prompt-second",
+        "shotId": "scene-second",
+        "intensity": 1,
+        "layers": ["environment", "subject", "evidence"],
+        "states": [
+          {
+            "id": "state",
+            "timeRange": [0, 100],
+            "intent": "preserve the proof",
+            "visibleLayers": ["evidence"],
+            "motion": "static-hold",
+            "transition": "hold",
+            "audioCue": "quiet resolve"
+          }
+        ],
+        "cameraPath": {
+          "kind": "static-hold",
+          "description": "Hold a prova isolada to preserve A segunda prova altera a hierarquia.",
+          "keyframes": [{ "at": 0, "focalPoint": [0.7, 0.3] }]
+        },
+        "cropPolicy": {
+          "masterAspect": "16:9",
+          "long": { "focalPoint": [0.2, 0.8] },
+          "short": { "focalPoint": [0.7, 0.3], "dedicatedReframeRequired": true }
+        },
+        "transitions": {
+          "in": "dissolve",
+          "out": "cut",
+          "rationale": "preserve the proof before the cut"
+        },
+        "audioCues": ["quiet resolve"],
+        "staticException": {
+          "allowed": true,
+          "reason": "the proof is a declared hold"
+        },
+        "negativeMotion": ["no generic fade"],
+        "full": "MOTION_PROMPT[prompt-second/scene-second] | declared operator"
+      },
+      "asset": "images/asset-second.jpg",
+      "assets": [
+        {
+          "assetId": "asset-second",
+          "promptId": "prompt-second",
+          "shotId": "scene-second",
+          "path": "images/asset-second.jpg",
+          "role": "primary",
+          "kind": "image",
+          "origin": "synthetic",
+          "rightsStatus": "cleared",
+          "blocked": false,
+          "sourceBlockIds": ["block-second"]
+        }
+      ],
+      "states": [
+        {
+          "id": "state",
+          "timeRange": [0, 1],
+          "intent": "preserve",
+          "visibleLayers": ["evidence"],
+          "hiddenLayers": ["environment"],
+          "assetIds": ["asset-second"],
+          "motion": "static-hold",
+          "focalPoint": [0.7, 0.3]
+        }
+      ],
+      "headline": "A prova preserva",
+      "body": "A segunda evidência altera a hierarquia.",
+      "metadata": { "label": "PROVA" },
+      "motionVariant": "static-hold",
+      "motionIntent": "preserve the proof",
+      "transitionIn": "dissolve",
+      "transitionOut": "cut"
+    }
+  ],
+  "sources": {}
+}

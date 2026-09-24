@@ -41,17 +41,16 @@
     "Deleg.": "delegacia"
   },
   "pronuncia": {
-    "Laudo Final": "Láudo Final",
-    "Samudio": "Samúdio",
     "rottweilers": "rótiváilers",
     "Rottweilers": "rótiváilers",
     "rottweiler": "rótiváiler",
     "Rottweiler": "rótiváiler",
-    "Vespasiano": "Vespaziano",
+    "futsal": "futsau",
     "Dayanne": "Daiane",
-    "DNA": "dê ene á",
-    "hexacampeonato": "éksacampeonato",
-    "futsal": "futsau"
+    "luminol": "lumi-nol",
+    "Samudio": "Samúdjiu",
+    "Macarrão": "Macarrão",
+    "Samúdjiu": "Samúdjiu"
   },
   "series_detect": [
     "PERICIA",
@@ -62,12 +61,12 @@
   "default_series": "PERICIA",
   "rules": {
     "hook": {
-      "rate": "-8%",
-      "pitch": "-4Hz"
+      "rate": "-6%",
+      "pitch": "-2Hz"
     },
     "outro": {
-      "rate": "-4%",
-      "pitch": "+0Hz"
+      "rate": "-6%",
+      "pitch": "-2Hz"
     },
     "outro_from_end": 2,
     "beat": {
@@ -86,7 +85,7 @@
   "gaps": {
     "short_max_len": 150,
     "short": 0.45,
-    "normal": 0.2
+    "normal": 0.45
   },
   "beds": {
     "PERICIA": {
@@ -127,11 +126,11 @@
   "trim": {
     "mode": "silence",
     "silence": {
-      "start_duration": 0.06,
-      "end_duration": 0.1,
-      "threshold": "-45dB",
-      "fade": 0.02
+      "start_duration": 0.04,
+      "end_duration": 0.04,
+      "threshold": "-55dB",
+      "fade": 0.05
     }
   },
-  "_nota": "VOZ TRAVADA em pt-BR-AntonioNeural (23/09): Remy fr tinha sotaque/escorregos; Kokoro e Piper REPROVARAM no teste real (caminhonete->caminionete, apreendida->aprendida); Gemini free tem cota que nao sustenta video; Azure exige cartao. Antonio = unica opcao masculina PT nativa gratis confiavel. Trocas em 1 linha: clone Fish (canal/fish_voice.txt, ~$0.14/video) ou ElevenLabs. Pack pronuncia segue ativo; calibrar nomes PARA O ANTONIO conforme a oitiva (variantes em 02_audio/_calib_samudio). Estado 23/09: entrega em 3 zonas (hook -8/-4, corpo -6/-2, outro -4/+0; series nao muda mais o tom). Primaria = Remy (gerar_voz_pt.py, 'VOZ OFICIAL'; respiro BR 0.45/0.20; trim por silencio com fades 20ms; aecho 9|15ms; loudnorm -14). Pack pronuncia APROVADO DE OUVIDO em 23/09: Samudio->Samúdio, rottweiler(s)->rótiváiler(s) ('perfeito'), Vespasiano->Vespaziano ('normal'); Dayanne->Daiane (ida-e-volta OK na frase real da narracao; pendente oitiva do dono em 02_audio/_pronuncia/01_Dayanne_ctx.mp3). Fallbacks reais: Algenib (gerar_voz_gemini.py), Piper local (gerar_voz_laudo.py, laudo.onnx) e clone Fish (canal/fish_voice.txt). Voz oficial ainda em decisao no profile.md. BEDS (23/09): songs proprias do dono (direitos comerciais confirmados; vieram do canal EN) copiadas para canal/assets/songs/ — mapeamento por carater acustico medido (RMS/centroide/graves/onsets): PERICIA->HEISTS (mais escura/pesada/espaçada), FRIOS->VANISHED (misterio/luto), MENTE->KILLERS (tensao), SMALL TOWN de reserva; o tile sem-emenda (_1<->_2, crossfade 4s) + autoteste de emenda ficam no scripts/padrao_bed.py do projeto; mix com ducking loudnorm -14 (padrao_bed.mix_duck ajustado de -16 para -14 em 23/09)."
+  "_nota": "ESTADO 23/09 (ENTREGA UNICA DO CANAL — travado por decisao do dono): a partir de video01 o canal tem UMA entrega so. hook = corpo = fecho = series.default = -6%/-2Hz, e gap uniforme de 0.45s entre blocos. Motivo: (1) as 3 zonas de prosody criavam 2 saltos audiveis de velocidade/entonacao no MEIO do mesmo episodio, denunciando emenda; (2) o gap real de video01 media 0.20s em 100% dos blocos (nenhum bloco <150 chars usava o gap curto de 0.45) — 0.20s praticamente nao e pausa, fazia a narracao soar corrida; (3) serie agora e SO seletor de trilha (o mapa de tom nunca teve >1 entrada, entao as 4 series ja soavam iguais). O timbre NUNCA muda: pt-BR-AntonioNeural. Para o audio publicado nunca mudar, o voice_engine grava 02_audio/voice_contract.json (contrato resolvido + cache de cada bloco) e aceita --contract <arquivo> para re-renderizar do snapshot. Pack pronuncia e por video (so cresce, nao muda o timbre). === HISTORICO === VOZ TRAVADA em pt-BR-AntonioNeural (23/09): Remy fr tinha sotaque/escorregos; Kokoro e Piper REPROVARAM no teste real (caminhonete->caminionete, apreendida->aprendida); Gemini free tem cota que nao sustenta video; Azure exige cartao. Antonio = unica opcao masculina PT nativa gratis confiavel. Trocas em 1 linha: clone Fish (canal/fish_voice.txt, ~$0.14/video) ou ElevenLabs. Pack pronuncia segue ativo; calibrar nomes PARA O ANTONIO conforme a oitiva (variantes em 02_audio/_calib_samudio). Estado 23/09: entrega em 3 zonas (hook -8/-4, corpo -6/-2, outro -4/+0; series nao muda mais o tom). Primaria = Remy (gerar_voz_pt.py, 'VOZ OFICIAL'; respiro BR 0.45/0.20; trim por silencio com fades 20ms; aecho 9|15ms; loudnorm -14). Pack pronuncia APROVADO DE OUVIDO em 23/09: Samudio->Samúdio, rottweiler(s)->rótiváiler(s) ('perfeito'), Vespasiano->Vespaziano ('normal'); Dayanne->Daiane (ida-e-volta OK na frase real da narracao; pendente oitiva do dono em 02_audio/_pronuncia/01_Dayanne_ctx.mp3). Fallbacks reais: Algenib (gerar_voz_gemini.py), Piper local (gerar_voz_laudo.py, laudo.onnx) e clone Fish (canal/fish_voice.txt). Voz oficial ainda em decisao no profile.md. BEDS (23/09): songs proprias do dono (direitos comerciais confirmados; vieram do canal EN) copiadas para canal/assets/songs/ — mapeamento por carater acustico medido (RMS/centroide/graves/onsets): PERICIA->HEISTS (mais escura/pesada/espaçada), FRIOS->VANISHED (misterio/luto), MENTE->KILLERS (tensao), SMALL TOWN de reserva; o tile sem-emenda (_1<->_2, crossfade 4s) + autoteste de emenda ficam no scripts/padrao_bed.py do projeto; mix com ducking loudnorm -14 (padrao_bed.mix_duck ajustado de -16 para -14 em 23/09). VOZ OFICIAL (decisao do dono 23/09): pt-BR-AntonioNeural (nativo PT-BR, sem sotaque estrangeiro e sem drift de idioma). Remy (fr-FR-RemyMultilingualNeural) descartado: sotaque frances + trocava de idioma em frases curtas. Mapa de pronuncia precisa ser recalibrado para o Antonio (entradas feitas para o Remy podem ser desnecessarias). MAPA RECALIBRADO PARA ANTONIO (23/09, teste ida-e-volta por termo): removidos DNA->dê ene á, Laudo Final->Láudo Final, Vespasiano->Vespaziano, Samudio->Samúdio, hexacampeonato->éksacampeonato (o nativo le corretamente sem respelling); mantidos rottweiler(s)->rótiváiler(s) (cru saia 'outros velhês'), futsal->futsau (cru saia 'futeçao') e Dayanne->Daiane. QA 23/09 (Antonio): varredura palavra-a-palavra nos 43 blocos; corrigidos luminol->lumi-nol, 'uma ossada'->'os restos', 'nao laudo'->'e nao um laudo', rottweilers (respell+contexto 'caes da raca'), 'em Betim'->'na cidade de Betim', 'que ia a'->'que viajaria para'; residual = 24 diffs todas ruido do whisper (numeros/artigos/z-s). Relatorio: videos/video01/02_audio/QA_PRONUNCIA.txt. CORRECAO 23/09: Samudio->Samúdio RESTAURADO (o teste ida-e-volta do whisper enganou: ele normaliza o acento; o dono ouviu e o cru estava errado no Antonio). Samudio->Samúdjiu (opcao 3 escolhida de ouvido pelo dono em 23/09). TRIM suavizado 23/09: threshold -55dB, duracoes 0.04, fade 50ms (o -45dB/0.10/20ms cortava a cauda suave das palavras — 'corte na voz' no 0:01)."
 }

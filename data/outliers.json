@@ -1,65 +1,95 @@
 {
   "_meta": {
-    "descricao": "Vídeos outlier (>= 2x a mediana do canal) com o padrão extraído. Atualizado por /dark-revisar.",
+    "descricao": "Vídeos outlier (>= 3x a mediana do formato) com hipótese extraída. Atualizado por /dark-revisar.",
     "canal": "cold-file-diaries",
-    "atualizado": "2026-09-21",
-    "fonte": "YouTube Analytics API (dados reais)"
+    "atualizado": "2026-09-23",
+    "fonte": "YouTube Analytics API, consulta de 2026-08-22 a 2026-09-20",
+    "observacao": "A API coletou 16 vídeos, 81 linhas de tráfego e 300 pontos de retenção. Os 16 mapeamentos foram confirmados, sem títulos, datas ou durações pendentes."
   },
   "baseline": {
-    "short_views_median": 1190,
-    "long_views_median": 26,
-    "short_avp_median": 67,
-    "long_avp_median": 16,
-    "watch_hours_30d": 26.24,
-    "nota": "3 Shorts outliers a ~48x a mediana geral; longs ainda entre 0-70 views."
+    "short_views_median": 81,
+    "long_views_median": 19,
+    "channel_views_median": 23.5,
+    "viral_short_views_median": 1222,
+    "short_avd_median": 22.5,
+    "short_avp_median": 67.85,
+    "long_avd_median": 88.5,
+    "long_avp_median": 12.18,
+    "watch_hours_30d": 31.05,
+    "short_watch_hours": 18.58,
+    "long_watch_hours": 12.47,
+    "nota": "Baseline por formato confirmada em 8 Shorts e 8 longs. AVP extremo indica rewatch e não é usado sozinho para provar loop."
   },
   "outliers": [
     {
+      "video": "6FdLxmbamJs",
+      "video_tag": "video05",
+      "caso": "Yuba County Five",
+      "format": "short",
+      "views": 1253,
+      "engaged_views": 517,
+      "avd_seconds": 14,
+      "avp_percent": 43.58,
+      "subs_gained": 1,
+      "watch_hours": 2.35,
+      "ratio_to_format_median": 15.47,
+      "hook": "número + VANISHED",
+      "padrao": "Alcance alto com retenção abaixo da mediana.",
+      "licao": "Alcance e retenção são dimensões diferentes; não inferir loop a partir de views."
+    },
+    {
       "video": "FiWWSWJoOW8",
+      "video_tag": "video03",
       "caso": "Springfield Three",
       "format": "short",
-      "views": 1180,
-      "avp_percent": 136.7,
+      "views": 1222,
+      "engaged_views": 536,
+      "avd_seconds": 47,
+      "avp_percent": 136.48,
       "subs_gained": 4,
+      "watch_hours": 7.3,
+      "ratio_to_format_median": 15.09,
       "hook": "staccato + detalhe concreto + loop",
-      "padrao": "MELHOR SHORT: AVP >100% = LOOP. Loop gera distribuição + inscritos.",
-      "licao": "O loop é o sinal mais forte. Projetar fim→começo."
+      "padrao": "Maior AVD, watch hours e inscritos da coorte.",
+      "licao": "Loop fim→começo permanece hipótese forte; AVP >100% prova rewatch, não causalidade."
     },
     {
       "video": "sB2Twbce70Q",
-      "caso": "D.B. Cooper ($200.000)",
+      "video_tag": "video02",
+      "caso": "D.B. Cooper",
       "format": "short",
-      "views": 1190,
-      "avp_percent": 67.2,
+      "views": 1218,
+      "engaged_views": 451,
+      "avd_seconds": 22,
+      "avp_percent": 67.21,
       "subs_gained": 1,
+      "watch_hours": 3.07,
+      "ratio_to_format_median": 15.04,
       "hook": "2ª pessoa + número impossível + pergunta aberta",
-      "padrao": "PADRÃO SHORT 2 (dinheiro/ação).",
-      "licao": "Dinheiro no hook funciona."
-    },
-    {
-      "video": "6FdLxmbamJs",
-      "caso": "Yuba County Five",
-      "format": "short",
-      "views": 1202,
-      "avp_percent": 43.8,
-      "subs_gained": 1,
-      "hook": "número + VANISHED",
-      "padrao": "Outlier de alcance, mas AVP baixo (43%) — não dá loop.",
-      "licao": "Alcance bom, retenção mediana."
-    },
-    {
-      "video": "f-lbHgdVxcI",
-      "caso": "Zodiac Killer (long)",
-      "format": "long",
-      "views": 66,
-      "avd_seconds": 907,
-      "watch_hours": 5.55,
-      "padrao": "Long com AVD alto (15 min!) — quem assiste, fica. Problema é TRÁFEGO.",
-      "licao": "Conteúdo longo retém; falta o funil do Short."
+      "padrao": "Alcance alto com retenção igual à mediana.",
+      "licao": "O padrão travado continua ativo, mas a amostra não prova que o formato causará o alcance."
     }
   ],
   "nao_funcionou": [
-    {"video": "ra4DDCqjupc", "nota": "long 'They Took $500 Million' com 2 views — 0 tráfego"},
-    {"video": "69_IajVo1LE", "nota": "long Black Dahlia com 0 views (recém-publicado?)"}
+    {
+      "video": "69_IajVo1LE",
+      "video_tag": "video07",
+      "caso": "Black Dahlia",
+      "nota": "0 views no período; o título e o formato estão mapeados, mas a amostra não permite atribuir causa."
+    }
+  ],
+  "funil": {
+    "traffic_rows": 81,
+    "related_video_views": 20,
+    "confirmed_short_to_long_pairs": 0,
+    "nota": "RELATED_VIDEO existe, mas os IDs de origem não pertencem ao conjunto de 16 IDs mapeados."
+  },
+  "conflitos_mapeamento": [],
+  "limitacoes": [
+    "CTR e impressões não vieram da consulta Targeted Queries; usar Reporting API ou Studio.",
+    "shown-in-feed e chose-to-view só entram se vierem do Studio ou de fonte declarada.",
+    "A Analytics API tem defasagem de 3 dias; a janela reportada termina em 2026-09-20.",
+    "A coorte contém 16 vídeos; amostras pequenas geram hipóteses, não causalidade.",
+    "AVP extremo indica rewatch; não usar AVP >100% como prova de loop projetado ou causa de distribuição."
   ]
 }

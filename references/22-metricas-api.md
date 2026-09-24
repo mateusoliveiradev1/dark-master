@@ -1,85 +1,151 @@
-# Métricas — motor de dados (YouTube Analytics CLI + OAuth)
+# 22 — Métricas: coleta, persistência e diagnóstico
 
-Como puxar métricas reais do Cold File Diaries para o loop `/dark-revisar`.
+## Fluxo diário
 
-## Ferramenta
-- Vendor: `vendors/youtube-analytics-cli` ([Bin-Huang/youtube-analytics-cli](https://github.com/Bin-Huang/youtube-analytics-cli)).
-- Usa YouTube Data API v3 + YouTube Analytics API v2. Saída **JSON** no stdout (fácil de parsear por agente).
-- Requer **OAuth 2.0** (service account **não** funciona em APIs do YouTube).
+1. `python scripts/channel_scan.py "<pasta-do-canal>" --today AAAA-MM-DD --json`
+2. `python scripts/yt_metrics.py --channel <canal> --project "<pasta-do-canal>" --days 30`
+3. `python scripts/yt_analysis.py --channel <canal> --project "<pasta-do-canal>" --today AAAA-MM-DD --save-experiments`
 
-## Setup OAuth (uma vez)
-1. Google Cloud Console → criar projeto → habilitar **YouTube Data API v3** e **YouTube Analytics API**.
-2. Credentials → **OAuth 2.0 Client ID** (tipo **Desktop app**).
-3. Obter **refresh token** com os escopos:
-   - `https://www.googleapis.com/auth/youtube.readonly`
-   - `https://www.googleapis.com/auth/yt-analytics.readonly`
-   - `https://www.googleapis.com/auth/yt-analytics-monetary.readonly` (só retorna receita **após** monetizar)
-4. Guardar as credenciais **fora do repo** (ex.: `~/.config/opencode/secrets/yt-oauth.json`) — **nunca** commitar.
+O primeiro comando responde **o que existe e o que precisa ser produzido**. O segundo coleta o que o canal realmente publicado. O terceiro calcula baseline, funil, retenção, gargalos e experiments.
 
-## Banco de dados (Neon Postgres)
+`/dark-revisar` executa os três e começa o resumo executivo antes do relatório completo.
 
-A camada de dados usa **Neon Postgres** quando `DATABASE_URL` está definida; senão cai para **SQLite** local (`data/dark.db`). A conexão é configurada em `~/.config/opencode/secrets/dark.env` (fora do repo).
+## Fonte de verdade
 
-- `python scripts/yt_db.py doctor` — testa a conexão e mostra o backend ativo.
-- `python scripts/yt_db.py stats` — conta linhas das tabelas.
-- Tabelas: `snapshots` (métricas por vídeo), `outliers` (vídeos acima da baseline), `learnings` (aprendizados com evidência).
-- Os scripts (`yt_metrics.py`, `yt_scan_outliers.py`) gravam via `yt_db.save_snapshot/save_outlier` — **agnóstico de backend**.
+- `config/FOCUS.md`: objetivo e métrica norte.
+- `00_CANAL/CALENDARIO*`: data, caso, série e ordem.
+- Arquivos reais: estado de roteiro, pesquisa, imagens, voz, captions, Long, Short, thumbs e pacote.
+- `videos` no banco: vínculo entre ID publicado, `videoNN`, caso, série e data.
+- `snapshots`: histórico de métricas por captura e período.
+- `traffic_sources`: origem, detalhe, views, engaged views e watch hours.
+- `retention_points`: curva por vídeo.
+- `experiments`: hipóteses persistidas; não são regras.
 
-> Segredos (`client_secrets.json`, `yt-token.json`, `dark.env`) ficam **fora** do repositório, em `~/.config/opencode/secrets/`. O repo (`vendors/*/`, `data/dark.db`) é protegido por `.gitignore`.
+## OAuth
 
-## Troubleshooting (erros de OAuth)
-
-| Erro | Causa | Conserto |
-|---|---|---|
-| `403: access_denied` / "o app não concluiu o processo de verificação do Google" | App OAuth em modo **Teste** e a conta não está nos **usuários de teste** | Google Cloud → APIs e Serviços → **Tela de permissão OAuth** → **Usuários de teste** → adicionar a conta que vai autorizar → Salvar. (Ou **Publicar app**.) |
-| `redirect_uri_mismatch` | Tipo de cliente não é Desktop app | Recriar o OAuth Client ID como **Desktop app** |
-| Token expira em 7 dias | App em modo Teste (refresh token expira) | Publicar o app (permanece funcionando para uso pessoal) |
-| `client_secrets.json nao encontrado` | Arquivo em lugar errado | Salvar em `~/.config/opencode/secrets/client_secrets.json` |
-| Sem receita nos reports | Canal ainda não monetizado | Normal; receita só aparece após o YPP |
-
-## Queries padrão (copy/paste)
+Execute uma vez:
 
 ```bash
-# Por vídeo (últimos 30 dias) — ordenado por views
-youtube-analytics-cli report \
-  --metrics views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,subscribersGained \
-  --start-date 2026-08-21 --end-date 2026-09-21 \
-  --dimensions video --sort -views --max-results 50
-
-# Diário (canal)
-youtube-analytics-cli report \
-  --metrics views,likes,subscribersGained \
-  --start-date 2026-09-01 --end-date 2026-09-21 --dimensions day
-
-# Fonte de tráfego (Short e long)
-youtube-analytics-cli report \
-  --metrics views --start-date 2026-08-21 --end-date 2026-09-21 \
-  --dimensions insightTrafficSourceType --sort -views
-
-# Retenção de um vídeo (por trecho)
-youtube-analytics-cli report \
-  --metrics audienceWatchRatio,relativeRetentionPerformance \
-  --start-date 2026-08-21 --end-date 2026-09-21 \
-  --dimensions elapsedVideoTimeRatio \
-  --filters video==VIDEO_ID;audienceType==ORGANIC
+python scripts/yt_auth.py
 ```
 
-## Como alimentar a skill
-1. Rodar a query por vídeo → converter para linhas de `data/metrics.csv`.
-2. `/dark-revisar` lê o CSV, atualiza `data/outliers.json` e `data/learnings.md`, propõe evoluções.
-3. Retenção por trecho → identificar o **segundo exato** da queda (ver `05e`).
+Escopos necessários:
 
-## Fallback (se API falhar)
-- Colar manualmente os números do Studio no `data/metrics.csv`.
-- Registrar no `learnings.md` que a fonte foi manual.
+- `youtube.readonly`
+- `yt-analytics.readonly`
+- `yt-analytics-monetary.readonly` apenas após monetizar
 
-## Notas de quota/limite
-- Rodar o report **semanalmente**, não diariamente, no começo.
-- Antes de monetizar, métricas de receita retornam vazio/0 (normal).
-- Nunca expor o refresh token em logs/saídas.
+Sem `youtube.readonly`, a Analytics API pode funcionar, mas `videos.list` falha. O coletor preserva títulos históricos conhecidos, classifica pelo histórico/AVD/AVP e marca os IDs restantes como `unmatched`; não inventa título, data ou duração.
 
-## Checklist
-- [ ] OAuth configurado com os 3 escopos.
-- [ ] Credenciais fora do repo.
-- [ ] Query por vídeo rodando e virando CSV.
-- [ ] `/dark-revisar` consumindo o CSV.
+Tokens ficam em `~/.config/opencode/secrets/yt-token.json`. Nunca registrar ou versionar o conteúdo.
+
+## O que o coletor obtém
+
+Por vídeo:
+
+- `views` públicas
+- `engagedViews`
+- `estimatedMinutesWatched`
+- `averageViewDuration`
+- `averageViewPercentage`
+- likes, dislikes, comments e shares
+- inscritos ganhos e perdidos
+- título, data de publicação, duração e privacy status quando o Data API está autorizado
+
+Persistência:
+
+- `scripts/yt_db.py` migra Postgres/SQLite sem descartar tabelas.
+- `yt_metrics.py` atualiza todos os campos no `upsert` e preserva valores manuais ausentes.
+- Uma captura é idempotente por `channel + period_start + period_end`; repetir no mesmo dia mantém a mais recente.
+- `data/metrics.csv` continua legível, mas o banco é a fonte de histórico.
+
+## Tráfego
+
+A Traffic Source API usa `video` como filtro, não dimensão. O coletor:
+
+1. consulta `insightTrafficSourceType` por vídeo;
+2. consulta `insightTrafficSourceDetail` para `RELATED_VIDEO`;
+3. salva tudo em `traffic_sources`.
+
+`SHORTS` significa navegação vertical entre Shorts. Não é conversão Short→Long. Para Short→Long, use `RELATED_VIDEO` ou `END_SCREEN`; `END_SCREEN` pode ficar agregado porque o detalhe não é suportado para essa fonte.
+
+## Retenção
+
+- A API retorna 100 pontos por vídeo elegível.
+- `audienceWatchRatio` é a retenção absoluta.
+- `relativeRetentionPerformance` compara com vídeos de duração semelhante.
+- A queda é calculada entre pontos consecutivos; o primeiro bucket não vira queda artificial.
+- Shorts podem não ter curva. AVP/AVD continuam disponíveis, mas não substituem uma curva quando ela falta.
+
+## CTR e exposição
+
+O relatório Targeted Queries usado pelo coletor não retorna reach/CTR. Para automatizar:
+
+- usar o YouTube Reporting API e o relatório de reach; ou
+- importar valores do YouTube Studio.
+
+CTR e impressões ficam n/d até chegarem de uma dessas fontes. `shown-in-feed` e `chose-to-view` também exigem Studio/fonte declarada. Nunca preencher zero.
+
+## Contagem de views em 2026
+
+- `views` públicas passam a contar desde o primeiro frame para todos os formatos.
+- `engagedViews` é o valor usado para a maior parte da analytics, YPP e receita.
+- `estimatedMinutesWatched` é watch time público; não chamar de qualificado sem o Studio.
+- O Analytics pode ter defasagem de 48–72h. O coletor usa três dias de segurança por padrão (`--lag-days`).
+
+## Baseline e diagnóstico
+
+Baseline por:
+
+- canal
+- Short/long
+- duração
+- idade do vídeo
+- série/tema quando houver amostra suficiente
+
+O relatório mostra:
+
+- total e evolução
+- baseline, coorte e tamanho da amostra
+- engaged rate e inscritos por 1.000 views
+- diagnóstico por vídeo
+- outliers por formato
+- fontes de tráfego
+- pares Short→Long
+- quedas de retenção
+- estoque e próximos vídeos do calendário
+- conflitos de mapeamento
+- experiments de uma variável
+
+Confiança:
+
+- baixa: uma amostra ou sem métrica de exposição;
+- média: comparação repetida dentro da coorte;
+- alta: somente quando a API e a coorte sustentam a conclusão sem contraste relevante.
+
+## Learned vs hypothesis
+
+- Um vídeo outlier é caso de estudo.
+- Uma hipótese precisa de 4–6 vídeos comparáveis ou mais tempo se o tráfego for baixo.
+- AVP >100% indica rewatch; não prova loop projetado nem causa de distribuição.
+- Uma regra só é promovida com evidência repetida e aprovação explícita quando é travada.
+- `data/learnings.md` registra decisões; `data/outliers.json` registra sinais; o banco registra a telemetria.
+
+## Fallback
+
+Se OAuth/API falhar:
+
+1. mantenha o último snapshot;
+2. rode o scanner de calendário;
+3. mostre qualidade degradada e números antigos com a data deles;
+4. não gere causalidade nem zere campos;
+5. descreva a ação necessária, como reautorizar OAuth ou importar Studio.
+
+## Verificação
+
+```bash
+python -m py_compile scripts/yt_db.py scripts/channel_scan.py scripts/yt_metrics.py scripts/yt_analysis.py
+python scripts/yt_db.py doctor
+python scripts/channel_scan.py "<pasta-do-canal>" --json
+python scripts/yt_analysis.py --channel <canal> --project "<pasta-do-canal>"
+```

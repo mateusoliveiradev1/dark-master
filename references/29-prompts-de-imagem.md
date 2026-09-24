@@ -116,3 +116,9 @@ Para novos episódios, `prompt_builder.py --episode <videoNN>` deve ser alimenta
 - negative guards de segurança, identidade, prova e continuidade.
 
 O resultado `PROMPT_PLAN.json` é a fonte de verdade. `PROMPTS.md` é apenas a representação legível para o gerador. O status `NEEDS_ART_DIRECTION` bloqueia a geração final; `PROMPTS_READY` libera a etapa de assets, mas nunca aprova motion.
+
+## Contrato determinístico por cena
+
+Cada cena carrega `shotId`, `promptId`, `sourceBlockIds`, `claimIds`, `sourceIds`, `purpose`, `question`, `stateChange`, `classification`, `subject`, `setting`, `composition`, `layers`, `cropPolicy`, `safeAreas`, `negativeGuards`, `continuity` e `states`. `imagePrompt` é um contrato separado com composição, ponto focal, crop, safe areas, guards, continuidade, classificação e o prompt completo sem texto baked-in. `motionPrompt` é independente e declara intensidade `0-4`, estados normalizados `0-100`, camera path ligado ao caso, crop, transições, audio cues, static exception e negative motion; zoom ou fade isolados não formam motion válido.
+
+Produção exige `PESQUISA_BRIEF.md`, `PESQUISA_FONTE.md`, `CLAIMS.json`, `LINHA_DO_TEMPO.md` e `ROTEIRO_MAP.json` reais. O manifest de assets resolve cada arquivo por `assetId` + `promptId` + `shotId` e preserva `hash`, `rightsStatus`, `blocked` e `sourceBlockIds`; nomes numéricos sem binding são rejeitados.

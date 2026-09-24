@@ -1,52 +1,62 @@
+import { createTikTokStyleCaptions } from "@remotion/captions";
 import type { FC } from "react";
-
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { activeCaption } from "../lib/timeline";
+import { useMemo } from "react";
+import { useCurrentFrame, useVideoConfig } from "remotion";
+import { activeCaptionPage, captionLines, captionPages } from "../lib/captions";
+import { getLayoutProfile, rectStyle } from "../lib/layout";
 import type { RenderPlan } from "../schema";
 
-export const Captions: FC<{ plan: RenderPlan }> = ({ plan }) => {
+export const Captions: FC<{ plan: RenderPlan; scene?: RenderPlan["scenes"][number] }> = ({
+  plan,
+  scene,
+}) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const seconds = frame / fps;
-  const caption = activeCaption(plan.captions, seconds);
-  if (!caption) return null;
-  const progress = interpolate(
-    frame,
-    [Math.max(0, caption.startSeconds * fps), caption.endSeconds * fps],
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  const { fps, width, height } = useVideoConfig();
+  const layout = getLayoutProfile(plan, width, height, scene);
+  const pages = useMemo(
+    () => captionPages(plan.captions, layout.format),
+    [plan.captions, layout.format],
   );
-
+  const page = activeCaptionPage(pages, frame / fps);
+  if (!page) return null;
+  const maxCharacters = Math.max(
+    18,
+    Math.floor((layout.format === "short" ? 30 : 46) * layout.scale),
+  );
+  const maxLines = layout.format === "short" ? 3 : 2;
+  const lines = captionLines(page.text, maxCharacters, maxLines);
   return (
     <div
       style={{
         position: "absolute",
-        left: 80,
-        right: 80,
-        bottom: 52,
+        ...rectStyle(layout.captionSafe, width, height),
         display: "flex",
+        alignItems: "center",
         justifyContent: "center",
         pointerEvents: "none",
       }}
     >
       <div
         style={{
-          maxWidth: plan.format === "short" ? 760 : 1040,
-          padding: "10px 20px",
-          background: "rgba(8,8,10,0.78)",
-          border: "1px solid rgba(255,255,255,0.12)",
+          width: "100%",
+          padding: `${Math.max(8, layout.scale * 10)}px ${Math.max(14, layout.scale * 20)}px`,
+          background: "rgba(8,8,10,0.86)",
+          border: "1px solid rgba(255,255,255,0.14)",
           color: plan.theme.text,
           fontFamily: `${plan.theme.bodyFont}, Arial, sans-serif`,
-          fontSize: plan.format === "short" ? 28 : 24,
+          fontSize: Math.max(16, (layout.format === "short" ? 28 : 24) * layout.scale),
           fontWeight: 700,
-          lineHeight: 1.18,
+          lineHeight: 1.16,
           textAlign: "center",
-          opacity: interpolate(progress, [0, 0.08, 0.92, 1], [0, 1, 1, 0]),
-          transform: `translateY(${interpolate(progress, [0, 1], [8, 0])}px)`,
+          overflow: "hidden",
         }}
       >
-        {caption.text}
+        {lines.map((line) => (
+          <div key={line}>{line}</div>
+        ))}
       </div>
     </div>
   );
 };
+
+export { createTikTokStyleCaptions };

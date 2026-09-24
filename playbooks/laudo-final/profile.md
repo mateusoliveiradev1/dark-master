@@ -12,10 +12,12 @@
 - Abertura fixa: **"O laudo não mente."** — pausa — depois o detalhe forense mais estranho (não o crime).
 
 ## Voz
-- Oficial em transição: `gerar_voz_pt.py` usa **`fr-FR-RemyMultilingualNeural`** (PT), alternativa `pt-BR-AntonioNeural`;
-  `gerar_voz_gemini.py` (Algenib) e `gerar_voz_fish.py` (clone) disponíveis.
-- **Inconsistência a resolver:** docs citam Antonio, Remy e Algenib. Escolher 1 voz oficial e travar.
+- **Oficial (decidida 23/09/2026): `pt-BR-AntonioNeural`** (edge, nativa PT-BR) — sem sotaque estrangeiro e sem drift de idioma.
+  Descartados: Remy (fr-FR-RemyMultilingualNeural — sotaque francês + trocava de idioma em frases curtas), Algenib (variação de tom entre takes).
+- Fallbacks no contrato (`voice.json`): Algenib, Piper local, Fish. Clone próprio desativado por ora.
 - Não clonar voz de pessoas reais. Lab XTTS/F5 existe mas está desativado.
+- Mapa de pronúncia calibrado para o Antonio em `voice.json` (`pronuncia`): rottweiler(s)->rótiváiler(s), futsal->futsau, Dayanne->Daiane, luminol->lumi-nol.
+- QA de pronúncia: método ida-e-volta (TTS + faster-whisper + diff palavra-a-palavra por bloco) — ver `videos/video01/02_audio/QA_PRONUNCIA.txt`.
 
 ## Formato
 - ~10 min (~1.400 palavras), 18–22 imagens Nano Banana (sem gore).
