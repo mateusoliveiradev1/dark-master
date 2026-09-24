@@ -6,7 +6,7 @@ Uso:
   python scripts/audit_all.py "C:/.../canal dark1"          # varre todos os videoNN
   python scripts/audit_all.py "<videoNN>" --json
 
-Gates: imagens (image_audit) + audio (audio_audit) + legendas (captions_audit) + timing + Short QA + originalidade + compliance + scorecard + research + pacote/final.
+Gates: imagens (image_audit) + audio (audio_audit) + legendas (captions_audit) + timing + pronúncia + consistência + Short QA + originalidade + compliance + scorecard + research + pacote/final.
 Sai com codigo 1 se qualquer gate falhar.
 """
 import argparse
@@ -33,6 +33,40 @@ def find(d, names):
     return None
 
 
+def audio_target(vdir):
+    try:
+        contract = json.loads((vdir / "02_audio" / "voice_contract.json").read_text(encoding="utf-8"))
+        return float(contract.get("loudnorm", -16.0))
+    except (OSError, ValueError, TypeError, AttributeError):
+        return -16.0
+
+
+def timing_gate(vdir, audio):
+    script_dir = vdir / "01_roteiro"
+    map_data = {}
+    try:
+        map_data = json.loads((script_dir / "ROTEIRO_MAP.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        pass
+    target = map_data.get("target_minutes") if isinstance(map_data, dict) else ""
+    narration = script_dir / "narration_v3.txt"
+    captions_times = vdir / "02_audio" / "captions_times.json"
+    output = script_dir / "TIMING_AUDIT.json"
+    if not target or not narration.exists() or not captions_times.exists() or not audio:
+        return False
+    result = subprocess.run(
+        [sys.executable, str(HERE / "timing_audit.py"), "--narration", str(narration),
+         "--captions-times", str(captions_times), "--target-minutes", str(target),
+         "--map", str(script_dir / "ROTEIRO_MAP.json"), "--voice", str(audio), "--out", str(output)],
+        capture_output=True,
+        text=True,
+    )
+    try:
+        return result.returncode == 0 and json.loads(output.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
 def audit_video(v):
     res = {"video": v.name, "gates": {}, "flags": []}
 
@@ -47,7 +81,8 @@ def audit_video(v):
 
     audio = find(v / "02_audio", ["voice_FINAL.wav", "voice_V3_FINAL.wav"]) if (v / "02_audio").exists() else None
     if audio:
-        code, out = run("audio_audit.py", [str(audio)])
+        target = audio_target(v)
+        code, out = run("audio_audit.py", [str(audio), "--target", str(target)])
         res["gates"]["audio"] = "ok" if code == 0 else "FALHA"
         if code != 0:
             res["flags"].append("audio")
@@ -64,16 +99,46 @@ def audit_video(v):
     else:
         res["gates"]["captions"] = "ausente"
 
-    timing = v / "01_roteiro" / "TIMING_AUDIT.json"
-    try:
-        timing_data = json.loads(timing.read_text(encoding="utf-8"))
-    except (OSError, ValueError, AttributeError):
-        timing_data = {}
-    if timing_data.get("status") == "PASS":
+    if timing_gate(v, audio):
         res["gates"]["timing"] = "ok"
     else:
         res["gates"]["timing"] = "FALHA"
         res["flags"].append("timing")
+
+    render_plans = list((v / "01_roteiro").glob("RENDER_PLAN_*.json")) if (v / "01_roteiro").exists() else []
+    if render_plans:
+        remotion_results = []
+        for plan in render_plans:
+            format_name = plan.stem.removeprefix("RENDER_PLAN_").lower()
+            code, output = run("remotion.py", ["audit", v.name, "--root", str(v.parent), "--format", format_name])
+            remotion_results.append(code)
+        res["gates"]["remotion"] = "ok" if all(code == 0 for code in remotion_results) else "FALHA"
+        if any(code != 0 for code in remotion_results):
+            res["flags"].append("remotion")
+    else:
+        res["gates"]["remotion"] = "nao_ativo"
+
+    pronunciation = v / "01_roteiro" / "PRONUNCIA_TTS.json"
+    try:
+        pronunciation_data = json.loads(pronunciation.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        pronunciation_data = {}
+    if pronunciation_data.get("status") == "PASS":
+        res["gates"]["pronuncia"] = "ok"
+    else:
+        res["gates"]["pronuncia"] = "FALHA"
+        res["flags"].append("pronuncia")
+
+    consistency = v / "01_roteiro" / "CONSISTENCIA_TTS.json"
+    try:
+        consistency_data = json.loads(consistency.read_text(encoding="utf-8"))
+    except (OSError, ValueError, AttributeError):
+        consistency_data = {}
+    if consistency_data.get("status") == "PASS":
+        res["gates"]["consistencia"] = "ok"
+    else:
+        res["gates"]["consistencia"] = "FALHA"
+        res["flags"].append("consistencia")
 
     short_qa = v / "01_roteiro" / "SHORT_QA.json"
     try:
@@ -132,8 +197,12 @@ def audit_video(v):
 
     pkg = find(v, ["youtube_package.txt", "PACOTE_PUBLICACAO.txt"])
     res["gates"]["pacote"] = "ok" if pkg else "ausente"
+    if not pkg:
+        res["flags"].append("pacote")
     final = any(v.glob("04_video_final/*.mp4")) if (v / "04_video_final").exists() else False
     res["gates"]["final"] = "ok" if final else "ausente"
+    if not final:
+        res["flags"].append("final")
 
     res["veredito"] = "PASSOU" if not res["flags"] else "FALHA"
     return res
@@ -161,11 +230,11 @@ def main():
         print(json.dumps(results, ensure_ascii=False, indent=1))
     else:
         print("# Auditoria geral\n")
-        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
+        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'remotion':<8} {'pron':<8} {'cons':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
         for r in results:
             g = r["gates"]
             print(f"{r['video']:<20} {g['imagens']:<8} {g['audio']:<8} {g['captions']:<8} "
-                  f"{g['timing']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
+                  f"{g['timing']:<8} {g['remotion']:<8} {g['pronuncia']:<8} {g['consistencia']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
         print(f"\nTotal: {len(results)} | Falhas: {len(fails)}")
         print("Falhas:", ", ".join(r["video"] for r in fails) or "nenhuma")
 

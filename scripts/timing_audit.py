@@ -16,6 +16,8 @@ def target_bounds(value):
     last = int(match.group(2) or first)
     if first < 1 or last < first or last > 180:
         raise ValueError("target-minutes fora do intervalo")
+    if (first, last) not in {(30, 30), (30, 35), (45, 45), (45, 60), (60, 60), (60, 70)}:
+        raise ValueError("target-minutes deve ser 30-35, 45-60 ou 60-70")
     return first * 60, last * 60
 
 
@@ -73,12 +75,28 @@ def audit(narration, captions_times, target_minutes, voice=None, map_path=None):
     seconds, error, details = timing_from_file(captions_times)
     if error:
         return {"status": "FALHA", "error": error, "target_minutes": target_minutes}
+    if not details.get("blocks"):
+        return {"status": "FALHA", "error": "timing_blocks_missing", "target_minutes": target_minutes}
+    block_errors = []
+    previous_end = 0.0
+    for index, block in enumerate(details.get("block_times", []), 1):
+        if block["start"] < 0 or block["end"] <= block["start"]:
+            block_errors.append(f"block_{index}:invalid_range")
+        if abs(block["dur"] - (block["end"] - block["start"])) > 0.05:
+            block_errors.append(f"block_{index}:duration_mismatch")
+        if block["start"] + 0.05 < previous_end:
+            block_errors.append(f"block_{index}:overlap")
+        previous_end = max(previous_end, block["end"])
+    if block_errors:
+        return {"status": "FALHA", "error": "timing_blocks_invalid", "details": block_errors, "target_minutes": target_minutes}
     voice_seconds = None
     if voice:
         voice_seconds, voice_error = audio_seconds(Path(voice))
         if voice_error:
             return {"status": "FALHA", "error": f"voice_{voice_error}", "target_minutes": target_minutes}
     actual = voice_seconds if voice_seconds is not None else seconds
+    if voice and abs(float(details.get("total", 0) or 0) - float(actual or 0)) > 1.5:
+        return {"status": "FALHA", "error": "timing_sidecar_audio_mismatch", "target_minutes": target_minutes}
     actual_minutes = actual / 60 if actual is not None else 0
     narration_path = Path(narration)
     if not narration_path.exists():

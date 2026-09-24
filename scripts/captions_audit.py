@@ -28,27 +28,41 @@ def to_sec(h, m, s, ms):
     return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000.0
 
 
-def parse(path):
+def parse(path, strict=True):
     txt = Path(path).read_text(encoding="utf-8", errors="replace")
+    blocks = re.split(r"\n\s*\n", txt)
     cues = []
-    for block in re.split(r"\n\s*\n", txt):
+    expected = 1
+    for block in blocks:
         lines = [l for l in block.splitlines() if l.strip() != ""]
         if not lines:
             continue
-        ti = None
-        for i, l in enumerate(lines):
-            if "-->" in l:
-                ti = i
-                break
-        if ti is None:
+        if lines[0].strip().upper() == "WEBVTT":
+            lines = lines[1:]
+        if not lines:
             continue
+        if strict and not lines[0].strip().isdigit():
+            raise ValueError(f"cue {expected}: indice SRT invalido")
+        ti = next((i for i, line in enumerate(lines) if "-->" in line), None)
+        if ti is None:
+            raise ValueError(f"cue {expected}: timestamp ausente")
         m = TS.findall(lines[ti])
         if len(m) < 2:
-            continue
-        start = to_sec(*m[0]); end = to_sec(*m[1])
-        text = "\n".join(l for l in lines[ti + 1:]).strip()
+            raise ValueError(f"cue {expected}: timestamp invalido")
+        start = to_sec(*m[0])
+        end = to_sec(*m[1])
+        if end <= start:
+            raise ValueError(f"cue {expected}: duracao invalida")
+        text = "\n".join(lines[ti + 1:]).strip()
+        if not text:
+            raise ValueError(f"cue {expected}: texto vazio")
         text = re.sub(r"<[^>]+>", "", text)
+        if not text:
+            raise ValueError(f"cue {expected}: texto vazio apos remover tags")
         cues.append({"start": start, "end": end, "text": text})
+        expected += 1
+    if not cues:
+        raise ValueError("nenhuma cue encontrada")
     return cues
 
 
@@ -78,9 +92,10 @@ def main():
     p = Path(a.path).expanduser()
     if not p.exists():
         print(f"[!] nao existe: {p}"); sys.exit(2)
-    cues = parse(p)
-    if not cues:
-        print("[!] nenhuma cue encontrada"); sys.exit(2)
+    try:
+        cues = parse(p)
+    except (OSError, ValueError) as exc:
+        print(f"[!] SRT invalido: {exc}"); sys.exit(2)
 
     flags = []
     warns = []

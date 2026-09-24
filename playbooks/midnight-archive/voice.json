@@ -1,5 +1,6 @@
 {
   "channel": "The Midnight Archive",
+  "lang": "en-US",
   "provider": {
     "type": "edge",
     "fallback": ["azure"],

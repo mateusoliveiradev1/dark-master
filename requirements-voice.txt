@@ -1,0 +1,7 @@
+edge-tts
+faster-whisper
+imageio-ffmpeg
+numpy
+soundfile
+kokoro
+piper-tts

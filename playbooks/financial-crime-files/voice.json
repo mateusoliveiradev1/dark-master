@@ -1,5 +1,6 @@
 {
   "channel": "Financial Crime Files",
+  "lang": "en-US",
   "provider": {
     "type": "edge",
     "fallback": ["azure"],

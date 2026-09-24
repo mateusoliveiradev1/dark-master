@@ -201,6 +201,8 @@ def strict_state(vdir):
         research_files.extend((vdir / "01_roteiro").rglob(name))
     research_contract_state = research_contract(vdir)
     short_qa_path = vdir / "01_roteiro" / "SHORT_QA.json"
+    pronunciation_path = vdir / "01_roteiro" / "PRONUNCIA_TTS.json"
+    consistency_path = vdir / "01_roteiro" / "CONSISTENCIA_TTS.json"
     originality_path = vdir / "01_roteiro" / "ORIGINALITY_AUDIT.json"
     compliance_path = vdir / "01_roteiro" / "COMPLIANCE_AUDIT.json"
     scorecard_path = vdir / "01_roteiro" / "SCRIPT_SCORECARD.json"
@@ -209,6 +211,14 @@ def strict_state(vdir):
         short_qa_ready = json.loads(short_qa_path.read_text(encoding="utf-8")).get("status") == "PASS"
     except (OSError, ValueError, AttributeError):
         short_qa_ready = False
+    try:
+        pronunciation_ready = json.loads(pronunciation_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        pronunciation_ready = False
+    try:
+        consistency_ready = json.loads(consistency_path.read_text(encoding="utf-8")).get("status") == "PASS"
+    except (OSError, ValueError, AttributeError):
+        consistency_ready = False
     try:
         originality_ready = json.loads(originality_path.read_text(encoding="utf-8")).get("status") == "PASS"
     except (OSError, ValueError, AttributeError):
@@ -248,9 +258,11 @@ def strict_state(vdir):
         compliance_ready = True
         scorecard_ready = True
         research_audit_ready = True
+        pronunciation_ready = True
+        consistency_ready = True
     else:
         timing_ready = research_contract_state.get("timing", False)
-    core_ready = narration and research and audio and captions and long_video and short_video and short_qa_ready and originality_ready and compliance_ready and scorecard_ready and research_audit_ready and thumbs_ready and package_ready and images_ready and timing_ready
+    core_ready = narration and research and audio and captions and long_video and short_video and short_qa_ready and pronunciation_ready and consistency_ready and originality_ready and compliance_ready and scorecard_ready and research_audit_ready and thumbs_ready and package_ready and images_ready and timing_ready
     if core_ready:
         stage = "pronto"
     elif long_video and short_video and package_ready:
@@ -271,6 +283,8 @@ def strict_state(vdir):
         "research_contract": research_contract_state,
         "timing": timing_ready,
         "short_qa": short_qa_ready,
+        "pronunciation": pronunciation_ready,
+        "consistency": consistency_ready,
         "originality": originality_ready,
         "compliance": compliance_ready,
         "scorecard": scorecard_ready,

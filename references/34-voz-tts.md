@@ -4,6 +4,14 @@ A voz é **ativo de marca**, não commodity. Regra zero: **uma voz por canal, tr
 
 > Motor unificado: `scripts/voice_engine.py` lê o contrato do canal e gera com **qualquer provider** (edge, azure, elevenlabs, fish, gemini, openai, kokoro, piper). Mesma saída: blocos + gaps + filtros + loudnorm + SRT. Teste antes de lotear: `--test`.
 
+## Preflight e fallback gratuito
+
+- Rode `python scripts/voice_engine.py --channel <canal> --preflight --require-free` antes de gerar; isso verifica dependências, chaves, modelo Piper e se existe um provider gratuito pronto.
+- O preflight não gera áudio nem cobra API. O pipeline normal também falha antes de sintetizar quando nenhum provider está pronto; sem `--require-free`, ele apenas avisa que a cadeia é exclusivamente paga.
+- O contrato de cada canal declara `lang`; o aviso de locale compara `pt-BR`/`en-US` com a voz e o gate de consistência usa esse idioma.
+- O cache é escrito em arquivo temporário e só substitui o cache final após áudio válido; `--dry-run` não cria diretórios nem arquivos.
+- Para o pipeline local, instale as dependências de `requirements-voice.txt`; Piper também exige um modelo `.onnx` existente no `voice_id`.
+
 ## Idioma, sotaque e consistência (a regra da voz nativa)
 
 **Voz do canal = voz NATIVA do idioma do canal.** Voz multilíngue (Remy `fr-FR`, Andrew `en-US`) fala PT **com sotaque estrangeiro** e escorrega em palavra estrangeira — caso real: "apreendido numa blitz" saiu como *"no Mablitz"* na Remy. Multilíngue só se o **mesmo canal publica em vários idiomas** (aí use clone PT que fala os outros).
@@ -17,7 +25,7 @@ A voz é **ativo de marca**, não commodity. Regra zero: **uma voz por canal, tr
 Como o motor trava isso:
 - `"lang": "pt-BR"` no contrato → **AVISO automático** quando a voz não bate com o idioma do canal (`warn_voice_lang`); Gemini sem direção de idioma no `style` também avisa.
 - Escolha da voz com evidência: `--ab "edge:pt-BR-AntonioNeural, edge:pt-BR-ThalitaMultilingualNeural, gemini:Algenib"` gera o mesmo texto em N vozes, transcreve e salva para ouvir.
-- Auditoria do vídeo pronto: `--consistencia` detecta o idioma por janela de 20s do `voice_FINAL.wav` e aponta DRIFT.
+- Auditoria do vídeo pronto: `--consistencia` grava `CONSISTENCIA_TTS.json` com `PASS`/`REVIEW`; `--pronounce` grava `PRONUNCIA_TTS.json` e falha se houver termos para revisar.
 - **Limite honesto:** o whisper pega *troca de idioma*, **não pega sotaque** (a Remy deu 0/31 janelas "ok" mesmo com francês audível) — o gate final continua sendo a oitiva humana.
 
 ## Escolha em 30 segundos
@@ -155,17 +163,19 @@ Quatro bugs conhecidos (já tratados no motor):
 
 ## Fallback e custo
 
-- Cadeia `provider.fallback` no contrato: se o provider pago falhar (sem key/429/sem crédito), o motor **avisa e cai** para o próximo. Nunca silencioso.
+- Cadeia `provider.fallback` no contrato: fallback com timbre diferente é bloqueado por padrão; use `--allow-voice-switch` somente após revisão humana e registre a troca no contrato.
 - `--estimate` calcula chars do roteiro e o custo por provider **antes** de gastar.
 - `--test` gera 200 palavras no provider real para aprovar a voz.
 
 ## QA de voz (gate antes do motion)
 
+- [ ] `--preflight --require-free` passou com o canal correto.
 - [ ] `--test` de 200 palavras aprovado (pronúncia + ritmo + tom).
 - [ ] Voz é a do contrato (`--channel` certo; `_source` do contrato confere).
 - [ ] `loudnorm` no alvo do projeto (-16 CFD / -14 Laudo).
 - [ ] Sem clipe/estouro (limiter), sem respiro cortado no meio de frase.
-- [ ] Captions alinhadas ao roteiro (não ao áudio bruto).
+- [ ] Captions no formato público e `AUDITORIA_CAPTIONS.md` sem falha.
+- [ ] `PRONUNCIA_TTS.json` = `PASS` e `CONSISTENCIA_TTS.json` = `PASS`.
 - [ ] Custo conferido com `--estimate` (se pago) + cache ativo.
 
 ## Checklist de decisão (canal novo)

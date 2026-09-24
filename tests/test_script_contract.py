@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 SKILL = Path(__file__).resolve().parents[1]
 SCRIPTS = SKILL / "scripts"
@@ -17,6 +18,9 @@ from compliance_audit import audit as compliance_audit
 from script_feedback import audit as feedback_audit
 from research_audit import audit as research_audit
 from calibration_audit import audit as calibration_audit
+import captions_audit
+import voice_engine
+from voice_engine import caption_segments, public_step, provider_params, provider_preflight
 
 
 class ScriptContractTests(unittest.TestCase):
@@ -166,6 +170,19 @@ class ScriptContractTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 self.assertIn("RESULTADO: PASSOU", result.stdout)
 
+    def test_caption_segments_respect_publish_limits(self):
+        text = " ".join(["palavra"] * 80)
+        segments = caption_segments(text, max_chars=30, max_lines=1)
+        self.assertTrue(segments)
+        self.assertTrue(all(len(line) <= 30 and "\n" not in line for segment in segments for line in segment.splitlines()))
+        self.assertEqual(" ".join(segment for segment in segments), text)
+
+    def test_voice_contract_step_omits_runtime_keys(self):
+        step = {"type": "edge", "voice_id": "pt-BR-AntonioNeural", "model": None, "api_key_env": "X", "settings": {"a": 1}, "_ring": {"secret": "hidden"}}
+        public = public_step(step)
+        self.assertNotIn("_ring", public)
+        self.assertEqual(public["voice_id"], "pt-BR-AntonioNeural")
+
     def test_timing_audit_accepts_long_targets(self):
         for target, actual_minutes in (("30-35", 33), ("45-60", 52), ("60-70", 65)):
             with tempfile.TemporaryDirectory() as temp:
@@ -173,7 +190,7 @@ class ScriptContractTests(unittest.TestCase):
                 narration = root / "narration_v3.txt"
                 narration.write_text("Uma narração de teste com duração medida.", encoding="utf-8")
                 captions = root / "captions_times.json"
-                captions.write_text(json.dumps({"total": actual_minutes * 60, "blocos": []}), encoding="utf-8")
+                captions.write_text(json.dumps({"total": actual_minutes * 60, "blocos": [{"start": 0, "end": actual_minutes * 60, "dur": actual_minutes * 60}]}), encoding="utf-8")
                 result = audit(narration, captions, target)
                 self.assertEqual(result["status"], "PASS", result)
 
@@ -468,3 +485,37 @@ class ScriptContractTests(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn("RESULTADO: PASSOU", result.stdout)
+
+    def test_captions_audit_rejects_malformed_srt(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "captions.srt"
+            path.write_text("1\n00:00:01,000 --> 00:00:02,000\n", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                captions_audit.parse(path)
+
+    def test_captions_audit_parses_structured_srt(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "captions.srt"
+            path.write_text(
+                "1\n00:00:00,000 --> 00:00:01,000\nPrimeira frase\n\n"
+                "2\n00:00:01,000 --> 00:00:02,000\nSegunda frase\n",
+                encoding="utf-8",
+            )
+            cues = captions_audit.parse(path)
+            self.assertEqual(len(cues), 2)
+            self.assertEqual(cues[1]["text"], "Segunda frase")
+
+    def test_voice_preflight_blocks_paid_provider_without_key(self):
+        step = {"type": "elevenlabs", "voice_id": "voice", "api_key_env": "DARK_TEST_MISSING_KEY", "settings": {}}
+        with mock.patch.dict(voice_engine.os.environ, {}, clear=True):
+            result = provider_preflight(step, None)
+        self.assertFalse(result["ready"])
+        self.assertIn("api_key_missing", result["errors"])
+
+    def test_piper_rate_is_converted_to_speed(self):
+        step = {"type": "piper", "voice_id": "model.onnx", "settings": {}}
+        cfg = {"rules": {"hook": {"rate": "+20%", "pitch": "0Hz"},
+                          "outro": {"rate": "0%", "pitch": "0Hz"},
+                          "beat": {"rate": "0%", "pitch": "0Hz"}}}
+        converted, _ = provider_params(step, "Teste", 0, 1, cfg)
+        self.assertEqual(converted["speed"], 1.2)

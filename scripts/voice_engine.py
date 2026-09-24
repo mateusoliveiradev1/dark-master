@@ -25,6 +25,7 @@ import asyncio
 import base64
 import glob
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -96,7 +97,15 @@ CURATED = {
 }
 
 DEFAULT_CHUNK = {"gemini": 2000, "openai": 1400, "fish": 0}
+FREE_PROVIDERS = {"edge", "kokoro", "piper"}
 MIN_CACHE_BYTES = 2000
+
+# Marcador de pausa editorial no roteiro: "[PAUSA 7.2]" = 7.2s de silencio exato no
+# audio (default 1.0s). Existe para ABERTURA/TRANSIÇÃO falada: o roteiro declara o
+# silencio, o motor gera o audio, e quem monta o video overlay usa a MESMA janela.
+# Nao vira legenda, nao consome TTS e nao consome indice de prosody (o indice de fala
+# e separado do indice do bloco -> cache por bloco continua valendo).
+PAUSA_RE = re.compile(r"^\[PAUSA(?:\s+(\d+(?:[.,]\d+)?))?\]$", re.IGNORECASE)
 
 CHAIN_FALLBACK_VOICE = {"edge": "en-US-GuyNeural", "kokoro": "am_michael",
                         "gemini": "Charon", "openai": "onyx"}
@@ -228,6 +237,22 @@ def fallback_voice(step, primary):
     return CHAIN_FALLBACK_VOICE.get(step["type"])
 
 
+def public_step(step):
+    return {key: step.get(key) for key in ("type", "voice_id", "model", "api_key_env", "settings")
+            if key in step}
+
+
+def file_sha256(path):
+    digest = hashlib.sha256()
+    try:
+        with open(path, "rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+    except OSError:
+        return ""
+    return digest.hexdigest()
+
+
 def loudnorm_target(cfg):
     post = cfg.get("post") or {}
     if post.get("loudnorm"):
@@ -264,6 +289,64 @@ def keys_for(prov, root):
             seen.add(k)
             out.append(k)
     return out
+
+
+def _module_available(name):
+    try:
+        return importlib.util.find_spec(name) is not None
+    except (ImportError, ModuleNotFoundError):
+        return False
+
+
+def provider_preflight(step, root=None):
+    provider = str(step.get("type") or "")
+    result = {
+        "provider": provider,
+        "voice_id": step.get("voice_id"),
+        "free": provider in FREE_PROVIDERS,
+        "ready": False,
+        "errors": [],
+    }
+    if provider not in PROVIDERS:
+        result["errors"].append("provider_unknown")
+        return result
+    if not step.get("voice_id"):
+        result["errors"].append("voice_missing")
+    if provider == "edge":
+        if not _module_available("edge_tts"):
+            result["errors"].append("edge_tts_missing")
+    elif provider == "kokoro":
+        for module in ("kokoro", "numpy", "soundfile"):
+            if not _module_available(module):
+                result["errors"].append(f"{module}_missing")
+        if not shutil.which("espeak-ng") and not shutil.which("espeak"):
+            result["errors"].append("espeak_missing")
+    elif provider == "piper":
+        model = str(step.get("voice_id") or "")
+        if not model or not os.path.exists(model):
+            result["errors"].append("piper_model_missing")
+        if not _module_available("piper") and not shutil.which(str((step.get("settings") or {}).get("exe") or "piper")):
+            result["errors"].append("piper_runtime_missing")
+    elif PROVIDER_META[provider]["key"] and not keys_for(step, root):
+        result["errors"].append("api_key_missing")
+    result["ready"] = not result["errors"]
+    return result
+
+
+def preflight_steps(steps, root=None):
+    checks = [provider_preflight(step, root) for step in steps]
+    ready = [check for check in checks if check["ready"]]
+    free = [check for check in ready if check["free"]]
+    return {
+        "status": "PASS" if ready else "FAIL",
+        "ready": bool(ready),
+        "free_fallback": bool(free),
+        "providers": checks,
+    }
+
+
+def preflight_chain(prov, cfg, root=None):
+    return preflight_steps(build_chain(prov, cfg, root), root)
 
 
 # ---------------------------------------------------------------- ffmpeg
@@ -533,6 +616,16 @@ def synth_piper(text, out, prov):
     model = prov["voice_id"]
     if not model or not os.path.exists(model):
         raise RuntimeError(f"piper precisa do caminho do modelo .onnx em voice_id (recebi '{model}')")
+    speed = float(prov.get("speed") or 1.0)
+
+    def apply_speed(path):
+        if abs(speed - 1.0) <= 0.005:
+            return
+        ext = path.rsplit(".", 1)[-1]
+        sped = f"{path.rsplit('.', 1)[0]}.speed.{ext}"
+        run([FFMPEG, "-y", "-i", path, "-af", f"atempo={max(0.5, min(2.0, speed)):.4f}", sped])
+        os.replace(sped, path)
+
     try:  # API Python (pip install piper-tts) — mesmo padrao do gerar_voz_laudo.py
         from piper import PiperVoice
         global _PIPER
@@ -550,16 +643,17 @@ def synth_piper(text, out, prov):
             for chunk in v.synthesize(text):
                 w.writeframes(chunk.audio_int16_bytes)
         if os.path.getsize(out) > MIN_CACHE_BYTES:
+            apply_speed(out)
             return
         raise RuntimeError("piper retornou audio curto")
     except ImportError:
         pass
     exe = prov["settings"].get("exe") or "piper"  # fallback: binario CLI
-    speed = float(prov.get("speed") or 1.0)
     r = subprocess.run([exe, "-m", model, "-f", out, "--length_scale", f"{1.0 / max(speed, 0.1):.3f}"],
                        input=text.encode("utf-8"), capture_output=True)
     if r.returncode != 0 or not os.path.exists(out):
         raise RuntimeError(f"piper falhou: {(r.stderr or b'')[-300:]!r}")
+    apply_speed(out)
 
 
 def synth(step, text, out, root):
@@ -622,6 +716,31 @@ def chunk_text(text, limit):
     return out
 
 
+def caption_segments(text, max_chars=42, max_lines=2):
+    words = (text or "").split()
+    if not words:
+        return []
+    lines = []
+    current = ""
+    for word in words:
+        while len(word) > max_chars:
+            if current:
+                lines.append(current)
+                current = ""
+            lines.append(word[:max_chars])
+            word = word[max_chars:]
+        if not current:
+            current = word
+        elif len(current) + 1 + len(word) <= max_chars:
+            current += " " + word
+        else:
+            lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    return ["\n".join(lines[index:index + max_lines]) for index in range(0, len(lines), max_lines)]
+
+
 def rate_pct(rate):
     if not rate:
         return 0.0
@@ -632,6 +751,8 @@ def rate_pct(rate):
 def series_of(vdir, cfg):
     """Serie GLOBAL do video (youtube_package.txt) — mesma regra dos scripts dos canais.
     Nao detectar serie no texto do bloco: a entrega e por serie do video inteiro."""
+    if not vdir:
+        return cfg.get("default_series") or "default"
     try:
         t = Path(vdir, "youtube_package.txt").read_text(encoding="utf-8").upper()
         for s in (cfg.get("series_detect") or []):
@@ -687,8 +808,25 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
     cache_on = not args.no_cache
 
     steps = build_chain(prov, cfg, args.root)
+    if not getattr(args, "allow_voice_switch", False):
+        primary_voice = steps[0].get("voice_id")
+        filtered = [step for step in steps if step.get("voice_id") == primary_voice]
+        if len(filtered) != len(steps):
+            print("[ERRO] fallback descartado: timbre diferente sem --allow-voice-switch")
+        steps = filtered
     warn_voice_lang(steps[0], cfg)
     if not args.dry_run:
+        availability = preflight_steps(steps, args.root)
+        if not availability["ready"]:
+            details = "; ".join(
+                f"{check['provider']}: {', '.join(check['errors'])}"
+                for check in availability["providers"]
+            )
+            raise SystemExit(f"[ERRO] nenhum provider esta pronto ({details})")
+        if not availability["free_fallback"]:
+            if args.require_free:
+                raise SystemExit("[ERRO] nenhum provider gratuito esta pronto na cadeia")
+            print("[AVISO] nenhum fallback gratuito esta pronto; a cadeia pode exigir provider pago")
         usable = []
         for st in steps:
             if not st.get("voice_id"):
@@ -734,24 +872,45 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
     if series and series != cfg.get("default_series"):
         print(f"serie do video: {series}")
     parts, timeline = [], []
+    block_meta = []
     dead = set()
-    for i, para in enumerate(blocks):
+    pauses = set()
+    n_fala = sum(0 if PAUSA_RE.match(b.strip()) else 1 for b in blocks)
+    fi = 0
+    for para in blocks:
+        pm = PAUSA_RE.match(para.strip())
+        if pm:
+            secs = float((pm.group(1) or "1.0").replace(",", "."))
+            print(f"  PAUSA {secs:.2f}s antes do bloco {fi+1:02d} (silencio, sem TTS)")
+            if not args.dry_run:
+                sil = os.path.join(outdir, f"_pausa_{fi:02d}_{secs:.2f}.mp3")
+                if not os.path.exists(sil):
+                    run([FFMPEG, "-y", "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono",
+                         "-t", f"{secs:.3f}", sil])
+                parts.append(sil)
+                timeline.append((sil, None))
+                pauses.add(sil)
+            continue
+        i = fi
+        fi += 1
         text = normalize_text(para, cfg)
-        _, pr = provider_params(steps[0], text, i, len(blocks), cfg, series)
+        _, pr = provider_params(steps[0], text, i, n_fala, cfg, series)
         chunks = chunk_text(text, chunk_limit) if not args.dry_run else [text]
         chunk_files = []
+        block_providers = []
         for ci, ch in enumerate(chunks):
             if args.dry_run:
-                out = cache_path(provider_params(steps[0], text, i, len(blocks), cfg, series)[0], i, ci, ch)
+                out = cache_path(provider_params(steps[0], text, i, n_fala, cfg, series)[0], i, ci, ch)
                 print(f"  bloco {i+1:02d} chunk {ci+1}: {len(ch):5d} chars -> {os.path.basename(out)}"
                       f" (rate {pr.get('rate')} pitch {pr.get('pitch')})")
                 chunk_files.append(out)
+                block_providers.append({"type": steps[0]["type"], "voice_id": steps[0].get("voice_id")})
                 continue
             used, cached = None, False
             for cand in steps:  # cache de qualquer provider da cadeia evita pagar de novo
                 if cand["type"] in dead:
                     continue
-                cand2, _ = provider_params(cand, text, i, len(blocks), cfg, series)
+                cand2, _ = provider_params(cand, text, i, n_fala, cfg, series)
                 cp = cache_path(cand2, i, ci, ch)
                 if cache_on and os.path.exists(cp) and os.path.getsize(cp) > MIN_CACHE_BYTES:
                     used, cached = cand2, True
@@ -762,10 +921,21 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
             if used is None:
                 live = [c for c in steps if c["type"] not in dead]
                 for si, cand in enumerate(live):
-                    cand2, _ = provider_params(cand, text, i, len(blocks), cfg, series)
+                    cand2, _ = provider_params(cand, text, i, n_fala, cfg, series)
                     cp = cache_path(cand2, i, ci, ch)
                     try:
-                        synth(cand2, ch, cp, args.root)
+                        ext = PROVIDER_META[cand2["type"]]["ext"]
+                        temp_cp = f"{cp}.part.{ext}"
+                        if os.path.exists(temp_cp):
+                            os.remove(temp_cp)
+                        try:
+                            synth(cand2, ch, temp_cp, args.root)
+                            if not os.path.exists(temp_cp) or os.path.getsize(temp_cp) <= MIN_CACHE_BYTES:
+                                raise RuntimeError("provider nao gerou audio valido")
+                            os.replace(temp_cp, cp)
+                        finally:
+                            if os.path.exists(temp_cp):
+                                os.remove(temp_cp)
                         used = cand2
                         if si > 0:
                             print(f"   [!] bloco {i+1} gerado pelo FALLBACK '{cand2['type']}'")
@@ -785,8 +955,9 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
                 print(f"   [nota] provider '{used['type']}' nao suporta pitch nativo - "
                       f"'{used.get('pitch')}' sera ignorado (rate e aplicado).")
             out = with_rate(cache_path(used, i, ci, ch), used)
+            block_providers.append({"type": used["type"], "voice_id": used.get("voice_id")})
             tag = "cache" if cached else "ok"
-            print(f"  bloco {i+1}/{len(blocks)} chunk {ci+1}/{len(chunks)} {tag} ({len(ch):5d} chars)")
+            print(f"  bloco {i+1}/{n_fala} chunk {ci+1}/{len(chunks)} {tag} ({len(ch):5d} chars)")
             chunk_files.append(out)
         # junta chunks do bloco (re-encode: nunca -c copy entre taxas)
         if len(chunk_files) > 1 and not args.dry_run:
@@ -797,11 +968,15 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
             merged = os.path.join(outdir, f"_block_{i:02d}.wav")
             run([FFMPEG, "-y", "-f", "concat", "-safe", "0", "-i", lst, "-ar", "44100", "-ac", "1", merged])
             chunk_files = [merged]
+        block_meta.append({"i": i + 1, "text": para.replace("\n", " "), "providers": block_providers})
         parts.append(chunk_files[0])
         timeline.append((chunk_files[0], para))
 
     if args.dry_run:
-        print(f"\n[dry-run] {len(blocks)} blocos, {sum(len(chunk_text(normalize_text(b, cfg), chunk_limit)) for b in blocks)} chunks")
+        n_pausa = sum(1 for b in blocks if PAUSA_RE.match(b.strip()))
+        print(f"\n[dry-run] {n_fala} blocos falados"
+              + (f" + {n_pausa} pausas" if n_pausa else "")
+              + f", {sum(len(chunk_text(normalize_text(b, cfg), chunk_limit)) for b in blocks if not PAUSA_RE.match(b.strip()))} chunks")
         print(f"[dry-run] filtros: {filters}")
         print(f"[dry-run] loudnorm I={target} | trim {trim} | gaps {gaps}")
         print(f"[dry-run] saida: {os.path.join(outdir, 'voice_FINAL.wav')} + captions.srt")
@@ -811,6 +986,9 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
     trimmed = []
     silence = str(trim.get("mode", "")).lower() == "silence" or "silence" in trim
     for p in parts:
+        if p in pauses:
+            trimmed.append(p)      # pausa ja e silencio exato: trim por silenceremove a apagaria
+            continue
         d = dur(p)
         t = p.replace("_tts_", "_ttst_").replace("_block_", "_blockt_")
         if silence:
@@ -835,7 +1013,8 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
     lst = os.path.join(outdir, "_voice_list.txt")
     with open(lst, "w", encoding="utf-8") as f:
         for p, (_, para) in zip(trimmed, timeline):
-            gap = sil_s if len(para) < int(gaps["short_max_len"]) else sil_n
+            gap = sil_n if para is None else (
+                sil_s if len(para) < int(gaps["short_max_len"]) else sil_n)
             f.write(f"file '{p}'\nfile '{gap}'\n")
     raw = os.path.join(outdir, "voice_raw.wav")
     run([FFMPEG, "-y", "-f", "concat", "-safe", "0", "-i", lst, "-ar", "44100", "-ac", "1", raw])
@@ -862,7 +1041,6 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
         run([FFMPEG, "-y", "-i", vpol, "-af", f"loudnorm=I={target}:TP=-1.5:LRA=11",
              "-ar", "44100", "-ac", "1", final])
 
-    # SRT por bloco (mesmo contrato do gerar_voz_v3; gerar_srt_norm refina depois)
     srt = os.path.join(outdir, "captions.srt")
     if os.path.exists(srt) and not os.path.exists(srt + ".bak_voicegen"):
         shutil.copy2(srt, srt + ".bak_voicegen")
@@ -873,14 +1051,90 @@ def voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir):
         sec, ms = int(s % 60), int((s % 1) * 1000)
         return f"{h:02d}:{m:02d}:{sec:02d},{ms:03d}"
 
+    n_bloco = 0
+    n_cue = 0
+    timecodes = []
+    cue_codes = []
     with open(srt, "w", encoding="utf-8") as sf:
-        for bi, (p, (_, para)) in enumerate(zip(trimmed, timeline), 1):
+        for p, (_, para) in zip(trimmed, timeline):
             d = dur(p)
-            gap = gaps["short"] if len(para) < int(gaps["short_max_len"]) else gaps["normal"]
-            txt = para[:160].replace("\n", " ") + ("..." if len(para) > 160 else "")
-            sf.write(f"{bi}\n{ts(tcur)} --> {ts(tcur + d)}\n{txt}\n\n")
-            tcur += d + gap
-    print(f"VOZ PRONTA: {final} ({dur(final)/60:.2f} min) | provider {prov['type']} | {srt}")
+            gap = gaps["normal"] if para is None else (
+                gaps["short"] if len(para) < int(gaps["short_max_len"]) else gaps["normal"])
+            if para is None:
+                tcur += d + gap
+                continue
+            n_bloco += 1
+            block_start = tcur
+            segments = caption_segments(para, max_chars=30, max_lines=1)
+            total_chars = sum(len(segment.replace("\n", "")) for segment in segments) or 1
+            for segment in segments:
+                segment_chars = max(1, len(segment.replace("\n", "")))
+                segment_duration = d * segment_chars / total_chars
+                n_cue += 1
+                cue_codes.append({"i": n_cue, "block": n_bloco, "start": round(tcur, 3),
+                                  "end": round(tcur + segment_duration, 3), "dur": round(segment_duration, 3),
+                                  "text": segment})
+                sf.write(f"{n_cue}\n{ts(tcur)} --> {ts(tcur + segment_duration)}\n{segment}\n\n")
+                tcur += segment_duration
+            timecodes.append({"i": n_bloco, "start": round(block_start, 3), "end": round(tcur, 3),
+                               "dur": round(d, 3), "audio": os.path.basename(p),
+                               "text": para.replace("\n", " ")})
+            tcur += gap
+    with open(os.path.join(outdir, "captions_times.json"), "w", encoding="utf-8") as tf:
+        json.dump({"blocos": timecodes, "cues": cue_codes, "total": round(tcur, 3)}, tf,
+                  ensure_ascii=False, indent=1)
+    captions_audit = os.path.join(os.path.dirname(__file__), "captions_audit.py")
+    caption_gate = subprocess.run([sys.executable, captions_audit, srt, "--audio", final],
+                                  capture_output=True, text=True)
+    if caption_gate.stdout:
+        print(caption_gate.stdout)
+    if caption_gate.returncode:
+        if caption_gate.stderr:
+            print(caption_gate.stderr)
+        raise SystemExit("[ERRO] captions.srt reprovou no gate de publicação")
+
+    # Snapshot do contrato: este audio foi gravado com ESTES parametros. Se o contrato
+    # global mudar no futuro, --contract <este arquivo> re-renderiza identico.
+    providers_used = sorted({item["type"] for block in block_meta for item in block.get("providers", [])})
+    voice_ids_used = sorted({item.get("voice_id") for block in block_meta for item in block.get("providers", []) if item.get("voice_id")})
+    snap = {
+        "version": 2,
+        "gerado_em": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "lang": lang_of(cfg),
+        "voz": prov.get("voice_id"),
+        "provider": prov["type"],
+        "provider_config": public_step(prov),
+        "provider_chain": [public_step(step) for step in steps],
+        "providers_used": providers_used,
+        "voice_ids_used": voice_ids_used,
+        "voice_switch_allowed": bool(getattr(args, "allow_voice_switch", False)),
+        "gaps": gaps,
+        "rules": cfg.get("rules") or {},
+        "series_config": cfg.get("series") or {},
+        "series_selected": series,
+        "default_series": cfg.get("default_series") or "default",
+        "series_detect": cfg.get("series_detect") or [],
+        "trim": trim,
+        "post": cfg.get("post") or {},
+        "pronuncia": cfg.get("pronuncia") or {},
+        "normalize": cfg.get("normalize") or {},
+        "voice_filters": filters,
+        "loudnorm": target,
+        "blocos": [{"i": t["i"], "audio": t["audio"], "dur": t["dur"], "text": t["text"],
+                    "providers": next((b.get("providers", []) for b in block_meta if b.get("i") == t["i"]), [])}
+                   for t in timecodes],
+        "pausas": [{"seg": round(dur(p), 3)} for p, (_, para) in zip(parts, timeline) if para is None],
+        "total_voz": round(vd, 3),
+        "input_hashes": {
+            "narration": file_sha256(narr),
+            "captions": file_sha256(srt),
+            "audio": file_sha256(final),
+        },
+    }
+    with open(contract, "w", encoding="utf-8") as cf:
+        json.dump(snap, cf, ensure_ascii=False, indent=1)
+    print(f"VOZ PRONTA: {final} ({dur(final)/60:.2f} min) | provider {','.join(providers_used) or prov['type']} | {srt}")
+    print(f"  contrato: {contract} | tempos: {os.path.join(outdir, 'captions_times.json')}")
     return final
 
 
@@ -943,8 +1197,6 @@ def cmd_test(args, cfg, prov, blocks, outdir):
 
 
 def cmd_consistencia(args, cfg, prov, outdir, vdir):
-    """Rede anti-drift: detecta idioma por janela do audio final (whisper, sem forcar idioma).
-    Pega troca de lingua/acento forte que passa batido na escuta rapida."""
     try:
         from faster_whisper import WhisperModel
     except ImportError:
@@ -958,20 +1210,37 @@ def cmd_consistencia(args, cfg, prov, outdir, vdir):
     run([FFMPEG, "-y", "-i", audio, "-f", "segment", "-segment_time", str(args.window),
          "-ac", "1", "-ar", "16000", os.path.join(tmp, "w_%03d.wav")])
     files = sorted(glob.glob(os.path.join(tmp, "w_*.wav")))
+    if not files:
+        report_dir = os.path.join(vdir, "01_roteiro") if vdir else outdir
+        report = os.path.join(report_dir, "CONSISTENCIA_TTS.json")
+        with open(report, "w", encoding="utf-8") as f:
+            json.dump({"status": "FALHA", "error": "audio_windows_missing", "human_review_required": True}, f, ensure_ascii=False, indent=2)
+        return False
     model_name = (prov.get("settings") or {}).get("whisper_model") or "small"
     print(f"consistencia: {dur(audio)/60:.1f} min -> {len(files)} janelas de {args.window}s "
           f"| idioma alvo: {lang} | whisper {model_name}")
     wm = WhisperModel(model_name, device="cpu", compute_type="int8")
     drift = 0
+    windows = []
     for i, f in enumerate(files):
         segs, info = wm.transcribe(f, language=None, vad_filter=False)
-        if info.language != lang or info.language_probability < args.min_prob:
+        suspicious = info.language != lang or info.language_probability < args.min_prob
+        if suspicious:
             drift += 1
-            t0 = i * args.window
-            txt = " ".join(s.text.strip() for s in segs)[:100]
+        t0 = i * args.window
+        txt = " ".join(s.text.strip() for s in segs)[:100]
+        windows.append({"i": i, "start": t0, "language": info.language,
+                        "probability": info.language_probability, "suspicious": suspicious, "text": txt})
+        if suspicious:
             print(f"  DRIFT [{t0//60}:{t0%60:02d}] {info.language} ({info.language_probability:.2f}): {txt}")
-    print(f"RESULTADO: {drift}/{len(files)} janelas suspeitas"
-          + (" - consistente" if not drift else " - ouvir os trechos acima"))
+    report_dir = os.path.join(vdir, "01_roteiro") if vdir else outdir
+    report = os.path.join(report_dir, "CONSISTENCIA_TTS.json")
+    result = {"status": "PASS" if drift == 0 else "REVIEW", "language": lang, "windows": windows,
+              "drift": drift, "human_review_required": drift > 0, "audio": audio}
+    with open(report, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print(f"RESULTADO: {drift}/{len(files)} janelas suspeitas -> {report}")
+    return drift == 0
 
 
 def cmd_ab(args, cfg, prov, blocks, outdir):
@@ -1076,7 +1345,7 @@ def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
     terms = [t.strip() for t in (args.pronounce or "").split(",") if t.strip()] or extract_terms(blocks)
     if not terms:
         raise SystemExit("[ERRO] sem termos para testar (narracao vazia?) - passe --pronounce \"termo1, termo2\"")
-    lang = args.lang or (cfg.get("settings") or {}).get("lang") or "pt"
+    lang = (args.lang or lang_of(cfg) or "pt")[:2]
     step = dict(prov)
     if PROVIDER_META[step["type"]]["key"]:
         keys = keys_for(step, args.root)
@@ -1094,7 +1363,7 @@ def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
         segs, _ = wm.transcribe(path, language=lang, vad_filter=False)
         return " ".join(s.text.strip() for s in segs)
 
-    rows, flags = [], 0
+    rows, items, flags = [], [], 0
     for i, t in enumerate(terms, 1):
         norm = normalize_text(t, cfg)
         say = norm if norm != t else t
@@ -1106,10 +1375,11 @@ def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
         t_iso, t_ctx = transcribe(iso), transcribe(ctx)
         exp, got_iso, got_ctx = _pkey(t), _pkey(t_iso), _pkey(t_ctx)
         ok_iso = exp == got_iso or (len(exp) > 3 and exp in got_iso)
-        ok_ctx = len(exp) >= 3 and (exp in got_ctx or got_ctx in exp)
+        ok_ctx = bool(got_ctx) and len(exp) >= 3 and (exp in got_ctx or got_ctx in exp)
         verdict = "OK" if (ok_iso or ok_ctx) else "REVISAR"
         if verdict != "OK":
             flags += 1
+        items.append({"term": t, "speak": say, "isolated": t_iso, "context": t_ctx, "verdict": verdict})
         extra = "" if norm == t else f" (fala: '{say}')"
         rows.append(f"{t}{extra}\n   isolado : {t_iso or '-'}  [{'ok' if ok_iso else 'X'}]\n"
                     f"   contexto: {t_ctx or '-'}  [{'ok' if ok_ctx else 'X'}]  -> {verdict}")
@@ -1118,8 +1388,15 @@ def cmd_pronounce(args, cfg, prov, blocks, vdir, outdir):
     with open(rep, "w", encoding="utf-8") as f:
         f.write(f"# PRONUNCIA TTS - {len(terms)} termos | {flags} para revisar\n"
                 f"# audio em {pdir} (ouca os REVISAR antes de publicar)\n\n" + "\n\n".join(rows) + "\n")
+    report_dir = os.path.join(vdir, "01_roteiro") if vdir else outdir
+    report_json = os.path.join(report_dir, "PRONUNCIA_TTS.json")
+    result = {"status": "PASS" if flags == 0 else "REVIEW", "language": lang, "terms": items,
+              "review_count": flags, "human_review_required": flags > 0}
+    with open(report_json, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"\nPRONUNCIA: {flags}/{len(terms)} para revisar -> {rep}")
-    print(f"audios: {pdir}")
+    print(f"audios: {pdir} | gate: {report_json}")
+    return flags == 0
 
 
 def main():
@@ -1127,13 +1404,18 @@ def main():
     ap.add_argument("video", nargs="?", default=None, help="videoNN")
     ap.add_argument("--root", default=os.getcwd(), help="raiz do projeto do canal")
     ap.add_argument("--channel", help="playbook do canal (nome em playbooks/ ou pasta)")
+    ap.add_argument("--contract", help="usa 02_audio/voice_contract.json do video em vez do "
+                                       "playbook (re-renderiza o audio publicado identico)")
     ap.add_argument("--provider", choices=list(PROVIDERS), help="sobrepoe o provider do contrato")
     ap.add_argument("--voice", help="sobrepoe a voz do contrato")
     ap.add_argument("--text", help="texto para --test (default: inicio da narracao)")
     ap.add_argument("--bed", help="arquivo de musica para mixar com ducking")
     ap.add_argument("--bed-vol", type=float, help="volume do bed (default 0.08)")
     ap.add_argument("--no-cache", action="store_true", help="ignora cache e regenera")
+    ap.add_argument("--allow-voice-switch", action="store_true", help="permite fallback com timbre diferente")
     ap.add_argument("--dry-run", action="store_true", help="mostra o plano sem gerar")
+    ap.add_argument("--preflight", action="store_true", help="verifica providers, dependencias e chaves sem gerar audio")
+    ap.add_argument("--require-free", action="store_true", help="exige um provider gratuito pronto na cadeia")
     ap.add_argument("--test", action="store_true", help="teste de 200 palavras no provider real")
     ap.add_argument("--pronounce", nargs="?", const="",
                     help="checa pronuncia (TTS + whisper): --pronounce \"rottweiler, Vespasiano\" "
@@ -1154,17 +1436,58 @@ def main():
         return
 
     cfg, source = load_voice_cfg(args.channel, args.root)
+    if args.contract:
+        if not os.path.isabs(args.contract):
+            args.contract = os.path.join(args.root, args.contract)
+        snap = _read_json(args.contract)
+        if not snap:
+            raise SystemExit(f"[ERRO] --contract invalido/ausente: {args.contract}")
+        provider = dict(snap.get("provider_config") or {})
+        provider["type"] = snap.get("provider") or provider.get("type")
+        provider["voice_id"] = snap.get("voz") or provider.get("voice_id")
+        if snap.get("provider_chain"):
+            provider["fallback"] = [dict(item) for item in snap["provider_chain"][1:]]
+        cfg = {
+            "lang": snap.get("lang") or cfg.get("lang") or "pt-BR",
+            "provider": provider,
+            "gaps": snap.get("gaps") or {},
+            "rules": snap.get("rules") or {},
+            "series": snap.get("series_config") or {},
+            "series_detect": snap.get("series_detect") or [],
+            "default_series": snap.get("default_series") or "default",
+            "trim": snap.get("trim") or {},
+            "post": snap.get("post") or {},
+            "pronuncia": snap.get("pronuncia") or {},
+            "normalize": snap.get("normalize") or {},
+        }
+        if snap.get("voice_filters"):
+            cfg["post"] = dict(cfg["post"], voice_filters=snap["voice_filters"])
+        if snap.get("loudnorm"):
+            cfg["post"] = dict(cfg["post"], loudnorm=snap["loudnorm"])
+        if snap.get("voice_switch_allowed"):
+            args.allow_voice_switch = True
+        source = f"SNAPSHOT {args.contract}"
+        print(f"contrato: {source} (voz {snap.get('voz')}, {snap.get('provider')})")
     if not cfg:
         print("[AVISO] sem contrato de voz (--channel ou canal.json na raiz).")
     prov = normalize_provider(cfg, args)
-    if not prov.get("voice_id"):
+    if not prov.get("voice_id") and not args.preflight:
         raise SystemExit(
             "[ERRO] nenhuma voz definida. Passe --voice <id> ou configure provider.voice_id "
             f"no playbook do canal. Sugestoes: python {os.path.basename(__file__)} --list --lang en")
     if source:
         print(f"contrato: {source}")
 
+    if args.preflight:
+        report = preflight_chain(prov, cfg, args.root)
+        if args.require_free and not report["free_fallback"]:
+            report["status"] = "FAIL"
+            report["errors"] = ["free_fallback_missing"]
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0 if report["status"] == "PASS" else 1
+
     vdir = None
+    narr = None
     if args.video:
         vdir = args.video if os.path.isabs(args.video) else os.path.join(args.root, args.video)
         if not os.path.isdir(vdir):  # convencao videos/<tag> (Laudo Final)
@@ -1178,13 +1501,15 @@ def main():
             raise SystemExit(f"[ERRO] sem narracao em {vdir}/01_roteiro/ (narration_v3.txt)")
         blocks = read_blocks(narr)
         outdir = os.path.join(vdir, "02_audio")
-        os.makedirs(outdir, exist_ok=True)
+        if not args.dry_run:
+            os.makedirs(outdir, exist_ok=True)
     else:
-        if not (args.estimate or args.test or args.pronounce is not None or args.consistencia or args.ab):
+        if not (args.dry_run or args.estimate or args.preflight or args.test or args.pronounce is not None or args.consistencia or args.ab):
             raise SystemExit("Uso: voice_engine.py videoNN --root <canal> [--channel <canal>] | --list | --estimate | --pronounce")
         blocks = [args.text] if args.text else ["Texto de teste."]
         outdir = os.path.join(args.root, "02_audio")
-        os.makedirs(outdir, exist_ok=True)
+        if not args.dry_run:
+            os.makedirs(outdir, exist_ok=True)
 
     print(f"voz: {prov.get('voice_id')} | provider: {prov['type']} | blocos: {len(blocks)}")
 
@@ -1195,17 +1520,16 @@ def main():
         cmd_test(args, cfg, prov, blocks, outdir)
         return
     if args.pronounce is not None:
-        cmd_pronounce(args, cfg, prov, blocks, vdir, outdir)
-        return
+        return 0 if cmd_pronounce(args, cfg, prov, blocks, vdir, outdir) else 1
     if args.consistencia:
-        cmd_consistencia(args, cfg, prov, outdir, vdir)
-        return
+        return 0 if cmd_consistencia(args, cfg, prov, outdir, vdir) else 1
     if args.ab:
         cmd_ab(args, cfg, prov, blocks, outdir)
         return
 
     voice_pipeline(args, cfg, prov, blocks, narr, vdir, outdir)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)
