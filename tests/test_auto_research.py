@@ -42,6 +42,25 @@ class AutoResearchTests(unittest.TestCase):
         self.assertEqual(len(alerts), 1)
         self.assertEqual(alerts[0]["type"], "BASELINE")
 
+    def test_details_neon_ou_unknown(self):
+        import learn_loop
+        fake_db = mock.MagicMock()
+        fake_db._rows.return_value = [
+            {"video_id": "a", "title": "V A", "format": "short", "views": 1000,
+             "engaged_views": 400, "snapshot_date": "2026-09-28", "ts": "2026-09-28T06:00:00"},
+            {"video_id": "b", "title": "V B", "format": "long", "views": 500,
+             "engaged_views": 100, "snapshot_date": "2026-09-28", "ts": "2026-09-28T06:00:00"},
+        ]
+        with mock.patch.dict(sys.modules, {"yt_db": fake_db}):
+            detail = learn_loop.channel_details("@A", "A")
+            self.assertEqual(detail["status"], "ok")
+            self.assertEqual(detail["views_30d"], 1500)
+            self.assertEqual(detail["top"][0]["title"], "V A")
+        bad = mock.MagicMock()
+        bad.init.side_effect = RuntimeError("sem banco")
+        with mock.patch.dict(sys.modules, {"yt_db": bad}):
+            self.assertEqual(learn_loop.channel_details("@A", "A")["status"], "unknown")
+
     def test_dashboard_agrega_multicanal(self):
         import learn_loop
         with tempfile.TemporaryDirectory() as temp:

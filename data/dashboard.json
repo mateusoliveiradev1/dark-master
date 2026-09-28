@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28 23:02",
+  "generated": "2026-09-28 23:51",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -26,7 +26,69 @@
       "nota": "true crime faceless"
     }
   ],
-  "loop_reports": [],
+  "details": {
+    "@ColdFileDiaries": {
+      "status": "ok",
+      "videos": 24,
+      "views_30d": 5077,
+      "engaged_30d": 2138,
+      "engaged_rate": 42.1,
+      "top": [
+        {
+          "title": "Yuba County Five Drove to a Game — VANISHED",
+          "views": 1240,
+          "format": "short"
+        },
+        {
+          "title": "He Jumped With $200,000 — Never Found",
+          "views": 1190,
+          "format": "short"
+        },
+        {
+          "title": "Springfield Three Vanished Overnight — NEVER Found",
+          "views": 1183,
+          "format": "short"
+        },
+        {
+          "title": "Fort Worth Three Went Shopping — NEVER Came Home",
+          "views": 485,
+          "format": "short"
+        },
+        {
+          "title": "Axeman Threatened Jazz Night — City Played ALL Night",
+          "views": 240,
+          "format": "short"
+        }
+      ],
+      "series": [
+        {
+          "date": "2026-09-23",
+          "views": 4028
+        },
+        {
+          "date": "2026-09-28",
+          "views": 5077
+        }
+      ],
+      "last_capture": "2026-09-28"
+    },
+    "@FascinatingHorror": {
+      "status": "unknown"
+    },
+    "@CoffeehouseCrime": {
+      "status": "unknown"
+    },
+    "@DarkAsiawithMegan": {
+      "status": "unknown"
+    }
+  },
+  "loop_reports": [
+    {
+      "date": "2026-09-28",
+      "status": "OK",
+      "failed_steps": []
+    }
+  ],
   "alerts": [
     {
       "type": "TREND_UP",

@@ -121,8 +121,44 @@ def loop(channels, themes, steps, dry_run, quota_budget, out_dir, no_dashboard=F
     return report
 
 
+def channel_details(handle, name):
+    """Metricas do Neon por canal: 30d, top videos, serie diaria p/ sparkline.
+    Sem captura = status unknown (nunca zero inventado)."""
+    try:
+        import yt_db
+        yt_db.init(quiet=True)
+        conn = yt_db.conn()
+        rows = yt_db._rows(conn, "SELECT * FROM snapshots WHERE channel=? OR channel=? ORDER BY ts", (handle, name))
+        conn.close()
+    except Exception:
+        return {"status": "unknown"}
+    if not rows:
+        return {"status": "unknown"}
+    latest = {}
+    for row in rows:
+        latest[row.get("video_id")] = row
+    videos = sorted(latest.values(), key=lambda r: float(r.get("views") or 0), reverse=True)
+    by_day = {}
+    for row in rows:
+        day = str(row.get("snapshot_date") or (row.get("ts") or "")[:10])
+        try:
+            by_day[day] = by_day.get(day, 0) + int(float(row.get("views") or 0))
+        except (TypeError, ValueError):
+            continue
+    series = [{"date": day, "views": by_day[day]} for day in sorted(by_day)[-14:]]
+    total_views = sum(int(float(v.get("views") or 0)) for v in videos)
+    total_engaged = sum(int(float(v.get("engaged_views") or 0)) for v in videos)
+    last_ts = max(str(r.get("ts") or "") for r in rows)
+    return {"status": "ok", "videos": len(videos), "views_30d": total_views,
+            "engaged_30d": total_engaged,
+            "engaged_rate": round(total_engaged / total_views * 100, 1) if total_views else 0.0,
+            "top": [{"title": v.get("title"), "views": v.get("views"),
+                     "format": v.get("format")} for v in videos[:5]],
+            "series": series, "last_capture": last_ts[:10]}
+
+
 def build_dashboard():
-    """Agregado multi-canal para o painel: canais + ultimos loops + alertas + YPP."""
+    """Agregado multi-canal para o painel: canais + detalhes Neon + loops + alertas + YPP."""
     try:
         channels = json.loads((ROOT / "monitor" / "channels.json").read_text(encoding="utf-8")).get("channels", [])
     except (OSError, ValueError):
@@ -164,9 +200,15 @@ def build_dashboard():
                                "maintenance_safe": result["maintenance"]["safe"]}
             except (TypeError, ValueError, KeyError):
                 continue
+    details = {}
+    for channel in channels:
+        handle = channel.get("handle", "")
+        if handle:
+            details[handle] = channel_details(handle, channel.get("name", ""))
     dashboard = {"generated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M"),
                  "channels": [{"handle": c.get("handle"), "name": c.get("name"),
                                "mine": bool(c.get("mine")), "nota": c.get("nota", "")} for c in channels],
+                 "details": details,
                  "loop_reports": reports, "alerts": alerts[:20], "ypp": ypp}
     out = ROOT / "data" / "dashboard.json"
     out.write_text(json.dumps(dashboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

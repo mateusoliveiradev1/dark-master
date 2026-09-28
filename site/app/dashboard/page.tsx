@@ -1,15 +1,35 @@
 "use client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { Nav } from "@/components/Nav";
+import { Reveal } from "@/components/Reveal";
+import { useI18n } from "@/lib/store";
+import { ALERT_PT, glossSeed } from "@/lib/painel";
 
 type Alert = { type: string; seed: string; detail: string; examples: string[] };
 type Channel = { handle: string; name: string; mine: boolean; nota: string };
+type Detail = { status: string; videos?: number; views_30d?: number; engaged_30d?: number; engaged_rate?: number;
+  top?: { title: string; views: number; format: string }[]; series?: { date: string; views: number }[];
+  last_capture?: string };
 type Ypp = { eligible_2026: boolean; eligible_2027: boolean; hours_gap_2027: number; daily_needed: number; maintenance_safe: boolean };
-type Dashboard = { generated: string | null; channels: Channel[]; loop_reports: { date: string; status: string; failed_steps: string[] }[]; alerts: Alert[]; ypp: Record<string, Ypp> };
+type Dashboard = { generated: string | null; channels: Channel[]; details?: Record<string, Detail>;
+  loop_reports: { date: string; status: string; failed_steps: string[] }[]; alerts: Alert[]; ypp: Record<string, Ypp> };
 
 const EMPTY: Dashboard = { generated: null, channels: [], loop_reports: [], alerts: [], ypp: {} };
-const ALERT_LABEL: Record<string, string> = { TREND_UP: "em alta", DEMAND_DEPTH: "demanda", OUTLIER_FLARE: "outlier", REVALIDATE_DUE: "revalidar", FUNNEL_GAP: "funil", BASELINE: "base" };
+
+function Spark({ series }: { series: { date: string; views: number }[] }) {
+  const max = Math.max(1, ...series.map((p) => p.views));
+  const pts = series.map((p, i) => `${(i / Math.max(1, series.length - 1)) * 100},${28 - (p.views / max) * 26}`).join(" ");
+  return (
+    <svg viewBox="0 0 100 30" style={{ width: "100%", height: 34 }} aria-hidden>
+      <polyline points={pts} fill="none" stroke="var(--red-bright)" strokeWidth="1.6" />
+    </svg>
+  );
+}
 
 export default function DashboardPage() {
+  const { t, lang } = useI18n();
+  const d = t.dash;
   const [data, setData] = useState<Dashboard>(EMPTY);
   const [mineOnly, setMineOnly] = useState(false);
   useEffect(() => {
@@ -18,70 +38,130 @@ export default function DashboardPage() {
       .then(setData)
       .catch(() => setData(EMPTY));
   }, []);
-  const channels = mineOnly ? data.channels.filter((c) => c.mine) : data.channels;
+  const channels = useMemo(() => (mineOnly ? data.channels.filter((c) => c.mine) : data.channels), [data, mineOnly]);
+  const mineCount = data.channels.filter((c) => c.mine).length;
+  const pick = (mine: boolean) => {
+    setMineOnly(mine);
+    requestAnimationFrame(() => document.getElementById("canais")?.scrollIntoView({ behavior: "smooth" }));
+  };
+  const gloss = (seed: string) => (lang === "pt" ? glossSeed(seed) : null);
+
   return (
-    <main id="top">
-      <div className="wrap">
-        <p className="eyebrow">painel · atualizado {data.generated ?? "—"}</p>
-        <h1 style={{ fontSize: "clamp(2rem,5vw,3.5rem)", margin: "0 0 0.5rem" }}>Todos os canais, um arquivo.</h1>
-        <p style={{ opacity: 0.75, maxWidth: "60ch" }}>
-          Pesquisa automática (títulos, nichos, em alta), alertas do algoritmo e trilha YPP — alimentado pelo loop 24h. Propostas, nunca mudanças sozinhas.
-        </p>
-        <div style={{ display: "flex", gap: "0.75rem", margin: "1.25rem 0" }}>
-          <button onClick={() => setMineOnly(false)} style={tab(!mineOnly)}>Todos</button>
-          <button onClick={() => setMineOnly(true)} style={tab(mineOnly)}>Meus canais</button>
-          <a href="/" style={{ ...tab(false), textDecoration: "none" }}>← site</a>
-        </div>
+    <>
+      <Nav />
+      <main id="top">
+        <section className="hero">
+          <div className="wrap">
+            <Reveal>
+              <p className="tag"><i />{d.eyebrow} · {data.generated ?? "—"}</p>
+              <h1>{d.titleA}<br />{d.titleB}</h1>
+              <p className="lead">{d.sub}</p>
+              <div className="cta" role="tablist" aria-label={d.channels}>
+                <button role="tab" aria-selected={!mineOnly} className={`btn${!mineOnly ? " primary" : ""}`} onClick={() => pick(false)}>
+                  <span />{d.all} ({data.channels.length})
+                </button>
+                <button role="tab" aria-selected={mineOnly} className={`btn${mineOnly ? " primary" : ""}`} onClick={() => pick(true)}>
+                  <span />{d.mine} ({mineCount})
+                </button>
+                <Link className="btn" href="/"><span />{d.back}</Link>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-        <h2>Alertas</h2>
-        {data.alerts.length === 0 && <p style={{ opacity: 0.6 }}>Nenhum alerta na última rodada. O loop pesquisa todo domingo.</p>}
-        <div className="feat">
-          {data.alerts.map((a, i) => (
-            <article key={i} style={card}>
-              <span className="n">{ALERT_LABEL[a.type] ?? a.type}</span>
-              <h3>{a.seed}</h3>
-              <p>{a.detail}</p>
-              {a.examples.length > 0 && <p style={{ opacity: 0.65, fontSize: "0.9em" }}>{a.examples.join(" · ")}</p>}
-            </article>
-          ))}
-        </div>
+        <section id="alertas">
+          <div className="wrap">
+            <Reveal>
+              <div className="sec-head">
+                <div><p className="eyebrow">{d.alerts}</p><h2>{d.alerts}</h2></div>
+                <p>{data.alerts.length} {lang === "pt" ? "sinais acionáveis da última pesquisa" : "actionable signals from the last research"}</p>
+              </div>
+            </Reveal>
+            {data.alerts.length === 0 && <p className="muted">{d.noAlerts}</p>}
+            <div className="outliers">
+              {data.alerts.map((a, i) => {
+                const g = gloss(a.seed);
+                const label = lang === "pt" ? ALERT_PT[a.type]?.titulo ?? a.type : a.type;
+                return (
+                  <Reveal key={`${a.type}-${a.seed}-${i}`} delay={Math.min(i, 5) * 0.04}>
+                    <article className={`ocard${i === 0 ? " best" : ""}`}>
+                      <div className="ocard-top"><span className="fmt">{a.type}</span><span className="otag">{label}</span></div>
+                      <h3>{a.seed || "—"}</h3>
+                      <p className="muted">{a.detail}</p>
+                      {g && <p><em>{g.o_que}.</em> {g.porque}.</p>}
+                      {lang === "pt" && ALERT_PT[a.type] && <p className="muted">{ALERT_PT[a.type].acao}</p>}
+                      {a.examples.length > 0 && <p className="muted" style={{ fontSize: "13px" }}>{a.examples.join(" · ")}</p>}
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
 
-        <h2 style={{ marginTop: "2.5rem" }}>Canais</h2>
-        <div className="feat">
-          {channels.map((c) => {
-            const y = data.ypp[c.handle];
-            return (
-              <article key={c.handle} style={card}>
-                <span className="n">{c.mine ? "meu" : "vigia"}</span>
-                <h3>{c.name}</h3>
-                <p style={{ opacity: 0.7 }}>{c.handle} · {c.nota}</p>
-                {y ? (
-                  <p>
-                    YPP 2026: {y.eligible_2026 ? "✓" : "—"} · 2027: {y.eligible_2027 ? "✓" : `${y.hours_gap_2027}h faltando (~${y.daily_needed}h/dia)`}
-                    <br />Manutenção: {y.maintenance_safe ? "✓" : "atenção"}
-                  </p>
-                ) : (
-                  <p style={{ opacity: 0.6 }}>YPP: alimente <code>data/ypp_input.json</code> para a matemática aparecer aqui.</p>
-                )}
-              </article>
-            );
-          })}
-        </div>
+        <section id="canais">
+          <div className="wrap">
+            <Reveal>
+              <div className="sec-head">
+                <div><p className="eyebrow">{d.channels}</p><h2>{d.channels} ({channels.length})</h2></div>
+              </div>
+            </Reveal>
+            {channels.length === 0 && <p className="muted">{d.emptyMine}</p>}
+            <div className="outliers">
+              {channels.map((c, i) => {
+                const det = data.details?.[c.handle];
+                const y = data.ypp[c.handle];
+                return (
+                  <Reveal key={c.handle} delay={Math.min(i, 5) * 0.04}>
+                    <article className={`ocard${c.mine ? " best" : ""}`}>
+                      <div className="ocard-top"><span className="fmt">{c.handle}</span><span className="otag">{c.mine ? d.mine : "vigia"}</span></div>
+                      <h3>{c.name}</h3>
+                      {det?.status === "ok" ? (
+                        <>
+                          <div className="ometric"><b>{det.views_30d?.toLocaleString("pt-BR")}</b><small>{d.views30d} · {det.videos} vídeos</small></div>
+                          {det.series && det.series.length > 1 && <Spark series={det.series} />}
+                          <p className="muted" style={{ fontSize: "13px" }}>
+                            {d.engaged} {det.engaged_rate}% · {d.lastCapture} {det.last_capture ?? "—"}
+                          </p>
+                        </>
+                      ) : (
+                        <p className="muted">{d.awaiting}</p>
+                      )}
+                      {y && (
+                        <p style={{ fontSize: "13.5px" }}>
+                          {d.ypp2026}: {y.eligible_2026 ? d.ok : "—"} · {d.ypp2027}: {y.eligible_2027 ? d.ok : `${y.hours_gap_2027}h (~${y.daily_needed}h/dia)`}
+                          <br />{d.maintenance}: {y.maintenance_safe ? d.ok : d.attention}
+                        </p>
+                      )}
+                      <p><Link href={`/dashboard/${encodeURIComponent(c.handle.replace(/^@/, ""))}`} style={{ color: "var(--red-bright)" }}>{d.open}</Link></p>
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
 
-        <h2 style={{ marginTop: "2.5rem" }}>Loop 24h</h2>
-        {data.loop_reports.map((r) => (
-          <p key={r.date}>
-            <strong>{r.date}</strong> — {r.status}
-            {r.failed_steps.length > 0 && <span style={{ opacity: 0.7 }}> · falhou: {r.failed_steps.join(", ")}</span>}
-          </p>
-        ))}
-      </div>
-    </main>
+        <section id="loop">
+          <div className="wrap">
+            <Reveal>
+              <div className="sec-head">
+                <div><p className="eyebrow">{d.loop}</p><h2>{d.howTitle}</h2></div>
+              </div>
+            </Reveal>
+            <ul className="list">
+              {d.how.map(([t, s]) => (
+                <li key={t}><code>{t}</code><span>{s}</span></li>
+              ))}
+            </ul>
+            <div className="stats">
+              {data.loop_reports.slice(-4).map((r) => (
+                <div key={r.date}><b style={{ fontSize: "clamp(28px,4vw,44px)" }}>{r.status}</b><small>{r.date}{r.failed_steps.length > 0 ? ` · ${r.failed_steps.length} falhas` : ""}</small></div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
-
-const card: React.CSSProperties = { border: "1px solid rgba(255,255,255,.12)", borderRadius: 12, padding: "1rem 1.1rem" };
-const tab = (active: boolean): React.CSSProperties => ({
-  border: "1px solid rgba(255,255,255,.2)", borderRadius: 999, padding: "0.4rem 1rem",
-  background: active ? "#fff" : "transparent", color: active ? "#000" : "#fff", cursor: "pointer",
-});
