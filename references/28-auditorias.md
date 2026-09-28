@@ -38,6 +38,8 @@ Para canal existente, o orquestrador não exige nicho/outlier. Para canal novo, 
 | **Compliance/YPP** | `audit-ypp.py` | conteúdo inautêntico, gore, IA, etc. (`references/09`) |
 | **Inautêntico (3 baldes)** | `inauthentic_audit.py <video> --previous <canal>` | swap-test vs narrações anteriores + hook + beats, pesquisa primária, persona IA em tema sensível sem disclosure; FAIL bloqueia |
 | **Trilha YPP** | `ypp_check.py --subs N --hours H` | elegibilidade 2026 vs 2027, gaps, ritmo diário, manutenção mínima (diagnóstico) |
+| **Remotion real** | `remotion_check.py` | `tsc --noEmit` + vitest travados em JSON; sem isso o motion é verde só no Python |
+| **Readiness final** | `publish_readiness.py <videoNN>` | agrega `audit_all` + par estrito título/thumb + disclosure IA → `READINESS.json` (READY/BLOCKED) |
 
 `audit_all.py` consome `TITLE_RESEARCH.json`, `ROTATION_AUDIT.json` e `PROMPT_STATUS.json` quando eles existem. `INCONCLUSIVO` fica visível sem liberar motion; `FAIL` bloqueia. Rode os três pelo fluxo de `30-roteiro-master.md` antes da auditoria final.
 

@@ -100,6 +100,31 @@ def fit_background(image):
     return resized.crop((left, top, left + WIDTH, top + HEIGHT))
 
 
+def relative_luminance(rgb):
+    def channel(value):
+        value /= 255.0
+        return value / 12.92 if value <= 0.03928 else ((value + 0.055) / 1.055) ** 2.4
+    red, green, blue = (channel(value) for value in rgb[:3])
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue
+
+
+def contrast_ratio(first, second):
+    lighter, darker = sorted((relative_luminance(first), relative_luminance(second)), reverse=True)
+    return round((lighter + 0.05) / (darker + 0.05), 2)
+
+
+def band_contrast(background, white, accent):
+    """Contraste WCAG texto/fundo na faixa de leitura (terco esquerdo).
+    Piso 3.0 (texto grande AA); abaixo disso vira REVIEW no build."""
+    from PIL import Image
+    band = background.crop((MARGIN, MARGIN, WIDTH - DURATION_BADGE[0] - MARGIN, HEIGHT - MARGIN))
+    small = band.convert("RGB").resize((32, 32), Image.LANCZOS)
+    pixels = list(small.get_flattened_data() if hasattr(small, "get_flattened_data") else small.getdata())
+    mean = tuple(sum(channel) // len(pixels) for channel in zip(*pixels))
+    return {"background_mean": list(mean), "white": contrast_ratio(white, mean),
+            "accent": contrast_ratio(accent, mean)}
+
+
 def wrap_overlay(text, font_getter, max_width):
     from PIL import ImageDraw, Image
     words = text.split()
@@ -137,6 +162,7 @@ def render_concept(concept, style, language, out_path, bg_path=None, render_bg=F
             canvas = gradient_background({"top": list(black), "bottom": [5, 5, 8]})
     else:
         canvas = gradient_background({"top": list(black), "bottom": [5, 5, 8]})
+    contrast = band_contrast(canvas, white, accent)
     # Faixa de leitura: terco esquerdo, fora do selo de duracao e das margens.
     text = overlay_text(concept, language)
     max_width = WIDTH - DURATION_BADGE[0] - MARGIN * 3
@@ -172,7 +198,8 @@ def render_concept(concept, style, language, out_path, bg_path=None, render_bg=F
         if Path(out_path).stat().st_size <= MAX_BYTES:
             break
         quality -= 8
-    return {"path": str(out_path), "bytes": Path(out_path).stat().st_size, "quality": quality}
+    return {"path": str(out_path), "bytes": Path(out_path).stat().st_size, "quality": quality,
+            "contrast": contrast}
 
 
 def preview_120(image_path, out_path):
@@ -225,9 +252,12 @@ def build(brief_path, channel=None, titles="", outdir=None, bg_map=None, render_
         concept_warnings = [w for w in structural["warnings"] if w.startswith(f"{cid}:")]
         errors = concept_errors + image_errors
         warnings = concept_warnings + image_warnings
+        contrast = meta.get("contrast", {})
+        if min(contrast.get("white", 0), contrast.get("accent", 0)) < 3.0:
+            warnings.append(f"contraste_baixo(white={contrast.get('white')},accent={contrast.get('accent')};piso_3.0)")
         status = "FAIL" if errors or image_result.get("status") == "FAIL" else ("REVIEW" if warnings else "PASS")
         results.append({"id": cid, "image": image_path.name, "preview": Path(preview).name,
-                        "bytes": meta["bytes"], "audit": status,
+                        "bytes": meta["bytes"], "contrast": contrast, "audit": status,
                         "errors": errors, "warnings": warnings})
     sheet = contact_sheet([final_dir / item["image"] for item in results], final_dir / "thumb_contact_sheet.jpg") if results else ""
     order = {"PASS": 0, "REVIEW": 1, "FAIL": 2}

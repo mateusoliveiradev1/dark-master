@@ -9,7 +9,7 @@ SKILL = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SKILL / "scripts"))
 
 import voice_engine
-from voice_engine import KeyRing, is_auth, is_quota, keys_for, provider_preflight, with_retries
+from voice_engine import KeyRing, build_chain, fallback_voice, is_auth, is_quota, keys_for, provider_preflight, synth, with_retries
 
 
 def http_error(code):
@@ -82,6 +82,30 @@ class VoiceEngineTests(unittest.TestCase):
         result = provider_preflight({"type": "inexistente", "voice_id": "x"})
         self.assertFalse(result["ready"])
         self.assertIn("provider_unknown", result["errors"])
+
+    def test_synth_despacha_todos_providers(self):
+        for provider in ("edge", "azure", "elevenlabs", "fish", "gemini", "openai", "kokoro", "piper"):
+            step = {"type": provider, "voice_id": "voz-x", "_ring": KeyRing(["k"], provider)}
+            target = f"synth_{provider}" if provider != "elevenlabs" else "synth_elevenlabs"
+            with mock.patch.object(voice_engine, target) as fake:
+                synth(step, "texto", "saida.wav", None)
+                fake.assert_called_once()
+        with self.assertRaises(RuntimeError):
+            synth({"type": "inexistente"}, "texto", "saida.wav", None)
+
+    def test_fallback_voice_regras(self):
+        primary = {"type": "edge", "voice_id": "en-US-ChristopherNeural"}
+        self.assertEqual(fallback_voice({"type": "x", "voice_id": "dada"}, primary), "dada")
+        self.assertEqual(fallback_voice({"type": "edge"}, primary), "en-US-ChristopherNeural")
+        self.assertEqual(fallback_voice({"type": "azure"}, primary), "en-US-ChristopherNeural")
+
+    def test_build_chain_fallbacks_e_desconhecido(self):
+        primary = {"type": "edge", "voice_id": "v-edge"}
+        cfg = {"provider": {"fallback": ["kokoro", {"type": "inexistente"}, {"type": "azure", "voice_id": "v-azure"}]}}
+        chain = build_chain(primary, cfg, None)
+        self.assertEqual([step["type"] for step in chain], ["edge", "kokoro", "azure"])
+        self.assertEqual(chain[2]["voice_id"], "v-azure")
+        self.assertTrue(chain[1]["voice_id"])
 
 
 if __name__ == "__main__":

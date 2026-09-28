@@ -38,6 +38,13 @@ class ThumbBuildTests(unittest.TestCase):
             brief = json.loads(brief_path.read_text(encoding="utf-8"))
             self.assertTrue(brief.get("image", "").endswith(report["winner"] and f"thumb_{report['winner']}.jpg"))
 
+    def test_build_mede_contraste_acima_do_piso(self):
+        with tempfile.TemporaryDirectory() as temp:
+            episode, brief_path = self.make_episode(temp)
+            report = build(str(brief_path), None, "TITULO PT vencedor | Winner EN title")
+            for item in report["concepts"]:
+                self.assertGreaterEqual(item["contrast"]["white"], 3.0)
+
     def test_build_reprova_overlay_repetido(self):
         with tempfile.TemporaryDirectory() as temp:
             episode, brief_path = self.make_episode(temp)
