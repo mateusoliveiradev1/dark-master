@@ -5,13 +5,14 @@
     {
       "seed": "AI failure documentary",
       "date": "2026-09-28",
-      "depth": 132,
+      "depth": 133,
       "suggestions": [
         "ai failure documentary videos",
         "ai failure documentary army",
+        "ai failure documentary alone",
         "ai failure documentary age of light",
-        "ai failure documentary archives",
         "ai failure documentary agency",
+        "ai failure documentary and discovery",
         "ai failure documentary amazon",
         "ai failure documentary about triplets",
         "ai failure documentary active measures",
@@ -22,8 +23,8 @@
         "ai failure documentary black",
         "ai failure documentary by steve james",
         "ai failure documentary clips",
-        "ai failure documentary channel",
         "ai failure documentary class 234",
+        "ai failure documentary channel",
         "ai failure documentary cold war",
         "ai failure documentary copyright",
         "ai failure documentary cnn",
@@ -35,8 +36,7 @@
         "ai failure documentary david",
         "ai failure documentary download",
         "ai failure documentary definition",
-        "ai failure documentary dvd",
-        "ai failure documentary ep 1"
+        "ai failure documentary dvd"
       ],
       "trends_direction": "The request failed: Google returned a response with code 429",
       "rising": []
@@ -83,13 +83,14 @@
     {
       "seed": "archaeology mystery documentary",
       "date": "2026-09-28",
-      "depth": 118,
+      "depth": 119,
       "suggestions": [
         "archaeology mysteries documentary",
         "archaeology mysteries",
         "archeological documentaries",
         "archaeology mystery documentary ancient",
         "archaeology mystery documentary ancient history",
+        "archaeology mystery documentary america",
         "archaeology mystery documentary ancient discoveries",
         "archaeology mystery documentary amazon",
         "archaeology mystery documentary about triplets",
@@ -104,8 +105,8 @@
         "archaeology mystery documentary cnn",
         "archaeology mystery documentary cast",
         "archaeology mystery documentary center",
-        "archaeology mystery documentary doug batchelor",
         "archaeology mystery documentary discovery channel",
+        "archaeology mystery documentary doug batchelor",
         "archaeology mystery documentary documentary",
         "archaeology mystery documentary discovery",
         "archaeology mystery documentary download",
@@ -113,8 +114,7 @@
         "archaeology mystery documentary dvd",
         "archaeology mystery documentary episode 1",
         "archaeology mystery documentary espanol",
-        "archaeology mystery documentary english",
-        "archaeology mystery documentary episode 2"
+        "archaeology mystery documentary english"
       ],
       "trends_direction": "The request failed: Google returned a response with code 429",
       "rising": []
@@ -122,7 +122,7 @@
     {
       "seed": "aviation disaster documentary",
       "date": "2026-09-28",
-      "depth": 120,
+      "depth": 121,
       "suggestions": [
         "aviation disaster documentary",
         "air disaster documentary",
@@ -161,7 +161,7 @@
     {
       "seed": "cold case documentary",
       "date": "2026-09-28",
-      "depth": 91,
+      "depth": 90,
       "suggestions": [
         "cold case documentary",
         "cold case documentary full episodes",
@@ -179,7 +179,6 @@
         "cold case documentary a&e",
         "cold case documentary america",
         "cold case documentary all i know so far",
-        "cold case documentary alone",
         "cold case documentary amazon",
         "cold case documentary about triplets",
         "cold case documentary active measures",
@@ -192,7 +191,8 @@
         "cold case documentary definition",
         "cold case documentary dvd",
         "cold case files documentary",
-        "cold case files classic"
+        "cold case files classic",
+        "cold case detectives season 1"
       ],
       "trends_direction": "The request failed: Google returned a response with code 429",
       "rising": []
@@ -200,7 +200,7 @@
     {
       "seed": "corporate collapse documentary",
       "date": "2026-09-28",
-      "depth": 150,
+      "depth": 148,
       "suggestions": [
         "corporate collapse",
         "corporate documentaries",
@@ -220,7 +220,7 @@
         "corporate collapse documentary couple",
         "corporate collapse documentary clips",
         "corporate collapse documentary company",
-        "corporate collapse documentary china",
+        "corporate collapse documentary connecticut",
         "corporate collapse documentary cast",
         "corporate collapse documentary center",
         "corporate collapse documentary documentary",
@@ -239,14 +239,15 @@
     {
       "seed": "crypto scam documentary",
       "date": "2026-09-28",
-      "depth": 141,
+      "depth": 140,
       "suggestions": [
         "crypto scam documentary",
         "crypto scam movie",
         "cryptocurrency scam documentary",
         "crypto scam documentary alex",
+        "crypto scam documentary angela",
         "crypto scam documentary alex holder",
-        "crypto scam documentary alex g",
+        "crypto scam documentary angela davis",
         "crypto scam documentary alex rudd",
         "crypto scam documentary amazon",
         "crypto scam documentary about triplets",
@@ -268,11 +269,10 @@
         "crypto scam documentary dark web",
         "crypto scam documentary david",
         "crypto scam documentary dan bilzerian",
-        "crypto scam documentary dark",
         "crypto scam documentary download",
         "crypto scam documentary definition"
       ],
-      "trends_direction": "The request failed: Google returned a response with code 429",
+      "trends_direction": "ALTA",
       "rising": []
     },
     {
@@ -311,13 +311,16 @@
         "cult movie bollywood",
         "cult movie bloody love song"
       ],
-      "trends_direction": "The request failed: Google returned a response with code 429",
-      "rising": []
+      "trends_direction": "BAIXA",
+      "rising": [
+        "charles manson cult documentary netflix",
+        "oregon cult documentary"
+      ]
     },
     {
       "seed": "cybercrime documentary",
       "date": "2026-09-28",
-      "depth": 92,
+      "depth": 93,
       "suggestions": [
         "cyber crime documentary",
         "cyber crime documentary dark web",
@@ -350,7 +353,7 @@
         "cybercrime documentary emmy awards",
         "cybercrime documentary emmy awards 2018"
       ],
-      "trends_direction": "The request failed: Google returned a response with code 429",
+      "trends_direction": "ALTA",
       "rising": []
     },
     {
@@ -369,7 +372,6 @@
         "deep sea mystery documentary bbc",
         "deep sea mystery documentary bgm",
         "deep sea mystery documentary britain",
-        "deep sea mystery documentary bangla",
         "deep sea mystery documentary by steve james",
         "deep sea mystery documentary dangerous",
         "deep sea mystery documentary download",
@@ -387,15 +389,16 @@
         "deep sea mystery documentary full movie",
         "deep sea mystery documentary film",
         "deep sea mystery documentary for sleep",
-        "deep sea mystery documentary free"
+        "deep sea mystery documentary free",
+        "deep sea mystery documentary guide"
       ],
-      "trends_direction": "The request failed: Google returned a response with code 429",
+      "trends_direction": "BAIXA",
       "rising": []
     },
     {
       "seed": "dictatorship documentary",
       "date": "2026-09-28",
-      "depth": 92,
+      "depth": 94,
       "suggestions": [
         "dictatorship documentary",
         "brazil dictatorship documentary",
@@ -428,7 +431,7 @@
         "dictatorship documentary festival",
         "dictatorship documentary free"
       ],
-      "trends_direction": "The request failed: Google returned a response with code 429",
+      "trends_direction": "ALTA",
       "rising": []
     },
     {
@@ -473,7 +476,7 @@
     {
       "seed": "forgotten war documentary",
       "date": "2026-09-28",
-      "depth": 129,
+      "depth": 130,
       "suggestions": [
         "forgotten war movie",
         "the forgotten war documentary",
@@ -546,14 +549,12 @@
         "cheating casino documentary"
       ],
       "trends_direction": "ALTA",
-      "rising": [
-        "financial fraud"
-      ]
+      "rising": []
     },
     {
       "seed": "heist documentary",
       "date": "2026-09-28",
-      "depth": 150,
+      "depth": 152,
       "suggestions": [
         "heist documentary",
         "heist documentary 2025",
@@ -597,7 +598,7 @@
     {
       "seed": "history of pandemics documentary",
       "date": "2026-09-28",
-      "depth": 124,
+      "depth": 125,
       "suggestions": [
         "history of pandemics",
         "history of pandemics in the world",
@@ -675,11 +676,11 @@
     {
       "seed": "industrial disaster documentary",
       "date": "2026-09-28",
-      "depth": 130,
+      "depth": 128,
       "suggestions": [
         "industrial disaster documentary australia",
-        "industrial disaster documentary amazon prime",
         "industrial disaster documentary a&e",
+        "industrial disaster documentary amazon prime",
         "industrial disaster documentary amazon",
         "industrial disaster documentary ark of the covenant",
         "industrial disaster documentary about triplets",
@@ -691,7 +692,6 @@
         "industrial disaster documentary channel",
         "industrial disaster documentary china",
         "industrial disaster documentary colorado",
-        "industrial disaster documentary colorado river",
         "industrial disaster documentary cnn",
         "industrial disaster documentary cast",
         "industrial disaster documentary center",
@@ -706,7 +706,8 @@
         "industrial disaster documentary episodes",
         "industrial disaster documentary episode 2",
         "industrial disaster documentary evidence",
-        "industrial disaster documentary emmy awards"
+        "industrial disaster documentary emmy awards",
+        "industrial disaster documentary emmy awards 2018"
       ],
       "trends_direction": "ALTA",
       "rising": []
@@ -753,12 +754,13 @@
     {
       "seed": "medical mystery documentary",
       "date": "2026-09-28",
-      "depth": 119,
+      "depth": 120,
       "suggestions": [
         "medical mystery documentary",
         "medical mystery documentary audiobook",
-        "medical mystery documentary a&e",
         "medical mystery documentary amazon",
+        "medical mystery documentary a&e",
+        "medical mystery documentary amazon prime",
         "medical mystery documentary about triplets",
         "medical mystery documentary active measures",
         "medical mystery documentary bbc",
@@ -783,8 +785,7 @@
         "medical mystery documentary english",
         "medical mystery documentary episode 2",
         "medical mystery documentary espanol",
-        "medical mystery documentary evidence",
-        "medical mystery documentary emmy awards"
+        "medical mystery documentary evidence"
       ],
       "trends_direction": "ALTA",
       "rising": []
@@ -792,9 +793,30 @@
   ],
   "alerts": [
     {
-      "type": "BASELINE",
-      "seed": "",
-      "detail": "primeira rodada: base estabelecida, sem comparativo",
+      "type": "TREND_UP",
+      "seed": "crypto scam documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "cult documentary",
+      "detail": "2 queries em alta novas",
+      "examples": [
+        "charles manson cult documentary netflix",
+        "oregon cult documentary"
+      ]
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "cybercrime documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "dictatorship documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
       "examples": []
     }
   ]
