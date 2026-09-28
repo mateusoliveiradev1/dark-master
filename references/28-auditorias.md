@@ -39,6 +39,12 @@ Para canal existente, o orquestrador não exige nicho/outlier. Para canal novo, 
 
 `audit_all.py` consome `TITLE_RESEARCH.json`, `ROTATION_AUDIT.json` e `PROMPT_STATUS.json` quando eles existem. `INCONCLUSIVO` fica visível sem liberar motion; `FAIL` bloqueia. Rode os três pelo fluxo de `30-roteiro-master.md` antes da auditoria final.
 
+## Diagnóstico pós-publicação (não bloqueia — propose-only)
+
+| Ferramenta | Uso |
+|---|---|
+| **Bolhas D+2/D+7** | `python scripts/bubble_check.py --channel <canal> --video <tag\|id> [--published AAAA-MM-DD] [--csv studio.csv]` — classifica COLD/SEED/EXPANDING/COASTING/STALLED/LATE_SPIKE/FADED a partir do banco local ou CSV do Studio, **sem OAuth**. Sem dado = desconhecido, nunca zero. Detalhe em `references/40-packaging-bubbles.md` §4. |
+
 ## Alvos por canal
 
 - **Áudio:** loudness alvo do projeto (ex.: `-16` ou `-14` LUFS), true peak ≤ **-1 dBTP**, LRA < 14.
