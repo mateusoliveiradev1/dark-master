@@ -1,0 +1,47 @@
+name: learn-loop
+
+on:
+  schedule:
+    # Diário 06:00 UTC: coleta + análise (custo baixo, ~350 un)
+    - cron: "0 6 * * *"
+    # Domingo 07:00 UTC: + watch + revalidação (custo alto, com teto de quota)
+    - cron: "0 7 * * 0"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Incluir watch + revalidate (domingo)"
+        required: false
+        default: "false"
+
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install google-api-python-client google-auth google-auth-oauthlib pytrends
+      - name: Restaurar segredos OAuth
+        env:
+          YT_TOKEN_JSON: ${{ secrets.YT_TOKEN_JSON }}
+          GOOGLE_CLIENT_SECRETS: ${{ secrets.GOOGLE_CLIENT_SECRETS }}
+        run: |
+          mkdir -p ~/.config/opencode/secrets
+          printf '%s' "$YT_TOKEN_JSON" > ~/.config/opencode/secrets/yt-token.json
+          printf '%s' "$GOOGLE_CLIENT_SECRETS" > ~/.config/opencode/secrets/client_secrets.json
+      - name: Loop diário (coleta + análise)
+        if: github.event.schedule == '0 6 * * *' || (github.event_name == 'workflow_dispatch' && inputs.full != 'true')
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scripts/learn_loop.py --collect --analyze
+      - name: Loop semanal (tudo, com teto de quota)
+        if: github.event.schedule == '0 7 * * 0' || (github.event_name == 'workflow_dispatch' && inputs.full == 'true')
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scripts/learn_loop.py --all --quota-budget 8000
+      - name: Publicar relatório do dia
+        uses: actions/upload-artifact@v4
+        with:
+          name: learn-loop-report
+          path: data/learn_loop/*.json
