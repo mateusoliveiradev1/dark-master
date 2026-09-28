@@ -105,7 +105,8 @@ def audit_image(image_ref, root):
             if tuple(image.size) != (1280, 720):
                 warnings.append(f"imagem_fora_1280x720({image.size})")
             small = image.convert("L").resize((120, 68))
-            pixels = list(small.getdata())
+            flattened = getattr(small, "get_flattened_data", None)
+            pixels = list(flattened() if callable(flattened) else small.getdata())
             spread = max(pixels) - min(pixels)
             checks["spread_120px"] = spread
             if spread < 12:

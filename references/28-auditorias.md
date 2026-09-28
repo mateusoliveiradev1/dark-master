@@ -27,6 +27,7 @@ Para canal existente, o orquestrador não exige nicho/outlier. Para canal novo, 
 | **Rotação editorial** | `rotation_audit.py` | título, hook, sequência de beats e CTA contra os três episódios anteriores; **ausente = FALHA** |
 | **Packaging (par 10/10)** | `packaging_audit.py` | 3–5 pares PT+EN, fórmula Y, goal browse\|search, thumb sem repetir título, hook long30s + short3s ≤8, evidência URL, winner + 1–2 alts; **ausente/FAIL = FALHA** |
 | **Thumb (par 10/10)** | `thumb_audit.py` | 2–3 conceitos × 6 campos + 1 eixo variante, overlay ≤4 palavras, zero repetição, imagem ≤2MB 1280x720, legível a 120px; gore = REVIEW humano; **ausente/FAIL = FALHA** |
+| **Thumb pixels** | `thumb_build.py --brief THUMB_BRIEF.json --channel <canal> --titles "PT \| EN"` | compõe 1280x720 (fundo + overlay no idioma do canal, safe areas, selo de duração livre), preview 120px + contact sheet, audita cada variante e grava `THUMB_BUILD.json`; vencedor vira `image` do brief |
 | **Short/bolhas pré-voo** | `short_qa.py` | hook ≤8, blocos ≤4, frame1 texto ≤6, sem saudação/logo, funil válido, loop ≥0.55 com vídeo; sem vídeo = REVIEW |
 | **Áudio/voz** | `audio_audit.py` | duração, sample rate/canais, **loudness (LUFS)**, **true peak**, LRA, **clipping**, **silêncios longos** |
 | **Legendas** | `captions_audit.py` | nº de cues, 1ª perto de 0:00, duração por cue, **sobreposições**, gaps, linhas/chars, **velocidade de leitura (CPS)**, cobertura vs áudio |
