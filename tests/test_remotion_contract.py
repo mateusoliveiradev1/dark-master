@@ -76,6 +76,34 @@ class RemotionContractTests(unittest.TestCase):
             self.assertEqual(scene["sourceIds"], ["S001"])
             self.assertEqual(scene["motionPrompt"], spec["motionPrompt"])
 
+    def test_scene_blocks_are_cumulative_frame_exact_and_close_to_video_total(self):
+        with tempfile.TemporaryDirectory() as temp:
+            episode = Path(temp) / "video01"
+            script = episode / "01_roteiro"
+            script.mkdir(parents=True)
+            blocks = [
+                {
+                    "id": f"B{index:03d}",
+                    "beat": "CONTEXTO",
+                    "question": f"Question {index}?",
+                    "state_change": f"State changes for block {index}.",
+                    "target_seconds": 1.12,
+                }
+                for index in range(1, 7)
+            ]
+            (script / "ROTEIRO_MAP.json").write_text(json.dumps({"blocks": blocks}), encoding="utf-8")
+
+            scenes = remotion.scene_blocks(episode, 6.72, "long", [], 30)
+            starts = [remotion.rounded_frames(scene["startSeconds"], 30) for scene in scenes]
+            durations = [remotion.rounded_frames(scene["durationSeconds"], 30) for scene in scenes]
+
+            self.assertEqual(starts, [0, 34, 68, 102, 136, 170])
+            self.assertEqual(durations, [34, 34, 34, 34, 34, 32])
+            self.assertEqual(starts[-1] + durations[-1], remotion.rounded_frames(6.72, 30))
+            for scene, start, duration in zip(scenes, starts, durations):
+                self.assertAlmostEqual(scene["startSeconds"] * 30, start)
+                self.assertAlmostEqual(scene["durationSeconds"] * 30, duration)
+
     def test_build_plan_resolves_assets_by_identity(self):
         with tempfile.TemporaryDirectory() as temp:
             episode, visual_path = VisualPlanTests().make_episode(temp)
@@ -126,6 +154,30 @@ class RemotionContractTests(unittest.TestCase):
         })
         self.assertEqual(audit["status"], "FAIL")
         self.assertEqual(audit["reason"], "static_frame_guard")
+
+    def test_visual_review_accepts_one_editorial_change_and_limits_deep_samples(self):
+        audit = visual_review.audit_scene_motion({
+            "states": [
+                {"id": "establish", "assetIds": ["A"], "visibleLayers": ["environment"], "motion": "static-hold"},
+                {"id": "reveal", "assetIds": ["A"], "visibleLayers": ["environment", "detail"], "motion": "static-hold"},
+            ],
+            "motionPrompt": {"staticException": {"allowed": False}},
+        })
+        self.assertEqual(audit["status"], "PASS")
+        self.assertEqual(audit["meaningfulChanges"], 1)
+
+        scenes = [
+            {"id": f"scene-{index}", "shotId": f"scene-{index}", "type": "cinematic-photo", "motionPrompt": {"intensity": 0}}
+            for index in range(8)
+        ]
+        scenes[3]["type"] = "timeline"
+        scenes[5]["motionPrompt"]["intensity"] = 3
+        reviewed = visual_review.review_scene_ids(scenes)
+        self.assertEqual(len(reviewed), 4)
+        self.assertEqual(reviewed[0], "scene-0")
+        self.assertEqual(reviewed[-1], "scene-7")
+        self.assertIn("scene-3", reviewed)
+        self.assertIn("scene-5", reviewed)
 
     def test_stage_assets_uses_explicit_asset_identity(self):
         with tempfile.TemporaryDirectory() as temp:

@@ -7,13 +7,13 @@ import unicodedata
 from pathlib import Path
 
 SCENE_TYPES = {
-    "HOOK": "forensic-reveal",
-    "COLD OPEN": "forensic-reveal",
+    "HOOK": "cinematic-photo",
+    "COLD OPEN": "cinematic-photo",
     "CONTEXTO": "location-sequence",
     "CONTEXT": "location-sequence",
     "PERICIA": "evidence-focus",
-    "EVIDENCIAS": "evidence-focus",
-    "EVIDÊNCIAS": "evidence-focus",
+    "EVIDENCIAS": "evidence-reveal",
+    "EVIDÊNCIAS": "evidence-reveal",
     "INVESTIGACAO": "investigation-board",
     "INVESTIGAÇÃO": "investigation-board",
     "LINHA DO TEMPO": "timeline-build",
@@ -35,8 +35,8 @@ DEFAULT_VISUAL = {
     "typography": {"heading": "Bebas Neue", "body": "Inter"},
     "safeAreas": {"long": {"action": [0.05, 0.05, 0.9, 0.78], "captions": [0.06, 0.78, 0.88, 0.16], "watermark": [0.88, 0.04, 0.08, 0.08]}, "short": {"action": [0.1, 0.1, 0.8, 0.72], "captions": [0.08, 0.78, 0.84, 0.16], "watermark": [0.84, 0.04, 0.1, 0.08]}},
     "image": {"suffix": "dark cinematic documentary illustration, desaturated cold tones, deep blacks, subtle red accent, volumetric fog, no text, no watermark, no blood, no gore, no real face, silhouettes from behind, 16:9", "negativeGuards": ["no gore", "no blood", "no body", "no readable text", "no signage", "no invented logo", "no watermark", "no identifiable real person"]},
-    "motion": {"intensity": "controlled", "defaultTransition": "cut-or-dissolve-by-meaning", "forbid": ["generic-slideshow", "image-plus-fade-plus-zoom", "static-frame", "unintentional-parallax"]},
-    "qa": {"minimumScore": 92, "requiredVisualChanges": [2, 4], "forbid": ["crop-ruined", "text-outside-safe-area", "caption-overlap", "untraceable-asset", "static-scene"]},
+    "motion": {"intensity": "editorial-by-purpose", "defaultTransition": "cut-or-dissolve-by-meaning", "forbid": ["generic-slideshow", "image-plus-fade-plus-zoom", "unintentional-parallax"]},
+    "qa": {"revisionLimit": 1, "forbid": ["unsupported-evidence-overlay", "text-outside-safe-area", "caption-overlap", "untraceable-asset"]},
 }
 
 REQUIRED_SCENE_FIELDS = (
@@ -89,16 +89,38 @@ CLASSIFICATION_GUARDS = {
     "MIXED": "preserve each claim's documented certainty; never merge fact, report and hypothesis",
 }
 
+# Motion v2 defaults (anti-slideshow): every scene type that renders a plate
+# gets a camera operator at intensity >= 1. Only quote keeps a static breath.
+# Intensities here are floors; the episode director raises peaks to 3.
 MOTION_PROFILES = {
-    "forensic-reveal": ("detail-reveal", 2),
-    "evidence-focus": ("controlled-crop", 2),
-    "investigation-board": ("track-left", 2),
-    "timeline-build": ("line-drawing", 2),
-    "hypothesis-comparator": ("track-right", 3),
-    "document-dive": ("push-in", 1),
-    "negative-space-beat": ("hold-and-transition", 1),
-    "archive-end-card": ("pull-out", 1),
-    "location-sequence": ("drift-with-purpose", 1),
+    "cinematic-photo": ("slow-push", 2),
+    "photo-reconstruction": ("lateral-drift", 2),
+    "forensic-reveal": ("detail-inspection", 2),
+    "evidence-reveal": ("masked-reveal", 2),
+    "evidence-focus": ("detail-inspection", 2),
+    "investigation-board": ("parallax", 2),
+    "timeline": ("timeline-build", 2),
+    "timeline-build": ("timeline-build", 2),
+    "hypothesis-comparator": ("match-cut", 2),
+    "document-dive": ("document-dive", 2),
+    "document-report": ("document-dive", 2),
+    "newspaper-archive": ("document-dive", 2),
+    "geographic-location": ("crop-shift", 2),
+    "animated-map": ("route-draw", 2),
+    "evidence-map": ("route-draw", 2),
+    "portrait-investigation": ("slow-push", 2),
+    "object-detail": ("detail-inspection", 2),
+    "detail-extraction": ("detail-inspection", 2),
+    "data-visualization": ("line-draw", 2),
+    "concept-diagram": ("crop-shift", 2),
+    "split-screen": ("match-cut", 2),
+    "compare-contrast": ("match-cut", 2),
+    "negative-space-beat": ("negative-space-pullout", 1),
+    "quote": ("static-hold", 0),
+    "chapter-break": ("pull-out", 1),
+    "end-card-cta": ("archive-title-object", 1),
+    "archive-end-card": ("archive-title-object", 1),
+    "location-sequence": ("lateral-drift", 2),
 }
 
 
@@ -337,7 +359,7 @@ def block_type(beat):
     for key, value in SCENE_TYPES.items():
         if normalize_text(key) in normalized:
             return value
-    return "forensic-reveal"
+    return "cinematic-photo"
 
 
 def selected_claims(block, research):
@@ -394,62 +416,111 @@ def default_crop_policy(block, visual):
     }
 
 
-def default_states(state_change, classification, layers, scene_type="forensic-reveal"):
+def default_states(state_change, classification, layers, scene_type="cinematic-photo"):
     focus_layers = [layer for layer in layers if layer in {"subject", "state-change", "evidence"}] or layers
-    profiles = {
-        "cinematic-photo": ("masked-reveal", "lateral-drift", "evidence-lens", "detail-inspection", "negative-space-pullout"),
-        "photo-reconstruction": ("masked-reveal", "lateral-drift", "evidence-lens", "detail-inspection", "archive-title-object"),
-        "evidence-reveal": ("masked-reveal", "evidence-lens", "line-draw", "document-dive", "negative-space-pullout"),
-        "forensic-reveal": ("masked-reveal", "evidence-lens", "detail-inspection", "document-dive", "negative-space-pullout"),
-        "evidence-focus": ("masked-reveal", "evidence-lens", "controlled-crop", "detail-inspection", "pull-out"),
-        "investigation-board": ("masked-reveal", "lateral-drift", "line-draw", "match-cut", "archive-title-object"),
-        "timeline": ("masked-reveal", "timeline-build", "line-draw", "evidence-lens", "negative-space-pullout"),
-        "timeline-build": ("masked-reveal", "timeline-build", "line-draw", "evidence-lens", "negative-space-pullout"),
-        "geographic-location": ("masked-reveal", "lateral-drift", "evidence-lens", "detail-inspection", "negative-space-pullout"),
-        "location-sequence": ("masked-reveal", "lateral-drift", "evidence-lens", "detail-inspection", "negative-space-pullout"),
-        "animated-map": ("masked-reveal", "route-draw", "evidence-lens", "line-draw", "negative-space-pullout"),
-        "evidence-map": ("masked-reveal", "route-draw", "evidence-lens", "line-draw", "negative-space-pullout"),
-        "document-report": ("masked-reveal", "document-dive", "typewriter-interference", "evidence-lens", "archive-title-object"),
-        "newspaper-archive": ("masked-reveal", "document-dive", "typewriter-interference", "evidence-lens", "archive-title-object"),
-        "document-dive": ("masked-reveal", "document-dive", "typewriter-interference", "evidence-lens", "archive-title-object"),
-        "portrait-investigation": ("masked-reveal", "lateral-drift", "evidence-lens", "detail-inspection", "negative-space-pullout"),
-        "object-detail": ("masked-reveal", "detail-inspection", "evidence-lens", "line-draw", "archive-title-object"),
-        "detail-extraction": ("masked-reveal", "detail-inspection", "evidence-lens", "line-draw", "archive-title-object"),
-        "split-screen": ("masked-reveal", "lateral-drift", "evidence-lens", "typewriter-interference", "negative-space-pullout"),
-        "compare-contrast": ("masked-reveal", "lateral-drift", "evidence-lens", "typewriter-interference", "negative-space-pullout"),
-        "split-evidence": ("masked-reveal", "lateral-drift", "evidence-lens", "typewriter-interference", "negative-space-pullout"),
-        "hypothesis-comparator": ("masked-reveal", "lateral-drift", "evidence-lens", "typewriter-interference", "negative-space-pullout"),
-        "quote": ("masked-reveal", "typewriter-interference", "archive-title-object", "evidence-lens", "negative-space-pullout"),
-        "data-visualization": ("masked-reveal", "line-draw", "evidence-lens", "typewriter-interference", "negative-space-pullout"),
-        "concept-diagram": ("masked-reveal", "line-draw", "evidence-lens", "match-cut", "archive-title-object"),
-        "chapter-break": ("static-hold", "static-hold", "static-hold", "static-hold", "static-hold"),
-        "negative-space-beat": ("static-hold", "static-hold", "negative-space-pullout", "static-hold", "static-hold"),
-        "end-card-cta": ("static-hold", "static-hold", "static-hold", "static-hold", "static-hold"),
-        "archive-end-card": ("static-hold", "static-hold", "static-hold", "static-hold", "static-hold"),
-        "surveillance-footage": ("masked-reveal", "evidence-lens", "detail-inspection", "typewriter-interference", "negative-space-pullout"),
-        "security-camera": ("masked-reveal", "evidence-lens", "detail-inspection", "typewriter-interference", "negative-space-pullout"),
+    state_specs = {
+        # Anti-slideshow: plate scenes open established then move to focus.
+        # The layer delta (layers[:2] -> focus) is the meaningful state change;
+        # single-state holds survive only as designed breaths (quote/negative/
+        # chapter/end-card, see build_motion_prompt).
+        "cinematic-photo": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the sourced image"),
+            ("drift", [0.38, 1], "slow-push", focus_layers, "move into the documented subject"),
+        ],
+        "photo-reconstruction": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the reconstruction"),
+            ("reconstruction", [0.38, 1], "lateral-drift", focus_layers, "traverse the reconstruction"),
+        ],
+        "location-sequence": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the sourced location"),
+            ("approach", [0.38, 1], "lateral-drift", focus_layers, "approach along the sourced axis"),
+        ],
+        "geographic-location": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the sourced location"),
+            ("approach", [0.38, 1], "crop-shift", focus_layers, "shift to the documented point"),
+        ],
+        "portrait-investigation": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the sourced portrait"),
+            ("portrait", [0.38, 1], "slow-push", focus_layers, "hold the sourced portrait with intent"),
+        ],
+        "object-detail": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the documented object"),
+            ("inspect", [0.38, 1], "detail-inspection", focus_layers, "inspect the documented object"),
+        ],
+        "detail-extraction": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the documented detail"),
+            ("inspect", [0.38, 1], "detail-inspection", focus_layers, "inspect the documented detail"),
+        ],
+        "evidence-reveal": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the source"),
+            ("reveal", [0.38, 1], "masked-reveal", focus_layers, "reveal the documented detail"),
+        ],
+        "forensic-reveal": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the source"),
+            ("reveal", [0.38, 1], "masked-reveal", focus_layers, "reveal the documented detail"),
+        ],
+        "evidence-focus": [
+            ("establish", [0, 0.38], "static-hold", layers[:2], "establish the source"),
+            ("focus", [0.38, 1], "masked-reveal", focus_layers, "inspect the documented detail"),
+        ],
+        "timeline": [
+            ("establish", [0, 0.25], "static-hold", layers, "establish the chronology"),
+            ("build", [0.25, 1], "timeline-build", focus_layers, "reveal events in narrative order"),
+        ],
+        "timeline-build": [
+            ("establish", [0, 0.25], "static-hold", layers, "establish the chronology"),
+            ("build", [0.25, 1], "timeline-build", focus_layers, "reveal events in narrative order"),
+        ],
+        "animated-map": [
+            ("establish", [0, 0.3], "static-hold", layers, "establish geographic context"),
+            ("route", [0.3, 1], "route-draw", focus_layers, "show only the sourced route"),
+        ],
+        "evidence-map": [
+            ("establish", [0, 0.3], "static-hold", layers, "establish geographic context"),
+            ("route", [0.3, 1], "route-draw", focus_layers, "show only the sourced route"),
+        ],
+        "investigation-board": [
+            ("establish", [0, 0.35], "static-hold", layers[:2], "establish the source materials"),
+            ("connect", [0.35, 1], "line-draw", focus_layers, "connect only supported relationships"),
+        ],
+        "document-dive": [
+            ("establish", [0, 0.4], "static-hold", layers[:2], "establish the document"),
+            ("inspect", [0.4, 1], "document-dive", focus_layers, "focus on the cited passage"),
+        ],
+        "document-report": [
+            ("establish", [0, 0.4], "static-hold", layers[:2], "establish the document"),
+            ("inspect", [0.4, 1], "document-dive", focus_layers, "focus on the cited passage"),
+        ],
+        "newspaper-archive": [
+            ("establish", [0, 0.4], "static-hold", layers[:2], "establish the archive"),
+            ("inspect", [0.4, 1], "document-dive", focus_layers, "focus on the relevant clipping"),
+        ],
+        "data-visualization": [
+            ("establish", [0, 0.25], "static-hold", layers, "establish the comparison"),
+            ("reveal", [0.25, 1], "line-draw", focus_layers, "reveal the supplied values"),
+        ],
+        "negative-space-beat": [("hold", [0, 1], "static-hold", layers, "leave space for the narration")],
+        "quote": [("hold", [0, 1], "static-hold", layers, "hold on the sourced quotation")],
+        "chapter-break": [("hold", [0, 1], "static-hold", layers, "allow a visual reset")],
+        "end-card-cta": [("hold", [0, 1], "static-hold", layers, "hold the ending")],
+        "archive-end-card": [("hold", [0, 1], "static-hold", layers, "hold the ending")],
     }
-    operators = profiles.get(scene_type, profiles["forensic-reveal"])
-    state_specs = [
-        ("entry", [0, 0.15], operators[0], layers[:2], [0.5, 0.42], "entrada editorial"),
-        ("establish", [0.15, 0.4], operators[1], layers[:3], [0.5, 0.44], "contexto espacial"),
-        ("focus", [0.4, 0.7], operators[2], focus_layers, [0.62, 0.38], "evidência em foco"),
-        ("emphasis", [0.7, 0.9], operators[3], focus_layers, [0.7, 0.32], "destaque editorial"),
-        ("exit", [0.9, 1], operators[4], focus_layers, [0.56, 0.4], "encerramento visual"),
-    ]
+    chosen = state_specs.get(
+        scene_type,
+        [("establish", [0, 0.38], "static-hold", layers[:2], "establish the selected image"),
+         ("image", [0.38, 1], "controlled-crop", focus_layers, "focus the beat-relevant detail")],
+    )
     return [
         {
             "id": state_id,
             "timeRange": time_range,
-            "intent": compact(f"{label}: {state_change or classification}", 120),
+            "intent": compact(f"{intent}: {state_change or classification}", 120),
             "visibleLayers": visible,
             "hiddenLayers": [layer for layer in layers if layer not in visible],
             "assetIds": [],
             "motion": motion,
-            "focalPoint": focal_point,
-            "annotation": f"{label}: {state_change or classification}" if state_id in {"focus", "emphasis"} else "",
         }
-        for state_id, time_range, motion, visible, focal_point, label in state_specs
+        for state_id, time_range, motion, visible, intent in chosen
     ]
 
 
@@ -540,6 +611,7 @@ def default_shot(block, index, claims, visual, research=None):
         "claimIds": unique(claim_ids),
         "sourceIds": source_ids,
         "purpose": purpose,
+        "sceneType": scene_type,
         "question": question,
         "stateChange": state_change,
         "classification": classification,
@@ -560,7 +632,7 @@ def default_shot(block, index, claims, visual, research=None):
     shot["motionPrompt"] = build_motion_prompt(shot)
     shot["prompt"] = {"full": shot["imagePrompt"]["full"], "negativeGuards": shot["negativeGuards"], "expectedOutput": "16:9 master with caption-safe lower band and watermark-safe corner"}
     shot["editorial"] = {**nested_editorial, "beat": clean_value(block.get("beat")), "function": scene_type, "purpose": purpose, "stateChange": state_change}
-    shot["visual"] = {**nested_visual, "sceneType": scene_type, "visualRole": scene_type, "subject": subject, "action": state_change, "location": setting, "timeOfDay": clean_value(first_value(block, "timeOfDay", default=nested_visual.get("timeOfDay"))), "camera": clean_value(first_value(block, "camera", default=nested_visual.get("camera"))), "grade": clean_value(nested_visual.get("grade")) or "channel-defined restrained documentary grade", "headline": question or purpose, "body": "", "overlayRole": "evidence marker or metadata only"}
+    shot["visual"] = {**nested_visual, "sceneType": scene_type, "visualRole": scene_type, "subject": subject, "action": state_change, "location": setting, "timeOfDay": clean_value(first_value(block, "timeOfDay", default=nested_visual.get("timeOfDay"))), "camera": clean_value(first_value(block, "camera", default=nested_visual.get("camera"))), "grade": clean_value(nested_visual.get("grade")) or "channel-defined restrained documentary grade", "headline": question or purpose, "body": "", "overlayRole": "none by default; source-backed annotation only when explicitly specified"}
     if all(shot.get(field) not in (None, "", []) for field in REQUIRED_SCENE_FIELDS) and not contains_placeholder(shot):
         shot["status"] = "ready"
     return shot
@@ -758,8 +830,13 @@ def motion_intensity(shot):
         return None
     if isinstance(existing, int) and 0 <= existing <= 4:
         return existing
-    scene_type = clean_value(first_value(shot.get("editorial", {}), "function")) or "forensic-reveal"
-    return MOTION_PROFILES.get(scene_type, ("controlled-crop", 1))[1]
+    scene_type = (
+        clean_value(first_value(shot.get("editorial", {}), "function"))
+        or clean_value(first_value(shot.get("visual", {}), "sceneType"))
+        or clean_value(shot.get("sceneType"))
+        or "cinematic-photo"
+    )
+    return MOTION_PROFILES.get(scene_type, ("static-hold", 0))[1]
 
 
 def build_motion_prompt(shot, existing=None):
@@ -791,14 +868,22 @@ def build_motion_prompt(shot, existing=None):
             "audioCue": f"low, non-diegetic emphasis at {intent}" if intent else "low, non-diegetic emphasis at the state boundary",
         })
     if not states:
-        states = [{"id": "state-01", "timeRange": [0, 100], "intent": shot.get("stateChange", ""), "visibleLayers": layers, "motion": "controlled-crop", "transition": "hold", "audioCue": f"low emphasis aligned to {shot.get('question', '')}"}]
+        intent = shot.get("stateChange", "") or "focus the beat-relevant detail"
+        states = [
+            {"id": "state-01", "timeRange": [0, 38], "intent": f"establish: {intent}", "visibleLayers": layers[:2], "motion": "static-hold", "transition": "hold", "audioCue": "no added sound cue"},
+            {"id": "state-02", "timeRange": [38, 100], "intent": intent, "visibleLayers": layers, "motion": "controlled-crop", "transition": "hold", "audioCue": "low, non-diegetic emphasis at the state boundary"},
+        ]
     scene_type = (
         clean_value(first_value(shot.get("editorial", {}), "function"))
         or clean_value(first_value(shot.get("visual", {}), "sceneType"))
-        or "forensic-reveal"
+        or clean_value(shot.get("sceneType"))
+        or "cinematic-photo"
     )
-    camera_kind, _ = MOTION_PROFILES.get(scene_type, ("controlled-crop", 1))
-    camera_description = compact(f"Start on {shot.get('subject')}; move only to make '{shot.get('stateChange')}' legible while answering '{shot.get('question')}'; preserve the {shot.get('classification')} evidence boundary.")
+    camera_kind, _ = MOTION_PROFILES.get(scene_type, ("static-hold", 0))
+    if camera_kind == "static-hold":
+        camera_description = compact(f"Hold on {shot.get('subject')}; preserve the composition while the narration carries '{shot.get('stateChange')}'.")
+    else:
+        camera_description = compact(f"Start on {shot.get('subject')}; move only to make '{shot.get('stateChange')}' legible while answering '{shot.get('question')}'; preserve the {shot.get('classification')} evidence boundary.")
     camera_path = existing.get("cameraPath") if isinstance(existing.get("cameraPath"), dict) else {"kind": camera_kind, "description": camera_description, "keyframes": [{"at": 0, "focalPoint": [0.5, 0.45]}, {"at": 50, "focalPoint": [0.5, 0.44]}, {"at": 100, "focalPoint": [0.5, 0.45]}]}
     if not clean_value(camera_path.get("description")):
         camera_path["description"] = camera_description
@@ -808,10 +893,14 @@ def build_motion_prompt(shot, existing=None):
         "rationale": f"transition only after the visible state '{shot.get('stateChange')}' resolves the question '{shot.get('question')}'",
     }
     audio_cues = as_list(existing.get("audioCues")) or [state["audioCue"] for state in states]
-    static_scene = scene_type in {"chapter-break", "negative-space-beat", "end-card-cta", "archive-end-card"}
+    # Motion v2: static is a deliberate breath, not a default. Designed
+    # single-state breaths (quote pause, negative-space beat, chapter reset,
+    # end cards) or explicit intensity 0 keep the exception; every narrative
+    # scene must earn its hold with a visible state change instead.
+    static_scene = scene_type in {"quote", "negative-space-beat", "chapter-break", "end-card-cta", "archive-end-card"}
     static_exception = existing.get("staticException") if isinstance(existing.get("staticException"), dict) else {
         "allowed": intensity == 0 or static_scene,
-        "reason": f"static treatment is explicitly bound to '{shot.get('stateChange')}'" if intensity == 0 or static_scene else f"the scene must make '{shot.get('stateChange')}' visible rather than remain a generic hold",
+        "reason": f"static breath explicitly bound to '{shot.get('stateChange')}'" if intensity == 0 or static_scene else f"the scene must make '{shot.get('stateChange')}' visible rather than remain a generic hold",
     }
     negative_motion = unique(as_list(existing.get("negativeMotion")) + [
         "no generic zoom used as the only motion",
@@ -819,6 +908,10 @@ def build_motion_prompt(shot, existing=None):
         "no random parallax or floating layers",
         "no motion that changes the depicted evidence or classification",
         "no camera move that crosses a crop or safe-area boundary",
+        "no static-hold outside designed breaths (quote/negative-space/chapter/end-card) or explicit intensity 0",
+        "no typewriter-interference on photo states without a text overlay",
+        "no two consecutive scenes sharing the same primary camera operator",
+        "no masked-reveal or evidence-lens as the opening state of a scene",
     ])
     full = clean_value(existing.get("full")) or " | ".join([
         f"MOTION_PROMPT[{shot.get('promptId')}/{shot.get('shotId')}]",

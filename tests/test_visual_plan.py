@@ -83,6 +83,26 @@ class VisualPlanTests(unittest.TestCase):
         }, ensure_ascii=False), encoding="utf-8")
         return episode, visual
 
+    def test_default_scene_selection_uses_cinematic_images_and_reserves_evidence_layouts(self):
+        self.assertEqual(visual_plan.block_type("HOOK"), "cinematic-photo")
+        self.assertEqual(visual_plan.block_type("COLD OPEN"), "cinematic-photo")
+        self.assertEqual(visual_plan.block_type("beat sem categoria"), "cinematic-photo")
+        self.assertEqual(visual_plan.block_type("EVIDÊNCIAS"), "evidence-reveal")
+
+        photo_states = visual_plan.default_states("establish the setting", "FATO", ["environment", "subject"])
+        self.assertEqual(len(photo_states), 2)
+        self.assertEqual(photo_states[0]["motion"], "static-hold")
+        self.assertEqual(photo_states[0]["timeRange"], [0, 0.38])
+        self.assertEqual(photo_states[1]["motion"], "slow-push")
+        self.assertNotIn("annotation", photo_states[0])
+
+        evidence_states = visual_plan.default_states(
+            "inspect the cited detail", "FATO", ["environment", "subject", "state-change"], "evidence-reveal"
+        )
+        self.assertEqual(len(evidence_states), 2)
+        self.assertNotEqual(evidence_states[0]["visibleLayers"], evidence_states[1]["visibleLayers"])
+        self.assertTrue(all("evidence-lens" != state["motion"] for state in evidence_states))
+
     def test_init_creates_gated_artifacts_without_research_fallback(self):
         with tempfile.TemporaryDirectory() as temp:
             episode, _ = self.make_episode(temp, complete_research=False)
@@ -125,9 +145,12 @@ class VisualPlanTests(unittest.TestCase):
             self.assertIn("allowed", motion["staticException"])
             self.assertIn("no generic zoom used as the only motion", motion["negativeMotion"])
             self.assertNotEqual(motion["full"], shot["imagePrompt"]["full"])
-            self.assertEqual(len(shot["states"]), 5)
+            self.assertEqual(len(shot["states"]), 2)
             self.assertTrue(all(state["assetIds"] for state in shot["states"]))
-            self.assertTrue(any(state["motion"] not in {"slow-push", "lateral-drift", "controlled-crop", "static-hold"} for state in shot["states"]))
+            self.assertEqual(shot["states"][0]["motion"], "static-hold")
+            self.assertEqual(shot["states"][1]["motion"], "slow-push")
+            self.assertNotEqual(shot["states"][0]["visibleLayers"], shot["states"][1]["visibleLayers"])
+            self.assertFalse(shot["motionPrompt"]["staticException"]["allowed"])
             serialized = json.dumps({"image": shot["imagePrompt"], "motion": motion}, ensure_ascii=False).lower()
             for token in ("[preencher", "placeholder", "tbd", "a concrete documentary subject", "the correct time of day"):
                 self.assertNotIn(token, serialized)
