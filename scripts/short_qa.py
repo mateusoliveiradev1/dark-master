@@ -56,6 +56,11 @@ def frame_similarity(video):
         return float(match.group(1)), ""
 
 
+STOPWORDS = {"the", "a", "o", "e", "de", "do", "da", "que", "and", "of", "to",
+             "in", "it", "was", "is", "um", "uma", "os", "as", "no", "na", "em",
+             "para", "com", "por", "se", "y", "el", "la", "los", "las", "un", "una"}
+
+
 def first_words_overlap(short_path, long_path):
     short = narration_blocks(short_path)
     long = narration_blocks(long_path)
@@ -64,6 +69,53 @@ def first_words_overlap(short_path, long_path):
     short_words = re.findall(r"\w+", short[0].lower(), flags=re.UNICODE)[:10]
     long_words = set(re.findall(r"\w+", long[0].lower(), flags=re.UNICODE)[:10])
     return len(set(short_words) & long_words)
+
+
+def first_words_similarity(short_path, long_path):
+    """Jaccard nas 10 primeiras palavras (sem stopwords): pega parafrase que o overlap conta."""
+    short = narration_blocks(short_path)
+    long = narration_blocks(long_path)
+    if not short or not long:
+        return 0.0
+    short_set = {w for w in re.findall(r"\w+", short[0].lower(), flags=re.UNICODE)[:10] if w not in STOPWORDS}
+    long_set = {w for w in re.findall(r"\w+", long[0].lower(), flags=re.UNICODE)[:10] if w not in STOPWORDS}
+    if not short_set or not long_set:
+        return 0.0
+    return round(len(short_set & long_set) / len(short_set | long_set), 4)
+
+
+def plan_field(plan_path, *labels):
+    try:
+        text = Path(plan_path).read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return ""
+    for label in labels:
+        match = re.search(r"(?mi)^-\s*" + re.escape(label) + r"[ \t]*(.*)$", text)
+        if match and match.group(1).strip():
+            return match.group(1).strip()
+    return ""
+
+
+def traceability_errors(plan, claims_path):
+    """Claim do Short existe em CLAIMS.json + beat do long referenciado."""
+    errors = []
+    claim_ref = plan_field(plan, "Claim IDs:", "Claim usada:")
+    beat_ref = plan_field(plan, "Beat do long:", "Beat do long que expande a pergunta:")
+    if not claim_ref:
+        errors.append("short_claim_nao_declarada")
+    if not beat_ref:
+        errors.append("short_beat_nao_declarado")
+    if claim_ref and claims_path and Path(claims_path).exists():
+        try:
+            data = json.loads(Path(claims_path).read_text(encoding="utf-8"))
+        except ValueError:
+            data = {}
+        known = {str(c.get("id")) for c in data.get("claims", [])} if isinstance(data, dict) else set()
+        wanted = {token.strip().upper() for token in re.split(r"[,;]", claim_ref) if token.strip()}
+        unknown = sorted(wanted - known)
+        if unknown:
+            errors.append(f"short_claim_desconhecida({','.join(unknown)})")
+    return errors
 
 
 BANNED_OPENERS = (
@@ -77,7 +129,7 @@ BUBBLE_KILLERS = (
 )
 
 
-def run(narration, plan, video=None, long_form=None, frame_text=None):
+def run(narration, plan, video=None, long_form=None, frame_text=None, claims=None):
     errors = []
     warnings = []
     if not Path(narration).exists():
@@ -107,6 +159,10 @@ def run(narration, plan, video=None, long_form=None, frame_text=None):
     overlap = first_words_overlap(narration, long_form) if long_form and Path(long_form).exists() else 0
     if overlap >= 5:
         errors.append(f"short_long_overlap({overlap}>=5)")
+    similarity_text = first_words_similarity(narration, long_form) if long_form and Path(long_form).exists() else 0.0
+    if similarity_text > 0.6:
+        errors.append(f"short_long_parafrase({similarity_text}>0.6)")
+    errors.extend(traceability_errors(plan, claims))
     duration, duration_error = video_duration(video) if video else (None, "")
     similarity, similarity_error = frame_similarity(video) if video else (None, "")
     video_checks = {}
@@ -138,6 +194,7 @@ def run(narration, plan, video=None, long_form=None, frame_text=None):
         "hook_words": words(blocks[0]) if blocks else 0,
         "blocks": len(blocks),
         "first_words_overlap_with_long": overlap,
+        "first_words_similarity_with_long": similarity_text,
         "frame_text_words": words(str(frame_text)) if frame_text is not None else 0,
         "bubble_killers": list(BUBBLE_KILLERS),
         "video": video_checks,
@@ -153,9 +210,10 @@ def main():
     parser.add_argument("--video")
     parser.add_argument("--long")
     parser.add_argument("--frame-text", default=None)
+    parser.add_argument("--claims", default=None, help="CLAIMS.json para validar a claim do Short")
     parser.add_argument("--out")
     args = parser.parse_args()
-    result = run(args.narration, args.plan, args.video, args.long, args.frame_text)
+    result = run(args.narration, args.plan, args.video, args.long, args.frame_text, args.claims)
     if args.out:
         output = Path(args.out)
         output.parent.mkdir(parents=True, exist_ok=True)

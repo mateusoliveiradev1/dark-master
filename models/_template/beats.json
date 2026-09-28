@@ -1,0 +1,10 @@
+{
+  "generic": [
+    ["COLD OPEN", 0.07, "cena/promessa que prende; sem intro, sem contexto antes do gancho"],
+    ["CONTEXTO", 0.18, "o que o espectador precisa saber; stakes antes da tese"],
+    ["DESENVOLVIMENTO", 0.3, "o miolo; revelacoes em sequencia; sem momentos mortos"],
+    ["VIRADA", 0.2, "a complicacao/revelacao que muda tudo"],
+    ["CONSEQUENCIA", 0.17, "o que aquilo significa; impacto em pessoas reais"],
+    ["FECHAMENTO+TEASER", 0.08, "resposta + implicacao + gancho do proximo"]
+  ]
+}

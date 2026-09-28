@@ -130,12 +130,64 @@ GENRES = {
     ],
 }
 
-# porte de Short (palavras) — narracao ~2,5 palavras/segundo
+# porte de Short (palavras) — baseline EN ~2,5 palavras/segundo; outros
+# idiomas escalam por SHORT_WPS (ver porte_short_window).
 PORTE_SHORT = {
     "13s": (28, 45),
     "25s": (48, 75),
     "45s": (90, 125),
 }
+
+# WPM documental QUALITY por idioma (pesquisa 2026: PT-BR doc ~145,
+# EN doc ~150-160, ES doc ~150). Canal pode travar o seu em
+# playbooks/<canal>/roteiro.json: "wpm": 145 ou {"pt": 145, "en": 160, "es": 150}.
+# Trilho ES preparado (sem canal ES ativo): nunca fallback silencioso.
+WPM = {"pt": 145, "en": 155, "es": 150}
+SHORT_WPS = {"pt": 2.4, "en": 2.5, "es": 2.4}
+SHORT_SECONDS = {"13s": 13, "25s": 25, "45s": 45}
+
+
+def channel_wpm(channel):
+    """Le playbooks/<canal>/roteiro.json -> wpm int ou {lang: wpm}; None + AVISO."""
+    if not channel:
+        return None
+    p = Path(channel).expanduser()
+    pb = p if p.is_dir() else PLAYBOOKS / channel
+    if not pb.is_dir():
+        print(f"[AVISO] canal '{channel}' nao encontrado em {PLAYBOOKS} - usando WPM do idioma.")
+        return None
+    f = pb / "roteiro.json"
+    if not f.exists():
+        return None
+    try:
+        d = json.loads(f.read_text(encoding="utf-8"))
+    except ValueError as e:
+        print(f"[AVISO] roteiro.json invalido ({e}) - usando WPM do idioma.")
+        return None
+    wpm = d.get("wpm")
+    if isinstance(wpm, int) and wpm > 0:
+        return wpm
+    if isinstance(wpm, dict) and wpm:
+        return {str(k): int(v) for k, v in wpm.items() if isinstance(v, int) and v > 0}
+    return None
+
+
+def wpm_for(channel=None, lang="en"):
+    """WPM efetivo: roteiro.json do canal vence; senao tabela do idioma."""
+    base = WPM.get(lang, 150)
+    override = channel_wpm(channel)
+    if isinstance(override, dict):
+        return override.get(lang, base)
+    if isinstance(override, int):
+        return override
+    return base
+
+
+def porte_short_window(porte, lang="en"):
+    """Janela de palavras do Short escalada pelo ritmo do idioma."""
+    lo, hi = PORTE_SHORT[porte]
+    scale = SHORT_WPS.get(lang, 2.5) / 2.5
+    return (round(lo * scale), round(hi * scale))
 
 META = [r"\bthis channel\b", r"\besse canal\b", r"\bin this video\b", r"\bnesse v[íi]deo\b",
         r"\bwatch the short\b", r"\bassista o short\b", r"\bsubscribe\b.*\bnow\b"]
@@ -201,7 +253,7 @@ def words(t):
     return len(re.findall(r"\w+", t, flags=re.UNICODE))
 
 
-def minutes_window(value):
+def minutes_window(value, wpm=None):
     match = re.fullmatch(r"(\d{1,3})(?:-(\d{1,3}))?", (value or "").strip())
     if not match:
         raise ValueError("target-minutes deve ser 30 ou 30-35")
@@ -209,7 +261,9 @@ def minutes_window(value):
     last = int(match.group(2) or first)
     if first < 1 or last < first or last > 180:
         raise ValueError("target-minutes fora do intervalo")
-    return int(first * 140), int(last * 160)
+    if wpm is None:
+        return int(first * 140), int(last * 160)
+    return int(first * wpm), int(last * wpm)
 
 
 def load_claims(path):
@@ -299,27 +353,29 @@ def build_short_funnel(meta):
         "## Contrato",
         "- Objetivo: acquire cold viewers and create a reason to open the long.",
         "- Use one verified claim only; do not retell the entire long.",
-        "- Fala: starts by 0.5s; <=8 words in first 3s.",
-        "- Texto na tela: <=6 words; frame 1 shows the object, contradiction or result.",
-        "- Loop: visual, sonic and semantic handoff are explicit.",
-        "- CTA: only in pinned comment/related video when it would break the loop.",
+        "- Fala (regra): starts by 0.5s; <=8 words in first 3s.",
+        "- Overlay (regra): <=6 words; frame 1 shows the object, contradiction or result.",
+        "- Loop (regra): visual, sonic and semantic handoff are explicit.",
+        "- CTA (regra): only in pinned comment/related video when it would break the loop.",
         "",
         "## Roteiro",
-        "HOOK — visual frame 1: ",
-        "HOOK — text on screen: ",
-        "HOOK — speech: ",
-        "SETUP — one sentence: ",
-        "EVIDENCE — verified fact: ",
-        "TURN — what changes the interpretation: ",
-        "PAYOFF — what the viewer learns: ",
-        "BRIDGE — why the long is necessary: ",
-        "LOOP — first frame repeats: ",
-        "LOOP — last sound repeats: ",
-        "CTA — pinned comment/related video: ",
+        "- Frame 1 visual: ",
+        "- Texto na tela: ",
+        "- Fala inicial: ",
+        "- Promessa do Short: ",
+        "- Payoff: ",
+        "- Ponte: ",
+        "- Emenda visual: ",
+        "- Emenda sonora: ",
+        "- Loop semântico: ",
+        "- Comentário fixado: ",
+        "- Related Video: ",
+        "- Claim IDs: ",
+        "- Beat do long: ",
         "",
         "## Claims",
-        "- Claim IDs used: ",
-        "- Long beat supported: ",
+        "- Claim IDs usadas (devem existir em CLAIMS.json): ",
+        "- Beat do long expandido: ",
         "- Forbidden: invented dialogue, invented evidence, generic fear language.",
     ]) + "\n"
 
@@ -333,11 +389,12 @@ def validate_funnel_plan(path):
     required = [
         "Frame 1 visual:", "Texto na tela:", "Fala inicial:", "Promessa do Short:",
         "Payoff:", "Ponte:", "Emenda visual:", "Emenda sonora:", "Loop semântico:",
-        "Comentário fixado:", "Related Video:"
+        "Comentário fixado:", "Related Video:", "Claim IDs:", "Beat do long:"
     ]
     values = {}
     for label in required:
-        match = re.search(r"(?mi)^-\s*" + re.escape(label) + r"\s*(.*)$", text)
+        # [ \t]* (nunca \s*): vazio nao pode "emprestar" o valor da proxima linha.
+        match = re.search(r"(?mi)^-\s*" + re.escape(label) + r"[ \t]*(.*)$", text)
         value = (match.group(1).strip() if match else "")
         if not value:
             errors.append(f"funnel_missing:{label}")
@@ -415,7 +472,7 @@ def build_plan(genre, porte, meta, window=None):
     return "\n".join(lines) + "\n"
 
 
-def build_roteiro_map(genre, porte, meta, window=None):
+def build_roteiro_map(genre, porte, meta, window=None, wpm=150):
     lo, hi = window or PORTE[porte]
     mid = (lo + hi) / 2
     blocks = []
@@ -428,7 +485,7 @@ def build_roteiro_map(genre, porte, meta, window=None):
             "text": "",
             "claim_ids": [],
             "target_words": target_words,
-            "target_seconds": round(target_words / 150 * 60, 1),
+            "target_seconds": round(target_words / wpm * 60, 1),
             "question": "",
             "state_change": "",
             "rehook": False,
@@ -448,7 +505,7 @@ def normalize_text(value):
     return re.sub(r"\s+", " ", value or "").strip()
 
 
-def validate_roteiro_map(path, narration_path, claims, genre, window):
+def validate_roteiro_map(path, narration_path, claims, genre, window, wpm=150):
     errors = []
     try:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -498,7 +555,14 @@ def validate_roteiro_map(path, narration_path, claims, genre, window):
     lo, hi = window or (0, 10 ** 9)
     if not lo <= target_total <= hi:
         errors.append(f"map_target_words({target_total}) fora de {lo}-{hi}")
-    required_rehooks = min(6, max(3, int(lo / 700)))
+    # Ritmo QUALITY por minutos (MrBeast 2-4min adaptado): ~1 rehook/4min no
+    # long generico; doc investigativo 25min+ pede ~1/3min (cap 8).
+    minutes = (hi / wpm) if wpm else 0
+    long_doc = genre in {"forense", "truecrime", "darkhistory", "financial"} and minutes >= 25
+    if long_doc:
+        required_rehooks = min(8, max(4, -(-int(minutes) // 3)))
+    else:
+        required_rehooks = min(6, max(3, -(-int(minutes) // 4)))
     if rehooks < required_rehooks:
         errors.append(f"map_rehooks_insuficientes({rehooks}<{required_rehooks})")
     if not any(block.get("payoff") for block in blocks if isinstance(block, dict)):
@@ -516,7 +580,7 @@ def validate_roteiro_map(path, narration_path, claims, genre, window):
 
 
 def validate(narration_path, porte, genre, window=None, claims_path=None,
-             timeline_path=None, funnel_plan=None, map_path=None, strict=False):
+             timeline_path=None, funnel_plan=None, map_path=None, strict=False, wpm=150):
     narration_path = Path(narration_path)
     txt = narration_path.read_text(encoding="utf-8", errors="replace")
     body = "\n".join(l for l in txt.splitlines() if not l.strip().startswith("#"))
@@ -574,7 +638,7 @@ def validate(narration_path, porte, genre, window=None, claims_path=None,
             flags.extend(validate_source_ledger(source_file, claims))
         if genre != "short":
             map_file = Path(map_path) if map_path else narration_path.parent / "ROTEIRO_MAP.json"
-            flags.extend(validate_roteiro_map(map_file, narration_path, claims, genre, (lo, hi)))
+            flags.extend(validate_roteiro_map(map_file, narration_path, claims, genre, (lo, hi), wpm))
         if genre in {"forense", "truecrime", "darkhistory", "financial"}:
             timeline_file = Path(timeline_path) if timeline_path else narration_path.parent / "LINHA_DO_TEMPO.md"
             events, timeline_error = timeline_events(timeline_file)
@@ -602,6 +666,17 @@ def validate(narration_path, porte, genre, window=None, claims_path=None,
                 flags.extend(validate_funnel_plan(funnel_file))
     if not has_alleged:
         print("[advisory] nao encontrei suspeito/acusado/alegado; confirme se existe pessoa viva.")
+    if genre != "short" and paras:
+        # Blueprint Fern (advisory): cold open ancora em dado especifico, nao em tese.
+        hook = paras[0]
+        if not re.search(r"\b(19|20)\d{2}\b|\b\d{1,2}h\d{0,2}\b|\b\d{1,2}:\d{2}\b", hook):
+            print("[advisory] hook sem ancora especifica (ano/hora/local+nome); blueprint Fern pede cena datada (ref 06).")
+        if re.search(r"^(foi|era|há|havia|foram|eram)\b", hook.strip().lower()):
+            print("[advisory] hook abre no passado ('foi/era'); prefira presente do indicativo + 1 peca retida (ref 06).")
+        # Debt Map (advisory): perguntas abertas cedo demais matam retencao.
+        early_debt = sum(1 for p in paras[:2] if "?" in p)
+        if early_debt >= 2:
+            print("[advisory] 2+ perguntas nos 2 primeiros blocos; Knowledge Debt pago cedo demais esvazia o meio (pague na 2a metade).")
     print(f"# Validacao de roteiro — {Path(narration_path).name}\n")
     print(f"  genero: {genre} | porte: {porte} ({lo}-{hi})")
     print(f"  paragrafos: {len(paras)} | palavras: {total}")
@@ -615,15 +690,50 @@ def validate(narration_path, porte, genre, window=None, claims_path=None,
     return not flags
 
 
+def validate_beats(beats):
+    """Contrato de beats.json: lista de [beat, proporcao, guia], soma 0.98-1.02,
+    beats unicos e nao-vazios, guia nao-vazio. Retorna lista de erros."""
+    errors = []
+    if not isinstance(beats, list) or not beats:
+        return ["beats_vazio"]
+    total = 0.0
+    seen = set()
+    for index, beat in enumerate(beats, 1):
+        if not isinstance(beat, (list, tuple)) or len(beat) < 2:
+            errors.append(f"beat_{index}:formato_invalido")
+            continue
+        name = str(beat[0]).strip()
+        if not name:
+            errors.append(f"beat_{index}:nome_vazio")
+        elif name in seen:
+            errors.append(f"beat_{name}:duplicado")
+        seen.add(name)
+        try:
+            total += float(beat[1])
+        except (TypeError, ValueError):
+            errors.append(f"beat_{name or index}:proporcao_invalida")
+        if len(beat) < 3 or not str(beat[2]).strip():
+            errors.append(f"beat_{name or index}:guia_vazio")
+    if not 0.98 <= total <= 1.02:
+        errors.append(f"beats_soma_invalida({round(total, 4)};esperado_1.0)")
+    return errors
+
+
 def load_beats(path):
     """Carrega generos customizados de um JSON: {genero: [[beat, prop, guia], ...]}"""
     try:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
     except Exception as e:  # noqa
         print(f"[!] beats-file invalido: {e}"); return
+    loaded = []
     for g, beats in data.items():
+        errors = validate_beats(beats)
+        if errors:
+            print(f"[!] genero '{g}' rejeitado ({'; '.join(errors)}) - mantido o anterior.")
+            continue
         GENRES[g] = [(b[0], float(b[1]), b[2] if len(b) > 2 else "") for b in beats]
-    print(f"[i] generos carregados: {', '.join(data.keys())}")
+        loaded.append(g)
+    print(f"[i] generos carregados: {', '.join(loaded) or 'nenhum'}")
 
 
 def gen_hooks(n, case, archetypes, lang):
@@ -676,7 +786,10 @@ def main():
     ap.add_argument("--channel", help="playbook do canal: le roteiro.json (porte proprio do canal)")
     ap.add_argument("--hooks", type=int, help="gera N variacoes de hook (references/31)")
     ap.add_argument("--archetypes", help="arquetipos do banco, ex.: 1,3,4,5")
-    ap.add_argument("--lang", default="en", choices=["en", "pt"])
+    ap.add_argument("--lang", default="en", choices=["en", "pt", "es"],
+                    help="idioma da narracao (trilho ES preparado; sem canal ES ativo)")
+    ap.add_argument("--wpm", type=int, default=None,
+                    help="sobrescreve o WPM do idioma/canal (ex.: --wpm 145)")
     a = ap.parse_args()
 
     if a.beats_file:
@@ -697,19 +810,21 @@ def main():
     if a.funnel and is_short:
         print("[!] --funnel pertence ao plano long; use --genre short separadamente.")
         sys.exit(2)
+    lang = a.lang or "en"
+    wpm = a.wpm or wpm_for(a.channel, lang)
     if is_short:
         porte = a.porte or "25s"
         if porte not in PORTE_SHORT:
             print(f"[!] porte de Short invalido: {porte}. Use 13s | 25s | 45s.")
             sys.exit(2)
-        window = PORTE_SHORT[porte]
+        window = porte_short_window(porte, lang)
     elif a.target_minutes:
         try:
-            window = minutes_window(a.target_minutes)
+            window = minutes_window(a.target_minutes, wpm)
         except ValueError as exc:
             print(f"[!] {exc}")
             sys.exit(2)
-        porte = f"custom {a.target_minutes}min"
+        porte = f"custom {a.target_minutes}min ({wpm}wpm)"
     else:
         cr = channel_roteiro(a.channel, a.porte) if a.channel else None
         if cr:
@@ -722,7 +837,7 @@ def main():
             window = PORTE[porte]
 
     if a.validate:
-        ok = validate(a.validate, porte, genre, window, a.claims, a.timeline, a.funnel_plan, a.map, a.strict)
+        ok = validate(a.validate, porte, genre, window, a.claims, a.timeline, a.funnel_plan, a.map, a.strict, wpm)
         sys.exit(0 if ok else 1)
 
     if not a.out:
@@ -748,7 +863,7 @@ def main():
             except (OSError, ValueError, AttributeError):
                 map_needs_seed = True
         if map_needs_seed:
-            map_path.write_text(json.dumps(build_roteiro_map(genre, porte, a.__dict__, window), ensure_ascii=False, indent=2), encoding="utf-8")
+            map_path.write_text(json.dumps(build_roteiro_map(genre, porte, a.__dict__, window, wpm), ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"[OK] mapa semântico: {map_path}")
     if a.funnel:
         short_plan = out / "ROTEIRO_SHORT_PLANO.md"

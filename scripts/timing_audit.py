@@ -68,11 +68,19 @@ def timing_from_file(path):
     return seconds, error, {}
 
 
-def audit(narration, captions_times, target_minutes, voice=None, map_path=None):
+def audit(narration, captions_times, target_minutes, voice=None, map_path=None, wpm=150):
     lo, hi = target_bounds(target_minutes)
     seconds, error, details = timing_from_file(captions_times)
     if error:
-        return {"status": "FALHA", "error": error, "target_minutes": target_minutes}
+        # Fallback QUALITY: sem sidecar, estima via voz real ou palavras/WPM.
+        # REVIEW (nunca PASS): o gate exige captions medidas; a estimativa so orienta o fix.
+        narration_path = Path(narration)
+        narration_words = words(narration_path.read_text(encoding="utf-8", errors="replace")) if narration_path.exists() else 0
+        voice_seconds, voice_error = (audio_seconds(Path(voice)) if voice else (None, "voice_missing"))
+        estimate = voice_seconds if voice_seconds else (narration_words / wpm * 60 if narration_words else 0)
+        return {"status": "REVIEW" if estimate else "FALHA", "error": error,
+                "estimate_seconds": round(estimate, 1), "estimate_source": "voice" if voice_seconds else "words_wpm",
+                "narration_words": narration_words, "target_minutes": target_minutes}
     if not details.get("blocks"):
         return {"status": "FALHA", "error": "timing_blocks_missing", "target_minutes": target_minutes}
     block_errors = []
@@ -119,7 +127,7 @@ def audit(narration, captions_times, target_minutes, voice=None, map_path=None):
             for block, actual_block in zip(map_blocks, block_times):
                 target = float(block.get("target_seconds", 0) or 0)
                 measured = float(actual_block.get("dur", 0) or 0)
-                tolerance = max(30, target * 0.5)
+                tolerance = max(15, target * 0.25)
                 passed = measured > 0 and abs(measured - target) <= tolerance
                 beat_timing.append({
                     "id": block.get("id"),
@@ -153,9 +161,10 @@ def main():
     parser.add_argument("--target-minutes", required=True)
     parser.add_argument("--voice")
     parser.add_argument("--map")
+    parser.add_argument("--wpm", type=int, default=150)
     parser.add_argument("--out")
     args = parser.parse_args()
-    result = audit(args.narration, args.captions_times, args.target_minutes, args.voice, args.map)
+    result = audit(args.narration, args.captions_times, args.target_minutes, args.voice, args.map, args.wpm)
     if args.out:
         output = Path(args.out)
         output.parent.mkdir(parents=True, exist_ok=True)

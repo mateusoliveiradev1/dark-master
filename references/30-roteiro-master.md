@@ -77,7 +77,7 @@ O `rotation_audit.py` compara somente os três episódios anteriores por padrão
 
 Depois que o mapa e as claims forem aprovados, o dark-artdirector deve criar `VISUAL_BIBLE.json` e `SHOT_SPECS.json`. Cada shot precisa indicar função editorial, imagem primária, apoio, exclusões, claims, crop, safe area, estados temporais e prompt. O `PROMPT_PLAN.json` deve estar em `PROMPTS_READY` antes de gerar ou selecionar assets.
 
-A voz pode ser gerada depois do design aprovado, mas o Remotion só é liberado quando `asset_manifest`, `image_audit`, captions e `TIMING_AUDIT` estiverem PASS. Stills nunca aprovam o vídeo final: o gate exige F0/F50/F100, derivados 120px, sequência completa e revisão independente.
+A voz pode ser gerada depois do design aprovado, mas o Remotion só é liberado quando `asset_manifest`, `image_audit`, captions e `TIMING_AUDIT` estiverem PASS. A revisão visual mostra a sequência inteira em overview e usa F0/F50/F100 em até quatro cenas representativas. Só findings `BLOCKER`/`MAJOR` geram uma única rodada de correção; polimento subjetivo não reabre o ciclo.
 
 - `ROTEIRO_MAP.json` é o sidecar obrigatório do long: cada bloco tem `beat`, `text`, `claim_ids`, `target_words`, `target_seconds`, `question`, `state_change`, `rehook` e `payoff`.
 - O texto do mapa deve corresponder a `narration_v3.txt`; marcadores ficam apenas no sidecar, nunca na narração TTS.
@@ -159,7 +159,15 @@ HOOK (0–3s: impossibilidade completa ou pergunta em 2ª pessoa) · DESENVOLVIM
 | FORENSE 45–60 | 45–60 min | ~6.300–9.600 | investigação extensive |
 | FORENSE 60–70 | 60–70 min | ~8.400–11.200 | arquivo completo |
 
-≈ **150–160 palavras por minuto** (narração dark, pausada). Short: ~2,5 palavras/segundo. A faixa longa só é válida se a pesquisa sustentar a progressão; não encha com biografia ou repetição.
+**WPM documental QUALITY por idioma** (o `script_builder.py` calcula tudo a partir daqui; canal pode travar o seu em `playbooks/<canal>/roteiro.json` → `wpm`):
+
+| Idioma | Long WPM | Short (palavras/seg) | Flag |
+|---|---|---|---|
+| PT-BR | 145 | 2,4 | `--lang pt` |
+| EN | 155 | 2,5 | `--lang en` |
+| ES (trilho preparado, sem canal ativo) | 150 | 2,4 | `--lang es` |
+
+`--wpm N` sobrescreve quando o canal ainda não travou o seu. A faixa longa só é válida se a pesquisa sustentar a progressão; não encha com biografia ou repetição.
 
 ## Dispositivos de retenção (onde inserir)
 
@@ -169,6 +177,9 @@ HOOK (0–3s: impossibilidade completa ou pergunta em 2ª pessoa) · DESENVOLVIM
 - **Pattern interrupt a cada 30–90s** (mudança visual/sonora).
 - **Pergunta central** que só se resolve no fim.
 - **Mudança de estado** a cada 30–60s: nova evidência, contradição, testemunha, data, hipótese, limite pericial ou pergunta ainda sem resposta.
+- **Debt Map (QUALITY):** rotule cada bloco P (pergunta), C (claim), X (payoff). Zero debt aberto nos 90s finais = FAIL; Knowledge pago nos primeiros 2 min → mover para a 2ª metade.
+- **Cold Fern (QUALITY):** data + local + nome/idade/papel + presente do indicativo + 1 peça retida. Hook no passado ("foi/era") ou tese antes da cena = reescrever (`06`).
+- **Corte 20% (QUALITY, sempre):** ler em voz alta → cortar 20% → reescrever o hook 3–5x. Sem modo rápido: o padrão é Fern, não Magnates.
 
 ## Fórmula do hook (escolha 1)
 

@@ -35,6 +35,8 @@ Cada afirmação material recebe um ID estável. O formato canônico é:
       "primary_source": true,
       "locator": "p. 12, paragrafo 3",
       "confidence": "ALTA",
+      "what_proves": "o que esta fonte permite afirmar (valor probatorio)",
+      "what_fails_to_prove": "o que ela NAO prova (limite; vira REVIEW se ausente)",
       "contradiction_id": null,
       "use_in": ["HOOK", "CRONOLOGIA"]
     }
@@ -78,9 +80,9 @@ Um long de 30–70 minutos não é uma biografia automática. A completeness é 
 1. **Origem:** nascimento, família, infância e contexto social somente quando muda a interpretação do caso.
 2. **Linha de vida:** escola, trabalho, relacionamentos, deslocamentos, tratamentos, conflitos e redes de contato relevantes.
 3. **Antecedentes:** separações, processos, dependência, dívidas, conflitos e eventos anteriores, somente quando comprovados e relevantes.
-4. **Descoberta:** primeira.notificação, corpo, objeto, ligação, testemunha ou改动 that starts the case.
-5. **Investigação:** chamadas, deslocamentos, algoritmos, entrevistas, perícia, documentos e decisões.
-6. **Contradigções:** incompatibilidades entre versões, laudos, horários, locais e registros.
+4. **Descoberta:** primeira notificação, corpo, objeto, ligação, testemunha ou o evento que inicia o caso (hora, lugar, ação e reação exatos).
+5. **Investigação:** chamadas, deslocamentos, entrevistas, perícia, documentos e decisões.
+6. **Contradições:** incompatibilidades entre versões, laudos, horários, locais e registros.
 7. **Reconstrução:** sequência mínima que explica os fatos confirmados, com graus de certeza.
 8. **Desfecho:** o que foi confirmado, descartado, continua aberto e por quê.
 

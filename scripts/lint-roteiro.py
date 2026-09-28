@@ -79,7 +79,15 @@ AI_TELLS = {
     ],
     "autoridade emprestada": [
         r"\bespecialistas dizem\b", r"\bsegundo relatos\b", r"\bexperts say\b",
-        r"\bstudies show\b", r"\ba ci[eê]ncia diz\b",
+        r"\bstudies show\b", r"\ba ci[eê]ncia diz\b", r"\bexperts agree\b",
+        r"\bstudies confirm\b", r"\blos expertos (dicen|coinciden)\b",
+    ],
+    "lista negra 2026": [
+        r"\bgame[ -]?changer\b", r"\bunlock\b", r"\bdive into\b",
+        r"\bin today'?s video\b", r"\bno video de hoje\b", r"\bfast-paced\b",
+        r"\bever-evolving\b", r"\bcutting-edge\b", r"\bseamless\b",
+        r"\bwhat if i told you\b", r"\be se eu te dissesse\b",
+        r"\bbut here'?s the thing\b", r"\blet that sink in\b",
     ],
     "evitar is/are": [
         r"\bserve como\b", r"\brepresenta\b", r"\bconta com\b", r"\bserves as\b", r"\bboasts\b",
@@ -96,6 +104,9 @@ AI_TELLS = {
 SENSITIVE = [
     r"\b(matar|matou|assassinou|estupr\w+|sangue|gore|corpo(s)? mutilad\w+)\b",
     r"\b(porn|sexo expl[íi]cito)\b",
+    # Trilho EN/ES (gore grafico; crime comum como "killed/scammed" fica no compliance, nao aqui)
+    r"\b(murdered|dismembered|decapitat\w+|bloodbath)\b",
+    r"\b(asesin[óo]|sangre|gore|cad[áa]ver mutilado)\b",
 ]
 
 SUSPECT_WORDS = [r"\bsuspeit", r"\bacusad", r"\balegad", r"\bsupost"]
@@ -105,6 +116,9 @@ MONTHS = {
            "julho": 7, "agosto": 8, "setembro": 9, "outubro": 10, "novembro": 11, "dezembro": 12},
     "en": {"january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6, "july": 7,
            "august": 8, "september": 9, "october": 10, "november": 11, "december": 12},
+    # Trilho ES preparado (sem canal ES ativo): cronologia pronta quando o idioma ligar.
+    "es": {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
+           "julio": 7, "agosto": 8, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12},
 }
 JUMP_MARKERS = [r"\bantes\b", r"\bmeses? antes\b", r"\banos? antes\b", r"\brecua\b", r"\bvolta a\b",
                 r"\bflashback\b", r"\bna [eé]poca\b", r"\bmais cedo\b", r"\bearlier\b",
@@ -245,7 +259,7 @@ def main():
     ap.add_argument("path")
     ap.add_argument("--short", action="store_true", help="checagens de Short (hook <=8 palavras)")
     ap.add_argument("--cronologia", help="LINHA_DO_TEMPO.md: checa ordem/saltos/cobertura das datas")
-    ap.add_argument("--lang", choices=["pt", "en"], default="pt", help="idioma dos meses (cronologia)")
+    ap.add_argument("--lang", choices=["pt", "en", "es"], default="pt", help="idioma dos meses (cronologia; trilho ES preparado)")
     ap.add_argument("--cold-open", type=int, default=3, help="blocos iniciais (hook/recuo) fora da checagem de ordem")
     ap.add_argument("--genero", default="generic",
                     choices=["generic", "truecrime", "forense", "darkhistory", "financial"],
@@ -292,6 +306,17 @@ def main():
         print("  -> REESCREVER (densidade alta de IA)")
 
     sents = [s.strip() for s in re.split(r"[.!?…]+", text) if s.strip()]
+    if len(sents) >= 3:
+        counts = [len(re.findall(r"\w+", s)) for s in sents]
+        runs = 1
+        for prev, cur in zip(counts, counts[1:]):
+            if abs(prev - cur) <= 1:
+                runs += 1
+                if runs >= 3:
+                    print(f"\n[RITMO] 3+ frases seguidas com o mesmo tamanho (~{cur} palavras) — varie o ritmo")
+                    break
+            else:
+                runs = 1
     if len(sents) >= 8:
         firsts = {}
         for s in sents:
@@ -302,10 +327,20 @@ def main():
         if repeated:
             print(f"\n[RITMO] aberturas repetidas: {repeated}")
 
-    dash = len(re.findall(r"—", text))
+    dash = len(re.findall(r"—", text)) + len(re.findall(r"(?m)(?:^| )--(?: |$)", text))
     per100 = dash / total * 100 if total else 0
     if per100 > 1:
         print(f"\n[RITMO] travessoes: {dash} ({per100:.1f}/100 palavras > 1) — troque por '..' ou ponto")
+
+    triads = [s for s in sents if len(re.findall(r",", s)) >= 2 and re.search(r"\be\b|\band\b|\by\b", s, re.IGNORECASE)]
+    if triads:
+        print(f"\n[RITMO] triades possiveis: {len(triads)} (3 itens ritmados seguidos soam IA — varie o mecanismo)")
+
+    bold = len(re.findall(r"\*\*.+?\*\*", text))
+    headings = len(re.findall(r"(?m)^#{1,6}\s", text))
+    emoji = len(re.findall(r"[\U0001F300-\U0001FAFF\u2600-\u27BF]", text))
+    if bold or headings or emoji:
+        print(f"\n[RITMO] markdown no roteiro: bold={bold} headings={headings} emoji={emoji} (narracao deve ser texto puro)")
 
     if a.cronologia:
         check_cronologia(text, a.cronologia, a.lang, a.cold_open)

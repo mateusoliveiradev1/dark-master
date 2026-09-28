@@ -48,7 +48,7 @@ class ScriptContractTests(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 0, result.stderr)
             data = json.loads((Path(temp) / "ROTEIRO_MAP.json").read_text(encoding="utf-8"))
-            self.assertEqual(data["target_words"], [4200, 5600])
+            self.assertEqual(data["target_words"], [4650, 5425])
             self.assertEqual(len(data["blocks"]), 9)
 
     def test_builder_seeds_existing_map_stub(self):
@@ -118,7 +118,7 @@ class ScriptContractTests(unittest.TestCase):
             self.assertIn("map_narration_mismatch", errors)
 
     def test_forensic_end_to_end_targets(self):
-        for target, minimum_words in (("30-35", 4200), ("45-60", 6300), ("60-70", 8400)):
+        for target, minimum_words in (("30-35", 4650), ("45-60", 6975), ("60-70", 9300)):
             with tempfile.TemporaryDirectory() as temp:
                 root = Path(temp) / "video01"
                 generated = subprocess.run(
@@ -145,7 +145,7 @@ class ScriptContractTests(unittest.TestCase):
                     block["claim_ids"] = [claim_id]
                     block["question"] = "O que este bloco responde?"
                     block["state_change"] = "O grau de certeza muda."
-                    block["rehook"] = index in {1, 2, 3, 4, 5, 6}
+                    block["rehook"] = index in {1, 2, 3, 4, 5, 6, 7, 8}
                     block["payoff"] = index == len(blocks) - 1
                     claims.append({"id": claim_id, "text": text[:80], "layer": "FATO", "source_ids": [f"S{index + 1:03d}"]})
                     used += count
@@ -236,6 +236,8 @@ class ScriptContractTests(unittest.TestCase):
                     "- Loop semântico: a pergunta continua",
                     "- Comentário fixado: veja o laudo completo",
                     "- Related Video: video01",
+                    "- Claim IDs: C001",
+                    "- Beat do long: EVIDENCIAS",
                 ]),
                 encoding="utf-8",
             )
@@ -263,7 +265,8 @@ class ScriptContractTests(unittest.TestCase):
             root.mkdir(parents=True)
             (root / "CLAIMS.json").write_text(json.dumps({"claims": [{
                 "id": "C001", "text": "Fato documentado", "layer": "FATO", "source_ids": ["S001"],
-                "locator": "p. 1", "primary_source": True, "confidence": "ALTA"
+                "locator": "p. 1", "primary_source": True, "confidence": "ALTA",
+                "what_proves": "o registro confirma a data", "what_fails_to_prove": "nao prova autoria"
             }]}), encoding="utf-8")
             (root / "PESQUISA_FONTE.md").write_text("| ID | Camada | Tipo | Fonte | Depende de | URL | Trecho/localizador | Limitações |\n|---|---|---|---|---|---|---|---|\n| S001 | FATO | primária | Registro oficial | independente | fonte://registro | p. 1 | nenhuma |", encoding="utf-8")
             (root / "LINHA_DO_TEMPO.md").write_text("| data | fato | camada | fonte |\n|---|---|---|---|\n| 2001-01-01 | Evento | FATO | S001 |", encoding="utf-8")
@@ -368,6 +371,8 @@ class ScriptContractTests(unittest.TestCase):
                     "- Loop semântico: a pergunta continua",
                     "- Comentário fixado: veja o laudo completo",
                     "- Related Video: video01",
+                    "- Claim IDs: C001",
+                    "- Beat do long: EVIDENCIAS",
                 ]),
                 encoding="utf-8",
             )
@@ -396,6 +401,8 @@ class ScriptContractTests(unittest.TestCase):
                     "- Loop semântico: a pergunta continua",
                     "- Comentário fixado: veja o laudo completo",
                     "- Related Video: video01",
+                    "- Claim IDs: C001",
+                    "- Beat do long: EVIDENCIAS",
                 ]),
                 encoding="utf-8",
             )
@@ -424,6 +431,8 @@ class ScriptContractTests(unittest.TestCase):
                     "- Loop semântico: a pergunta continua",
                     "- Comentário fixado: veja o laudo completo",
                     "- Related Video: video01",
+                    "- Claim IDs: C001",
+                    "- Beat do long: EVIDENCIAS",
                 ]),
                 encoding="utf-8",
             )
@@ -465,6 +474,8 @@ class ScriptContractTests(unittest.TestCase):
                     "- Loop semântico: a pergunta continua",
                     "- Comentário fixado: veja o laudo completo",
                     "- Related Video: video01",
+                    "- Claim IDs: C001",
+                    "- Beat do long: EVIDENCIAS",
                 ]),
                 encoding="utf-8",
             )

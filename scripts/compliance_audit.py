@@ -16,7 +16,19 @@ RISK = [
     r"\bfoi culpad[oa]\b", r"\bcometeu o crime\b", r"\bmatou\b", r"\bassassinou\b",
     r"\bviolou\b", r"\bcorrompeu\b", r"\bconfessou\b",
 ]
+# Trilho EN/ES (REVIEW, nunca hard-fail): pessoa viva + atribuicao de culpa.
+RISK_EN = [
+    r"\bmurdered\b", r"\bwas guilty\b", r"\bcommitted the crime\b", r"\bconfessed\b",
+    r"\bdefrauded\b", r"\bscammed\b",
+]
+RISK_ES = [
+    r"\basesin[óo]\b", r"\bconfes[óo]\b", r"\bcometi[óo] el crimen\b", r"\bfue culpable\b",
+]
 HEDGE = [r"\bsuspeit[oa]s?\b", r"\bacusad[oa]s?\b", r"\balegad[oa]s?\b", r"\bcondenad[oa]s?\b", r"\binculpad[oa]s?\b"]
+HEDGE_EN = [r"\balleged\b", r"\bsuspect\b", r"\baccused\b", r"\bconvicted\b", r"\bcharged\b"]
+HEDGE_ES = [r"\bpresunto\b", r"\bacusado\b", r"\bcondenado\b", r"\bimputado\b"]
+CASE_CONTEXT = re.compile(
+    r"\b(suspeito|acusado|investigação|laudo|processo|suspect|accused|investigation|report|trial|sospechoso|acusado|investigación|informe|juicio)\b")
 
 
 def words(text):
@@ -36,10 +48,11 @@ def audit(narration, claims=None):
     for pattern in GORE:
         if re.search(pattern, low):
             reviews.append("graphic_detail")
-    for pattern in RISK:
+    for pattern in RISK + RISK_EN + RISK_ES:
         if re.search(pattern, low):
             reviews.append("legal_status_or_attribution:" + pattern)
-    if not any(re.search(pattern, low) for pattern in HEDGE) and re.search(r"\b(suspeito|acusado|investigação|laudo|processo)\b", low):
+    hedges = HEDGE + HEDGE_EN + HEDGE_ES
+    if not any(re.search(pattern, low) for pattern in hedges) and CASE_CONTEXT.search(low):
         reviews.append("living_or_case_status_review")
     claim_status = "not_provided"
     if claims:

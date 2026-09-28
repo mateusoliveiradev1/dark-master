@@ -63,6 +63,12 @@ def audit(root):
                 review.append(f"claim_{claim_id or index}:primary_source_missing")
             if str(claim.get("confidence", "")).upper() not in {"ALTA", "MEDIA", "BAIXA"}:
                 review.append(f"claim_{claim_id or index}:confidence_missing")
+        if layer in {"FATO", "REPORTADO", "INTERPRETACAO"}:
+            # Cadeia de evidencia QUALITY (ref 36 §5): o que prova + o que NAO prova.
+            if not str(claim.get("what_proves", "")).strip():
+                review.append(f"claim_{claim_id or index}:chain_what_proves_missing")
+            if not str(claim.get("what_fails_to_prove", "")).strip():
+                review.append(f"claim_{claim_id or index}:chain_limit_missing")
     for source_id in sorted(source_ids):
         if source_id not in sources:
             errors.append(f"source_missing:{source_id}")
