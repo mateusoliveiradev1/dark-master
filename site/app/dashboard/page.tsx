@@ -7,7 +7,7 @@ type Ypp = { eligible_2026: boolean; eligible_2027: boolean; hours_gap_2027: num
 type Dashboard = { generated: string | null; channels: Channel[]; loop_reports: { date: string; status: string; failed_steps: string[] }[]; alerts: Alert[]; ypp: Record<string, Ypp> };
 
 const EMPTY: Dashboard = { generated: null, channels: [], loop_reports: [], alerts: [], ypp: {} };
-const ALERT_LABEL: Record<string, string> = { TREND_UP: "em alta", DEMAND_DEPTH: "demanda", OUTLIER_FLARE: "outlier", REVALIDATE_DUE: "revalidar", FUNNEL_GAP: "funil" };
+const ALERT_LABEL: Record<string, string> = { TREND_UP: "em alta", DEMAND_DEPTH: "demanda", OUTLIER_FLARE: "outlier", REVALIDATE_DUE: "revalidar", FUNNEL_GAP: "funil", BASELINE: "base" };
 
 export default function DashboardPage() {
   const [data, setData] = useState<Dashboard>(EMPTY);

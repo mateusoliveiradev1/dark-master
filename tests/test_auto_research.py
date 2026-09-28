@@ -15,7 +15,8 @@ class AutoResearchTests(unittest.TestCase):
     def test_demand_depth_alerta_perguntas_novas(self):
         current = {"seeds": [{"seed": "fraud documentary", "depth": 20,
                               "suggestions": [f"pergunta nova {i}" for i in range(6)], "rising": []}]}
-        alerts = build_alerts(current, {"seeds": []})
+        previous = {"seeds": [{"seed": "other", "depth": 3, "suggestions": [], "rising": []}]}
+        alerts = build_alerts(current, previous)
         demand = [a for a in alerts if a["type"] == "DEMAND_DEPTH"]
         self.assertEqual(len(demand), 1)
         self.assertIn("6 perguntas novas", demand[0]["detail"])
@@ -35,6 +36,12 @@ class AutoResearchTests(unittest.TestCase):
                                  "rising": ["q"], "trends_direction": "ALTA"}]}
         self.assertEqual(build_alerts(round_data, round_data), [])
 
+    def test_baseline_sem_rodada_anterior(self):
+        current = {"seeds": [{"seed": "x", "depth": 100, "suggestions": ["a"], "rising": []}]}
+        alerts = build_alerts(current, {})
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(alerts[0]["type"], "BASELINE")
+
     def test_dashboard_agrega_multicanal(self):
         import learn_loop
         with tempfile.TemporaryDirectory() as temp:
@@ -44,7 +51,7 @@ class AutoResearchTests(unittest.TestCase):
                 '{"channels": [{"handle": "@A", "name": "A", "mine": true}, {"handle": "@B", "name": "B"}]}',
                 encoding="utf-8")
             (root / "data" / "research").mkdir(parents=True)
-            (root / "data" / "research" / "latest.json").write_text(
+            (root / "data" / "research" / "latest-en.json").write_text(
                 '{"alerts": [{"type": "TREND_UP", "seed": "x", "detail": "d", "examples": []}]}', encoding="utf-8")
             (root / "data" / "ypp_input.json").write_text(
                 '{"@A": {"subs": 2000, "hours": 5000, "short_views": 0, "longs_90d": 3, "shorts_90d": 0}}',

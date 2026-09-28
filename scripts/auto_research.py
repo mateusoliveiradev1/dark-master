@@ -35,7 +35,7 @@ def load_seeds():
     briefs = ROOT / "data" / "briefs"
     if briefs.exists():
         for path in sorted(briefs.glob("*.json")):
-            if path.name in {"watchlist.json"}:
+            if path.name in {"watchlist.json"} or path.name.startswith("."):
                 continue
             try:
                 data = json.loads(path.read_text(encoding="utf-8"))
@@ -61,10 +61,13 @@ def load_seeds():
     return unique[:20]
 
 
-def previous_round(out_dir):
-    latest = out_dir / "latest.json"
+def round_name(lang):
+    return f"latest-{lang}.json"
+
+
+def previous_round(out_dir, lang="en"):
     try:
-        return json.loads(latest.read_text(encoding="utf-8"))
+        return json.loads((out_dir / round_name(lang)).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
 
@@ -88,7 +91,10 @@ def research_seed(seed, lang="en"):
 
 
 def build_alerts(current, previous):
-    """Compara rodadas e emite alertas acionaveis. Puro e testavel."""
+    """Compara rodadas e emite alertas acionaveis. Puro e testavel.
+    Sem rodada anterior = baseline: estabelece base, zero alertas."""
+    if not previous.get("seeds"):
+        return [{"type": "BASELINE", "seed": "", "detail": "primeira rodada: base estabelecida, sem comparativo", "examples": []}]
     alerts = []
     prev_seeds = {item.get("seed", "").lower(): item for item in previous.get("seeds", [])}
     for item in current.get("seeds", []):
@@ -134,17 +140,17 @@ def main():
     if args.dry_run:
         print(json.dumps({"seeds": seeds, "count": len(seeds)}, ensure_ascii=False, indent=2))
         return 0
-    previous = previous_round(out_dir)
-    current = {"date": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "seeds": []}
+    previous = previous_round(out_dir, args.lang)
+    current = {"date": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "lang": args.lang, "seeds": []}
     for seed in seeds:
         try:
             current["seeds"].append(research_seed(seed, args.lang))
         except Exception as exc:
             current["seeds"].append({"seed": seed, "error": str(exc)[:200]})
     current["alerts"] = build_alerts(current, previous)
-    (out_dir / f"{current['date']}.json").write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (out_dir / "latest.json").write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"[OK] {len(current['seeds'])} seeds, {len(current['alerts'])} alertas -> {out_dir / 'latest.json'}")
+    (out_dir / f"{current['date']}-{args.lang}.json").write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (out_dir / round_name(args.lang)).write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"[OK] {len(current['seeds'])} seeds, {len(current['alerts'])} alertas -> {out_dir / round_name(args.lang)}")
     for alert in current["alerts"][:10]:
         print(f"  [{alert['type']}] {alert['seed']}: {alert['detail']}")
     return 0

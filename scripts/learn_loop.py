@@ -138,11 +138,12 @@ def build_dashboard():
             except ValueError:
                 continue
     alerts = []
-    latest_research = ROOT / "data" / "research" / "latest.json"
-    try:
-        alerts = json.loads(latest_research.read_text(encoding="utf-8")).get("alerts", [])
-    except (OSError, ValueError):
-        pass
+    research_dir = ROOT / "data" / "research"
+    for latest in sorted(research_dir.glob("latest-*.json")):
+        try:
+            alerts.extend(json.loads(latest.read_text(encoding="utf-8")).get("alerts", []))
+        except (OSError, ValueError):
+            continue
     ypp_inputs = {}
     try:
         ypp_inputs = json.loads((ROOT / "data" / "ypp_input.json").read_text(encoding="utf-8"))
