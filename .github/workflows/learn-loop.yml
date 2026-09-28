@@ -6,12 +6,17 @@ on:
     - cron: "0 6 * * *"
     # Domingo 07:00 UTC: + watch + revalidação (custo alto, com teto de quota)
     - cron: "0 7 * * 0"
+    # Domingo 08:00 UTC: pesquisa automática sem chave + painel
+    - cron: "0 8 * * 0"
   workflow_dispatch:
     inputs:
       full:
         description: "Incluir watch + revalidate (domingo)"
         required: false
         default: "false"
+
+permissions:
+  contents: write
 
 jobs:
   learn:
@@ -45,3 +50,33 @@ jobs:
         with:
           name: learn-loop-report
           path: data/learn_loop/*.json
+      - name: Commitar JSONs do painel
+        run: |
+          git config user.name "dark-master-loop"
+          git config user.email "dark-master-loop@users.noreply.github.com"
+          git add data/learn_loop/ data/dashboard.json
+          git diff --quiet --cached || git commit -m "data: loop diario $(date -u +%F)" && git push
+
+  research:
+    runs-on: ubuntu-latest
+    # Domingo 08:00 UTC: pesquisa automática (sem chave) + painel + commit-back
+    if: github.event.schedule == '0 8 * * 0' || (github.event_name == 'workflow_dispatch' && inputs.full == 'true')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytrends
+      - name: Pesquisa automática EN+PT
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          python scripts/auto_research.py --lang en
+          python scripts/auto_research.py --lang pt
+          python scripts/learn_loop.py --dashboard
+      - name: Commitar pesquisa + painel
+        run: |
+          git config user.name "dark-master-loop"
+          git config user.email "dark-master-loop@users.noreply.github.com"
+          git add data/research/ data/dashboard.json
+          git diff --quiet --cached || git commit -m "data: pesquisa semanal $(date -u +%F)" && git push

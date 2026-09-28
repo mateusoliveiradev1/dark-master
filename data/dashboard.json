@@ -1,0 +1,38 @@
+{
+  "generated": "2026-09-28 21:15",
+  "channels": [
+    {
+      "handle": "@ColdFileDiaries",
+      "name": "Cold File Diaries",
+      "mine": true,
+      "nota": "canal proprio"
+    },
+    {
+      "handle": "@FascinatingHorror",
+      "name": "Fascinating Horror",
+      "mine": false,
+      "nota": "dark history, nicho estreito"
+    },
+    {
+      "handle": "@CoffeehouseCrime",
+      "name": "Coffeehouse Crime",
+      "mine": false,
+      "nota": "true crime faceless"
+    },
+    {
+      "handle": "@DarkAsiawithMegan",
+      "name": "Dark Asia with Megan",
+      "mine": false,
+      "nota": "true crime faceless"
+    }
+  ],
+  "loop_reports": [
+    {
+      "date": "2026-09-28",
+      "status": "OK",
+      "failed_steps": []
+    }
+  ],
+  "alerts": [],
+  "ypp": {}
+}

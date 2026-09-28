@@ -113,7 +113,63 @@ def loop(channels, themes, steps, dry_run, quota_budget, out_dir):
     out = Path(out_dir) if out_dir else ROOT / "data" / "learn_loop"
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{today}.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if not dry_run and out == ROOT / "data" / "learn_loop":
+        try:
+            build_dashboard()
+        except Exception as exc:
+            report.setdefault("warnings", []).append(f"dashboard:{exc}")
     return report
+
+
+def build_dashboard():
+    """Agregado multi-canal para o painel: canais + ultimos loops + alertas + YPP."""
+    try:
+        channels = json.loads((ROOT / "monitor" / "channels.json").read_text(encoding="utf-8")).get("channels", [])
+    except (OSError, ValueError):
+        channels = []
+    loop_dir = ROOT / "data" / "learn_loop"
+    reports = []
+    if loop_dir.exists():
+        for path in sorted(loop_dir.glob("????-??-??.json"))[-7:]:
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                reports.append({"date": data.get("date"), "status": data.get("status"),
+                                "failed_steps": data.get("failed_steps", [])})
+            except ValueError:
+                continue
+    alerts = []
+    latest_research = ROOT / "data" / "research" / "latest.json"
+    try:
+        alerts = json.loads(latest_research.read_text(encoding="utf-8")).get("alerts", [])
+    except (OSError, ValueError):
+        pass
+    ypp_inputs = {}
+    try:
+        ypp_inputs = json.loads((ROOT / "data" / "ypp_input.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        pass
+    ypp = {}
+    if ypp_inputs:
+        from ypp_check import check as ypp_check_fn
+        for handle, numbers in ypp_inputs.items():
+            try:
+                result = ypp_check_fn(int(numbers.get("subs", 0)), float(numbers.get("hours", 0)),
+                                      int(numbers.get("short_views", 0)), int(numbers.get("longs_90d", 0)),
+                                      int(numbers.get("shorts_90d", 0)), 300)
+                ypp[handle] = {"eligible_2026": result["regimes"]["2026"]["eligible_long"] or result["regimes"]["2026"]["eligible_shorts"],
+                               "eligible_2027": result["regimes"]["2027"]["eligible_long"] or result["regimes"]["2027"]["eligible_shorts"],
+                               "hours_gap_2027": result["regimes"]["2027"]["hours_gap"],
+                               "daily_needed": result["regimes"]["2027"]["daily_watch_hours_needed"],
+                               "maintenance_safe": result["maintenance"]["safe"]}
+            except (TypeError, ValueError, KeyError):
+                continue
+    dashboard = {"generated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M"),
+                 "channels": [{"handle": c.get("handle"), "name": c.get("name"),
+                               "mine": bool(c.get("mine")), "nota": c.get("nota", "")} for c in channels],
+                 "loop_reports": reports, "alerts": alerts[:20], "ypp": ypp}
+    out = ROOT / "data" / "dashboard.json"
+    out.write_text(json.dumps(dashboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return dashboard
 
 
 def main():
@@ -122,11 +178,17 @@ def main():
     parser.add_argument("--watch", action="store_true")
     parser.add_argument("--analyze", action="store_true")
     parser.add_argument("--revalidate", action="store_true")
+    parser.add_argument("--dashboard", action="store_true", help="so (re)gera data/dashboard.json")
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--quota-budget", type=int, default=8000)
     parser.add_argument("--out-dir", default="")
     args = parser.parse_args()
+    if args.dashboard:
+        dashboard = build_dashboard()
+        print(json.dumps({"dashboard": "data/dashboard.json", "channels": len(dashboard["channels"]),
+                          "alerts": len(dashboard["alerts"])}, ensure_ascii=False, indent=2))
+        return 0
     steps = {name for name, on in (("collect", args.collect), ("watch", args.watch),
                                    ("analyze", args.analyze), ("revalidate", args.revalidate)) if on}
     if args.all or not steps:
