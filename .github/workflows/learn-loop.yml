@@ -56,9 +56,11 @@ jobs:
         run: |
           git config user.name "dark-master-loop"
           git config user.email "dark-master-loop@users.noreply.github.com"
-          git pull --rebase origin master || true
-          git add data/learn_loop/ data/dashboard.json
-          git diff --quiet --cached || git commit -m "data: loop diario $(date -u +%F)" && git push
+          git add data/learn_loop/
+          git diff --quiet --cached || git commit -m "data: loop diario $(date -u +%F)"
+          git checkout -- data/dashboard.json 2>/dev/null || true
+          git pull --rebase origin master
+          git push
 
   research:
     runs-on: ubuntu-latest
@@ -83,6 +85,7 @@ jobs:
         run: |
           git config user.name "dark-master-loop"
           git config user.email "dark-master-loop@users.noreply.github.com"
-          git pull --rebase origin master || true
           git add data/research/ data/dashboard.json
-          git diff --quiet --cached || git commit -m "data: pesquisa semanal $(date -u +%F)" && git push
+          git diff --quiet --cached || git commit -m "data: pesquisa semanal $(date -u +%F)"
+          git pull --rebase origin master
+          git push

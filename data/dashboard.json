@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28 22:04",
+  "generated": "2026-09-28 21:59",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -26,62 +26,13 @@
       "nota": "true crime faceless"
     }
   ],
-  "loop_reports": [],
-  "alerts": [
+  "loop_reports": [
     {
-      "type": "TREND_UP",
-      "seed": "crypto scam documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cult documentary",
-      "detail": "2 queries em alta novas",
-      "examples": [
-        "charles manson cult documentary netflix",
-        "oregon cult documentary"
-      ]
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cybercrime documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "dictatorship documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "crypto scam documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cult documentary",
-      "detail": "2 queries em alta novas",
-      "examples": [
-        "charles manson cult documentary netflix",
-        "oregon cult documentary"
-      ]
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cybercrime documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "dictatorship documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
+      "date": "2026-09-28",
+      "status": "OK",
+      "failed_steps": []
     }
   ],
+  "alerts": [],
   "ypp": {}
 }
