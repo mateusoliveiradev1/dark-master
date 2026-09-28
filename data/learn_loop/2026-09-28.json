@@ -1,0 +1,37 @@
+{
+  "date": "2026-09-28",
+  "quota": {
+    "budget": 8000,
+    "daily_limit": 10000,
+    "estimated": 500,
+    "steps": [
+      {
+        "step": "collect:@ColdFileDiaries",
+        "status": "OK",
+        "returncode": 0,
+        "stdout": "[i] 24 vídeos | 2026-08-27 -> 2026-09-25 | API com defasgem de 3d\n[i] mapeamentos: 16 confirmados, 0 pendentes\n[OK] 24 snapshots gravados; 151 fontes de tráfego; 500 pontos de retenção\n",
+        "stderr": ""
+      },
+      {
+        "step": "watch",
+        "status": "OK",
+        "returncode": 0,
+        "stdout": "\n===  Cold File Diaries | mediana 33 views | 30 videos | 7 outlier(s) ===\n  37.58x     1240 views  [2026-09-18]  Yuba County Five Drove to a Game — VANISHED\n  36.06x     1190 views  [2026-09-15]  He Jumped With $200,000 — Never Found\n  35.85x     1183 views  [2026-09-16]  Springfield Three Vanished Overnight — NEVER Found\n  16.64x      549 views  [2026-09-25]  Fort Worth Three Went Shopping — NEVER Came Home\n  7.27x      240 views  [2026-09-23]  Axeman Threatened Jazz Night — City Played ALL Night\n  7.0x      231 views  [2026-09-26]  Alcatraz Escape on 50 Raincoats — ZERO Trace\n  6.91x      228 views  [2026-09-24]  Amelia Earhart 1937: Last Call — ZERO Trace\n\n=== Fascinating Horror | mediana 363166 views | 30 videos | 1 outlier(s) ===\n  6.08x  2209811 views  [2026-09-08]  This Led To The Sterile Cockpit Rule: Eastern Airlines 212 | Fascinati\n\n=== Coffeehouse Crime | mediana 432566 views | 30 videos | 0 outlier(s) ===\n\n=== Dark Asia with Megan | mediana 302122 views | 30 videos | 1 outlier(s) ===\n  3.87x  1168999 views  [2026-08-30]  The Cop Who Made Missing People Disappear | Jeju Island Missing Person\n\n[OK] 9 outlier(s) gravados no banco (postgres)\n\n[!] ALERTA: revise os outliers acima — o padrao (hook/tema/formato/thumb) vira sugestao de conteudo.\n",
+        "stderr": ""
+      },
+      {
+        "step": "analyze:@ColdFileDiaries",
+        "status": "OK",
+        "returncode": 0,
+        "stdout": "views/baseline 0,18x; razão AVD/baseline 0,91x.\n- Explicação: o conjunto não isola um gargalo sem perder qualidade de amostra.\n- CTR n/d: não diferencia packaging de distribuição sem inventar valor.\n\n## Outliers por formato\n- video05 (short): 1.240 views, 9,05x a mediana; hipótese, não causalidade.\n- video02 (short): 1.190 views, 8,69x a mediana; hipótese, não causalidade.\n- video03 (short): 1.183 views, 8,64x a mediana; hipótese, não causalidade.\n- xPppIGMCW4M (short): 485 views, 3,54x a mediana; hipótese, não causalidade.\n\n## Fontes de tráfego\n- SHORTS: 4.481 views, 1.864 engaged, 21,30 h em 12 vídeos.\n- YT_SEARCH: 332 views, 102 engaged, 1,32 h em 21 vídeos.\n- YT_OTHER_PAGE: 74 views, 53 engaged, 6,55 h em 15 vídeos.\n- RELATED_VIDEO: 59 views, 48 engaged, 6,28 h em 7 vídeos.\n- SUBSCRIBER: 54 views, 21 engaged, 4,25 h em 14 vídeos.\n- NO_LINK_OTHER: 37 views, 28 engaged, 8,32 h em 24 vídeos.\n- NOTIFICATION: 18 views, 10 engaged, 0,67 h em 9 vídeos.\n- EXT_URL: 7 views, 6 engaged, 0,02 h em 4 vídeos.\n- SHORTS_CONTENT_LINKS: 3 views, 3 engaged, 0 h em 1 vídeos.\n- YT_CHANNEL: 2 views, 2 engaged, 0 h em 2 vídeos.\n- PLAYLIST: 1 views, 1 engaged, 0 h em 1 vídeos.\n- `SHORTS` representa navegação vertical entre Shorts; não é tráfego Short→Long. Pares de conversão usam `RELATED_VIDEO` com o ID de origem quando disponível.\n\n## Funil Short→Long\n- Pares medidos: 0; views atribuídas: 0; watch hours: 0 h.\n- 3lue0-N8HaE recebeu 5 views de `zwDj3Q8tgMM`; origem ainda sem match confirmado.\n- video06 recebeu 4 views de `qPojvKsaV3U`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 2 views de `BwOmOhdhzxg`; origem ainda sem match confirmado.\n- video02 recebeu 2 views de `CbUjuwhQPKs`; origem ainda sem match confirmado.\n- video02 recebeu 2 views de `Ecsin5FJppg`; origem ainda sem match confirmado.\n- video02 recebeu 2 views de `P1wagDufgNg`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `A_-MWck0czs`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `BU_MTL3OocY`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `Dvl9j8foex4`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `H7Xv3TFR2QY`; origem ainda sem match confirmado.\n\n## Retenção por trecho\n- 3lue0-N8HaE: maiores quedas aproximadas — 2%: −57,89 p.p, 47%: −10,53 p.p, 35%: −10,52 p.p.\n- video02: maiores quedas aproximadas — 2%: −28,57 p.p, 3%: −14,29 p.p, 7%: −9,53 p.p.\n- video01: maiores quedas aproximadas — 4%: −26,67 p.p, 3%: −20 p.p, 2%: −13,33 p.p.\n- m8rI5sRJZVY: maiores quedas aproximadas — 2%: −42,85 p.p, 24%: −21,43 p.p, 13%: −14,29 p.p.\n- video06: maiores quedas aproximadas — 2%: −20,59 p.p, 3%: −11,77 p.p, 10%: −5,89 p.p.\n\n## Calendário e estoque\n- Estoque futuro pronto: 0.\n- Corrente de teasers: 0/0 com próximo caso comprovado.\n\n## Experimentos propostos\n### 1. long/embalagem\n- Variável: título.\n- Hipótese: Um título mais explícito aumenta impressões qualificadas sem mudar o conteúdo.\n- Baseline: mediana de 20 views em 12 longs.\n- Meta: superar a mediana de views mantendo watch hours por view.\n- Medição: impressões, CTR, engaged views e watch hours; amostra: 4–6 longs comparáveis, uma versão por vídeo.\n- Risco: misturar efeito do título com mudança de thumbnail.\n### 2. funil Short→Long\n- Variável: vídeo relacionado.\n- Hipótese: Adicionar o Long como relacionado ao Short aumenta views do Long sem depender de CTA verbal.\n- Baseline: par Short→Long ainda não medido.\n- Meta: registrar source RELATED_VIDEO por par.\n- Medição: views e watch hours do Long por source e detail; amostra: próximos 4 Shorts; um método por vez.\n- Risco: atribuição só fica completa depois que o Short e o Long estiverem públicos.\n\n## Checkpoints\n- Próxima captura diária: verificar mudança e mapeamentos.\n- D+2/D+7: comparar o mesmo vídeo quando houver snapshots maduros.\n- Após 4–6 vídeos comparáveis: decidir manter, ajustar ou descartar cada hipótese.\n- Alterar calendário, metadata ou produção somente após aprovação explícita.\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "status": "OK",
+  "failed_steps": [],
+  "notes": [
+    "Loop propose-only: propostas em learnings/outliers; regra so muda com aprovacao humana.",
+    "Sem OAuth/rede, etapas falham como diagnostico — nunca zeros, nunca causalidade inventada."
+  ]
+}
