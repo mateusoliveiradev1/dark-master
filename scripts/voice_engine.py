@@ -412,7 +412,14 @@ class KeyRing:
         self.label = label
 
     def current(self):
-        return self.keys[self.i % len(self.keys)]
+        if not self.keys:
+            raise RuntimeError("nenhuma chave no ring")
+        for _ in range(len(self.keys)):
+            key = self.keys[self.i % len(self.keys)]
+            if self.i % len(self.keys) not in self.dead:
+                return key
+            self.i += 1
+        raise RuntimeError("todas as chaves morreram")
 
     def rotate(self, why=""):
         self.i += 1
