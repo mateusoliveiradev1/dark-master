@@ -6,13 +6,17 @@ Uso: python audit-ypp.py            (interativo)
 import sys
 
 ITEMS = [
-    ("Substância varia entre vídeos (sem template intercambiável)", "09"),
-    ("Cada vídeo tem pesquisa/insight/perspectiva própria", "09"),
+    ("Substância varia entre vídeos (swap-test: roteiro A não cabe no B)", "09"),
+    ("Cada vídeo tem 1 pesquisa primária + 1 frase-opinião discutível", "09"),
     ("Sem imagem gráfica na thumb nem nos primeiros 15s", "09"),
-    ("Pessoas vivas tratadas como 'suspeito/acusado'", "07"),
-    ("Divulgação de IA quando voz/visual sintético", "09"),
+    ("Pessoas vivas tratadas como 'suspeito/acusado/alleged'", "07"),
+    ("Studio > AI use marcado se rosto/voz/evento real sintético", "09"),
+    ("Sem persona IA em saúde/finanças/direito/política (ou voz humana + disclosure)", "09"),
+    ("Narração própria >50% + fontes na descrição (anti-reused)", "09"),
     ("Metadados não duplicados entre vídeos", "09"),
     ("Título e thumb não repetem palavras", "04"),
+    ("Sem palavrão forte/moderado em título/thumb; gore fora dos 15s", "09"),
+    ("Temas restritos fora do foco (abuso infantil, eating disorders)", "09"),
     ("Capítulos válidos (00:00, >=3, >=10s, rótulos-resposta)", "01"),
     ("Primeiros 30s cumprem a promessa do título", "01"),
     ("Sem intro/logo antes do hook", "03"),
@@ -20,7 +24,8 @@ ITEMS = [
     ("Publicar como não listado -> revisar -> público", "18"),
     ("Feed de inscrições + notificações marcado", "18"),
     ("Shorts: frame 1 entrega payoff/tensão, legenda na tela", "02"),
-    ("Canal ativo (sem 6 meses parado)", "09"),
+    ("Canal ativo: mínimos 1000h/1M/2longs-5shorts por 90d (09)", "09"),
+    ("Trilha YPP: matemática 2026 vs 2027 calculada (ypp_check.py)", "16"),
 ]
 
 def run_interactive():

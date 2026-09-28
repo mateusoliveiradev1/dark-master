@@ -36,6 +36,8 @@ Para canal existente, o orquestrador não exige nicho/outlier. Para canal novo, 
 | **Remotion** | `remotion.py audit` | RENDER_PLAN, RENDER_REPORT, duração, output e paths rastreáveis |
 | **Visual** | `dark-visual-reviewer` | overview da sequência + até quatro cenas-chave; corrige só `BLOCKER`/`MAJOR`, sem nota mínima |
 | **Compliance/YPP** | `audit-ypp.py` | conteúdo inautêntico, gore, IA, etc. (`references/09`) |
+| **Inautêntico (3 baldes)** | `inauthentic_audit.py <video> --previous <canal>` | swap-test vs narrações anteriores + hook + beats, pesquisa primária, persona IA em tema sensível sem disclosure; FAIL bloqueia |
+| **Trilha YPP** | `ypp_check.py --subs N --hours H` | elegibilidade 2026 vs 2027, gaps, ritmo diário, manutenção mínima (diagnóstico) |
 
 `audit_all.py` consome `TITLE_RESEARCH.json`, `ROTATION_AUDIT.json` e `PROMPT_STATUS.json` quando eles existem. `INCONCLUSIVO` fica visível sem liberar motion; `FAIL` bloqueia. Rode os três pelo fluxo de `30-roteiro-master.md` antes da auditoria final.
 

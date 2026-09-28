@@ -11,6 +11,10 @@ O que decide se você pode monetizar e o que faz perder a monetização. Fonte: 
 
 Outros requisitos: país elegível, sem strike ativo, 2FA ligado, recursos avançados, AdSense vinculado.
 
+### Manutenção mínima (não cair do YPP) [PRATICANTE relatando OFICIAL 10/08/2026]
+`1.000h/365d OU 1M Shorts/90d OU 2 longs ou 5 Shorts/90d`. 6 meses sem vídeo/post = remoção. De 01/02/2027, Shorts exige `10M/90d rolantes` para seguir no revenue-share de Shorts (caiu = segue no YPP e no long, volta sozinho ao recruzarem).
+Calcule com `python scripts/ypp_check.py --subs N --hours H [--short-views V] [--longs-90d L --shorts-90d S]`.
+
 ### ⚠️ O prazo que muda tudo
 **YouTube confirmou (10/08/2026): a partir de 01/02/2027 os requisitos dobram para novos inscritos** — **8.000h** ou **20M views de Shorts**. Quem já está no programa não é afetado. **Conclusão: entrar antes de fev/2027 vale o dobro.** Canal do zero em ~4 meses provavelmente não pega o prazo antigo → priorize o canal que já tem tração.
 
@@ -58,9 +62,23 @@ A regra: **"o formato pode repetir; a substância não".** Três baldes NÃO mon
 
 ## Divulgação de IA [OFICIAL]
 
-- Conteúdo sintético/altered deve ser divulgado.
-- YouTube marca automaticamente (C2PA, SynthID) e testa rating de "AI slop" por espectadores.
+- Marcar `Sim` em `Studio > AI use` quando realista: pessoa real parecendo dizer/fazer o que não fez; evento/lugar real alterado; cena realista que não ocorreu.
+- Não precisa marcar: roteiro/voz clonada própria/título/thumb/legenda/upscale por IA, grade, blur, backdrop IA em movimento.
+- YouTube marca automaticamente (C2PA, SynthID) e desde 05/2026 pode etiquetar sozinho. Omitir = label forçado, remoção, suspensão YPP.
 - Marcar como IA **não** penaliza alcance/monetização por si só; o problema é conteúdo massificado.
+
+## Reused content (compilação/documentário) [OFICIAL — FAQ reused]
+
+- Reprovado: compilação sem narrativa, reação muda, só leitura de site/feed, mesma música com pitch mudado, download sem mudança. **Permissão ≠ salvo; sem claim ≠ salvo.**
+- Aprovado: crítica com clips, reação com comentário, storyline editado, remix com áudio/vídeo próprio, edição substantiva.
+- Gate dark: `>50% narração/análise própria + fontes na descrição + transformação visível` (timeline, mapa, comparação, reconstituição licenciada).
+
+## Palavrão, violência e controversos [OFICIAL]
+
+- Palavrão (29/07/2025): forte nos 1os 7s = full ads; moderado/forte em título/thumb ou alta frequência = limited; slur = sem ads.
+- Violência sem contexto = sem ads; com contexto news/edu/doc = monetizável.
+- Controversos (vigor 13/01/2026): cobertura **não-gráfica** de abuso doméstico, self-harm, suicídio, abuso sexual adulto, aborto, assédio + relato preventivo/jornalístico = full. Restritos: abuso infantil, exploração infantil, eating disorders.
+- True crime na prática [PRATICANTE]: onda de `limited` em 2026 mesmo com tratamento respeitoso. Gates: thumb sem crime scene/sangue; 0-15s sem gore/agonia; linguagem forense > gore; self-certification honesta + revisão humana (até 24h).
 
 ## Checklist de compliance (rodar antes de publicar)
 

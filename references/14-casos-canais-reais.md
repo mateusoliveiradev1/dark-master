@@ -56,6 +56,34 @@ Exemplos concretos de canais faceless/dark que cresceram e monetizaram. [PRATICA
 - Títulos: `[Nome]: The [X] Who [ação chocante]`; thumbs cinematográficas (silhueta + número); responder comentários em massa.
 - Lição: **série + Shorts ligados ao long + engajamento em comentários**.
 
+## Casos 2026 (pesquisa 28/09/2026 — YouTube + SocialBlade/SpeakRJ/OutlierKit)
+
+> Números de subs/views [PRATICANTE]; receitas [ALEGADO-estimativa de ferramenta] salvo nota. Nada aqui é receita declarada.
+
+## MagnatesMedia (crime financeiro, 1,9M subs, 193M views)
+- Long 24:52 média, ~1,9/mês. 1 empresa/vídeo, **queda anunciada nos 30s**, filings citados.
+- Lição: 1 fato/número/opinião única por vídeo + posição discutível = antídoto template. Voz IA perde retenção nesse lane [PRATICANTE].
+
+## Modern MBA (finanças B2B, 801k subs, 794k média/vídeo, AVD 20min declarada)
+- 34:30 média, ~1,2/mês. Audiência 85% homens, 70% NA = CPM alto. Citação primária (filings/WSJ/earnings).
+- Lição: pesquisa primária citada + B2B skew; sem persona IA em finanças.
+
+## CaspianReport (geopolítica, 1,85M subs, 570 vídeos)
+- 10–20min mapas próprios + voz humana fixa, ~2,3/mês. Pergunta sistêmica "como [sistema] funciona".
+- Lição: **voice-brand** + mapas próprios + fontes consistentes.
+
+## Wendover (5M) + Half as Interesting (~3M, overflow valve)
+- Wendover 1–2/mês profundo; HAI 2–4/mês leve = mesma audiência, tom diferente, sem canibalizar. Tese no título + Nebula/sponsors.
+- Lição: 2º canal como válvula de overflow, não concorrente.
+
+## Nexpo (3,85M) / Lazy Masquerade (1,9M) / Barely Sociable (1,38M) / Scary Interesting (1,99M) (mistérios)
+- Container repetível: coletânea numerada (`Vol.18`), pergunta não-resolvida concreta, atos/capítulos, mundo visual próprio. Longs de 3h performam.
+- Lição: **série container + escopo declarado** (factual vs lore separado) + payoff honesto mesmo se unresolved.
+
+## Oversimplified / Kings and Generals (história)
+- Over: 20–30min, ~6/ano, evento de lançamento, comédia + animação própria evergreen. Kings: mapas de batalha + alta frequência.
+- Lição: animação original + série com valor distinto por episódio passa no teste troca-roteiro [OFICIAL-inauthentic].
+
 ## Padrões que se repetem
 1. Nicho **estreito** > nicho amplo.
 2. **Long-form evergreen** = biblioteca que rende por anos.

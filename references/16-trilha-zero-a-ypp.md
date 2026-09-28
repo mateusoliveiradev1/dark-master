@@ -58,7 +58,17 @@ Shorts para **inscritos** + long-form para **horas**. Canais híbridos crescem ~
 - **0 inscritos** → settings auditados (`18`), 10–15 Shorts publicados (o algoritmo precisa de dados).
 - **500 inscritos** → ativar faixa de entrada (fan funding) se elegível.
 - **1.000 inscritos + 4.000h ou 10M** → aplicar YPP antes de fev/2027.
+- **Pós-01/02/2027 (novos)** → 1.000 + 8.000h ou 20M; Shorts exige 10M/90d rolantes para o revenue-share.
 - Pós-aprovação → aceitar módulos (Watch Page, Shorts Feed), mid-rolls, Shopping.
+- **Manutenção** → 1.000h/365d OU 1M/90d OU 2 longs/5 Shorts por 90d (caiu = remoção).
+
+## Matemática da trilha (ypp_check.py)
+
+```bash
+python scripts/ypp_check.py --subs 800 --hours 2500 --short-views 2000000 --longs-90d 6 --shorts-90d 10
+```
+
+Responde elegibilidade 2026 vs 2027, gaps e ritmo diário necessário. Mirando 8.000h: `~22h/dia` de watch acumulado na janela de 365d. Finanças ($12–22 RPM [PRATICANTE]) precisam ~5x menos views que nicho $2–4 para a mesma receita — escolha o nicho com a conta feita, não só pelo gosto.
 
 ## Avisos
 

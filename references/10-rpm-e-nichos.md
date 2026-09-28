@@ -57,6 +57,13 @@ Exemplos:
 - 1M views de Shorts a $0.06 → $60 (por isso o funil importa).
 - 100M views/ano a $8 RPM → ~$800k/ano (perfil de biblioteca evergreen).
 
+## Sazonalidade e realidade (2026)
+
+- **Q4 paga +30–50%** acima da média (planeje lançamentos densos em out–dez).
+- **Yellow-rate importa tanto quanto RPM:** true crime não-gráfico ($8–15) vira $3–5 efetivo se metade cai em Limited Ads. Track `% limited` por vídeo no D+2/D+7.
+- **Back-catalog é anuidade:** canais evergreen tiram 50–70% da receita do catálogo (caso Dr. Insanity [PRATICANTE]). Série container > vídeo solto.
+- **Receita fora do AdSense desde o dia 1:** VPN/jurídico em crime, Audible/VPN em história, brokerage em finanças, Patreon/Nebula/podcast em evergreen (`19`).
+
 ## Estratégia por objetivo
 
 | Objetivo | Caminho |
