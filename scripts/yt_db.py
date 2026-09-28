@@ -159,7 +159,7 @@ def _columns(c, table):
     if _is_postgres(c):
         rows = _rows(c, "SELECT column_name FROM information_schema.columns WHERE table_name=?", (table,))
         return {r["column_name"] for r in rows}
-    return {r[1] for r in _rows(c, f"PRAGMA table_info({table})")}
+    return {r["name"] for r in _rows(c, f"PRAGMA table_info({table})")}
 
 
 def _migrate(c):

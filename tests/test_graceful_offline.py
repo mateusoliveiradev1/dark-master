@@ -20,6 +20,14 @@ class GracefulOfflineTests(unittest.TestCase):
         self.assertEqual(reconcile_latest([], {}), [])
         self.assertIsNone(compare_captures([]))
 
+    def test_columns_funciona_no_sqlite(self):
+        import sqlite3
+        import yt_db
+        conn = sqlite3.connect(":memory:")
+        conn.execute("CREATE TABLE snapshots (id INTEGER PRIMARY KEY, views REAL, nome TEXT)")
+        self.assertEqual(yt_db._columns(conn, "snapshots"), {"id", "views", "nome"})
+        conn.close()
+
     def test_bubble_check_sem_canal_nunca_zera(self):
         argv = ["bubble_check.py", "--channel", "canal-inexistente-xyz-123", "--video", "video99"]
         with mock.patch.object(sys, "argv", argv):
