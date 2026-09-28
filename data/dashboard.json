@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28 22:37",
+  "generated": "2026-09-28 23:02",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -30,138 +30,132 @@
   "alerts": [
     {
       "type": "TREND_UP",
-      "seed": "animal attack documentary",
+      "seed": "AI failure documentary",
       "detail": "trajetoria virou ALTA no YouTube 12m",
       "examples": []
     },
     {
       "type": "TREND_UP",
-      "seed": "aviation disaster documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cold case documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "fraud documentary",
-      "detail": "2 queries em alta novas",
+      "seed": "cult documentary",
+      "detail": "1 queries em alta novas",
       "examples": [
-        "elizabeth holmes",
-        "art fraud documentary"
+        "oregon cult documentary"
       ]
     },
     {
       "type": "TREND_UP",
       "seed": "heist documentary",
-      "detail": "4 queries em alta novas",
+      "detail": "2 queries em alta novas",
       "examples": [
-        "holy heist documentary",
-        "boston art heist documentary",
-        "isabella stewart gardner museum heist documentary",
-        "hatton garden heist documentary"
+        "gardner museum heist documentary",
+        "loomis fargo heist documentary"
       ]
     },
     {
       "type": "DEMAND_DEPTH",
       "seed": "aviation disaster documentary",
-      "detail": "5 perguntas novas (profundidade 112)",
+      "detail": "5 perguntas novas (profundidade 120)",
       "examples": [
-        "aviation disaster documentary blackbird",
-        "airline disaster full movie",
-        "airline disaster full movie in hindi",
-        "flight disaster full movie",
-        "countdown to the next aviation disaster full documentary blaze originals"
+        "aviation disaster documentary download",
+        "aviation disaster documentary definition",
+        "aviation disaster documentary dvd",
+        "aviation disaster documentary evidence",
+        "aviation disaster documentary emmy awards"
       ]
     },
     {
       "type": "DEMAND_DEPTH",
       "seed": "corporate collapse documentary",
-      "detail": "9 perguntas novas (profundidade 126)",
+      "detail": "8 perguntas novas (profundidade 149)",
       "examples": [
-        "corporate collapse documentary china",
-        "corporate collapse documentary episode 1",
-        "corporate collapse documentary episode 3",
-        "corporate collapse documentary films",
-        "corporate collapse documentary free"
+        "corporate collapse documentary amazon",
+        "corporate collapse documentary about triplets",
+        "corporate collapse documentary active measures",
+        "corporate collapse documentary cast",
+        "corporate collapse documentary center"
       ]
     },
     {
       "type": "DEMAND_DEPTH",
       "seed": "crypto scam documentary",
-      "detail": "9 perguntas novas (profundidade 122)",
+      "detail": "9 perguntas novas (profundidade 142)",
       "examples": [
-        "crypto scam documentary alex g",
-        "crypto scam documentary dvd",
-        "crypto scam documentary exposed",
-        "crypto scam documentary elon musk",
-        "crypto scam documentary edit"
+        "crypto scam documentary amazon",
+        "crypto scam documentary about triplets",
+        "crypto scam documentary active measures",
+        "crypto scam documentary bbc",
+        "crypto scam documentary by steve james"
       ]
     },
     {
       "type": "DEMAND_DEPTH",
       "seed": "cybercrime documentary",
-      "detail": "6 perguntas novas (profundidade 84)",
+      "detail": "6 perguntas novas (profundidade 92)",
       "examples": [
-        "cyber crime full movie",
-        "cybercrime investigator",
-        "documentary about cyber crime",
-        "cybercrime documentary google",
-        "cybercrime documentary graphic"
+        "cybercrime documentary about triplets",
+        "cybercrime documentary active measures",
+        "cybercrime documentary cnn",
+        "cybercrime documentary cast",
+        "cybercrime documentary center"
       ]
     },
     {
       "type": "DEMAND_DEPTH",
       "seed": "deep sea mystery documentary",
-      "detail": "5 perguntas novas (profundidade 99)",
+      "detail": "5 perguntas novas (profundidade 108)",
       "examples": [
-        "deep sea mystery documentary bangla",
-        "deep sea mystery documentary girl",
-        "deep sea mystery documentary geology",
-        "deep sea mystery documentary google",
-        "deep sea mystery documentary in hindi"
-      ]
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cold case documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "fraud documentary",
-      "detail": "2 queries em alta novas",
-      "examples": [
-        "elizabeth holmes",
-        "art fraud documentary"
-      ]
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "heist documentary",
-      "detail": "4 queries em alta novas",
-      "examples": [
-        "holy heist documentary",
-        "boston art heist documentary",
-        "isabella stewart gardner museum heist documentary",
-        "hatton garden heist documentary"
+        "deep sea mystery documentary by steve james",
+        "deep sea mystery documentary evidence",
+        "deep sea mystery documentary emmy awards",
+        "deep sea mystery documentary emmy awards 2018",
+        "deep sea mystery documentary free"
       ]
     },
     {
       "type": "DEMAND_DEPTH",
       "seed": "history of pandemics documentary",
-      "detail": "5 perguntas novas (profundidade 88)",
+      "detail": "5 perguntas novas (profundidade 126)",
       "examples": [
-        "history of pandemics documentary in english",
-        "history of pandemics documentary japan",
-        "history of pandemics documentary joe rogan",
-        "history of pandemics documentary james cameron",
-        "history of pandemics documentary kenya"
+        "history of pandemics documentary amazon",
+        "history of pandemics documentary about triplets",
+        "history of pandemics documentary active measures",
+        "history of pandemics documentary by steve james",
+        "history of pandemics documentary ending"
+      ]
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "AI failure documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "cult documentary",
+      "detail": "1 queries em alta novas",
+      "examples": [
+        "oregon cult documentary"
+      ]
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "heist documentary",
+      "detail": "2 queries em alta novas",
+      "examples": [
+        "gardner museum heist documentary",
+        "loomis fargo heist documentary"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "history of pandemics documentary",
+      "detail": "5 perguntas novas (profundidade 95)",
+      "examples": [
+        "history of pandemics documentary channel 4",
+        "history of pandemics documentary canada",
+        "history of pandemics documentary channel 5",
+        "history of pandemics documentary compilation",
+        "history of pandemics documentary covid 19"
       ]
     }
   ],
