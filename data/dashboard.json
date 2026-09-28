@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28 21:59",
+  "generated": "2026-09-28 22:37",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -26,13 +26,144 @@
       "nota": "true crime faceless"
     }
   ],
-  "loop_reports": [
+  "loop_reports": [],
+  "alerts": [
     {
-      "date": "2026-09-28",
-      "status": "OK",
-      "failed_steps": []
+      "type": "TREND_UP",
+      "seed": "animal attack documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "aviation disaster documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "cold case documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "fraud documentary",
+      "detail": "2 queries em alta novas",
+      "examples": [
+        "elizabeth holmes",
+        "art fraud documentary"
+      ]
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "heist documentary",
+      "detail": "4 queries em alta novas",
+      "examples": [
+        "holy heist documentary",
+        "boston art heist documentary",
+        "isabella stewart gardner museum heist documentary",
+        "hatton garden heist documentary"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "aviation disaster documentary",
+      "detail": "5 perguntas novas (profundidade 112)",
+      "examples": [
+        "aviation disaster documentary blackbird",
+        "airline disaster full movie",
+        "airline disaster full movie in hindi",
+        "flight disaster full movie",
+        "countdown to the next aviation disaster full documentary blaze originals"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "corporate collapse documentary",
+      "detail": "9 perguntas novas (profundidade 126)",
+      "examples": [
+        "corporate collapse documentary china",
+        "corporate collapse documentary episode 1",
+        "corporate collapse documentary episode 3",
+        "corporate collapse documentary films",
+        "corporate collapse documentary free"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "crypto scam documentary",
+      "detail": "9 perguntas novas (profundidade 122)",
+      "examples": [
+        "crypto scam documentary alex g",
+        "crypto scam documentary dvd",
+        "crypto scam documentary exposed",
+        "crypto scam documentary elon musk",
+        "crypto scam documentary edit"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "cybercrime documentary",
+      "detail": "6 perguntas novas (profundidade 84)",
+      "examples": [
+        "cyber crime full movie",
+        "cybercrime investigator",
+        "documentary about cyber crime",
+        "cybercrime documentary google",
+        "cybercrime documentary graphic"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "deep sea mystery documentary",
+      "detail": "5 perguntas novas (profundidade 99)",
+      "examples": [
+        "deep sea mystery documentary bangla",
+        "deep sea mystery documentary girl",
+        "deep sea mystery documentary geology",
+        "deep sea mystery documentary google",
+        "deep sea mystery documentary in hindi"
+      ]
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "cold case documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "fraud documentary",
+      "detail": "2 queries em alta novas",
+      "examples": [
+        "elizabeth holmes",
+        "art fraud documentary"
+      ]
+    },
+    {
+      "type": "TREND_UP",
+      "seed": "heist documentary",
+      "detail": "4 queries em alta novas",
+      "examples": [
+        "holy heist documentary",
+        "boston art heist documentary",
+        "isabella stewart gardner museum heist documentary",
+        "hatton garden heist documentary"
+      ]
+    },
+    {
+      "type": "DEMAND_DEPTH",
+      "seed": "history of pandemics documentary",
+      "detail": "5 perguntas novas (profundidade 88)",
+      "examples": [
+        "history of pandemics documentary in english",
+        "history of pandemics documentary japan",
+        "history of pandemics documentary joe rogan",
+        "history of pandemics documentary james cameron",
+        "history of pandemics documentary kenya"
+      ]
     }
   ],
-  "alerts": [],
   "ypp": {}
 }
