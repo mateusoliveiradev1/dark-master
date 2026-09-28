@@ -41,12 +41,12 @@ jobs:
         if: github.event.schedule == '0 6 * * *' || (github.event_name == 'workflow_dispatch' && inputs.full != 'true')
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scripts/learn_loop.py --collect --analyze
+        run: python scripts/learn_loop.py --collect --analyze --no-dashboard
       - name: Loop semanal (tudo, com teto de quota)
         if: github.event.schedule == '0 7 * * 0' || (github.event_name == 'workflow_dispatch' && inputs.full == 'true')
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scripts/learn_loop.py --all --quota-budget 8000
+        run: python scripts/learn_loop.py --all --quota-budget 8000 --no-dashboard
       - name: Publicar relatório do dia
         uses: actions/upload-artifact@v4
         with:
@@ -56,9 +56,8 @@ jobs:
         run: |
           git config user.name "dark-master-loop"
           git config user.email "dark-master-loop@users.noreply.github.com"
-          git add data/learn_loop/
+          git add -A data/
           git diff --quiet --cached || git commit -m "data: loop diario $(date -u +%F)"
-          git checkout -- data/dashboard.json 2>/dev/null || true
           git pull --rebase origin master
           git push
 
@@ -85,7 +84,7 @@ jobs:
         run: |
           git config user.name "dark-master-loop"
           git config user.email "dark-master-loop@users.noreply.github.com"
-          git add data/research/ data/dashboard.json
+          git add -A data/
           git diff --quiet --cached || git commit -m "data: pesquisa semanal $(date -u +%F)"
           git pull --rebase origin master
           git push

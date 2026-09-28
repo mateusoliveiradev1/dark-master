@@ -76,7 +76,7 @@ def run_step(name, command, dry_run):
             "returncode": code, "stdout": out, "stderr": err}
 
 
-def loop(channels, themes, steps, dry_run, quota_budget, out_dir):
+def loop(channels, themes, steps, dry_run, quota_budget, out_dir, no_dashboard=False):
     own = [c.get("handle", "") for c in channels if c.get("mine") and c.get("handle")]
     watched = [c.get("handle", "") for c in channels if c.get("handle")]
     total, plan = estimate(own, watched, themes, quota_budget)
@@ -113,7 +113,7 @@ def loop(channels, themes, steps, dry_run, quota_budget, out_dir):
     out = Path(out_dir) if out_dir else ROOT / "data" / "learn_loop"
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{today}.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    if not dry_run and out == ROOT / "data" / "learn_loop":
+    if not dry_run and out == ROOT / "data" / "learn_loop" and not no_dashboard:
         try:
             build_dashboard()
         except Exception as exc:
@@ -184,6 +184,8 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--quota-budget", type=int, default=8000)
     parser.add_argument("--out-dir", default="")
+    parser.add_argument("--no-dashboard", action="store_true",
+                        help="nao reescreve data/dashboard.json (dono: job de pesquisa)")
     args = parser.parse_args()
     if args.dashboard:
         dashboard = build_dashboard()
@@ -194,7 +196,8 @@ def main():
                                    ("analyze", args.analyze), ("revalidate", args.revalidate)) if on}
     if args.all or not steps:
         steps = {"all"}
-    report = loop(load_channels(), due_themes(), steps, args.dry_run, args.quota_budget, args.out_dir or None)
+    report = loop(load_channels(), due_themes(), steps, args.dry_run, args.quota_budget,
+                  args.out_dir or None, args.no_dashboard)
     print(json.dumps({key: value for key, value in report.items() if key != "quota"}, ensure_ascii=False, indent=2))
     print(f"quota estimada: {report['quota']['estimated']}/{report['quota']['budget']} | status: {report['status']}")
     return 0
