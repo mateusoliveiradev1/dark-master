@@ -23,14 +23,17 @@ Para canal existente, o orquestrador não exige nicho/outlier. Para canal novo, 
 | **Planner closed** | `remotion.py plan` | research/map/claims, shot specs, prompt READY, manifest, image audit, captions/timing, voice/audio quando exigido e visual profile |
 | **Staging/run** | `remotion.py` + `run_ledger.py` | staging isolado por run/hash, somente assets do ledger, `run.json` append-only e hashes |
 | **Review independiente** | `visual_review.py` | F0/F50/F100, contact sheet por cena/sequência, derivados 120px quando ffmpeg existe e receipt com score/findings/`planHash` |
-| **Pesquisa de título** | `title_research.py` | candidatos, fórmula, overlap com histórico e decisão humana; não infere demanda |
-| **Rotação editorial** | `rotation_audit.py` | título, hook, sequência de beats e CTA contra os três episódios anteriores |
+| **Pesquisa de título** | `title_research.py` | candidatos, fórmula, overlap com histórico e decisão humana; não infere demanda; **ausente = FALHA** |
+| **Rotação editorial** | `rotation_audit.py` | título, hook, sequência de beats e CTA contra os três episódios anteriores; **ausente = FALHA** |
+| **Packaging (par 10/10)** | `packaging_audit.py` | 3–5 pares PT+EN, fórmula Y, goal browse\|search, thumb sem repetir título, hook long30s + short3s ≤8, evidência URL, winner + 1–2 alts; **ausente/FAIL = FALHA** |
+| **Thumb (par 10/10)** | `thumb_audit.py` | 2–3 conceitos × 6 campos + 1 eixo variante, overlay ≤4 palavras, zero repetição, imagem ≤2MB 1280x720, legível a 120px; gore = REVIEW humano; **ausente/FAIL = FALHA** |
+| **Short/bolhas pré-voo** | `short_qa.py` | hook ≤8, blocos ≤4, frame1 texto ≤6, sem saudação/logo, funil válido, loop ≥0.55 com vídeo; sem vídeo = REVIEW |
 | **Áudio/voz** | `audio_audit.py` | duração, sample rate/canais, **loudness (LUFS)**, **true peak**, LRA, **clipping**, **silêncios longos** |
 | **Legendas** | `captions_audit.py` | nº de cues, 1ª perto de 0:00, duração por cue, **sobreposições**, gaps, linhas/chars, **velocidade de leitura (CPS)**, cobertura vs áudio |
 | **Pacote** | (presença) | `youtube_package.txt` / `PACOTE_PUBLICACAO.txt` |
 | **Final** | `remotion.py audit` + `audit_all.py` | output, report, staging, run e receipt do mesmo `RenderPlan` |
 | **Remotion** | `remotion.py audit` | RENDER_PLAN, RENDER_REPORT, duração, output e paths rastreáveis |
-| **Visual** | `dark-visual-reviewer` | hierarquia, crop, safe area, captions, repetição, motion, pacing e score mínimo 92 |
+| **Visual** | `dark-visual-reviewer` | overview da sequência + até quatro cenas-chave; corrige só `BLOCKER`/`MAJOR`, sem nota mínima |
 | **Compliance/YPP** | `audit-ypp.py` | conteúdo inautêntico, gore, IA, etc. (`references/09`) |
 
 `audit_all.py` consome `TITLE_RESEARCH.json`, `ROTATION_AUDIT.json` e `PROMPT_STATUS.json` quando eles existem. `INCONCLUSIVO` fica visível sem liberar motion; `FAIL` bloqueia. Rode os três pelo fluxo de `30-roteiro-master.md` antes da auditoria final.

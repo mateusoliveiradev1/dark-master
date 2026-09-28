@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "episode": "videoNN",
+  "channel": "NOME-DO-CANAL",
+  "titles": "TITULO PT vencedor | Winner EN title",
+  "image": "",
+  "concepts": [
+    {
+      "id": "A",
+      "angle": "angulo que vende + split com o titulo",
+      "focal": "1 foco: rosto+emocao OU objeto/resultado",
+      "text_pt": "ATE 4 PALAVRAS",
+      "text_en": "UP TO 4 WORDS",
+      "position": "terco oposto ao foco",
+      "background": "cor BOGY + separacao (rim/fundo escuro)",
+      "composition": "tercos, direcao do olhar, crop",
+      "note_120px": "o que continua legivel a 120px",
+      "variant_axis": "face-vs-objeto"
+    },
+    {
+      "id": "B",
+      "angle": "mesmo caso, outro eixo",
+      "focal": "objeto/numero/mapa",
+      "text_pt": "OUTRO TEXTO",
+      "text_en": "OTHER TEXT",
+      "position": "terco oposto ao foco",
+      "background": "contraste alternativo",
+      "composition": "espaco negativo",
+      "note_120px": "o que continua legivel a 120px",
+      "variant_axis": "texto-vs-sem-texto"
+    }
+  ]
+}

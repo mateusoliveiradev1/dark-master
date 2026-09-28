@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dark-master.local/schemas/packaging.schema.json",
+  "title": "Packaging Pair (title + thumb + hook)",
+  "description": "Niche-agnostic packaging contract. Title and thumbnail are born as a pair, PT+EN localized (never literal translation). Human picks the winner; scripts only audit overlap, structure and 10/10 process gates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "episode", "channel", "market", "pairs", "decision"],
+  "properties": {
+    "version": {"const": 1},
+    "episode": {"type": "string", "minLength": 1},
+    "channel": {"type": "string", "minLength": 1},
+    "model": {"type": "string", "description": "models/<slug> used as niche adapter, or 'generic'"},
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary", "secondary"],
+      "properties": {
+        "primary": {"type": "string", "enum": ["pt-BR", "en"]},
+        "secondary": {"type": "string", "enum": ["pt-BR", "en", "none"]}
+      }
+    },
+    "pairs": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "formula", "goal", "title", "thumb", "hook", "evidence"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "formula": {"type": "string", "enum": ["Y1", "Y2", "Y3", "Y4", "Y5", "Y6", "Y11"]},
+          "goal": {"type": "string", "enum": ["browse", "search"]},
+          "title": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pt", "en"],
+            "properties": {
+              "pt": {"type": "string", "minLength": 10, "maxLength": 100},
+              "en": {"type": "string", "minLength": 10, "maxLength": 100}
+            }
+          },
+          "thumb": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text_pt", "text_en", "concept", "focal", "background", "composition"],
+            "properties": {
+              "text_pt": {"type": "string", "maxLength": 40},
+              "text_en": {"type": "string", "maxLength": 40},
+              "concept": {"type": "string", "minLength": 1},
+              "focal": {"type": "string", "minLength": 1},
+              "background": {"type": "string", "minLength": 1},
+              "composition": {"type": "string", "minLength": 1},
+              "variants_axis": {"type": "string"}
+            }
+          },
+          "hook": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["long30s", "short3s"],
+            "properties": {
+              "long30s": {"type": "string", "minLength": 1},
+              "short3s": {"type": "string", "minLength": 1}
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["urls"],
+            "properties": {
+              "urls": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+              "notes": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["winner_id", "human", "date"],
+      "properties": {
+        "winner_id": {"type": "string", "minLength": 1},
+        "alternatives": {"type": "array", "items": {"type": "string"}},
+        "human": {"type": "string", "minLength": 1},
+        "date": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

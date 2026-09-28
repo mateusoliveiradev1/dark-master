@@ -216,18 +216,39 @@ def audit_video(v):
         res["gates"]["originalidade"] = "FALHA"
         res["flags"].append("originalidade")
 
-    optional_artifacts = (
+    blocking_artifacts = (
         ("titulo", v / "01_roteiro" / "TITLE_RESEARCH.json"),
         ("rotacao", v / "01_roteiro" / "ROTATION_AUDIT.json"),
     )
-    for key, path in optional_artifacts:
+    for key, path in blocking_artifacts:
         if not path.exists():
-            res["gates"][key] = "nao_ativo"
+            res["gates"][key] = "FALHA"
+            res["flags"].append(key)
             continue
         artifact_status = optional_artifact_status(path)
         res["gates"][key] = "ok" if artifact_status in {"PASS", "REVIEW"} else artifact_status
-        if artifact_status == "FAIL":
+        if artifact_status not in {"PASS", "REVIEW"}:
             res["flags"].append(key)
+
+    packaging = v / "01_roteiro" / "PACKAGING.json"
+    if not packaging.exists():
+        res["gates"]["packaging"] = "FALHA"
+        res["flags"].append("packaging")
+    else:
+        code, _ = run("packaging_audit.py", ["--packaging", str(packaging)])
+        res["gates"]["packaging"] = "ok" if code == 0 else "FALHA"
+        if code != 0:
+            res["flags"].append("packaging")
+
+    thumb_brief = v / "01_roteiro" / "THUMB_BRIEF.json"
+    if not thumb_brief.exists():
+        res["gates"]["thumb"] = "FALHA"
+        res["flags"].append("thumb")
+    else:
+        code, _ = run("thumb_audit.py", ["--brief", str(thumb_brief), "--root", str(v / "01_roteiro")])
+        res["gates"]["thumb"] = "ok" if code == 0 else "FALHA"
+        if code != 0:
+            res["flags"].append("thumb")
 
     compliance = v / "01_roteiro" / "COMPLIANCE_AUDIT.json"
     try:
@@ -299,11 +320,11 @@ def main():
         print(json.dumps(results, ensure_ascii=False, indent=1))
     else:
         print("# Auditoria geral\n")
-        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'remotion':<8} {'integrity':<8} {'titulo':<8} {'rotacao':<8} {'assets':<8} {'pron':<8} {'cons':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
+        print(f"{'video':<20} {'imgs':<8} {'audio':<8} {'caps':<8} {'timing':<8} {'remotion':<8} {'integrity':<8} {'titulo':<8} {'rotacao':<8} {'pack':<8} {'thumb':<8} {'assets':<8} {'pron':<8} {'cons':<8} {'short':<8} {'orig':<8} {'comp':<8} {'score':<8} {'research':<8} {'pacote':<8} {'final':<8} veredito")
         for r in results:
             g = r["gates"]
             print(f"{r['video']:<20} {g['imagens']:<8} {g['audio']:<8} {g['caps']:<8} "
-                  f"{g['timing']:<8} {g['remotion']:<8} {g['render_integrity']:<8} {g['titulo']:<8} {g['rotacao']:<8} {g['assets']:<8} {g['pronuncia']:<8} {g['consistencia']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
+                  f"{g['timing']:<8} {g['remotion']:<8} {g['render_integrity']:<8} {g['titulo']:<8} {g['rotacao']:<8} {g.get('packaging', '?'):<8} {g.get('thumb', '?'):<8} {g['assets']:<8} {g['pronuncia']:<8} {g['consistencia']:<8} {g['short_qa']:<8} {g['originalidade']:<8} {g['compliance']:<8} {g['scorecard']:<8} {g['research']:<8} {g['pacote']:<8} {g['final']:<8} {r['veredito']}")
         print(f"\nTotal: {len(results)} | Falhas: {len(fails)}")
         print("Falhas:", ", ".join(r["video"] for r in fails) or "nenhuma")
 

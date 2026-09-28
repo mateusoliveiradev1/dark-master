@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "episode": "videoNN",
+  "channel": "NOME-DO-CANAL",
+  "model": "generic",
+  "market": {"primary": "pt-BR", "secondary": "en"},
+  "pairs": [
+    {
+      "id": "P1",
+      "formula": "Y1",
+      "goal": "browse",
+      "title": {
+        "pt": "TITULO PT com 9 provas e keyword real do caso",
+        "en": "EN title with 9 proofs and real case keyword"
+      },
+      "thumb": {
+        "text_pt": "TEXTO ATE 4",
+        "text_en": "TEXT UP TO 4",
+        "concept": "angulo que vende + o que a thumb carrega e o titulo nao diz",
+        "focal": "rosto/objeto/resultado unico",
+        "background": "cor BOGY + separacao do sujeito",
+        "composition": "tercos, olhar, crop",
+        "variants_axis": "face-vs-objeto"
+      },
+      "hook": {
+        "long30s": "frase 1 cumpre a promessa do titulo + abre 1 loop",
+        "short3s": "payoff em ate 8 palavras"
+      },
+      "evidence": {"urls": ["https://... (data: AAAA-MM-DD)"], "notes": "outlier/autocomplete/Trends/comentario"}
+    },
+    {
+      "id": "P2",
+      "formula": "Y3",
+      "goal": "search",
+      "title": {
+        "pt": "SEGUNDO TITULO PT com 7 provas e busca exata",
+        "en": "SECOND EN title with 7 proofs and exact query"
+      },
+      "thumb": {
+        "text_pt": "OUTRO TEXTO",
+        "text_en": "OTHER TEXT",
+        "concept": "variar 1 eixo vs P1",
+        "focal": "objeto/resultado",
+        "background": "contraste alternativo",
+        "composition": "tercos opostos a P1",
+        "variants_axis": "texto-vs-sem-texto"
+      },
+      "hook": {
+        "long30s": "entrega parcial + aposta maior",
+        "short3s": "tensao em ate 8 palavras"
+      },
+      "evidence": {"urls": ["https://... (data: AAAA-MM-DD)"], "notes": ""}
+    },
+    {
+      "id": "P3",
+      "formula": "Y11",
+      "goal": "browse",
+      "title": {
+        "pt": "TERCEIRO TITULO PT com 500 milhoes e queda em 6 meses",
+        "en": "THIRD EN title with 500 million fall in 6 months"
+      },
+      "thumb": {
+        "text_pt": "IMPERIO OCULTO",
+        "text_en": "HIDDEN EMPIRE",
+        "concept": "variar 1 eixo vs P1/P2",
+        "focal": "documento/mapa/silhueta",
+        "background": "fundo escuro + rim",
+        "composition": "espaco negativo",
+        "variants_axis": "cor"
+      },
+      "hook": {
+        "long30s": "mostra resultado, volta ao setup",
+        "short3s": "contradicao em ate 8 palavras"
+      },
+      "evidence": {"urls": ["https://... (data: AAAA-MM-DD)"], "notes": ""}
+    }
+  ],
+  "decision": {
+    "winner_id": "P1",
+    "alternatives": ["P2", "P3"],
+    "human": "NOME (decisao humana obrigatoria)",
+    "date": "AAAA-MM-DD"
+  }
+}

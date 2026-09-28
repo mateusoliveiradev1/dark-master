@@ -66,8 +66,20 @@ def first_words_overlap(short_path, long_path):
     return len(set(short_words) & long_words)
 
 
-def run(narration, plan, video=None, long_form=None):
+BANNED_OPENERS = (
+    "oi ", "ola ", "olá ", "bem-vindo", "bem vindo", "welcome", "hey guys",
+    "inscreva", "subscribe", "nesse video", "neste video", "antes de comecar",
+    "antes de começar", "logo",
+)
+
+BUBBLE_KILLERS = (
+    "tela preta no fim", "silencio no 1s", "logo na abertura", "frame1 escuro",
+)
+
+
+def run(narration, plan, video=None, long_form=None, frame_text=None):
     errors = []
+    warnings = []
     if not Path(narration).exists():
         errors.append("narration_missing")
         blocks = []
@@ -75,10 +87,22 @@ def run(narration, plan, video=None, long_form=None):
         blocks = narration_blocks(narration)
     if not blocks:
         errors.append("short_narration_empty")
-    elif words(blocks[0]) > 8:
-        errors.append(f"hook_short_longo({words(blocks[0])}>8)")
+    else:
+        if words(blocks[0]) > 8:
+            errors.append(f"hook_short_longo({words(blocks[0])}>8)")
+        first = re.sub(r"\s+", " ", blocks[0].lower().strip())
+        if first.startswith(BANNED_OPENERS):
+            errors.append("abertura_proibida_logo_ou_saudacao")
     if len(blocks) > 4:
         errors.append(f"muitos_blocos({len(blocks)}>4)")
+    if frame_text is not None:
+        count = words(str(frame_text))
+        if count == 0:
+            warnings.append("frame1_texto_ausente")
+        elif count > 6:
+            errors.append(f"frame1_texto_longo({count}>6)")
+    else:
+        warnings.append("frame1_texto_nao_informado")
     errors.extend(validate_funnel_plan(plan))
     overlap = first_words_overlap(narration, long_form) if long_form and Path(long_form).exists() else 0
     if overlap >= 5:
@@ -104,6 +128,8 @@ def run(narration, plan, video=None, long_form=None):
         errors.append("video_missing_for_full_qa")
     if errors:
         status = "REVIEW" if video is None and errors == ["video_missing_for_full_qa"] else "FAIL"
+    elif warnings:
+        status = "REVIEW"
     else:
         status = "PASS"
     return {
@@ -112,8 +138,11 @@ def run(narration, plan, video=None, long_form=None):
         "hook_words": words(blocks[0]) if blocks else 0,
         "blocks": len(blocks),
         "first_words_overlap_with_long": overlap,
+        "frame_text_words": words(str(frame_text)) if frame_text is not None else 0,
+        "bubble_killers": list(BUBBLE_KILLERS),
         "video": video_checks,
         "errors": errors,
+        "warnings": warnings,
     }
 
 
@@ -123,9 +152,10 @@ def main():
     parser.add_argument("--plan", required=True)
     parser.add_argument("--video")
     parser.add_argument("--long")
+    parser.add_argument("--frame-text", default=None)
     parser.add_argument("--out")
     args = parser.parse_args()
-    result = run(args.narration, args.plan, args.video, args.long)
+    result = run(args.narration, args.plan, args.video, args.long, args.frame_text)
     if args.out:
         output = Path(args.out)
         output.parent.mkdir(parents=True, exist_ok=True)

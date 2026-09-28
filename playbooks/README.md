@@ -54,6 +54,7 @@ Os scripts de produção **não têm identidade hardcoded**: cada canal define a
 
 - Playbooks procurados em `DARK_MASTER_PLAYBOOKS` ou `~/.config/opencode/skills/dark-master/playbooks`.
 - Scripts que já aceitam `--channel`: `gerar_voz_v3`, `padrao_bed`, `montar_motion`, `padrao_short`, `fazer_thumb_v2`, `novo_video` (canal) e `new_video`/`prompt_builder --suffix` (skill).
+- **Packaging por canal (motor universal, qualquer nicho):** cada vídeo guarda `01_roteiro/PACKAGING.json` (3–5 pares PT+EN + decisão humana, schema em `schemas/packaging.schema.json`, template em `templates/packaging.json`) e `01_roteiro/THUMB_BRIEF.json` (2–3 conceitos, template em `templates/thumb_brief.json`). O nicho vem de `models/<slug>/hooks.md` (banco long + Short + loops do modelo); o estilo visual/voz/motion vem deste playbook (`style.json`/`voice.json`/`motion.json`). `packaging_audit.py` + `thumb_audit.py` validam o par; `audit_all.py` bloqueia se ausente ou FAIL. Detalhe completo em `references/40-packaging-bubbles.md`.
 - `remotion.py` e `contract_audit.py` usam o mesmo contrato; `motion.json.engine` seleciona `legacy` ou `remotion`.
 - O **CFD** está migrado para o contrato: os JSONs reproduzem exatamente os valores anteriores (prova: 272 comparações dry-run, zero divergência).
 

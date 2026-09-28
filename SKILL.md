@@ -96,6 +96,8 @@ Ver `playbooks/README.md`.
 | **Versionamento do canal (git sem mídia) + Notion** | `references/33-versionamento-e-notion.md` |
 | **Cronologia e linha do tempo (roteiro + edição)** | `references/35-cronologia-e-timeline.md` |
 | **Contrato de pesquisa, claims, mapa semântico, duração real e funil Short→Long** | `references/36-pesquisa-claims-e-funil.md` + `scripts/timing_audit.py` |
+| **Motor universal de packaging + bolhas (qualquer nicho, PT+EN, 10/10 processo)** | `references/40-packaging-bubbles.md` + `scripts/packaging_audit.py` + `scripts/thumb_audit.py` + `schemas/packaging.schema.json` |
+| **Arquitetura de produção (narrativa → VIDEO DIRECTOR → shots → assets → som → timeline → Remotion)** | `references/39-production-architecture.md` + `agents/video-director.md` + `schemas/production-project.schema.json` |
 | **Modelos de canal por nicho/subnicho (38, com evidência real)** | `models/README.md` + `models/<slug>/` |
 | Perfil/operação/outliers de um canal específico | `playbooks/<canal>/` |
 
@@ -109,7 +111,7 @@ Ver `playbooks/README.md`.
 6. **Formato pode repetir; substância não.** Ou cai na política de **conteúdo inautêntico**. Existencial para canal dark. [OFICIAL]
 7. **Escreva como uma pessoa.** Aplique o anti-IA (`17`). [PRATICANTE]
 8. **GATE 100% (motion).** Sem todas as imagens, não gera **motion**; a **voz sai no scaffold** (depende só da narração + fatos aprovados).
-9. **Remotion é o renderer visual canônico, não o dono do roteiro.** `dark-artdirector` cria a Visual Bible e o `RENDER_PLAN`; `dark-produtor` executa; `dark-visual-reviewer` aprova de forma independente. FFmpeg não cria visuals de novos episódios; fica só em encode/mux e derivados declarados.
+9. **Remotion é o executor, não o diretor.** A direção nasce em `NARRATIVE_BEATS → VIDEO_DIRECTION (obrigatório) → SHOT_PLAN → ASSET_PLAN → SOUND_PLAN → EDITORIAL_TIMELINE` (`39`); o Remotion só executa a timeline aprovada. `dark-artdirector` atua como Visual Director; `dark-visual-reviewer` aprova de forma independente. FFmpeg não cria visuals de novos episódios; fica só em encode/mux e derivados declarados.
 10. **Deixe rastro.** Registre D+2/D+7 e replique outliers. [PRATICANTE]
 11. **Urgência:** o YPP **dobra** em 01/02/2027 (8.000h/20M). [OFICIAL]
 12. **Pesquisa antes de produzir.** Nicho se decide por **evidência de canal** (gates rígidos), não por lista pronta (`23`).
@@ -129,8 +131,9 @@ Ver `playbooks/README.md`.
 ```text
 canal existente:Sem exigir nicho/outlier
 canal novo:nicho → outlier
-→ research → script → art direction → image prompts → assets
-→ motion prompts → Remotion → QA
+→ research → script → narrative beats → VIDEO DIRECTOR → shot plan
+→ asset plan → sound plan → editorial timeline
+→ Remotion (executor) → QA pré/pós-render
 → receipt visual independente → render final → auditoria
 ```
 
