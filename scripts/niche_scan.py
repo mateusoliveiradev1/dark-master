@@ -32,7 +32,91 @@ from pathlib import Path
 
 TOKEN = Path.home() / ".config" / "opencode" / "secrets" / "yt-token.json"
 SCOPES = ["https://www.googleapis.com/auth/youtube.readonly"]
+FORCE_SSL = "https://www.googleapis.com/auth/youtube.force-ssl"
 DATA = Path(__file__).resolve().parent.parent / "data" / "briefs"
+TRENDS_CACHE = DATA / ".trends_cache.json"
+TRENDS_TTL_DAYS = 7
+WATCHLIST = DATA / "watchlist.json"
+REVALIDATE_DAYS = 14
+
+
+def token_scopes(token_path=None):
+    """Escopos do token OAuth local (sem rede). Lista vazia = token ausente/ilegivel."""
+    try:
+        data = json.loads(Path(token_path or TOKEN).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    scopes = data.get("scopes") or data.get("scope") or ""
+    if isinstance(scopes, list):
+        return scopes
+    return re.split(r"\s+", str(scopes).strip()) if scopes else []
+
+
+def require_scope(scope):
+    """(ok, mensagem). Falha cedo com acao clara em vez de erro cryptico da API."""
+    if scope in token_scopes():
+        return True, ""
+    return False, (f"escopo ausente: {scope}. Rode: python scripts/yt_auth.py "
+                   "(reautorizar libera o escopo; tokens antigos nao tem).")
+
+
+def trends_cache_get(term):
+    try:
+        cache = json.loads(TRENDS_CACHE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    entry = cache.get(term, {})
+    try:
+        age = (datetime.now(timezone.utc) - datetime.fromisoformat(entry.get("ts", ""))).days
+    except ValueError:
+        return None
+    if age <= TRENDS_TTL_DAYS and "result" in entry:
+        return entry["result"]
+    return None
+
+
+def trends_cache_set(term, result):
+    try:
+        cache = json.loads(TRENDS_CACHE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        cache = {}
+    cache[term] = {"ts": datetime.now(timezone.utc).isoformat(), "result": result}
+    try:
+        DATA.mkdir(parents=True, exist_ok=True)
+        TRENDS_CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+    except OSError:
+        pass
+
+
+def watchlist_save(theme, verdict, emerging, passed):
+    try:
+        items = json.loads(WATCHLIST.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        items = []
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    items = [item for item in items if item.get("theme") != theme]
+    items.append({"theme": theme, "date": today, "verdict": verdict,
+                  "emerging": emerging, "passed": len(passed)})
+    try:
+        DATA.mkdir(parents=True, exist_ok=True)
+        WATCHLIST.write_text(json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
+    except OSError:
+        pass
+    return items
+
+
+def watchlist_due(items, today=None):
+    """Temas com revalidacao vencida (>=14d). Puro e testavel."""
+    today = today or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    due = []
+    for item in items or []:
+        try:
+            age = (datetime.strptime(today, "%Y-%m-%d") - datetime.strptime(item.get("date", today), "%Y-%m-%d")).days
+        except ValueError:
+            continue
+        if age >= REVALIDATE_DAYS:
+            due.append({**item, "age_days": age})
+    return due
 
 DEMAND_PATTERNS = [
     r"\?", r"\b(why|how|what|who|when|where)\b", r"\b(please|pls)\b",
@@ -294,12 +378,19 @@ def cmd_cluster(yt, a):
     if len(hungry) >= 2:
         print("SINAL: >=2 canais diferentes com outlier no mesmo tema -> janela de 2-6 semanas aberta.")
     verdict = "INCONCLUSIVO" if API_ERRORS or any(row.get("history_truncated") for row in rows) else ("PASSA" if len(passed) >= 3 else "REPROVA")
+    if emerging or len(passed) < 3:
+        watchlist_save(a.cluster, verdict, emerging, passed)
+        print(f"[i] watchlist atualizada ({WATCHLIST.name}): revalidar em {REVALIDATE_DAYS}d com --revalidate.")
     return {"theme": a.cluster, "window_days": a.window, "channels": rows,
             "passed": passed, "emerging": emerging, "hungry": hungry, "signal": len(hungry) >= 2,
             "verdict": verdict, "api_errors": list(dict.fromkeys(API_ERRORS))}
 
 
 def cmd_comments(yt, a):
+    ok, message = require_scope(FORCE_SSL)
+    if not ok:
+        print(f"[!] {message}")
+        return {"videoId": a.comments, "total": 0, "error": "scope_missing:force-ssl"}
     r = api(yt.commentThreads().list, part="snippet", videoId=a.comments, order="relevance",
             maxResults=100, textFormat="plainText")
     threads = r.get("items", [])
@@ -364,15 +455,33 @@ def cmd_suggest(seed, hl):
     return {"seed": seed, "depth": len(results), "suggestions": results}
 
 
-def cmd_trends(term):
+def cmd_trends(term, use_cache=True, retries=3):
+    cached = trends_cache_get(term) if use_cache else None
+    if cached is not None:
+        print(f"[i] Trends do cache ({TRENDS_TTL_DAYS}d TTL) — rode com dados frescos quando decidir o piloto.")
+        return cached
     try:
         from pytrends.request import TrendReq
     except ImportError:
         print("[!] pytrends nao instalado (pip install pytrends). Fallback: use --suggest.")
         return {"term": term, "error": "pytrends ausente"}
+    last_error = ""
+    for attempt in range(max(1, retries)):
+        try:
+            p = TrendReq(hl="en-US", tz=0)
+            p.build_payload([term], timeframe="today 12-m", gprop="youtube")
+            break
+        except Exception as exc:
+            last_error = str(exc)
+            if "429" not in last_error and attempt < retries - 1:
+                continue
+            if attempt < retries - 1:
+                import time
+                time.sleep(5 * (attempt + 1))
+                continue
+            print(f"[!] Trends falhou ({last_error}). Fallback: use --suggest.")
+            return {"term": term, "error": last_error or "trends_falhou"}
     try:
-        p = TrendReq(hl="en-US", tz=0)
-        p.build_payload([term], timeframe="today 12-m", gprop="youtube")
         df = p.interest_over_time()
         if df is None or df.empty:
             print("[!] Trends sem dados para o termo")
@@ -392,8 +501,10 @@ def cmd_trends(term):
         print("\n## Queries em alta")
         for r in rising:
             print(f"  {r.get('query')} (+{r.get('value')}%)")
-        return {"term": term, "avg_recent": avg_recent, "avg_prior": avg_prior,
-                "direction": direction, "rising": rising}
+        result = {"term": term, "avg_recent": avg_recent, "avg_prior": avg_prior,
+                  "direction": direction, "rising": rising}
+        trends_cache_set(term, result)
+        return result
     except Exception as e:
         print(f"[!] Trends falhou ({e}). Fallback: use --suggest.")
         return {"term": term, "error": str(e)}
@@ -505,7 +616,36 @@ def main():
     ap.add_argument("--lang", default="en", choices=["en", "pt", "es"])
     ap.add_argument("--out")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--revalidate", action="store_true",
+                    help="lista temas da watchlist com revalidacao vencida (>=14d)")
+    ap.add_argument("--revalidate-run", action="store_true",
+                    help="re-executa --cluster nos temas vencidos e compara vereditos (gasta quota)")
     a = ap.parse_args()
+
+    if a.revalidate or a.revalidate_run:
+        try:
+            items = json.loads(WATCHLIST.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            items = []
+        due = watchlist_due(items)
+        if not due:
+            print("[OK] watchlist em dia: nenhum tema com revalidacao vencida.")
+            return
+        print(f"# Revalidacao devida ({len(due)} tema(s), >= {REVALIDATE_DAYS}d)\n")
+        for item in due:
+            print(f"- {item['theme']} | {item['date']} ({item['age_days']}d) | "
+                  f"veredito anterior: {item.get('verdict')} | emergentes: {len(item.get('emerging', []))}")
+        if a.revalidate_run:
+            yt = yt_client()
+            for item in due:
+                print(f"\n{'=' * 60}\n# Revalidando: {item['theme']}")
+                fresh = cmd_cluster(yt, argparse.Namespace(
+                    cluster=item["theme"], ratio=a.ratio, small=a.small, max=a.max,
+                    window=a.window, age=a.age, format=a.format))
+                print(f"-> {item.get('verdict')} ({item['date']}) agora {fresh.get('verdict')}")
+        else:
+            print("\nRode com --revalidate-run para re-executar (cada tema gasta ~100-150 un de quota).")
+        return
 
     hl = {"en": "en", "pt": "pt-BR", "es": "es"}[a.lang]
 
