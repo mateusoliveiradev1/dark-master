@@ -8,16 +8,16 @@
       {
         "step": "collect:@ColdFileDiaries",
         "status": "FAIL",
-        "returncode": 124,
+        "returncode": 1,
         "stdout": "",
-        "stderr": "timeout"
+        "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_metrics.py\", line 520, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_metrics.py\", line 396, in main\n    credentials = creds(args.account or None)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_metrics.py\", line 59, in creds\n    credentials.refresh(Request())\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/auth/credentials.py\", line 519, in refresh\n    self._perform_refresh_token(request)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/credentials.py\", line 437, in _perform_refresh_token\n    ) = reauth.refresh_grant(\n        ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/reauth.py\", line 367, in refresh_grant\n    _client._handle_error_response(response_data, retryable_error)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/_client.py\", line 75, in _handle_error_response\n    raise exceptions.RefreshError(\ngoogle.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})\n"
       },
       {
         "step": "watch",
-        "status": "OK",
-        "returncode": 0,
-        "stdout": "\n===  Cold File Diaries | mediana 36 views | 30 videos | 7 outlier(s) ===\n  34.44x     1240 views  [2026-09-18]  Yuba County Five Drove to a Game — VANISHED\n  33.06x     1190 views  [2026-09-15]  He Jumped With $200,000 — Never Found\n  32.86x     1183 views  [2026-09-16]  Springfield Three Vanished Overnight — NEVER Found\n  15.25x      549 views  [2026-09-25]  Fort Worth Three Went Shopping — NEVER Came Home\n  6.67x      240 views  [2026-09-23]  Axeman Threatened Jazz Night — City Played ALL Night\n  6.42x      231 views  [2026-09-26]  Alcatraz Escape on 50 Raincoats — ZERO Trace\n  6.33x      228 views  [2026-09-24]  Amelia Earhart 1937: Last Call — ZERO Trace\n\n=== Fascinating Horror | mediana 363244 views | 30 videos | 1 outlier(s) ===\n  6.09x  2210606 views  [2026-09-08]  This Led To The Sterile Cockpit Rule: Eastern Airlines 212 | Fascinati\n\n=== Coffeehouse Crime | mediana 432902 views | 30 videos | 0 outlier(s) ===\n\n=== Dark Asia with Megan | mediana 302210 views | 30 videos | 1 outlier(s) ===\n  3.87x  1169373 views  [2026-08-30]  The Cop Who Made Missing People Disappear | Jeju Island Missing Person\n\n[OK] 9 outlier(s) gravados no banco (postgres)\n\n[!] ALERTA: revise os outliers acima — o padrao (hook/tema/formato/thumb) vira sugestao de conteudo.\n",
-        "stderr": ""
+        "status": "FAIL",
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_scan_outliers.py\", line 141, in <module>\n    main()\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_scan_outliers.py\", line 104, in main\n    yt = creds()\n         ^^^^^^^\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_scan_outliers.py\", line 40, in creds\n    c.refresh(Request())\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/auth/credentials.py\", line 519, in refresh\n    self._perform_refresh_token(request)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/credentials.py\", line 437, in _perform_refresh_token\n    ) = reauth.refresh_grant(\n        ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/reauth.py\", line 367, in refresh_grant\n    _client._handle_error_response(response_data, retryable_error)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/_client.py\", line 75, in _handle_error_response\n    raise exceptions.RefreshError(\ngoogle.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})\n"
       },
       {
         "step": "analyze:@ColdFileDiaries",
@@ -30,7 +30,8 @@
   },
   "status": "DEGRADED",
   "failed_steps": [
-    "collect:@ColdFileDiaries"
+    "collect:@ColdFileDiaries",
+    "watch"
   ],
   "notes": [
     "Loop propose-only: propostas em learnings/outliers; regra so muda com aprovacao humana.",
