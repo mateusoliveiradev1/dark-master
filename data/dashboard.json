@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28 23:51",
+  "generated": "2026-09-29 00:39",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -28,49 +28,7 @@
   ],
   "details": {
     "@ColdFileDiaries": {
-      "status": "ok",
-      "videos": 24,
-      "views_30d": 5077,
-      "engaged_30d": 2138,
-      "engaged_rate": 42.1,
-      "top": [
-        {
-          "title": "Yuba County Five Drove to a Game — VANISHED",
-          "views": 1240,
-          "format": "short"
-        },
-        {
-          "title": "He Jumped With $200,000 — Never Found",
-          "views": 1190,
-          "format": "short"
-        },
-        {
-          "title": "Springfield Three Vanished Overnight — NEVER Found",
-          "views": 1183,
-          "format": "short"
-        },
-        {
-          "title": "Fort Worth Three Went Shopping — NEVER Came Home",
-          "views": 485,
-          "format": "short"
-        },
-        {
-          "title": "Axeman Threatened Jazz Night — City Played ALL Night",
-          "views": 240,
-          "format": "short"
-        }
-      ],
-      "series": [
-        {
-          "date": "2026-09-23",
-          "views": 4028
-        },
-        {
-          "date": "2026-09-28",
-          "views": 5077
-        }
-      ],
-      "last_capture": "2026-09-28"
+      "status": "unknown"
     },
     "@FascinatingHorror": {
       "status": "unknown"
@@ -92,133 +50,21 @@
   "alerts": [
     {
       "type": "TREND_UP",
-      "seed": "AI failure documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cult documentary",
-      "detail": "1 queries em alta novas",
-      "examples": [
-        "oregon cult documentary"
-      ]
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "heist documentary",
-      "detail": "2 queries em alta novas",
-      "examples": [
-        "gardner museum heist documentary",
-        "loomis fargo heist documentary"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
       "seed": "aviation disaster documentary",
-      "detail": "5 perguntas novas (profundidade 120)",
-      "examples": [
-        "aviation disaster documentary download",
-        "aviation disaster documentary definition",
-        "aviation disaster documentary dvd",
-        "aviation disaster documentary evidence",
-        "aviation disaster documentary emmy awards"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
-      "seed": "corporate collapse documentary",
-      "detail": "8 perguntas novas (profundidade 149)",
-      "examples": [
-        "corporate collapse documentary amazon",
-        "corporate collapse documentary about triplets",
-        "corporate collapse documentary active measures",
-        "corporate collapse documentary cast",
-        "corporate collapse documentary center"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
-      "seed": "crypto scam documentary",
-      "detail": "9 perguntas novas (profundidade 142)",
-      "examples": [
-        "crypto scam documentary amazon",
-        "crypto scam documentary about triplets",
-        "crypto scam documentary active measures",
-        "crypto scam documentary bbc",
-        "crypto scam documentary by steve james"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
-      "seed": "cybercrime documentary",
-      "detail": "6 perguntas novas (profundidade 92)",
-      "examples": [
-        "cybercrime documentary about triplets",
-        "cybercrime documentary active measures",
-        "cybercrime documentary cnn",
-        "cybercrime documentary cast",
-        "cybercrime documentary center"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
-      "seed": "deep sea mystery documentary",
-      "detail": "5 perguntas novas (profundidade 108)",
-      "examples": [
-        "deep sea mystery documentary by steve james",
-        "deep sea mystery documentary evidence",
-        "deep sea mystery documentary emmy awards",
-        "deep sea mystery documentary emmy awards 2018",
-        "deep sea mystery documentary free"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
-      "seed": "history of pandemics documentary",
-      "detail": "5 perguntas novas (profundidade 126)",
-      "examples": [
-        "history of pandemics documentary amazon",
-        "history of pandemics documentary about triplets",
-        "history of pandemics documentary active measures",
-        "history of pandemics documentary by steve james",
-        "history of pandemics documentary ending"
-      ]
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "AI failure documentary",
       "detail": "trajetoria virou ALTA no YouTube 12m",
       "examples": []
     },
     {
       "type": "TREND_UP",
-      "seed": "cult documentary",
-      "detail": "1 queries em alta novas",
-      "examples": [
-        "oregon cult documentary"
-      ]
+      "seed": "cold case documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
     },
     {
       "type": "TREND_UP",
-      "seed": "heist documentary",
-      "detail": "2 queries em alta novas",
-      "examples": [
-        "gardner museum heist documentary",
-        "loomis fargo heist documentary"
-      ]
-    },
-    {
-      "type": "DEMAND_DEPTH",
-      "seed": "history of pandemics documentary",
-      "detail": "5 perguntas novas (profundidade 95)",
-      "examples": [
-        "history of pandemics documentary channel 4",
-        "history of pandemics documentary canada",
-        "history of pandemics documentary channel 5",
-        "history of pandemics documentary compilation",
-        "history of pandemics documentary covid 19"
-      ]
+      "seed": "corporate collapse documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
     }
   ],
   "ypp": {}
