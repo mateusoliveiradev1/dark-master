@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29 02:25",
+  "generated": "2026-09-29 02:29",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -28,53 +28,7 @@
   ],
   "details": {
     "@ColdFileDiaries": {
-      "status": "ok",
-      "videos": 26,
-      "views_30d": 5419,
-      "engaged_30d": 2295,
-      "engaged_rate": 42.4,
-      "top": [
-        {
-          "title": "Yuba County Five Drove to a Game — VANISHED",
-          "views": 1240,
-          "format": "short"
-        },
-        {
-          "title": "He Jumped With $200,000 — Never Found",
-          "views": 1190,
-          "format": "short"
-        },
-        {
-          "title": "Springfield Three Vanished Overnight — NEVER Found",
-          "views": 1183,
-          "format": "short"
-        },
-        {
-          "title": "Fort Worth Three Went Shopping — NEVER Came Home",
-          "views": 538,
-          "format": "short"
-        },
-        {
-          "title": "Axeman Threatened Jazz Night — City Played ALL Night",
-          "views": 241,
-          "format": "short"
-        }
-      ],
-      "series": [
-        {
-          "date": "2026-09-23",
-          "views": 4028
-        },
-        {
-          "date": "2026-09-28",
-          "views": 5077
-        },
-        {
-          "date": "2026-09-29",
-          "views": 5419
-        }
-      ],
-      "last_capture": "2026-09-29"
+      "status": "unknown"
     },
     "@FascinatingHorror": {
       "status": "unknown"
@@ -100,40 +54,19 @@
       ]
     }
   ],
-  "alerts": [
-    {
-      "type": "TREND_UP",
-      "seed": "aviation disaster documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "cold case documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    },
-    {
-      "type": "TREND_UP",
-      "seed": "corporate collapse documentary",
-      "detail": "trajetoria virou ALTA no YouTube 12m",
-      "examples": []
-    }
-  ],
+  "alerts": [],
   "seeds": {
     "AI failure documentary": {
       "seed": "AI failure documentary",
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 136,
+          "depth": 133,
           "suggestions": [
-            "ai failure",
-            "ai failing",
-            "ai future problems",
+            "ai failure documentary videos",
             "ai failure documentary army",
-            "ai failure documentary alone",
             "ai failure documentary age of light",
+            "ai failure documentary alone",
             "ai failure documentary agency",
             "ai failure documentary and discovery",
             "ai failure documentary amazon",
@@ -146,8 +79,8 @@
             "ai failure documentary black",
             "ai failure documentary by steve james",
             "ai failure documentary clips",
-            "ai failure documentary class 234",
             "ai failure documentary channel",
+            "ai failure documentary class 234",
             "ai failure documentary cold war",
             "ai failure documentary copyright",
             "ai failure documentary cnn",
@@ -157,14 +90,16 @@
             "ai failure documentary david attenborough",
             "ai failure documentary david starkey",
             "ai failure documentary david",
-            "ai failure documentary download"
+            "ai failure documentary download",
+            "ai failure documentary definition",
+            "ai failure documentary dvd"
           ],
           "trends_direction": "ALTA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 103,
+          "depth": 105,
           "suggestions": [
             "ai failure documentary after effects",
             "ai failure documentary animation",
@@ -182,6 +117,7 @@
             "ai failure documentary deutsch",
             "ai failure documentary download",
             "ai failure documentary dublado",
+            "ai failure documentary dub",
             "ai failure documentary english",
             "ai failure documentary episode 1",
             "ai failure documentary episode",
@@ -194,8 +130,7 @@
             "ai failure documentary green screen",
             "ai failure documentary gacha",
             "ai failure documentary green",
-            "ai failure documentary grid",
-            "ai failure documentary hindi"
+            "ai failure documentary grid"
           ],
           "trends_direction": "ALTA",
           "rising": []
@@ -207,7 +142,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 93,
+          "depth": 91,
           "suggestions": [
             "animal attack documentary",
             "wild animal attack documentary",
@@ -234,10 +169,10 @@
             "animal attack full movie in hindi",
             "animal attack full movie tamil dubbed",
             "animal attack documentary grizzly",
-            "animal attack documentary great white shark",
             "animal attack documentary gorilla",
-            "animal attack documentary great white",
+            "animal attack documentary great white shark",
             "animal attack documentary genghis khan",
+            "animal attack documentary great white",
             "animal attack movie hindi"
           ],
           "trends_direction": "ALTA",
@@ -245,7 +180,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 93,
+          "depth": 92,
           "suggestions": [
             "animal attack documentary",
             "wild animal attack documentary",
@@ -288,13 +223,14 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 117,
+          "depth": 119,
           "suggestions": [
             "archaeology mysteries documentary",
             "archaeology mysteries",
             "archeological documentaries",
             "archaeology mystery documentary ancient",
             "archaeology mystery documentary ancient history",
+            "archaeology mystery documentary america",
             "archaeology mystery documentary ancient discoveries",
             "archaeology mystery documentary amazon",
             "archaeology mystery documentary about triplets",
@@ -309,8 +245,8 @@
             "archaeology mystery documentary cnn",
             "archaeology mystery documentary cast",
             "archaeology mystery documentary center",
-            "archaeology mystery documentary discovery channel",
             "archaeology mystery documentary doug batchelor",
+            "archaeology mystery documentary discovery channel",
             "archaeology mystery documentary documentary",
             "archaeology mystery documentary discovery",
             "archaeology mystery documentary download",
@@ -318,15 +254,14 @@
             "archaeology mystery documentary dvd",
             "archaeology mystery documentary episode 1",
             "archaeology mystery documentary espanol",
-            "archaeology mystery documentary english",
-            "archaeology mystery documentary episode 2"
+            "archaeology mystery documentary english"
           ],
           "trends_direction": "BAIXA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 106,
+          "depth": 105,
           "suggestions": [
             "archaeology mystery documentary 2022",
             "archaeology mystery documentary in hindi",
@@ -352,11 +287,11 @@
             "archaeology mystery documentary ep 1",
             "archaeology mystery documentary full",
             "archaeology mystery documentary film",
-            "archaeology mystery documentary greek mythology",
             "archaeology mystery documentary german",
+            "archaeology mystery documentary greek mythology",
             "archaeology mystery documentary game",
+            "archaeology mystery documentary guide",
             "archaeology mystery documentary gold",
-            "archaeology mystery documentary greek subs",
             "archaeology mystery documentary haider tv"
           ],
           "trends_direction": "BAIXA",
@@ -369,7 +304,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 121,
+          "depth": 123,
           "suggestions": [
             "aviation disaster documentary",
             "air disaster documentary",
@@ -387,8 +322,8 @@
             "aviation disaster documentary active measures",
             "aviation disaster documentary b roll",
             "aviation disaster documentary bbc",
-            "aviation disaster documentary b17",
             "aviation disaster documentary blackbird",
+            "aviation disaster documentary b17",
             "aviation disaster documentary bbc 2016",
             "airline disaster film complet en francais",
             "aviation disaster documentary documentary",
@@ -400,14 +335,14 @@
             "aviation disaster documentary el reno",
             "aviation disaster documentary episode 1",
             "aviation disaster documentary europe",
-            "aviation disaster documentary evidence"
+            "aviation disaster documentary episodes"
           ],
           "trends_direction": "ALTA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 103,
+          "depth": 102,
           "suggestions": [
             "aviation disaster documentary",
             "aviation disaster documentary arabic",
@@ -450,7 +385,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 91,
+          "depth": 90,
           "suggestions": [
             "cold case documentary",
             "cold case documentary full episodes",
@@ -481,14 +416,14 @@
             "cold case documentary definition",
             "cold case documentary dvd",
             "cold case files documentary",
-            "cold case files classic"
+            "cold case cold case"
           ],
           "trends_direction": "ALTA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 84,
+          "depth": 82,
           "suggestions": [
             "cold case documentary",
             "cold case documentary full episodes",
@@ -502,15 +437,14 @@
             "mississippi cold case documentary",
             "cold case serial killer documentary",
             "cold case documentary arabic",
-            "cold case documentary australia",
             "cold case documentary adventure",
             "cold case documentary amazon prime",
             "cold case documentary all episodes",
             "cold case documentary bbc",
             "crime documentary cold case solved",
             "cold case 1x01",
-            "cold case capítulos completos",
             "cold case curiosidades",
+            "cold case capítulos completos",
             "cold case documentary deutsch",
             "cold case documentary dublado",
             "cold case documentary david attenborough",
@@ -519,7 +453,8 @@
             "cold case 1 temporada",
             "cold case documentary german",
             "cold case documentary germany",
-            "cold case documentary greek"
+            "cold case documentary greek",
+            "cold case documentary greek subtitles"
           ],
           "trends_direction": "ALTA",
           "rising": []
@@ -531,7 +466,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 148,
+          "depth": 150,
           "suggestions": [
             "corporate collapse",
             "corporate documentaries",
@@ -551,7 +486,7 @@
             "corporate collapse documentary couple",
             "corporate collapse documentary clips",
             "corporate collapse documentary company",
-            "corporate collapse documentary connecticut",
+            "corporate collapse documentary confusion",
             "corporate collapse documentary cast",
             "corporate collapse documentary center",
             "corporate collapse documentary documentary",
@@ -562,17 +497,17 @@
             "corporate collapse documentary dvd",
             "corporate collapse documentary elon musk",
             "corporate collapse documentary extras",
-            "corporate collapse documentary episode 1"
+            "corporate collapse documentary eme"
           ],
           "trends_direction": "ALTA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 104,
+          "depth": 103,
           "suggestions": [
-            "corporate collapse documentary arabic",
             "corporate collapse documentary animation",
+            "corporate collapse documentary arabic",
             "corporate collapse documentary after effects",
             "corporate collapse documentary after effect",
             "corporate collapse documentary about",
@@ -581,8 +516,8 @@
             "corporate collapse documentary bangla",
             "corporate collapse documentary clip",
             "corporate collapse documentary channel 4",
-            "corporate collapse documentary china",
             "corporate collapse documentary clips",
+            "corporate collapse documentary china",
             "corporate collapse documentary channel",
             "corporate collapse documentary documentary",
             "corporate collapse documentary deutsch",
@@ -590,8 +525,8 @@
             "corporate collapse documentary de",
             "corporate collapse documentary english",
             "corporate collapse documentary episode 1",
-            "corporate collapse documentary episode",
             "corporate collapse documentary español",
+            "corporate collapse documentary episode",
             "corporate collapse documentary episode 2",
             "corporate collapse documentary full",
             "corporate collapse documentary film",
@@ -612,7 +547,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 139,
+          "depth": 141,
           "suggestions": [
             "crypto scam documentary",
             "crypto scam movie",
@@ -620,12 +555,13 @@
             "crypto scam documentary alex",
             "crypto scam documentary angela",
             "crypto scam documentary alex holder",
-            "crypto scam documentary angela davis",
             "crypto scam documentary alex g",
+            "crypto scam documentary angela davis",
             "crypto scam documentary amazon",
             "crypto scam documentary about triplets",
             "crypto scam documentary active measures",
             "crypto scam documentary black",
+            "crypto scam documentary bad bunny",
             "crypto scam documentary black panther",
             "crypto scam documentary bbc",
             "crypto scam documentary by steve james",
@@ -642,8 +578,7 @@
             "crypto scam documentary david",
             "crypto scam documentary dan bilzerian",
             "crypto scam documentary download",
-            "crypto scam documentary definition",
-            "crypto scam documentary dvd"
+            "crypto scam documentary definition"
           ],
           "trends_direction": "ALTA",
           "rising": []
@@ -761,11 +696,11 @@
             "cult of dionysus documentary",
             "dangerous cult documentary",
             "cult escape documentary",
+            "cult cultura",
             "cult documentary full",
             "cult of fear full documentary",
             "love has won cult documentary full movie",
-            "cult family documentary",
-            "cult of mother god documentary"
+            "cult family documentary"
           ],
           "trends_direction": "BAIXA",
           "rising": [
@@ -780,7 +715,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 92,
+          "depth": 93,
           "suggestions": [
             "cyber crime documentary",
             "cyber crime documentary dark web",
@@ -808,20 +743,21 @@
             "cybercrime documentary english",
             "cybercrime documentary elizabeth holmes",
             "cybercrime documentary episode 1",
+            "cybercrime documentary essay",
             "cybercrime documentary evidence",
             "cybercrime documentary emmy awards",
-            "cybercrime documentary emmy awards 2018",
-            "cyber crime full movie"
+            "cybercrime documentary emmy awards 2018"
           ],
           "trends_direction": "ALTA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 94,
+          "depth": 97,
           "suggestions": [
             "cybercrime documentary",
             "cybercrime documentary philippines",
+            "cybercrimes",
             "documentary about cybercrime prevention act of 2012",
             "cybercrime documentary bbc",
             "cybercrime documentary bangladesh",
@@ -829,8 +765,8 @@
             "cybercrime documentary by pakistan",
             "cybercrime documentary by",
             "cybercrime documentary canada",
-            "cybercrime documentary china",
             "cybercrime documentary channel 4",
+            "cybercrime documentary china",
             "cybercrime documentary crime",
             "cybercrime documentary crime investigation",
             "cybercrime documentary deutsch",
@@ -848,8 +784,7 @@
             "cybercrime documentary girl",
             "cybercrime documentary gold",
             "cybercrime documentary globalization",
-            "cybercrime documentary hindi",
-            "cybercrime documentary in hindi"
+            "cybercrime documentary hindi"
           ],
           "trends_direction": "ALTA",
           "rising": []
@@ -861,7 +796,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 104,
+          "depth": 105,
           "suggestions": [
             "deep sea mystery documentary",
             "mystery creatures of deep sea documentary",
@@ -874,6 +809,7 @@
             "deep sea mystery documentary bbc",
             "deep sea mystery documentary bgm",
             "deep sea mystery documentary britain",
+            "deep sea mystery documentary bangla",
             "deep sea mystery documentary by steve james",
             "deep sea mystery documentary dangerous",
             "deep sea mystery documentary download",
@@ -891,8 +827,7 @@
             "deep sea mystery documentary full movie",
             "deep sea mystery documentary film",
             "deep sea mystery documentary for sleep",
-            "deep sea mystery documentary free",
-            "deep sea mystery documentary guide"
+            "deep sea mystery documentary free"
           ],
           "trends_direction": "BAIXA",
           "rising": []
@@ -928,8 +863,8 @@
             "deep sea mystery documentary game",
             "deep sea mystery documentary german",
             "deep sea mystery documentary girl",
-            "deep sea mystery documentary ghost",
             "deep sea mystery documentary greek mythology",
+            "deep sea mystery documentary ghost",
             "deep sea mystery documentary hair"
           ],
           "trends_direction": "BAIXA",
@@ -942,7 +877,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 94,
+          "depth": 95,
           "suggestions": [
             "dictatorship documentary",
             "brazil dictatorship documentary",
@@ -980,7 +915,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 75,
+          "depth": 74,
           "suggestions": [
             "dictatorship documentary",
             "brazil dictatorship documentary",
@@ -1002,8 +937,8 @@
             "dictatorship documentary english",
             "dictatorship documentary español",
             "dictatorship documentary english subtitles",
-            "dictatorship documentary full",
             "dictatorship documentary film",
+            "dictatorship documentary full",
             "dictatorship documentary full movie",
             "dictatorship documentary full movie in hindi",
             "dictatorship documentary ghana",
@@ -1036,7 +971,7 @@
             "forensic toxicology documentary about triplets",
             "forensic toxicology documentary active measures",
             "forensic toxicology documentary bbc",
-            "forensic toxicology documentary book",
+            "forensic toxicology documentary biology",
             "forensic toxicology documentary by steve james",
             "forensic toxicology documentary case study",
             "forensic toxicology documentary clip",
@@ -1054,14 +989,14 @@
             "forensic toxicology documentary episodes",
             "forensic toxicology documentary episode 2",
             "forensic toxicology documentary en espanol",
-            "forensic toxicology documentary example"
+            "forensic toxicology documentary examples"
           ],
           "trends_direction": "sem dados",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 99,
+          "depth": 98,
           "suggestions": [
             "forensic toxicology documentary in hindi",
             "forensic toxicology documentary australia",
@@ -1083,8 +1018,8 @@
             "forensic toxicology documentary english",
             "forensic toxicology documentary español",
             "forensic toxicology documentary english subtitles",
-            "forensic toxicology documentary explained",
             "forensic toxicology documentary episode 1",
+            "forensic toxicology documentary explained",
             "forensic toxicology documentary full",
             "forensic toxicology documentary film",
             "forensic toxicology documentary full movie",
@@ -1104,7 +1039,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 129,
+          "depth": 130,
           "suggestions": [
             "forgotten war movie",
             "the forgotten war documentary",
@@ -1142,7 +1077,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 106,
+          "depth": 105,
           "suggestions": [
             "the forgotten war documentary",
             "forgotten war",
@@ -1164,9 +1099,9 @@
             "forgotten war documentary download",
             "forgotten war documentary episode 1",
             "forgotten war documentary english",
+            "forgotten war documentary episode",
             "forgotten war documentary episode 2",
             "forgotten war documentary ep 1",
-            "forgotten war documentary episode",
             "forgotten war documentary full movie",
             "forgotten war documentary full",
             "forgotten war documentary film",
@@ -1223,7 +1158,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 85,
+          "depth": 86,
           "suggestions": [
             "fraud documentary",
             "fraud documentary uk",
@@ -1266,7 +1201,7 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 151,
+          "depth": 152,
           "suggestions": [
             "heist documentary",
             "heist documentary 2025",
@@ -1309,7 +1244,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 92,
+          "depth": 91,
           "suggestions": [
             "heist documentary",
             "heist documentary 2025",
@@ -1395,7 +1330,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 94,
+          "depth": 95,
           "suggestions": [
             "history of pandemics documentary in hindi",
             "history of pandemics documentary australia",
@@ -1502,8 +1437,8 @@
             "industrial disaster documentary black hole",
             "industrial disaster documentary bbc 2016",
             "industrial disaster documentary channel",
-            "industrial disaster documentary colorado",
             "industrial disaster documentary china",
+            "industrial disaster documentary colorado",
             "industrial disaster documentary cnn",
             "industrial disaster documentary cast",
             "industrial disaster documentary center",
@@ -1539,8 +1474,8 @@
             "industrial disaster documentary civilization",
             "industrial disaster documentary documentary",
             "industrial disaster documentary deutsch",
-            "industrial disaster documentary discovery channel",
             "industrial disaster documentary discovery",
+            "industrial disaster documentary discovery channel",
             "industrial disaster documentary dublin",
             "industrial disaster documentary english",
             "industrial disaster documentary español",
@@ -1552,12 +1487,12 @@
             "industrial disaster documentary geography",
             "industrial disaster documentary german",
             "industrial disaster documentary germany",
-            "industrial disaster documentary gacha",
             "industrial disaster documentary hair",
             "industrial disaster documentary hai",
             "industrial disaster documentary haiti",
             "industrial disaster documentary hair transplant",
-            "industrial disaster documentary in hindi"
+            "industrial disaster documentary in hindi",
+            "industrial disaster documentary in urdu"
           ],
           "trends_direction": "ALTA",
           "rising": []
@@ -1607,7 +1542,7 @@
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 96,
+          "depth": 95,
           "suggestions": [
             "lost civilization documentary",
             "lost civilization documentary amazon",
@@ -1650,13 +1585,12 @@
       "langs": {
         "en": {
           "date": "2026-09-29",
-          "depth": 120,
+          "depth": 119,
           "suggestions": [
             "medical mystery documentary",
             "medical mystery documentary audiobook",
-            "medical mystery documentary amazon",
             "medical mystery documentary a&e",
-            "medical mystery documentary amazon prime",
+            "medical mystery documentary amazon",
             "medical mystery documentary about triplets",
             "medical mystery documentary active measures",
             "medical mystery documentary bbc",
@@ -1670,8 +1604,8 @@
             "medical mystery documentary cast",
             "medical mystery documentary center",
             "medical mystery documentary documentary",
-            "medical mystery documentary dvd",
             "medical mystery documentary drug",
+            "medical mystery documentary dvd",
             "medical mystery documentary disney",
             "medical mystery documentary dark web",
             "medical mystery documentary download",
@@ -1681,14 +1615,15 @@
             "medical mystery documentary english",
             "medical mystery documentary episode 2",
             "medical mystery documentary espanol",
-            "medical mystery documentary evidence"
+            "medical mystery documentary evidence",
+            "medical mystery documentary emmy awards"
           ],
           "trends_direction": "ALTA",
           "rising": []
         },
         "pt": {
           "date": "2026-09-29",
-          "depth": 98,
+          "depth": 100,
           "suggestions": [
             "medical mystery documentary",
             "medical mystery documentary africa",
