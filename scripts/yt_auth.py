@@ -47,12 +47,19 @@ def main():
         print("  4. Baixar o JSON e salvar como: " + str(CLIENT))
         sys.exit(2)
 
+    import argparse
+    account_parser = argparse.ArgumentParser()
+    account_parser.add_argument("--account", default="")
+    account_args, _ = account_parser.parse_known_args()
+    from yt_secrets import token_path
+    target = token_path(account_args.account or None)
+
     flow = InstalledAppFlow.from_client_secrets_file(str(CLIENT), SCOPES)
     print("Abrindo o navegador para autorizar... (faca login e clique em Permitir)")
     creds = flow.run_local_server(port=0, prompt="consent", access_type="offline")
 
-    TOKEN.write_text(creds.to_json(), encoding="utf-8")
-    print(f"[OK] Token salvo em: {TOKEN}")
+    target.write_text(creds.to_json(), encoding="utf-8")
+    print(f"[OK] Token salvo em: {target}")
     print("Agora rode: python scripts/yt_metrics.py")
 
 

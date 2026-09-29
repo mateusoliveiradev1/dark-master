@@ -84,11 +84,17 @@ def loop(channels, themes, steps, dry_run, quota_budget, out_dir, no_dashboard=F
     report = {"date": today, "quota": {"budget": quota_budget, "daily_limit": QUOTA_DAILY,
                                        "estimated": total, "steps": []}}
     run_all = "all" in steps
+    accounts = {c.get("handle", ""): c.get("account", "") for c in channels}
+
+    def collect_cmd(handle):
+        cmd = [sys.executable, str(HERE / "yt_metrics.py"), "--channel", handle, "--days", "30"]
+        if accounts.get(handle):
+            cmd += ["--account", accounts[handle]]
+        return cmd
+
     if ("collect" in steps or run_all) and plan["collect"]:
         for handle in plan["collect"]:
-            report["quota"]["steps"].append(run_step(
-                f"collect:{handle}",
-                [sys.executable, str(HERE / "yt_metrics.py"), "--channel", handle, "--days", "30"], dry_run))
+            report["quota"]["steps"].append(run_step(f"collect:{handle}", collect_cmd(handle), dry_run))
     if ("watch" in steps or run_all) and plan["watch"]:
         report["quota"]["steps"].append(run_step(
             "watch", [sys.executable, str(HERE / "yt_scan_outliers.py"), "--watch"], dry_run))
@@ -174,12 +180,24 @@ def build_dashboard():
             except ValueError:
                 continue
     alerts = []
+    seeds = {}
     research_dir = ROOT / "data" / "research"
     for latest in sorted(research_dir.glob("latest-*.json")):
         try:
-            alerts.extend(json.loads(latest.read_text(encoding="utf-8")).get("alerts", []))
+            data = json.loads(latest.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             continue
+        alerts.extend(data.get("alerts", []))
+        for item in data.get("seeds", []):
+            seed = str(item.get("seed", ""))
+            if not seed:
+                continue
+            entry = seeds.setdefault(seed, {"seed": seed, "langs": {}})
+            entry["langs"][data.get("lang", "en")] = {
+                "date": item.get("date", ""), "depth": item.get("depth", 0),
+                "suggestions": item.get("suggestions", [])[:30],
+                "trends_direction": item.get("trends_direction", "n/d"),
+                "rising": item.get("rising", [])[:10]}
     ypp_inputs = {}
     try:
         ypp_inputs = json.loads((ROOT / "data" / "ypp_input.json").read_text(encoding="utf-8"))
@@ -209,7 +227,7 @@ def build_dashboard():
                  "channels": [{"handle": c.get("handle"), "name": c.get("name"),
                                "mine": bool(c.get("mine")), "nota": c.get("nota", "")} for c in channels],
                  "details": details,
-                 "loop_reports": reports, "alerts": alerts[:20], "ypp": ypp}
+                 "loop_reports": reports, "alerts": alerts[:20], "seeds": seeds, "ypp": ypp}
     out = ROOT / "data" / "dashboard.json"
     out.write_text(json.dumps(dashboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return dashboard

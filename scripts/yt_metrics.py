@@ -45,16 +45,19 @@ CSV_COLUMNS = [
 ]
 
 
-def creds():
+def creds(account=None):
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
-    if not TOKEN.exists():
-        print("[!] Token não encontrado. Rode antes: python scripts/yt_auth.py")
+    from yt_secrets import token_path
+    path = token_path(account)
+    if not path.exists():
+        print(f"[!] Token não encontrado ({path.name}). Rode antes: python scripts/yt_auth.py"
+              + (f" --account {account}" if account else ""))
         sys.exit(2)
-    credentials = Credentials.from_authorized_user_file(str(TOKEN), SCOPES)
+    credentials = Credentials.from_authorized_user_file(str(path), SCOPES)
     if not credentials.valid and credentials.expired and credentials.refresh_token:
         credentials.refresh(Request())
-        TOKEN.write_text(credentials.to_json(), encoding="utf-8")
+        path.write_text(credentials.to_json(), encoding="utf-8")
     return credentials
 
 
@@ -385,10 +388,12 @@ def main():
     parser.add_argument("--no-traffic", action="store_true")
     parser.add_argument("--no-retention", action="store_true")
     parser.add_argument("--retention-videos", type=int, default=10)
+    parser.add_argument("--account", default="",
+                        help="alias da conta Google (yt-token-<alias>.json); vazio = padrao")
     args = parser.parse_args()
 
     from googleapiclient.discovery import build
-    credentials = creds()
+    credentials = creds(args.account or None)
     analytics = build("youtubeAnalytics", "v2", credentials=credentials)
     try:
         youtube = build("youtube", "v3", credentials=credentials)

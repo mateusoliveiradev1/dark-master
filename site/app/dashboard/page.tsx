@@ -6,7 +6,8 @@ import { Reveal } from "@/components/Reveal";
 import { useI18n } from "@/lib/store";
 import { ALERT_PT, glossSeed } from "@/lib/painel";
 
-type Alert = { type: string; seed: string; detail: string; examples: string[] };
+type Alert = { type: string; seed: string; detail: string; examples: string[];
+  video_id?: string; channel?: string; niche?: string; ratio?: number };
 type Channel = { handle: string; name: string; mine: boolean; nota: string };
 type Detail = { status: string; videos?: number; views_30d?: number; engaged_30d?: number; engaged_rate?: number;
   top?: { title: string; views: number; format: string }[]; series?: { date: string; views: number }[];
@@ -92,7 +93,7 @@ export default function DashboardPage() {
                   <Reveal key={`${a.type}-${a.seed}-${i}`} delay={Math.min(i, 5) * 0.04}>
                     <article className={`ocard${i === 0 ? " best" : ""}`}>
                       <div className="ocard-top"><span className="fmt">{a.type}</span><span className="otag">{label}</span></div>
-                      <h3>{a.seed || "—"}</h3>
+                      <h3><Link href={`/dashboard/alerta/${encodeURIComponent(a.seed || a.video_id || "")}`} style={{ color: "inherit" }}>{a.seed || "—"} →</Link></h3>
                       <p className="muted">{a.detail}</p>
                       {g && <p><em>{g.o_que}.</em> {g.porque}.</p>}
                       {lang === "pt" && ALERT_PT[a.type] && <p className="muted">{ALERT_PT[a.type].acao}</p>}

@@ -129,22 +129,25 @@ DEMAND_PATTERNS = [
 API_ERRORS = []
 
 
-def creds():
+def creds(account=None):
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
-    if not TOKEN.exists():
-        print("[!] Rodar: python scripts/yt_auth.py")
+    from yt_secrets import token_path
+    path = token_path(account)
+    if not path.exists():
+        print(f"[!] Token nao encontrado ({path.name}). Rodar: python scripts/yt_auth.py"
+              + (f" --account {account}" if account else ""))
         sys.exit(2)
-    c = Credentials.from_authorized_user_file(str(TOKEN), SCOPES)
+    c = Credentials.from_authorized_user_file(str(path), SCOPES)
     if not c.valid and c.expired and c.refresh_token:
         c.refresh(Request())
-        TOKEN.write_text(c.to_json(), encoding="utf-8")
+        path.write_text(c.to_json(), encoding="utf-8")
     return c
 
 
-def yt_client():
+def yt_client(account=None):
     from googleapiclient.discovery import build
-    return build("youtube", "v3", credentials=creds())
+    return build("youtube", "v3", credentials=creds(account))
 
 
 def api(fn, **kw):
@@ -683,6 +686,8 @@ def main():
     ap.add_argument("--lang", default="en", choices=["en", "pt", "es"])
     ap.add_argument("--region", default="",
                     help="codigo ISO do pais na busca (ex.: BR, US). Sem ele, a evidencia mistura idiomas.")
+    ap.add_argument("--account", default="",
+                    help="alias da conta Google (yt-token-<alias>.json); vazio = padrao")
     ap.add_argument("--out")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--revalidate", action="store_true",
@@ -729,7 +734,7 @@ def main():
             Path(a.out).write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
         return
 
-    yt = yt_client()
+    yt = yt_client(a.account or None)
     if a.comments:
         res = cmd_comments(yt, a)
     elif a.cluster:
