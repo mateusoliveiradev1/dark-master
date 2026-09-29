@@ -64,6 +64,12 @@ export default function DashboardPage() {
                   <span />{d.mine} ({mineCount})
                 </button>
                 <Link className="btn" href="/"><span />{d.back}</Link>
+                <button
+                  className="btn"
+                  onClick={() => fetch("/api/auth", { method: "DELETE" }).then(() => (window.location.href = "/"))}
+                >
+                  <span />{lang === "pt" ? "Sair" : "Log out"}
+                </button>
               </div>
             </Reveal>
           </div>

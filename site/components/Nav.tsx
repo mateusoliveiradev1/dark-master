@@ -15,12 +15,13 @@ export function Nav() {
         <a className="brand" href="/" aria-label="Início / Home"><Logo /> dark-master</a>
         <div className="nav-right">
           <nav>
-            <a href="#capacidades">{t.nav.capacidades}</a>
-            <a href="#casos">{t.nav.casos}</a>
-            <a href="#video">{t.nav.video}</a>
-            <a href="#fluxo">{t.nav.fluxo}</a>
-            <a href="#dados">{t.nav.dados}</a>
-            <a href="#seguranca">{t.nav.seguranca}</a>
+            <a href="/#capacidades">{t.nav.capacidades}</a>
+            <a href="/#casos">{t.nav.casos}</a>
+            <a href="/#video">{t.nav.video}</a>
+            <a href="/#fluxo">{t.nav.fluxo}</a>
+            <a href="/#dados">{t.nav.dados}</a>
+            <a href="/#seguranca">{t.nav.seguranca}</a>
+            <a href="/dashboard" style={{ color: "var(--red-bright)" }}>{t.nav.painel}</a>
             <a href="/privacy">{t.nav.privacidade}</a>
           </nav>
           <Toggles />

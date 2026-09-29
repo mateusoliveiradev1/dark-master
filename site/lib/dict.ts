@@ -10,6 +10,7 @@ export const dict = {
       dados: "Dados",
       seguranca: "Segurança",
       privacidade: "Privacidade",
+      painel: "Painel",
     },
     hero: {
       tag: "skill para canais dark / faceless",
@@ -20,6 +21,7 @@ export const dict = {
       l3: "se paga.",
       lead: "Um cérebro único que funde o algoritmo do YouTube, o guia de produção do MrBeast, os dados de 2026 e os seus canais. Planeja, empacota, roteiriza, produz — e aprende com o resultado.",
       github: "Ver no GitHub →",
+      panel: "Ver painel →",
       how: "Como funciona",
       scroll: "role para abrir o arquivo",
       floats: ["FILE 01 · 21:00 BRT · LONG", "OUTLIER 48.6× · COLD FILE DIARIES", "NEON · POSTGRES · OK"],
@@ -161,6 +163,7 @@ export const dict = {
       dados: "Data",
       seguranca: "Security",
       privacidade: "Privacy",
+      painel: "Panel",
     },
     hero: {
       tag: "skill for dark / faceless channels",
@@ -171,6 +174,7 @@ export const dict = {
       l3: "pays off.",
       lead: "One brain that merges the YouTube algorithm, the MrBeast production guide, 2026 data and your own channels. It plans, packages, scripts, produces — and learns from the result.",
       github: "View on GitHub →",
+      panel: "View panel →",
       how: "How it works",
       scroll: "scroll to open the file",
       floats: ["FILE 01 · 21:00 BRT · LONG", "OUTLIER 48.6× · COLD FILE DIARIES", "NEON · POSTGRES · OK"],

@@ -77,6 +77,7 @@ export function Hero() {
 
           <motion.div className="cta" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, ease: EASE }}>
             <MagneticButton href="https://github.com/mateusoliveiradev1/dark-master" primary>{t.hero.github}</MagneticButton>
+            <MagneticButton href="/dashboard">{t.hero.panel}</MagneticButton>
             <MagneticButton href="#fluxo">{t.hero.how}</MagneticButton>
           </motion.div>
 
