@@ -9,7 +9,7 @@ SKILL = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SKILL / "scripts"))
 
 import niche_scan
-from niche_scan import require_scope, token_scopes, trends_cache_get, trends_cache_set, watchlist_due, watchlist_save
+from niche_scan import brief_checks, brief_verdict, iso8601_seconds, require_scope, token_scopes, trends_cache_get, trends_cache_set, watchlist_due, watchlist_save
 
 
 class NicheScanTests(unittest.TestCase):
@@ -43,6 +43,37 @@ class NicheScanTests(unittest.TestCase):
         due = watchlist_due(items, today="2026-09-28")
         self.assertEqual([item["theme"] for item in due], ["a"])
         self.assertEqual(due[0]["age_days"], 27)
+
+    def test_iso8601_seconds_da_data_api(self):
+        self.assertEqual(iso8601_seconds("PT15M33S"), 933)
+        self.assertEqual(iso8601_seconds("PT1H2M3S"), 3723)
+        self.assertEqual(iso8601_seconds("PT59S"), 59)
+        self.assertEqual(iso8601_seconds(""), 0)
+        self.assertEqual(iso8601_seconds(None), 0)
+
+    def test_brief_passa_com_gates_fome_e_demanda(self):
+        from datetime import datetime, timezone
+        recent = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        cluster = {"passed": ["a", "b", "c"], "hungry": ["a", "b"], "signal": True, "emerging": [],
+                   "channels": [{"age_days": 20, "short_share": 0.9,
+                                 "outliers": [{"published": recent, "title": "t", "views": 100}]}]}
+        suggest = {"depth": 25}
+        trends = {"direction": "ALTA"}
+        checks = brief_checks(cluster, suggest, trends, "BR")
+        self.assertTrue(all(c["status"] == "PASS" for c in checks if c["status"] != "MANUAL"))
+        self.assertEqual(brief_verdict(cluster, checks), "PASSA")
+
+    def test_brief_parcial_com_fome_sem_gates(self):
+        cluster = {"passed": [], "hungry": ["a", "b"], "signal": True, "emerging": ["c"],
+                   "channels": [{"age_days": 200, "short_share": 0.5, "outliers": []}]}
+        checks = brief_checks(cluster, {"depth": 30}, {"direction": "ESTAVEL"}, "US")
+        self.assertEqual(brief_verdict(cluster, checks), "PARCIAL")
+
+    def test_brief_reprova_sem_fome(self):
+        cluster = {"passed": [], "hungry": [], "signal": False, "emerging": [],
+                   "channels": [{"age_days": 400, "short_share": 0.1, "outliers": []}]}
+        checks = brief_checks(cluster, {"depth": 3}, {"error": "sem dados"}, "")
+        self.assertEqual(brief_verdict(cluster, checks), "REPROVA")
 
     def test_watchlist_save_dedup_por_tema(self):
         with tempfile.TemporaryDirectory() as temp:

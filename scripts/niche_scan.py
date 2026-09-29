@@ -176,6 +176,15 @@ def slugify(s):
     return re.sub(r"[\s_]+", "-", s)[:60]
 
 
+def iso8601_seconds(value):
+    """PT1H2M3S -> segundos. A Data API retorna duration ISO8601 (nao durationSeconds)."""
+    match = re.fullmatch(r"P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", str(value or "").strip())
+    if not match:
+        return 0
+    days, hours, minutes, seconds = (int(part or 0) for part in match.groups())
+    return days * 86400 + hours * 3600 + minutes * 60 + seconds
+
+
 def channel_info(yt, cid):
     r = api(yt.channels().list, part="snippet,statistics,contentDetails", id=cid)
     if not r.get("items"):
@@ -212,7 +221,7 @@ def channel_videos(yt, uploads, max_items=500):
         v = api(yt.videos().list, part="statistics,snippet,contentDetails", id=",".join(ids[start:start + 50]))
         for it in v.get("items", []):
             details = it.get("contentDetails", {})
-            duration = int(details.get("durationSeconds", 0) or 0)
+            duration = iso8601_seconds(details.get("duration", ""))
             videos.append({
                 "id": it["id"], "title": it["snippet"]["title"],
                 "channel": it["snippet"]["channelTitle"], "channelId": it["snippet"]["channelId"],
@@ -255,7 +264,12 @@ def cmd_scan(yt, a):
             print("[!] handle nao encontrado")
             return {}
     elif a.query:
-        r = api(yt.search().list, part="snippet", q=a.query, type="channel", maxResults=a.max)
+        search_kwargs = {"part": "snippet", "q": a.query, "type": "channel", "maxResults": a.max}
+        if getattr(a, "region", ""):
+            search_kwargs["regionCode"] = a.region
+        if getattr(a, "lang", ""):
+            search_kwargs["relevanceLanguage"] = {"en": "en", "pt": "pt", "es": "es"}.get(a.lang, a.lang)
+        r = api(yt.search().list, **search_kwargs)
         channels = [i["snippet"]["channelId"] for i in r.get("items", [])]
     else:
         print("Use --query ou --channel")
@@ -301,8 +315,13 @@ def cmd_scan(yt, a):
 def cmd_cluster(yt, a):
     """Outliers cross-canal: canais PEQUENOS com outlier no mesmo tema = fome do algoritmo."""
     since = (datetime.now(timezone.utc) - timedelta(days=a.window)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    r = api(yt.search().list, part="snippet", q=a.cluster, type="video", order="viewCount",
-            maxResults=50, publishedAfter=since)
+    cluster_kwargs = {"part": "snippet", "q": a.cluster, "type": "video", "order": "viewCount",
+                      "maxResults": 50, "publishedAfter": since}
+    if getattr(a, "region", ""):
+        cluster_kwargs["regionCode"] = a.region
+    if getattr(a, "lang", ""):
+        cluster_kwargs["relevanceLanguage"] = {"en": "en", "pt": "pt", "es": "es"}.get(a.lang, a.lang)
+    r = api(yt.search().list, **cluster_kwargs)
     items = r.get("items", [])
     if not items:
         print("[!] nenhum video encontrado para o tema")
@@ -336,6 +355,7 @@ def cmd_cluster(yt, a):
         if not info:
             continue
         vids = channel_videos(yt, info["uploads"])
+        short_share = sum(1 for v in vids if v["is_short"]) / len(vids) if vids else 0.0
         if a.format == "short":
             vids = [v for v in vids if v["is_short"]]
         elif a.format == "long":
@@ -367,6 +387,7 @@ def cmd_cluster(yt, a):
         rows.append({"channel": info["title"], "id": cid, "subs": info["subs"], "age_days": age,
                      "first5": first5, "vpd": round(vpd), "gates": gates,
                      "median": med, "outliers": outs, "format": a.format,
+                     "short_share": round(short_share, 2),
                      "sample_size": len(vids), "history_truncated": info.get("videos", 0) > 500})
     print(f"\n=== GATES: {len(passed)} canal(is) pequeno(s) passando os 3 gates (meta >=3) ===")
     print(passed or "nenhum — estreite o cruzamento formato x topico")
@@ -510,6 +531,71 @@ def cmd_trends(term, use_cache=True, retries=3):
         return {"term": term, "error": str(e)}
 
 
+def brief_checks(cluster, suggest, trends, region):
+    """Checklist do brief com o que e mensuravel (sem UNKNOWN eterno).
+
+    Vereditos: PASSA (gates + fome/emergentes + demanda), PARCIAL (fome sem
+    gates — revalidar em 2-4 semanas), REPROVA (sem fome nem emergentes),
+    INCONCLUSIVO (falha operacional). MANUAL = exige leitura humana.
+    """
+    rows = cluster.get("channels", [])
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    def days_ago(date):
+        try:
+            return (datetime.strptime(today, "%Y-%m-%d") - datetime.strptime(str(date)[:10], "%Y-%m-%d")).days
+        except ValueError:
+            return 9999
+
+    recent_outliers = [o for row in rows for o in row.get("outliers", []) if days_ago(o.get("published")) <= 42]
+    shares = [row.get("short_share") for row in rows if row.get("short_share") is not None]
+    dominant = None
+    if shares:
+        avg = sum(shares) / len(shares)
+        dominant = "short" if avg >= 0.7 else ("long" if avg <= 0.3 else "mixed")
+    depth = suggest.get("depth", 0)
+    checks = [
+        {"name": "3 canais com gates", "status": "PASS" if len(cluster.get("passed", [])) >= 3 else "FAIL",
+         "detail": f"{len(cluster.get('passed', []))}/3"},
+        {"name": "fome cross-canal (outlier 3x+)", "status": "PASS" if cluster.get("signal") else "FAIL",
+         "detail": f"{len(cluster.get('hungry', []))} canais"},
+        {"name": "emergentes na watchlist", "status": "PASS" if cluster.get("emerging") or len(cluster.get("passed", [])) >= 3 else "FAIL",
+         "detail": f"{len(cluster.get('emerging', []))} (dispensado com 3+ gates)"},
+        {"name": "outlier recente (42d)", "status": "PASS" if recent_outliers else "FAIL",
+         "detail": f"{len(recent_outliers)} na janela"},
+        {"name": "formato dominante legivel", "status": "PASS" if dominant in {"short", "long"} else "FAIL",
+         "detail": dominant or "mixed/indefinido"},
+        {"name": "canal novo no feed (<=60d)", "status": "PASS" if any(r.get("age_days", 999) <= 60 for r in rows) else "FAIL",
+         "detail": f"min {[r.get('age_days') for r in rows] or ['-']}d"},
+        {"name": "Trends com trajetoria", "status": "PASS" if trends.get("direction") in {"ALTA", "BAIXA", "ESTAVEL"} else "FAIL",
+         "detail": trends.get("direction", trends.get("error", "n/d"))},
+        {"name": "autocomplete profundo (>=15)", "status": "PASS" if depth >= 15 else "FAIL",
+         "detail": f"{depth} termos"},
+        {"name": "espaco de ideias (>=20 perguntas)", "status": "PASS" if depth >= 20 else "FAIL",
+         "detail": f"{depth} termos"},
+        {"name": "filtro de regiao/idioma ativo", "status": "PASS" if region else "FAIL",
+         "detail": region or "sem --region (evidencia pode misturar idiomas)"},
+        {"name": "demanda em comentarios (--comments)", "status": "MANUAL",
+         "detail": "rode niche_scan --comments VIDEOID e anexe"},
+        {"name": "monetizacao qualitativa", "status": "MANUAL",
+         "detail": "tem anunciante/comprador? (refs 10/19)"},
+    ]
+    return checks
+
+
+def brief_verdict(cluster, checks):
+    if API_ERRORS:
+        return "INCONCLUSIVO"
+    gates_ok = checks[0]["status"] == "PASS"
+    hungry = cluster.get("signal", False) or bool(cluster.get("emerging"))
+    demand_ok = checks[7]["status"] == "PASS"
+    if gates_ok and hungry and demand_ok:
+        return "PASSA"
+    if hungry and demand_ok:
+        return "PARCIAL"
+    return "REPROVA"
+
+
 def cmd_brief(yt, a):
     """BRIEF DE NICHO: cluster (gates + outliers cross-canal) + autocomplete + Trends."""
     theme = a.brief
@@ -517,33 +603,14 @@ def cmd_brief(yt, a):
     DATA.mkdir(parents=True, exist_ok=True)
     print(f"# BRIEF DE NICHO — {theme}\n")
     cluster = cmd_cluster(yt, argparse.Namespace(cluster=theme, ratio=a.ratio, small=a.small,
-                                                 max=a.max, window=a.window, age=a.age, format=a.format))
+                                                 max=a.max, window=a.window, age=a.age, format=a.format,
+                                                 region=getattr(a, "region", ""), lang=getattr(a, "lang", "en")))
     print("\n" + "=" * 60 + "\n")
     suggest = cmd_suggest(theme, a.lang)
     print("\n" + "=" * 60 + "\n")
     trends = cmd_trends(theme)
-    checks = [
-        {"name": "3 canais com gates", "status": "PASS" if len(cluster.get("passed", [])) >= 3 else "FAIL"},
-        {"name": "mesmo formato nos canais", "status": "UNKNOWN"},
-        {"name": "canal abaixo de 30 dias", "status": "UNKNOWN"},
-        {"name": "uploads recentes convergem", "status": "UNKNOWN"},
-        {"name": "formato claramente definido", "status": "UNKNOWN"},
-        {"name": "entradas recentes no feed", "status": "UNKNOWN"},
-        {"name": "Trends com trajetória", "status": "PASS" if trends.get("direction") in {"ALTA", "BAIXA", "ESTAVEL"} else "UNKNOWN"},
-        {"name": "autocomplete qualificado", "status": "UNKNOWN"},
-        {"name": "50 vídeos/20 ideias", "status": "UNKNOWN"},
-        {"name": "demanda em comentários", "status": "UNKNOWN"},
-        {"name": "monetização qualitativa", "status": "UNKNOWN"},
-        {"name": "pesquisa sem falsos positivos", "status": "UNKNOWN"},
-    ]
-    if API_ERRORS:
-        verdict = "INCONCLUSIVO"
-    elif checks[0]["status"] == "FAIL":
-        verdict = "REPROVA"
-    elif any(check["status"] == "UNKNOWN" for check in checks):
-        verdict = "INCONCLUSIVO"
-    else:
-        verdict = "PASSA"
+    checks = brief_checks(cluster, suggest, trends, getattr(a, "region", ""))
+    verdict = brief_verdict(cluster, checks)
     lines = [
         f"# BRIEF DE NICHO — {theme}",
         f"> Gerado em {datetime.now().strftime('%Y-%m-%d %H:%M')} por `scripts/niche_scan.py --brief`.",
@@ -559,7 +626,7 @@ def cmd_brief(yt, a):
         f"- Trends: {trends.get('direction', trends.get('error', 'n/d'))}",
         "",
         "## Checklist (12 checks)",
-        *[f"- {check['status']}: {check['name']}" for check in checks],
+        *[f"- {check['status']}: {check['name']} ({check.get('detail', '')})" for check in checks],
         "",
         "## Canais-evidencia (pequenos)",
     ]
@@ -614,6 +681,8 @@ def main():
     ap.add_argument("--window", type=int, default=90, help="janela em dias (cluster/busca de videos)")
     ap.add_argument("--age", type=int, default=90, help="idade maxima do canal em dias (cluster)")
     ap.add_argument("--lang", default="en", choices=["en", "pt", "es"])
+    ap.add_argument("--region", default="",
+                    help="codigo ISO do pais na busca (ex.: BR, US). Sem ele, a evidencia mistura idiomas.")
     ap.add_argument("--out")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--revalidate", action="store_true",
