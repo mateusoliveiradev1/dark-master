@@ -61,6 +61,88 @@ def load_seeds():
     return unique[:20]
 
 
+ALERTED_FILE = RESEARCH_DIR / "alerted.json"
+FLARE_RATIO = 10.0
+
+
+def load_recent_outliers(days=14):
+    """Outliers dos ultimos N dias do banco (qualquer canal). Sem banco = []."""
+    try:
+        import yt_db
+        yt_db.init(quiet=True)
+        conn = yt_db.conn()
+        rows = yt_db._rows(conn, "SELECT * FROM outliers ORDER BY detected_ts DESC LIMIT 500")
+        conn.close()
+    except Exception:
+        return []
+    now = datetime.now(timezone.utc)
+    recent = []
+    for row in rows:
+        try:
+            age = (now - datetime.fromisoformat(str(row.get("detected_ts") or "")[:10])).days
+        except ValueError:
+            continue
+        if 0 <= age <= days:
+            recent.append(row)
+    return recent
+
+
+def load_alerted():
+    try:
+        data = json.loads(ALERTED_FILE.read_text(encoding="utf-8"))
+        return set(data.get("video_ids", []))
+    except (OSError, ValueError):
+        return set()
+
+
+def save_alerted(video_ids):
+    try:
+        RESEARCH_DIR.mkdir(parents=True, exist_ok=True)
+        current = load_alerted() | set(video_ids)
+        ALERTED_FILE.write_text(json.dumps({"video_ids": sorted(current)}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    except OSError:
+        pass
+
+
+def outlier_flares(rows, alerted, today=None):
+    """OUTLIER_FLARE com regra anti-spam: persiste 2 dias seguidos OU flare >=10x.
+    Retorna (alertas, novos_alerted). Puro e testavel."""
+    today = today or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    by_video = {}
+    for row in rows or []:
+        try:
+            ratio = float(row.get("ratio") or 0)
+        except (TypeError, ValueError):
+            continue
+        by_video.setdefault(str(row.get("video_id")), []).append((str(row.get("detected_ts") or "")[:10], ratio, row))
+    alerts, newly = [], []
+    for video_id, sightings in by_video.items():
+        if video_id in alerted or not video_id:
+            continue
+        days = sorted({day for day, _, _ in sightings if day})
+        peak = max(ratio for _, ratio, _ in sightings)
+        last = sightings[-1][2]
+        if peak >= FLARE_RATIO:
+            confirmed = "1/1 (flare)"
+        elif len(days) >= 2:
+            confirmed = f"{len(days)}/{len(days)}"
+        else:
+            continue
+        first_seen = days[0]
+        try:
+            age = (datetime.fromisoformat(today) - datetime.fromisoformat(first_seen)).days
+        except ValueError:
+            age = 0
+        alerts.append({"type": "OUTLIER_FLARE", "seed": str(last.get("title") or video_id)[:80],
+                       "detail": f"{peak:.1f}x a mediana · detectado ha {age}d · confirmado {confirmed} leituras",
+                       "examples": [f"https://www.youtube.com/watch?v={video_id}"],
+                       "video_id": video_id, "channel": last.get("channel"),
+                       "niche": last.get("pattern") or "unknown", "ratio": peak})
+        newly.append(video_id)
+    alerts.sort(key=lambda a: (-a["ratio"], a["seed"]))
+    return alerts, newly
+
+
 def round_name(lang):
     return f"latest-{lang}.json"
 
@@ -148,6 +230,12 @@ def main():
         except Exception as exc:
             current["seeds"].append({"seed": seed, "error": str(exc)[:200]})
     current["alerts"] = build_alerts(current, previous)
+    flares, newly = outlier_flares(load_recent_outliers(), load_alerted(), current["date"])
+    if newly:
+        save_alerted(newly)
+    if flares:
+        order = {"TREND_UP": 0, "DEMAND_DEPTH": 1, "OUTLIER_FLARE": 2, "REVALIDATE_DUE": 3, "FUNNEL_GAP": 4}
+        current["alerts"] = sorted(current["alerts"] + flares, key=lambda a: order.get(a["type"], 9))
     (out_dir / f"{current['date']}-{args.lang}.json").write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (out_dir / round_name(args.lang)).write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"[OK] {len(current['seeds'])} seeds, {len(current['alerts'])} alertas -> {out_dir / round_name(args.lang)}")

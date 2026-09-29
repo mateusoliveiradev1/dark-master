@@ -7,8 +7,7 @@ from unittest import mock
 SKILL = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SKILL / "scripts"))
 
-from auto_research import build_alerts
-from learn_loop import build_dashboard
+from auto_research import build_alerts, outlier_flares
 
 
 class AutoResearchTests(unittest.TestCase):
@@ -41,6 +40,35 @@ class AutoResearchTests(unittest.TestCase):
         alerts = build_alerts(current, {})
         self.assertEqual(len(alerts), 1)
         self.assertEqual(alerts[0]["type"], "BASELINE")
+
+    def test_flare_imediato_acima_de_10x(self):
+        rows = [{"video_id": "v1", "title": "T", "channel": "@A", "pattern": "true-crime",
+                 "views": 5000, "ratio": 12.5, "detected_ts": "2026-09-28T06:00:00"}]
+        alerts, newly = outlier_flares(rows, set(), "2026-09-28")
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(alerts[0]["type"], "OUTLIER_FLARE")
+        self.assertIn("1/1 (flare)", alerts[0]["detail"])
+        self.assertEqual(alerts[0]["niche"], "true-crime")
+        self.assertEqual(newly, ["v1"])
+
+    def test_confirma_dois_dias_antes_de_alertar(self):
+        one = [{"video_id": "v2", "title": "T", "channel": "@A", "pattern": "true-crime",
+                "views": 900, "ratio": 4.2, "detected_ts": "2026-09-28T06:00:00"}]
+        alerts, _ = outlier_flares(one, set(), "2026-09-28")
+        self.assertEqual(alerts, [])
+        two = one + [{"video_id": "v2", "title": "T", "channel": "@A", "pattern": "true-crime",
+                      "views": 950, "ratio": 4.0, "detected_ts": "2026-09-29T06:00:00"}]
+        alerts, newly = outlier_flares(two, set(), "2026-09-29")
+        self.assertEqual(len(alerts), 1)
+        self.assertIn("confirmado 2/2", alerts[0]["detail"])
+        self.assertIn("detectado ha 1d", alerts[0]["detail"])
+        self.assertIn("youtube.com/watch?v=v2", alerts[0]["examples"][0])
+
+    def test_nao_duplica_video_ja_alertado(self):
+        rows = [{"video_id": "v3", "title": "T", "channel": "@A", "pattern": "",
+                 "views": 9000, "ratio": 15.0, "detected_ts": "2026-09-28T06:00:00"}]
+        alerts, newly = outlier_flares(rows, {"v3"}, "2026-09-28")
+        self.assertEqual((alerts, newly), ([], []))
 
     def test_details_neon_ou_unknown(self):
         import learn_loop

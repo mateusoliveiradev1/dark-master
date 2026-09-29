@@ -109,7 +109,11 @@ def main():
         for ch in data.get("channels", []):
             up, label = resolve_uploads(yt, handle=ch.get("handle"), channel_id=ch.get("id"))
             if up:
-                all_hits += scan(yt, up, label or ch.get("name", "?"), a.ratio)
+                hits = scan(yt, up, label or ch.get("name", "?"), a.ratio)
+                for h in hits:
+                    h["scan_channel"] = ch.get("handle") or ch.get("id") or label
+                    h["scan_niche"] = ch.get("niche", "unknown")
+                all_hits += hits
     else:
         up, label = resolve_uploads(yt, handle=a.handle, mine=a.mine)
         if up:
@@ -122,10 +126,11 @@ def main():
         ts = datetime.now().isoformat(timespec="seconds")
         for h in all_hits:
             yt_db.save_outlier({
-                "detected_ts": ts, "channel": a.handle or "watchlist",
+                "detected_ts": ts, "channel": h.get("scan_channel") or a.handle or "watchlist",
                 "video_id": h["video_id"], "title": h["title"], "format": "",
                 "views": h["views"], "channel_median": h["median"], "ratio": h["ratio"],
-                "pattern": "", "note": "auto",
+                "pattern": h.get("scan_niche", ""),
+                "note": "auto",
             })
         print(f"\n[OK] {len(all_hits)} outlier(s) gravados no banco ({yt_db.backend()})")
 

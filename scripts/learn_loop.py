@@ -5,9 +5,9 @@ Filosofia propose-only: o loop COLETA dados, ANALISA e PROPOE. Nunca reescreve
 regras, thresholds ou contratos sozinho — mudanca de regra exige aprovacao
 humana explicita. Sem OAuth/rede, cada etapa degrada para diagnostico.
 
-Etapas e custo aproximado de quota (Data API, 10k un/dia):
+Etapas e custo aproximado de quota (Data API, 10k un/dia, reseta meia-noite Pacifico):
   collect  ~300 un/canal proprio (yt_metrics: videos + trafego + retencao)
-  watch    ~50 un/canal monitorado (yt_scan_outliers --watch)
+  watch    ~3 un/canal monitorado (yt_scan_outliers --watch: so channels+playlist+videos)
   analyze  0 un (le banco local/CSV)
   revalidate ~150 un/tema vencido (niche_scan --cluster)
 

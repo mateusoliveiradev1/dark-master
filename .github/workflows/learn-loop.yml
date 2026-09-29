@@ -2,7 +2,7 @@ name: learn-loop
 
 on:
   schedule:
-    # Diário 06:00 UTC: coleta + análise (custo baixo, ~350 un)
+    # Diário 06:00 UTC: coleta + watch + análise (~312 un: 300 coleta + 12 watch)
     - cron: "0 6 * * *"
     # Domingo 07:00 UTC: + watch + revalidação (custo alto, com teto de quota)
     - cron: "0 7 * * 0"
@@ -37,11 +37,11 @@ jobs:
           mkdir -p ~/.config/opencode/secrets
           printf '%s' "$YT_TOKEN_JSON" > ~/.config/opencode/secrets/yt-token.json
           printf '%s' "$GOOGLE_CLIENT_SECRETS" > ~/.config/opencode/secrets/client_secrets.json
-      - name: Loop diário (coleta + análise)
+      - name: Loop diário (coleta + vigia + análise)
         if: github.event.schedule == '0 6 * * *' || (github.event_name == 'workflow_dispatch' && inputs.full != 'true')
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scripts/learn_loop.py --collect --analyze --no-dashboard
+        run: python scripts/learn_loop.py --collect --watch --analyze --no-dashboard
       - name: Loop semanal (tudo, com teto de quota)
         if: github.event.schedule == '0 7 * * 0' || (github.event_name == 'workflow_dispatch' && inputs.full == 'true')
         env:
