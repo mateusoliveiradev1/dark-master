@@ -159,7 +159,7 @@ def channel_details(handle, name):
             "engaged_30d": total_engaged,
             "engaged_rate": round(total_engaged / total_views * 100, 1) if total_views else 0.0,
             "top": [{"title": v.get("title"), "views": v.get("views"),
-                     "format": v.get("format")} for v in videos[:5]],
+                     "format": v.get("format"), "video_id": v.get("video_id")} for v in videos[:5]],
             "series": series, "last_capture": last_ts[:10]}
 
 

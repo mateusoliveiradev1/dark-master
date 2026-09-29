@@ -9,8 +9,13 @@ import { ALERT_PT, glossSeed } from "@/lib/painel";
 type Alert = { type: string; seed: string; detail: string; examples: string[] };
 type Channel = { handle: string; name: string; mine: boolean; nota: string };
 type Detail = { status: string; videos?: number; views_30d?: number; engaged_30d?: number; engaged_rate?: number;
-  top?: { title: string; views: number; format: string }[]; series?: { date: string; views: number }[];
+  top?: { title: string; views: number; format: string; video_id?: string }[]; series?: { date: string; views: number }[];
   last_capture?: string };
+
+function videoUrl(v: { title: string; video_id?: string }): string {
+  if (v.video_id) return `https://www.youtube.com/watch?v=${v.video_id}`;
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(v.title)}`;
+}
 type Ypp = { eligible_2026: boolean; eligible_2027: boolean; hours_gap_2027: number; daily_needed: number; maintenance_safe: boolean };
 type Dashboard = { generated: string | null; channels: Channel[]; details?: Record<string, Detail>;
   loop_reports: { date: string; status: string; failed_steps: string[] }[]; alerts: Alert[]; ypp: Record<string, Ypp> };
@@ -84,7 +89,7 @@ export default function ChannelPage({ params }: { params: Promise<{ handle: stri
                     <h2 style={{ marginTop: 48 }}>Top vídeos</h2>
                     <ul className="list">
                       {det.top.map((v, i) => (
-                        <li key={i}><code>{Number(v.views).toLocaleString("pt-BR")} views</code><span>{v.title} <span className="muted">· {v.format}</span></span></li>
+                        <li key={i}><code>{Number(v.views).toLocaleString("pt-BR")} views</code><span><a href={videoUrl(v)} target="_blank" rel="noreferrer">{v.title} →</a> <span className="muted">· {v.format}</span></span></li>
                       ))}
                     </ul>
                   </>
@@ -98,7 +103,7 @@ export default function ChannelPage({ params }: { params: Promise<{ handle: stri
                   return (
                     <article key={i} className="ocard">
                       <div className="ocard-top"><span className="fmt">{a.type}</span><span className="otag">{lang === "pt" ? ALERT_PT[a.type]?.titulo ?? a.type : a.type}</span></div>
-                      <h3>{a.seed}</h3>
+                      <h3><Link href={`/dashboard/alerta/${encodeURIComponent(a.seed)}`} style={{ color: "inherit" }}>{a.seed} →</Link></h3>
                       <p className="muted">{a.detail}</p>
                       {g && <p><em>{g.o_que}.</em> {g.porque}.</p>}
                     </article>
