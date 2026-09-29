@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29 02:29",
+  "generated": "2026-09-29 02:37",
   "channels": [
     {
       "handle": "@ColdFileDiaries",
@@ -28,7 +28,58 @@
   ],
   "details": {
     "@ColdFileDiaries": {
-      "status": "unknown"
+      "status": "ok",
+      "videos": 26,
+      "views_30d": 5419,
+      "engaged_30d": 2295,
+      "engaged_rate": 42.4,
+      "top": [
+        {
+          "title": "Yuba County Five Drove to a Game — VANISHED",
+          "views": 1240,
+          "format": "short",
+          "video_id": "6FdLxmbamJs"
+        },
+        {
+          "title": "He Jumped With $200,000 — Never Found",
+          "views": 1190,
+          "format": "short",
+          "video_id": "sB2Twbce70Q"
+        },
+        {
+          "title": "Springfield Three Vanished Overnight — NEVER Found",
+          "views": 1183,
+          "format": "short",
+          "video_id": "FiWWSWJoOW8"
+        },
+        {
+          "title": "Fort Worth Three Went Shopping — NEVER Came Home",
+          "views": 538,
+          "format": "short",
+          "video_id": "xPppIGMCW4M"
+        },
+        {
+          "title": "Axeman Threatened Jazz Night — City Played ALL Night",
+          "views": 241,
+          "format": "short",
+          "video_id": "IoebOMF9Doc"
+        }
+      ],
+      "series": [
+        {
+          "date": "2026-09-23",
+          "views": 4028
+        },
+        {
+          "date": "2026-09-28",
+          "views": 5077
+        },
+        {
+          "date": "2026-09-29",
+          "views": 5419
+        }
+      ],
+      "last_capture": "2026-09-29"
     },
     "@FascinatingHorror": {
       "status": "unknown"
@@ -50,11 +101,133 @@
       "date": "2026-09-29",
       "status": "DEGRADED",
       "failed_steps": [
-        "collect:@ColdFileDiaries"
+        "collect:@ColdFileDiaries",
+        "watch"
       ]
     }
   ],
-  "alerts": [],
+  "alerts": [
+    {
+      "type": "OPPORTUNITY",
+      "seed": "AI failure documentary",
+      "detail": "demanda ativa: 133 perguntas · trajetória ALTA",
+      "examples": [
+        "ai failure documentary videos",
+        "ai failure documentary army",
+        "ai failure documentary age of light",
+        "ai failure documentary alone",
+        "ai failure documentary agency"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "animal attack documentary",
+      "detail": "demanda ativa: 92 perguntas · trajetória ALTA",
+      "examples": [
+        "animal attack documentary",
+        "wild animal attack documentary",
+        "animal attack human documentary",
+        "animal attack documentary adventure",
+        "animal attack documentary africa"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "aviation disaster documentary",
+      "detail": "demanda ativa: 123 perguntas · trajetória ALTA",
+      "examples": [
+        "aviation disaster documentary",
+        "air disaster documentary",
+        "aviation crash documentary",
+        "flight disaster documentary",
+        "aviation accident documentary"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "cold case documentary",
+      "detail": "demanda ativa: 90 perguntas · trajetória ALTA",
+      "examples": [
+        "cold case documentary",
+        "cold case documentary full episodes",
+        "cold case documentary uk",
+        "cold case investigation documentary",
+        "cold case murders documentary"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "corporate collapse documentary",
+      "detail": "demanda ativa: 150 perguntas · trajetória ALTA",
+      "examples": [
+        "corporate collapse",
+        "corporate documentaries",
+        "corporate disaster",
+        "corporate collapse documentary a&e",
+        "corporate collapse documentary attenborough"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "crypto scam documentary",
+      "detail": "demanda ativa: 141 perguntas · trajetória ALTA",
+      "examples": [
+        "crypto scam documentary",
+        "crypto scam movie",
+        "cryptocurrency scam documentary",
+        "crypto scam documentary alex",
+        "crypto scam documentary angela"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "cybercrime documentary",
+      "detail": "demanda ativa: 97 perguntas · trajetória ALTA",
+      "examples": [
+        "cybercrime documentary",
+        "cybercrime documentary philippines",
+        "cybercrimes",
+        "documentary about cybercrime prevention act of 2012",
+        "cybercrime documentary bbc"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "dictatorship documentary",
+      "detail": "demanda ativa: 95 perguntas · trajetória ALTA",
+      "examples": [
+        "dictatorship documentary",
+        "brazil dictatorship documentary",
+        "dictator documentary",
+        "dictator documentary netflix",
+        "dictator documentary in hindi"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "forgotten war documentary",
+      "detail": "demanda ativa: 130 perguntas · trajetória ALTA",
+      "examples": [
+        "forgotten war movie",
+        "the forgotten war documentary",
+        "forgotten war",
+        "forgotten history documentary",
+        "forgotten war documentary afghanistan"
+      ]
+    },
+    {
+      "type": "OPPORTUNITY",
+      "seed": "fraud documentary",
+      "detail": "demanda ativa: 158 perguntas · trajetória ALTA",
+      "examples": [
+        "fraud documentary",
+        "fraud documentary 2025",
+        "fraud documentary 2024",
+        "fraud documentary uk",
+        "fraud documentary south africa"
+      ]
+    }
+  ],
   "seeds": {
     "AI failure documentary": {
       "seed": "AI failure documentary",
@@ -1662,5 +1835,14 @@
       }
     }
   },
-  "ypp": {}
+  "ypp": {},
+  "diagnostics": {
+    "db_backend": "postgres",
+    "snapshots_total": 137,
+    "research_rounds": [
+      "latest-en.json",
+      "latest-pt.json"
+    ],
+    "db_error": ""
+  }
 }

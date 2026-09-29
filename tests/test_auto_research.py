@@ -1,3 +1,4 @@
+import json
 import sys
 import tempfile
 import unittest
@@ -88,6 +89,27 @@ class AutoResearchTests(unittest.TestCase):
         bad.init.side_effect = RuntimeError("sem banco")
         with mock.patch.dict(sys.modules, {"yt_db": bad}):
             self.assertEqual(learn_loop.channel_details("@A", "A")["status"], "unknown")
+
+    def test_oportunidades_persistentes_e_diagnostico(self):
+        import learn_loop
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "monitor").mkdir()
+            (root / "monitor" / "channels.json").write_text('{"channels": []}', encoding="utf-8")
+            (root / "data" / "research").mkdir(parents=True)
+            (root / "data" / "research" / "latest-en.json").write_text(json.dumps({
+                "alerts": [], "lang": "en", "seeds": [
+                    {"seed": "x quente", "date": "2026-09-29", "depth": 100,
+                     "suggestions": ["q1"], "trends_direction": "ALTA", "rising": []},
+                    {"seed": "x frio", "date": "2026-09-29", "depth": 3,
+                     "suggestions": [], "trends_direction": "BAIXA", "rising": []}]}), encoding="utf-8")
+            with mock.patch.object(learn_loop, "ROOT", root):
+                dashboard = learn_loop.build_dashboard()
+            kinds = [(a["type"], a["seed"]) for a in dashboard["alerts"]]
+            self.assertIn(("OPPORTUNITY", "x quente"), kinds)
+            self.assertNotIn(("OPPORTUNITY", "x frio"), [kinds[0][1] if kinds else ""])
+            self.assertIn("db_backend", dashboard["diagnostics"])
+            self.assertIn("research_rounds", dashboard["diagnostics"])
 
     def test_dashboard_agrega_multicanal(self):
         import learn_loop

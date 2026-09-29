@@ -28,6 +28,7 @@ export const ALERT_PT: Record<string, { titulo: string; acao: string }> = {
   OUTLIER_FLARE: { titulo: "Outlier", acao: "Vídeo batendo a baseline: dissecar hook, tema e thumb e replicar o eixo." },
   REVALIDATE_DUE: { titulo: "Revalidar", acao: "Nicho parado há 14+ dias: rodar novo scan antes de investir." },
   FUNNEL_GAP: { titulo: "Funil", acao: "Short sem ponte para o long: completar o SHORT_FUNNEL." },
+  OPPORTUNITY: { titulo: "Oportunidade", acao: "Demanda ativa agora: perguntas reais para virar título de piloto." },
   BASELINE: { titulo: "Base", acao: "Primeira medição: serve de régua para as próximas rodadas." },
 };
 

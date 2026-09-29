@@ -181,10 +181,12 @@ def build_dashboard():
                 continue
     alerts = []
     seeds = {}
+    research_rounds = []
     research_dir = ROOT / "data" / "research"
     for latest in sorted(research_dir.glob("latest-*.json")):
         try:
             data = json.loads(latest.read_text(encoding="utf-8"))
+            research_rounds.append(latest.name)
         except (OSError, ValueError):
             continue
         alerts.extend(data.get("alerts", []))
@@ -218,6 +220,36 @@ def build_dashboard():
                                "maintenance_safe": result["maintenance"]["safe"]}
             except (TypeError, ValueError, KeyError):
                 continue
+    # Oportunidades persistentes: nichos com demanda ativa agora (não só deltas).
+    # Mantém o painel vivo mesmo quando nada mudou desde a rodada anterior.
+    opportunities = []
+    for seed, entry in seeds.items():
+        best = None
+        for lang_data in entry.get("langs", {}).values():
+            if best is None or lang_data.get("depth", 0) > best.get("depth", 0):
+                best = lang_data
+        if not best:
+            continue
+        hot = best.get("trends_direction") == "ALTA" or bool(best.get("rising"))
+        if best.get("depth", 0) >= 15 and (hot or best.get("depth", 0) >= 80):
+            opportunities.append({"type": "OPPORTUNITY", "seed": seed,
+                                  "detail": f"demanda ativa: {best.get('depth')} perguntas · trajetória {best.get('trends_direction')}",
+                                  "examples": (best.get("rising", []) or best.get("suggestions", []))[:5]})
+    opportunities.sort(key=lambda a: ("ALTA" not in a["detail"], a["seed"]))
+    alerts = opportunities[:10] + [a for a in alerts if a.get("type") != "OPPORTUNITY"][:10]
+    db_backend, snapshots_total, db_error = "unknown", 0, ""
+    try:
+        import yt_db
+        db_backend = yt_db.backend()
+        yt_db.init(quiet=True)
+        conn = yt_db.conn()
+        rows = yt_db._rows(conn, "SELECT COUNT(*) AS n FROM snapshots")
+        snapshots_total = rows[0]["n"] if rows else 0
+        conn.close()
+    except Exception as exc:
+        db_error = str(exc)[:200]
+    diagnostics = {"db_backend": db_backend, "snapshots_total": snapshots_total,
+                   "research_rounds": research_rounds, "db_error": db_error}
     details = {}
     for channel in channels:
         handle = channel.get("handle", "")
@@ -227,7 +259,8 @@ def build_dashboard():
                  "channels": [{"handle": c.get("handle"), "name": c.get("name"),
                                "mine": bool(c.get("mine")), "nota": c.get("nota", "")} for c in channels],
                  "details": details,
-                 "loop_reports": reports, "alerts": alerts[:20], "seeds": seeds, "ypp": ypp}
+                 "loop_reports": reports, "alerts": alerts[:20], "seeds": seeds, "ypp": ypp,
+                 "diagnostics": diagnostics}
     out = ROOT / "data" / "dashboard.json"
     out.write_text(json.dumps(dashboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return dashboard
