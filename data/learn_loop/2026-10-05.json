@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-05",
+  "quota": {
+    "budget": 8000,
+    "daily_limit": 10000,
+    "estimated": 500,
+    "steps": [
+      {
+        "step": "collect:@ColdFileDiaries",
+        "status": "FAIL",
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_metrics.py\", line 520, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_metrics.py\", line 396, in main\n    credentials = creds(args.account or None)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_metrics.py\", line 59, in creds\n    credentials.refresh(Request())\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/auth/credentials.py\", line 519, in refresh\n    self._perform_refresh_token(request)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/credentials.py\", line 437, in _perform_refresh_token\n    ) = reauth.refresh_grant(\n        ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/reauth.py\", line 367, in refresh_grant\n    _client._handle_error_response(response_data, retryable_error)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/_client.py\", line 75, in _handle_error_response\n    raise exceptions.RefreshError(\ngoogle.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})\n"
+      },
+      {
+        "step": "watch",
+        "status": "FAIL",
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_scan_outliers.py\", line 141, in <module>\n    main()\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_scan_outliers.py\", line 104, in main\n    yt = creds()\n         ^^^^^^^\n  File \"/home/runner/work/dark-master/dark-master/scripts/yt_scan_outliers.py\", line 40, in creds\n    c.refresh(Request())\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/auth/credentials.py\", line 519, in refresh\n    self._perform_refresh_token(request)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/credentials.py\", line 437, in _perform_refresh_token\n    ) = reauth.refresh_grant(\n        ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/reauth.py\", line 367, in refresh_grant\n    _client._handle_error_response(response_data, retryable_error)\n  File \"/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/google/oauth2/_client.py\", line 75, in _handle_error_response\n    raise exceptions.RefreshError(\ngoogle.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})\n"
+      },
+      {
+        "step": "analyze:@ColdFileDiaries",
+        "status": "OK",
+        "returncode": 0,
+        "stdout": " AVD/baseline 0,91x.\n- Explicação: o conjunto não isola um gargalo sem perder qualidade de amostra.\n- CTR n/d: não diferencia packaging de distribuição sem inventar valor.\n###  video01 — Sodder 1945 [short]\n- `zQGCcd4aWlM`: 25 views, 18 engaged, AVD 20s, AVP 52,67%, 0,10 h, 0 inscritos.\n- Conversão: 0% inscritos por view.\n- Gargalo provável: **aberto**; confiança **baixa**; razão views/baseline 0,12x; razão AVD/baseline 0,91x.\n- Explicação: o conjunto não isola um gargalo sem perder qualidade de amostra.\n- CTR n/d: não diferencia packaging de distribuição sem inventar valor.\n\n## Outliers por formato\n- video05 (short): 1.240 views, 6,11x a mediana; hipótese, não causalidade.\n- video02 (short): 1.190 views, 5,86x a mediana; hipótese, não causalidade.\n- video03 (short): 1.183 views, 5,83x a mediana; hipótese, não causalidade.\n\n## Fontes de tráfego\n- SHORTS: 4.742 views, 1.977 engaged, 23,02 h em 13 vídeos.\n- YT_SEARCH: 361 views, 110 engaged, 1,37 h em 23 vídeos.\n- YT_OTHER_PAGE: 75 views, 54 engaged, 6,55 h em 16 vídeos.\n- RELATED_VIDEO: 75 views, 62 engaged, 7,20 h em 9 vídeos.\n- SUBSCRIBER: 72 views, 28 engaged, 5,87 h em 15 vídeos.\n- NO_LINK_OTHER: 43 views, 32 engaged, 9,92 h em 25 vídeos.\n- NOTIFICATION: 20 views, 12 engaged, 1,02 h em 10 vídeos.\n- EXT_URL: 7 views, 6 engaged, 0,02 h em 4 vídeos.\n- YT_CHANNEL: 7 views, 7 engaged, 0 h em 7 vídeos.\n- SHORTS_CONTENT_LINKS: 4 views, 4 engaged, 0 h em 2 vídeos.\n- PLAYLIST: 1 views, 1 engaged, 0 h em 1 vídeos.\n- `SHORTS` representa navegação vertical entre Shorts; não é tráfego Short→Long. Pares de conversão usam `RELATED_VIDEO` com o ID de origem quando disponível.\n\n## Funil Short→Long\n- Pares medidos: 1; views atribuídas: 1; watch hours: 0,23 h.\n- None → None via RELATED_VIDEO: 1 views, 0,23 h.\n- 3lue0-N8HaE recebeu 5 views de `zwDj3Q8tgMM`; origem ainda sem match confirmado.\n- video06 recebeu 4 views de `qPojvKsaV3U`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 2 views de `BwOmOhdhzxg`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 2 views de `t5JBzlbzqV0`; origem ainda sem match confirmado.\n- video02 recebeu 2 views de `CbUjuwhQPKs`; origem ainda sem match confirmado.\n- video02 recebeu 2 views de `Ecsin5FJppg`; origem ainda sem match confirmado.\n- video02 recebeu 2 views de `P1wagDufgNg`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `3Yz25_tGSmA`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `A_-MWck0czs`; origem ainda sem match confirmado.\n- 3lue0-N8HaE recebeu 1 views de `BU_MTL3OocY`; origem ainda sem match confirmado.\n\n## Retenção por trecho\n- 3lue0-N8HaE: maiores quedas aproximadas — 2%: −54,17 p.p, 6%: −8,34 p.p, 13%: −8,34 p.p.\n- 5NGjmW0Ln1s: maiores quedas aproximadas — 3%: −27,27 p.p, 4%: −18,18 p.p, 15%: −9,10 p.p.\n- video02: maiores quedas aproximadas — 2%: −28,57 p.p, 3%: −14,29 p.p, 7%: −9,53 p.p.\n- video01: maiores quedas aproximadas — 3%: −25 p.p, 4%: −25 p.p, 2%: −12,50 p.p.\n- m8rI5sRJZVY: maiores quedas aproximadas — 2%: −41,18 p.p, 24%: −17,65 p.p, 13%: −11,76 p.p.\n- video06: maiores quedas aproximadas — 2%: −24,33 p.p, 3%: −13,51 p.p, 10%: −5,41 p.p.\n\n## Calendário e estoque\n- Estoque futuro pronto: 0.\n- Corrente de teasers: 0/0 com próximo caso comprovado.\n\n## Experimentos propostos\n### 1. long/embalagem\n- Variável: título.\n- Hipótese: Um título mais explícito aumenta impressões qualificadas sem mudar o conteúdo.\n- Baseline: mediana de 20 views em 13 longs.\n- Meta: superar a mediana de views mantendo watch hours por view.\n- Medição: impressões, CTR, engaged views e watch hours; amostra: 4–6 longs comparáveis, uma versão por vídeo.\n- Risco: misturar efeito do título com mudança de thumbnail.\n\n## Checkpoints\n- Próxima captura diária: verificar mudança e mapeamentos.\n- D+2/D+7: comparar o mesmo vídeo quando houver snapshots maduros.\n- Após 4–6 vídeos comparáveis: decidir manter, ajustar ou descartar cada hipótese.\n- Alterar calendário, metadata ou produção somente após aprovação explícita.\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "status": "DEGRADED",
+  "failed_steps": [
+    "collect:@ColdFileDiaries",
+    "watch"
+  ],
+  "notes": [
+    "Loop propose-only: propostas em learnings/outliers; regra so muda com aprovacao humana.",
+    "Sem OAuth/rede, etapas falham como diagnostico — nunca zeros, nunca causalidade inventada."
+  ]
+}
