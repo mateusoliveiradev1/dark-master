@@ -150,10 +150,10 @@
     }
   },
   "archaeology mystery documentary": {
-    "ts": "2026-10-11T14:31:39.719233+00:00",
+    "ts": "2026-11-01T14:38:27.478733+00:00",
     "result": {
       "term": "archaeology mystery documentary",
-      "avg_recent": 0.5,
+      "avg_recent": 1.5,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
@@ -196,6 +196,16 @@
       "avg_recent": 44.25,
       "avg_prior": 0.0,
       "direction": "ALTA",
+      "rising": []
+    }
+  },
+  "forensic toxicology documentary": {
+    "ts": "2026-11-01T14:38:50.606670+00:00",
+    "result": {
+      "term": "forensic toxicology documentary",
+      "avg_recent": 0.0,
+      "avg_prior": 0.0,
+      "direction": "ESTAVEL",
       "rising": []
     }
   }
