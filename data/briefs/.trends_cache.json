@@ -1,149 +1,170 @@
 {
   "AI failure documentary": {
-    "ts": "2026-10-25T12:54:18.011057+00:00",
+    "ts": "2026-11-08T14:40:08.038118+00:00",
     "result": {
       "term": "AI failure documentary",
-      "avg_recent": 46.25,
+      "avg_recent": 45.75,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "animal attack documentary": {
-    "ts": "2026-10-25T12:54:22.362202+00:00",
+    "ts": "2026-11-08T14:40:12.827590+00:00",
     "result": {
       "term": "animal attack documentary",
-      "avg_recent": 14.5,
+      "avg_recent": 12.0,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "crypto scam documentary": {
-    "ts": "2026-10-25T12:53:13.978702+00:00",
+    "ts": "2026-11-08T14:40:36.722957+00:00",
     "result": {
       "term": "crypto scam documentary",
-      "avg_recent": 45.25,
+      "avg_recent": 53.75,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "cult documentary": {
-    "ts": "2026-10-25T12:53:17.842770+00:00",
+    "ts": "2026-11-08T14:40:41.090044+00:00",
     "result": {
       "term": "cult documentary",
-      "avg_recent": 48.5,
-      "avg_prior": 60.75,
-      "direction": "BAIXA",
-      "rising": []
+      "avg_recent": 52.75,
+      "avg_prior": 53.166666666666664,
+      "direction": "ESTAVEL",
+      "rising": [
+        {
+          "query": "the cult of the real housewife",
+          "value": 79900
+        },
+        {
+          "query": "a very british cult documentary",
+          "value": 14750
+        },
+        {
+          "query": "charles manson cult documentary netflix",
+          "value": 200
+        }
+      ]
     }
   },
   "cybercrime documentary": {
-    "ts": "2026-10-25T12:53:22.711235+00:00",
+    "ts": "2026-11-08T14:40:45.768931+00:00",
     "result": {
       "term": "cybercrime documentary",
-      "avg_recent": 9.5,
+      "avg_recent": 13.75,
       "avg_prior": 8.333333333333334,
       "direction": "ALTA",
       "rising": []
     }
   },
   "deep sea mystery documentary": {
-    "ts": "2026-10-25T12:53:27.211250+00:00",
+    "ts": "2026-11-08T14:40:50.900830+00:00",
     "result": {
       "term": "deep sea mystery documentary",
-      "avg_recent": 3.0,
+      "avg_recent": 7.25,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "dictatorship documentary": {
-    "ts": "2026-10-25T12:53:31.723049+00:00",
+    "ts": "2026-11-08T14:40:55.269078+00:00",
     "result": {
       "term": "dictatorship documentary",
-      "avg_recent": 10.75,
-      "avg_prior": 8.333333333333334,
+      "avg_recent": 16.0,
+      "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "forgotten war documentary": {
-    "ts": "2026-10-25T12:53:40.068644+00:00",
+    "ts": "2026-11-08T14:41:04.339128+00:00",
     "result": {
       "term": "forgotten war documentary",
-      "avg_recent": 49.5,
+      "avg_recent": 62.75,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "fraud documentary": {
-    "ts": "2026-10-25T12:53:44.660381+00:00",
+    "ts": "2026-11-08T14:41:09.007156+00:00",
     "result": {
       "term": "fraud documentary",
-      "avg_recent": 92.25,
-      "avg_prior": 76.66666666666667,
+      "avg_recent": 61.25,
+      "avg_prior": 32.5,
       "direction": "ALTA",
       "rising": [
         {
-          "query": "love fraud documentary",
-          "value": 50
+          "query": "minnesota fraud",
+          "value": 410450
         }
       ]
     }
   },
   "heist documentary": {
-    "ts": "2026-10-25T12:53:49.318220+00:00",
+    "ts": "2026-11-08T14:41:13.631434+00:00",
     "result": {
       "term": "heist documentary",
-      "avg_recent": 73.75,
-      "avg_prior": 69.83333333333333,
-      "direction": "ESTAVEL",
+      "avg_recent": 70.5,
+      "avg_prior": 47.666666666666664,
+      "direction": "ALTA",
       "rising": [
         {
+          "query": "loomis fargo heist documentary",
+          "value": 37050
+        },
+        {
+          "query": "louvre heist",
+          "value": 90
+        },
+        {
           "query": "louvre heist documentary",
-          "value": 350
+          "value": 70
         }
       ]
     }
   },
   "hoax documentary": {
-    "ts": "2026-10-25T12:53:58.922076+00:00",
+    "ts": "2026-11-08T14:41:23.574204+00:00",
     "result": {
       "term": "hoax documentary",
-      "avg_recent": 44.25,
-      "avg_prior": 0.0,
+      "avg_recent": 19.5,
+      "avg_prior": 8.333333333333334,
       "direction": "ALTA",
       "rising": []
     }
   },
   "industrial disaster documentary": {
-    "ts": "2026-10-25T12:54:03.507213+00:00",
+    "ts": "2026-11-08T14:41:28.411714+00:00",
     "result": {
       "term": "industrial disaster documentary",
-      "avg_recent": 9.0,
+      "avg_recent": 52.25,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "lost civilization documentary": {
-    "ts": "2026-10-25T12:54:08.249051+00:00",
+    "ts": "2026-11-08T14:41:33.495177+00:00",
     "result": {
       "term": "lost civilization documentary",
-      "avg_recent": 48.75,
-      "avg_prior": 0.0,
+      "avg_recent": 51.5,
+      "avg_prior": 6.75,
       "direction": "ALTA",
       "rising": []
     }
   },
   "medical mystery documentary": {
-    "ts": "2026-10-25T12:54:12.622980+00:00",
+    "ts": "2026-11-08T14:41:38.446100+00:00",
     "result": {
       "term": "medical mystery documentary",
-      "avg_recent": 49.5,
+      "avg_recent": 45.25,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
@@ -160,40 +181,40 @@
     }
   },
   "aviation disaster documentary": {
-    "ts": "2026-10-25T12:54:30.782654+00:00",
+    "ts": "2026-11-08T14:40:21.729580+00:00",
     "result": {
       "term": "aviation disaster documentary",
-      "avg_recent": 49.25,
+      "avg_recent": 30.75,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "cold case documentary": {
-    "ts": "2026-10-25T12:54:35.367655+00:00",
+    "ts": "2026-11-08T14:40:26.798746+00:00",
     "result": {
       "term": "cold case documentary",
-      "avg_recent": 76.25,
-      "avg_prior": 55.916666666666664,
+      "avg_recent": 75.0,
+      "avg_prior": 52.083333333333336,
       "direction": "ALTA",
       "rising": []
     }
   },
   "corporate collapse documentary": {
-    "ts": "2026-10-25T12:54:39.944856+00:00",
+    "ts": "2026-11-08T14:40:31.908020+00:00",
     "result": {
       "term": "corporate collapse documentary",
-      "avg_recent": 47.75,
+      "avg_recent": 32.5,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
     }
   },
   "history of pandemics documentary": {
-    "ts": "2026-10-25T12:53:54.155313+00:00",
+    "ts": "2026-11-08T14:41:18.820562+00:00",
     "result": {
       "term": "history of pandemics documentary",
-      "avg_recent": 44.25,
+      "avg_recent": 45.5,
       "avg_prior": 0.0,
       "direction": "ALTA",
       "rising": []
