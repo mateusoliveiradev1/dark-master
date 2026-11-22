@@ -1,10 +1,10 @@
 {
-  "date": "2026-11-15",
+  "date": "2026-11-22",
   "lang": "pt",
   "seeds": [
     {
       "seed": "AI failure documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 4,
       "suggestions": [
         "ai failure documentary bbc",
@@ -17,7 +17,7 @@
     },
     {
       "seed": "animal attack documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 14,
       "suggestions": [
         "animal attack documentary",
@@ -40,10 +40,11 @@
     },
     {
       "seed": "archaeology mystery documentary",
-      "date": "2026-11-15",
-      "depth": 7,
+      "date": "2026-11-22",
+      "depth": 8,
       "suggestions": [
         "archaeology mystery documentary bbc",
+        "archeologie",
         "archaeology mystery documentary movies",
         "archaeology mystery documentary netflix",
         "archaeology mystery documentary online",
@@ -56,7 +57,7 @@
     },
     {
       "seed": "aviation disaster documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 9,
       "suggestions": [
         "aviation disaster documentary",
@@ -74,7 +75,7 @@
     },
     {
       "seed": "cold case documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 23,
       "suggestions": [
         "cold case documentary",
@@ -102,11 +103,13 @@
         "cold case documentary youtube"
       ],
       "trends_direction": "ALTA",
-      "rising": []
+      "rising": [
+        "mississippi cold case documentary"
+      ]
     },
     {
       "seed": "corporate collapse documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 6,
       "suggestions": [
         "corporate collapse documentary",
@@ -121,7 +124,7 @@
     },
     {
       "seed": "crypto scam documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 6,
       "suggestions": [
         "crypto scam documentary bbc",
@@ -136,15 +139,15 @@
     },
     {
       "seed": "cult documentary",
-      "date": "2026-11-15",
-      "depth": 63,
+      "date": "2026-11-22",
+      "depth": 67,
       "suggestions": [
         "cult documentary",
+        "cult documentary trailer",
         "cult documentaries",
         "cult documentary netflix",
         "cult documentary full",
         "cult documentary philippines",
-        "cult documentary trailer",
         "cult documentary 2024",
         "cult documentary podcast",
         "cult documentary 2026",
@@ -153,6 +156,9 @@
         "cargo cult documentary",
         "the cult documentary band",
         "manson cult documentary",
+        "australian cult documentary",
+        "aum cult documentary",
+        "documentary about cult",
         "best cult documentary",
         "cult of baal documentary",
         "cult church documentary",
@@ -165,21 +171,18 @@
         "love has won cult documentary full movie",
         "cult family documentary",
         "cult of mother god documentary",
-        "hbo cult documentary",
-        "hulu cult documentary",
-        "cult of nature boy documentary hulu",
-        "hollywood cult documentary"
+        "hbo cult documentary"
       ],
-      "trends_direction": "ESTAVEL",
+      "trends_direction": "ALTA",
       "rising": [
-        "the cult of the real housewife",
-        "a very british cult documentary",
+        "the cult of nature boy documentary",
+        "kirtland cult killings documentary",
         "charles manson cult documentary netflix"
       ]
     },
     {
       "seed": "cybercrime documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 10,
       "suggestions": [
         "cybercrime documentary",
@@ -187,9 +190,9 @@
         "cybercrime documentary bbc",
         "cybercriminalité",
         "cybercrimes",
+        "cybercrime",
         "cybercrime documentary netflix",
         "cybercrime documentary online",
-        "cybercrime",
         "cyber crime documentary dark web",
         "cybercrime documentary youtube"
       ],
@@ -198,12 +201,13 @@
     },
     {
       "seed": "deep sea mystery documentary",
-      "date": "2026-11-15",
-      "depth": 8,
+      "date": "2026-11-22",
+      "depth": 9,
       "suggestions": [
         "deep sea mystery documentary",
         "mystery creatures of deep sea documentary",
         "deep sea mystery documentary bbc",
+        "deep sea mysteries documentary",
         "deep sea mystery documentary movies",
         "deep sea mystery documentary netflix",
         "deep sea mystery documentary series",
@@ -215,8 +219,8 @@
     },
     {
       "seed": "dictatorship documentary",
-      "date": "2026-11-15",
-      "depth": 20,
+      "date": "2026-11-22",
+      "depth": 21,
       "suggestions": [
         "dictatorship documentary",
         "brazilian dictatorship documentary",
@@ -229,8 +233,9 @@
         "syria dictatorship documentary",
         "venezuela dictatorship documentary",
         "iran dictatorship documentary",
-        "documentarios ditadores",
+        "ditadores documentario",
         "ditadura documentario",
+        "dictator documentary",
         "ditadores da áfrica",
         "ditador africano",
         "diktator",
@@ -244,7 +249,7 @@
     },
     {
       "seed": "forensic toxicology documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 6,
       "suggestions": [
         "forensic toxicology documentary bbc",
@@ -259,7 +264,7 @@
     },
     {
       "seed": "forgotten war documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 19,
       "suggestions": [
         "forgotten war documentary bbc",
@@ -287,8 +292,8 @@
     },
     {
       "seed": "fraud documentary",
-      "date": "2026-11-15",
-      "depth": 40,
+      "date": "2026-11-22",
+      "depth": 41,
       "suggestions": [
         "fraud documentary",
         "fraud documentary uk",
@@ -314,22 +319,22 @@
         "financial fraud documentary",
         "food fraud documentary",
         "finance fraud documentary",
+        "fraud documentary hindi",
         "fraud investigation documentary",
         "financial fraud investigation documentary",
         "insurance fraud documentary",
         "jewellery fraud documentary",
-        "medical fraud documentary",
-        "mortgage fraud documentary"
+        "medical fraud documentary"
       ],
       "trends_direction": "ALTA",
       "rising": [
-        "minnesota fraud"
+        "fraud documentary 2016"
       ]
     },
     {
       "seed": "heist documentary",
-      "date": "2026-11-15",
-      "depth": 62,
+      "date": "2026-11-22",
+      "depth": 61,
       "suggestions": [
         "heist documentary",
         "heist documentary 2025",
@@ -363,15 +368,11 @@
         "cyber heist documentary"
       ],
       "trends_direction": "ALTA",
-      "rising": [
-        "loomis fargo heist documentary",
-        "louvre heist",
-        "louvre heist documentary"
-      ]
+      "rising": []
     },
     {
       "seed": "history of pandemics documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 4,
       "suggestions": [
         "history of pandemics documentary bbc",
@@ -384,7 +385,7 @@
     },
     {
       "seed": "hoax documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 0,
       "suggestions": [],
       "trends_direction": "ALTA",
@@ -392,7 +393,7 @@
     },
     {
       "seed": "industrial disaster documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 5,
       "suggestions": [
         "industrial disaster documentary bbc",
@@ -406,7 +407,7 @@
     },
     {
       "seed": "lost civilization documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 10,
       "suggestions": [
         "lost civilization documentary",
@@ -425,7 +426,7 @@
     },
     {
       "seed": "medical mystery documentary",
-      "date": "2026-11-15",
+      "date": "2026-11-22",
       "depth": 9,
       "suggestions": [
         "medical mystery documentary",
@@ -444,39 +445,34 @@
   ],
   "alerts": [
     {
-      "type": "DEMAND_DEPTH",
-      "seed": "dictatorship documentary",
-      "detail": "7 perguntas novas (profundidade 20)",
+      "type": "TREND_UP",
+      "seed": "cold case documentary",
+      "detail": "1 queries em alta novas",
       "examples": [
-        "ditadores da áfrica",
-        "ditador africano",
-        "diktator",
-        "dictatorship documentary online",
-        "dictateur"
+        "mississippi cold case documentary"
       ]
     },
     {
-      "type": "DEMAND_DEPTH",
-      "seed": "forgotten war documentary",
-      "detail": "16 perguntas novas (profundidade 19)",
+      "type": "TREND_UP",
+      "seed": "cult documentary",
+      "detail": "2 queries em alta novas",
       "examples": [
-        "forgotten war documentary episodes",
-        "forgotten war",
-        "forgotten war documentary history",
-        "forgotten war documentary imdb",
-        "forgotten war documentary list"
+        "the cult of nature boy documentary",
+        "kirtland cult killings documentary"
       ]
     },
     {
-      "type": "DEMAND_DEPTH",
+      "type": "TREND_UP",
+      "seed": "cult documentary",
+      "detail": "trajetoria virou ALTA no YouTube 12m",
+      "examples": []
+    },
+    {
+      "type": "TREND_UP",
       "seed": "fraud documentary",
-      "detail": "9 perguntas novas (profundidade 40)",
+      "detail": "1 queries em alta novas",
       "examples": [
-        "financial fraud documentary",
-        "food fraud documentary",
-        "finance fraud documentary",
-        "fraud investigation documentary",
-        "financial fraud investigation documentary"
+        "fraud documentary 2016"
       ]
     }
   ]
